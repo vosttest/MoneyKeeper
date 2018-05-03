@@ -62,7 +62,7 @@ public class VoucherDetailImpl implements VoucherDetailService {
 		List<Object[]> tmp = dao.viewVoucherDetailByIdMaster(idMaster);
 		List<VoucherDetailDto> res = new ArrayList<>();
 		VoucherDetailDto iTmp = new VoucherDetailDto();
-		for(Object[] itm : tmp) {
+		for (Object[] itm : tmp) {
 			iTmp.setId(Integer.parseInt(itm[0].toString()));
 			iTmp.setIdMaster(Integer.parseInt(itm[1].toString()));
 			iTmp.setValue(itm[2].toString());

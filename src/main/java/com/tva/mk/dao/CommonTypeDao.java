@@ -19,10 +19,10 @@ public interface CommonTypeDao extends CrudRepository<CommonType, Integer> {
 
 	@Query("FROM CommonType a WHERE (a.typeName IS NULL OR :name = '' OR UPPER(a.typeName) LIKE CONCAT('%', :name, '%'))")
 	public List<CommonType> search3(@Param("name") String name);
-	
+
 	@Query("FROM CommonType a WHERE a.id = :id")
 	public CommonType getCommonTypeById(@Param("id") int id);
-	
+
 	@Query("FROM CommonType a")
 	public CommonType getCommonType();
 }

@@ -61,7 +61,7 @@ public class Voucher {
 	// end
 
 	// region -- Get set --
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -157,7 +157,7 @@ public class Voucher {
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
 	}
-	
+
 	// end
 
 	// region -- Methods --

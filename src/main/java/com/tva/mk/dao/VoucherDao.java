@@ -16,10 +16,10 @@ public interface VoucherDao extends CrudRepository<Voucher, Integer> {
 
 	@Query("FROM Voucher a WHERE a.createBy = :create_by AND a.type = :type")
 	public List<Voucher> getVoucherByType(@Param("type") String type, @Param("create_by") int createBy);
-	
+
 	@Query("FROM Voucher a WHERE a.createBy = :create_by")
 	public List<Voucher> getVoucherByTypeForAdmin(@Param("create_by") int createBy);
-	
+
 	@Query("FROM Voucher a WHERE a.id = :id")
 	public Voucher getVoucherById(@Param("id") int id);
 }
