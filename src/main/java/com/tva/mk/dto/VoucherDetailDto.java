@@ -1,30 +1,25 @@
-package com.tva.mk.model;
+package com.tva.mk.dto;
 
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name = "common_type", schema = "public")
-public class CommonType {
+public class VoucherDetailDto {
 	// region -- Fields --
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_type_seq_generator")
-	@SequenceGenerator(name = "common_type_seq_generator", sequenceName = "public.common_type_seq", allocationSize = 1)
-	@Column(columnDefinition = "SERIAL")
+	@Column(columnDefinition = "integer", name = "id")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(80)", name = "type_name")
-	private String typeName;
+	@Column(columnDefinition = "integer", name = "id_master")
+	private Integer idMaster;
+
+	@Column(columnDefinition = "varchar(100)", name = "value")
+	private String value;
+
+	@Column(columnDefinition = "float", name = "name")
+	private Float amount;
 
 	@Column(columnDefinition = "bool", name = "is_deleted")
 	private Boolean isDeleted;
@@ -55,19 +50,35 @@ public class CommonType {
 		this.id = id;
 	}
 
-	public String getTypeName() {
-		return typeName;
+	public Integer getIdMaster() {
+		return idMaster;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setIdMaster(Integer idMaster) {
+		this.idMaster = idMaster;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public Float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
 	}
 
 	public Boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(Boolean isDeleted) {
+	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -107,7 +118,7 @@ public class CommonType {
 
 	// region -- Methods --
 
-	public CommonType() {
+	public VoucherDetailDto() {
 	}
 
 	// end

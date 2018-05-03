@@ -13,18 +13,33 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "common_type", schema = "public")
-public class CommonType {
+@Table(name = "voucher", schema = "public")
+public class Voucher {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_type_seq_generator")
-	@SequenceGenerator(name = "common_type_seq_generator", sequenceName = "public.common_type_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "voucher_id_seq_generator")
+	@SequenceGenerator(name = "voucher_id_seq_generator", sequenceName = "public.voucher_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(80)", name = "type_name")
-	private String typeName;
+	@Column(columnDefinition = "varchar(32)", name = "id_voucher")
+	private String idVoucher;
+
+	@Column(columnDefinition = "integer", name = "id_account")
+	private Integer idAccount;
+
+	@Column(columnDefinition = "varchar(10)", name = "type")
+	private String type;
+
+	@Column(columnDefinition = "float", name = "total")
+	private Float total;
+
+	@Column(columnDefinition = "varchar(100)", name = "description")
+	private String description;
+
+	@Column(columnDefinition = "varchar(30)", name = "object")
+	private String object;
 
 	@Column(columnDefinition = "bool", name = "is_deleted")
 	private Boolean isDeleted;
@@ -46,7 +61,7 @@ public class CommonType {
 	// end
 
 	// region -- Get set --
-
+	
 	public Integer getId() {
 		return id;
 	}
@@ -55,19 +70,59 @@ public class CommonType {
 		this.id = id;
 	}
 
-	public String getTypeName() {
-		return typeName;
+	public String getIdVoucher() {
+		return idVoucher;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setIdVoucher(String idVoucher) {
+		this.idVoucher = idVoucher;
 	}
 
-	public Boolean isDeleted() {
+	public Integer getIdAccount() {
+		return idAccount;
+	}
+
+	public void setIdAccount(Integer idAccount) {
+		this.idAccount = idAccount;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	public Float getTotal() {
+		return total;
+	}
+
+	public void setTotal(Float total) {
+		this.total = total;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getObject() {
+		return object;
+	}
+
+	public void setObject(String object) {
+		this.object = object;
+	}
+
+	public Boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(Boolean isDeleted) {
+	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -102,12 +157,12 @@ public class CommonType {
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
 	}
-
+	
 	// end
 
 	// region -- Methods --
 
-	public CommonType() {
+	public Voucher() {
 	}
 
 	// end

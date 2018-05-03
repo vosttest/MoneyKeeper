@@ -106,7 +106,7 @@ public class CommonTypeController {
 			CommonType m = new CommonType();
 			m.setId(id);
 			m.setTypeName(typeName);
-			m.setIsDeleted(isDeleted);
+			m.setDeleted(isDeleted);
 
 			// Handle
 			String tmp = commonTypeService.save(m);

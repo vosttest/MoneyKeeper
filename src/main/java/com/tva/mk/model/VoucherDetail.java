@@ -13,18 +13,24 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "common_type", schema = "public")
-public class CommonType {
+@Table(name = "voucher_detail", schema = "public")
+public class VoucherDetail {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_type_seq_generator")
-	@SequenceGenerator(name = "common_type_seq_generator", sequenceName = "public.common_type_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "voucher_detail_id_seq_generator")
+	@SequenceGenerator(name = "voucher_detail_id_seq_generator", sequenceName = "public.voucher_detail_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(80)", name = "type_name")
-	private String typeName;
+	@Column(columnDefinition = "integer", name = "id_master")
+	private Integer idMaster;
+
+	@Column(columnDefinition = "integer", name = "id_code")
+	private Integer idCode;
+
+	@Column(columnDefinition = "float", name = "amount")
+	private Float amount;
 
 	@Column(columnDefinition = "bool", name = "is_deleted")
 	private Boolean isDeleted;
@@ -55,19 +61,35 @@ public class CommonType {
 		this.id = id;
 	}
 
-	public String getTypeName() {
-		return typeName;
+	public Integer getIdMaster() {
+		return idMaster;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setIdMaster(Integer idMaster) {
+		this.idMaster = idMaster;
+	}
+
+	public Integer getIdCode() {
+		return idCode;
+	}
+
+	public void setIdCode(Integer idCode) {
+		this.idCode = idCode;
+	}
+
+	public Float getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Float amount) {
+		this.amount = amount;
 	}
 
 	public Boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(Boolean isDeleted) {
+	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -107,7 +129,7 @@ public class CommonType {
 
 	// region -- Methods --
 
-	public CommonType() {
+	public VoucherDetail() {
 	}
 
 	// end

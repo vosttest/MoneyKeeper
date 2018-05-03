@@ -13,18 +13,27 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "common_type", schema = "public")
-public class CommonType {
+@Table(name = "account", schema = "public")
+public class Account {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_type_seq_generator")
-	@SequenceGenerator(name = "common_type_seq_generator", sequenceName = "public.common_type_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_seq_generator")
+	@SequenceGenerator(name = "account_seq_generator", sequenceName = "public.account_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(80)", name = "type_name")
-	private String typeName;
+	@Column(columnDefinition = "integer", name = "id_code")
+	private Integer idCode;
+
+	@Column(columnDefinition = "varchar(30)", name = "name")
+	private String name;
+
+	@Column(columnDefinition = "float", name = "balance")
+	private Float balance;
+
+	@Column(columnDefinition = "varchar(100)", name = "description")
+	private String description;
 
 	@Column(columnDefinition = "bool", name = "is_deleted")
 	private Boolean isDeleted;
@@ -55,12 +64,36 @@ public class CommonType {
 		this.id = id;
 	}
 
-	public String getTypeName() {
-		return typeName;
+	public Integer getIdCode() {
+		return idCode;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setIdCode(Integer idCode) {
+		this.idCode = idCode;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Float balance) {
+		this.balance = balance;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Boolean isDeleted() {
@@ -107,7 +140,7 @@ public class CommonType {
 
 	// region -- Methods --
 
-	public CommonType() {
+	public Account() {
 	}
 
 	// end

@@ -13,18 +13,27 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "common_type", schema = "public")
-public class CommonType {
+@Table(name = "common_code", schema = "public")
+public class CommonCode {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_type_seq_generator")
-	@SequenceGenerator(name = "common_type_seq_generator", sequenceName = "public.common_type_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_code_seq_generator")
+	@SequenceGenerator(name = "common_code_seq_generator", sequenceName = "public.common_code_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(80)", name = "type_name")
-	private String typeName;
+	@Column(columnDefinition = "integer", name = "id_type")
+	private Integer idType;
+
+	@Column(columnDefinition = "varchar(100)", name = "value")
+	private String value;
+
+	@Column(columnDefinition = "integer", name = "sequence")
+	private Integer sequence;
+
+	@Column(columnDefinition = "integer", name = "id_parrent")
+	private Integer idParent;
 
 	@Column(columnDefinition = "bool", name = "is_deleted")
 	private Boolean isDeleted;
@@ -55,12 +64,36 @@ public class CommonType {
 		this.id = id;
 	}
 
-	public String getTypeName() {
-		return typeName;
+	public Integer getIdType() {
+		return idType;
 	}
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
+	public void setIdType(Integer idType) {
+		this.idType = idType;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	public Integer getSequence() {
+		return sequence;
+	}
+
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
+	}
+
+	public Integer getIdParent() {
+		return idParent;
+	}
+
+	public void setIdParent(Integer idParent) {
+		this.idParent = idParent;
 	}
 
 	public Boolean isDeleted() {
@@ -107,7 +140,7 @@ public class CommonType {
 
 	// region -- Methods --
 
-	public CommonType() {
+	public CommonCode() {
 	}
 
 	// end
