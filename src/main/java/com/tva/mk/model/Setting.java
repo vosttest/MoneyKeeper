@@ -13,39 +13,27 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "users", schema = "public")
-public class Users {
+@Table(name = "setting", schema = "public")
+public class Setting {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq_generator")
-	@SequenceGenerator(name = "users_id_seq_generator", sequenceName = "public.users_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "setting_id_seq_generator")
+	@SequenceGenerator(name = "setting_id_seq_generator", sequenceName = "public.setting_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
 	@Column(columnDefinition = "varchar(64)")
-	private String userName;
-
-	@Column(columnDefinition = "varchar(64)")
-	private String password;
-
-	@Column(columnDefinition = "varchar(32)")
-	private String firstName;
-
-	@Column(columnDefinition = "varchar(32)")
-	private Integer lastName;
+	private String code;
 
 	@Column(columnDefinition = "varchar(128)")
-	private Integer email;
+	private String text;
 
-	@Column(columnDefinition = "varchar(16)")
-	private String contactNo;
+	@Column(columnDefinition = "varchar(256)")
+	private String description;
 
-	@Column(columnDefinition = "varchar(128)")
-	private String remark;
-
-	@Column(columnDefinition = "char(3)")
-	private String status;
+	@Column(columnDefinition = "integer")
+	private Integer userId;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -76,68 +64,36 @@ public class Users {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getCode() {
+		return code;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setCode(String code) {
+		this.code = code;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getText() {
+		return text;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setText(String text) {
+		this.text = text;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Integer getLastName() {
-		return lastName;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setLastName(Integer lastName) {
-		this.lastName = lastName;
-	}
-
-	public Integer getEmail() {
-		return email;
-	}
-
-	public void setEmail(Integer email) {
-		this.email = email;
-	}
-
-	public String getContactNo() {
-		return contactNo;
-	}
-
-	public void setContactNo(String contactNo) {
-		this.contactNo = contactNo;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	public Boolean getIsDeleted() {
@@ -184,7 +140,7 @@ public class Users {
 
 	// region -- Methods --
 
-	public Users() {
+	public Setting() {
 
 	}
 

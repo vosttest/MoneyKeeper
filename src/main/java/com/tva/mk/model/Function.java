@@ -19,28 +19,34 @@ public class Function {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "function_id_seq_generator")
-	@SequenceGenerator(name = "function_id_seq_generator", sequenceName = "function_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "function_id_seq_generator", sequenceName = "public.function_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(30)", name = "func_name")
-	private String funcName;
+	@Column(columnDefinition = "integer")
+	private Integer parentId;
 
-	@Column(columnDefinition = "bool", name = "is_deleted")
-	private boolean isDeleted;
+	@Column(columnDefinition = "varchar(64)")
+	private String code;
 
-	@Column(columnDefinition = "integer", name = "create_by")
+	@Column(columnDefinition = "varchar(64)")
+	private String displayAs;
+
+	@Column(columnDefinition = "bool")
+	private Boolean isDeleted;
+
+	@Column(columnDefinition = "integer")
 	private Integer createBy;
 
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "create_on")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date createOn;
 
-	@Column(columnDefinition = "integer", name = "modify_by")
+	@Column(columnDefinition = "integer")
 	private Integer modifyBy;
 
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "modify_on")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
 	// end
@@ -55,19 +61,35 @@ public class Function {
 		this.id = id;
 	}
 
-	public String getFuncName() {
-		return funcName;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setFuncName(String funcName) {
-		this.funcName = funcName;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
-	public boolean isDeleted() {
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getDisplayAs() {
+		return displayAs;
+	}
+
+	public void setDisplayAs(String displayAs) {
+		this.displayAs = displayAs;
+	}
+
+	public Boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -108,6 +130,7 @@ public class Function {
 	// region -- Methods --
 
 	public Function() {
+
 	}
 
 	// end

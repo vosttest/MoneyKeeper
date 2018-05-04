@@ -19,28 +19,31 @@ public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_seq_generator")
-	@SequenceGenerator(name = "role_id_seq_generator", sequenceName = "role_id_seq", allocationSize = 1)
+	@SequenceGenerator(name = "role_id_seq_generator", sequenceName = "public.role_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(30)", name = "func_name")
-	private String funcName;
+	@Column(columnDefinition = "varchar(64)")
+	private String name;
 
-	@Column(columnDefinition = "bool", name = "is_deleted")
-	private boolean isDeleted;
+	@Column(columnDefinition = "varchar(64)")
+	private String remark;
 
-	@Column(columnDefinition = "integer", name = "create_by")
+	@Column(columnDefinition = "bool")
+	private Boolean isDeleted;
+
+	@Column(columnDefinition = "integer")
 	private Integer createBy;
 
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "create_on")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date createOn;
 
-	@Column(columnDefinition = "integer", name = "modify_by")
+	@Column(columnDefinition = "integer")
 	private Integer modifyBy;
 
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "modify_on")
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
 	// end
@@ -55,19 +58,27 @@ public class Role {
 		this.id = id;
 	}
 
-	public String getFuncName() {
-		return funcName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFuncName(String funcName) {
-		this.funcName = funcName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public boolean isDeleted() {
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public Boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setDeleted(boolean isDeleted) {
+	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -102,11 +113,13 @@ public class Role {
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
 	}
+
 	// end
 
 	// region -- Methods --
 
 	public Role() {
+
 	}
 
 	// end

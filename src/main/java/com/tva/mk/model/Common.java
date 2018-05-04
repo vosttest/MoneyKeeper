@@ -13,39 +13,33 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "users", schema = "public")
-public class Users {
+@Table(name = "common", schema = "public")
+public class Common {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq_generator")
-	@SequenceGenerator(name = "users_id_seq_generator", sequenceName = "public.users_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "common_id_seq_generator")
+	@SequenceGenerator(name = "common_id_seq_generator", sequenceName = "public.common_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
 	@Column(columnDefinition = "varchar(64)")
-	private String userName;
+	private String type;
 
 	@Column(columnDefinition = "varchar(64)")
-	private String password;
-
-	@Column(columnDefinition = "varchar(32)")
-	private String firstName;
-
-	@Column(columnDefinition = "varchar(32)")
-	private Integer lastName;
+	private String value;
 
 	@Column(columnDefinition = "varchar(128)")
-	private Integer email;
+	private String text;
 
-	@Column(columnDefinition = "varchar(16)")
-	private String contactNo;
+	@Column(columnDefinition = "varchar(256)")
+	private String description;
 
-	@Column(columnDefinition = "varchar(128)")
-	private String remark;
+	@Column(columnDefinition = "integer")
+	private Integer sequence;
 
-	@Column(columnDefinition = "char(3)")
-	private String status;
+	@Column(columnDefinition = "integer")
+	private Integer parentId;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -54,14 +48,14 @@ public class Users {
 	private Integer createBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "registration_date__c")
 	private Date createOn;
 
 	@Column(columnDefinition = "integer")
 	private Integer modifyBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "registration_date__c")
 	private Date modifyOn;
 
 	// end
@@ -76,68 +70,52 @@ public class Users {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getType() {
+		return type;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public String getPassword() {
-		return password;
+	public String getValue() {
+		return value;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
+	public void setValue(String value) {
+		this.value = value;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getText() {
+		return text;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setText(String text) {
+		this.text = text;
 	}
 
-	public Integer getLastName() {
-		return lastName;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setLastName(Integer lastName) {
-		this.lastName = lastName;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Integer getEmail() {
-		return email;
+	public Integer getSequence() {
+		return sequence;
 	}
 
-	public void setEmail(Integer email) {
-		this.email = email;
+	public void setSequence(Integer sequence) {
+		this.sequence = sequence;
 	}
 
-	public String getContactNo() {
-		return contactNo;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setContactNo(String contactNo) {
-		this.contactNo = contactNo;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public Boolean getIsDeleted() {
@@ -184,7 +162,7 @@ public class Users {
 
 	// region -- Methods --
 
-	public Users() {
+	public Common() {
 
 	}
 

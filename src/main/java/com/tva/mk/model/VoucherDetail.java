@@ -23,30 +23,30 @@ public class VoucherDetail {
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "integer", name = "id_master")
-	private Integer idMaster;
+	@Column(columnDefinition = "integer")
+	private Integer voucherId;
 
-	@Column(columnDefinition = "integer", name = "id_code")
-	private Integer idCode;
+	@Column(columnDefinition = "varchar(64)")
+	private String category;
 
-	@Column(columnDefinition = "float", name = "amount")
+	@Column(columnDefinition = "float")
 	private Float amount;
 
-	@Column(columnDefinition = "bool", name = "is_deleted")
+	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
 
-	@Column(columnDefinition = "integer", name = "create_by")
+	@Column(columnDefinition = "integer")
 	private Integer createBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "create_on")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date createOn;
 
-	@Column(columnDefinition = "integer", name = "modify_by")
+	@Column(columnDefinition = "integer")
 	private Integer modifyBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "modify_on")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
 	// end
@@ -61,20 +61,20 @@ public class VoucherDetail {
 		this.id = id;
 	}
 
-	public Integer getIdMaster() {
-		return idMaster;
+	public Integer getVoucherId() {
+		return voucherId;
 	}
 
-	public void setIdMaster(Integer idMaster) {
-		this.idMaster = idMaster;
+	public void setVoucherId(Integer voucherId) {
+		this.voucherId = voucherId;
 	}
 
-	public Integer getIdCode() {
-		return idCode;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setIdCode(Integer idCode) {
-		this.idCode = idCode;
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public Float getAmount() {
@@ -85,7 +85,7 @@ public class VoucherDetail {
 		this.amount = amount;
 	}
 
-	public Boolean isDeleted() {
+	public Boolean getIsDeleted() {
 		return isDeleted;
 	}
 
@@ -130,6 +130,7 @@ public class VoucherDetail {
 	// region -- Methods --
 
 	public VoucherDetail() {
+
 	}
 
 	// end

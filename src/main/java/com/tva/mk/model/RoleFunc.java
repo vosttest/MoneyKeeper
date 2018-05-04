@@ -13,30 +13,21 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "account", schema = "public")
-public class Account {
+@Table(name = "role_func", schema = "public")
+public class RoleFunc {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_seq_generator")
-	@SequenceGenerator(name = "account_id_seq_generator", sequenceName = "public.account_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_func_id_seq_generator")
+	@SequenceGenerator(name = "role_func_id_seq_generator", sequenceName = "public.role_func_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(64)")
-	private String code;
-
-	@Column(columnDefinition = "varchar(128)")
-	private String text;
-
-	@Column(columnDefinition = "varchar(256)")
-	private String description;
+	@Column(columnDefinition = "integer")
+	private String roleId;
 
 	@Column(columnDefinition = "integer")
-	private Integer sequence;
-
-	@Column(columnDefinition = "integer")
-	private Integer userId;
+	private String funcId;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -67,44 +58,20 @@ public class Account {
 		this.id = id;
 	}
 
-	public String getCode() {
-		return code;
+	public String getRoleId() {
+		return roleId;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
 	}
 
-	public String getText() {
-		return text;
+	public String getFuncId() {
+		return funcId;
 	}
 
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Integer getSequence() {
-		return sequence;
-	}
-
-	public void setSequence(Integer sequence) {
-		this.sequence = sequence;
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setFuncId(String funcId) {
+		this.funcId = funcId;
 	}
 
 	public Boolean getIsDeleted() {
@@ -151,7 +118,7 @@ public class Account {
 
 	// region -- Methods --
 
-	public Account() {
+	public RoleFunc() {
 
 	}
 

@@ -23,39 +23,42 @@ public class Voucher {
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(32)", name = "id_voucher")
-	private String idVoucher;
+	@Column(columnDefinition = "varchar(32)")
+	private String serial;
 
-	@Column(columnDefinition = "integer", name = "id_account")
-	private Integer idAccount;
+	@Column(columnDefinition = "integer")
+	private Integer accountId;
 
-	@Column(columnDefinition = "varchar(10)", name = "type")
+	@Column(columnDefinition = "varchar(16)")
 	private String type;
 
-	@Column(columnDefinition = "float", name = "total")
+	@Column(columnDefinition = "float")
 	private Float total;
 
-	@Column(columnDefinition = "varchar(100)", name = "description")
+	@Column(columnDefinition = "varchar(256)")
 	private String description;
 
-	@Column(columnDefinition = "varchar(30)", name = "object")
+	@Column(columnDefinition = "varchar(64)")
 	private String object;
 
-	@Column(columnDefinition = "bool", name = "is_deleted")
+	@Column(columnDefinition = "integer")
+	private String userId;
+
+	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
 
-	@Column(columnDefinition = "integer", name = "create_by")
+	@Column(columnDefinition = "integer")
 	private Integer createBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "create_on")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date createOn;
 
-	@Column(columnDefinition = "integer", name = "modify_by")
+	@Column(columnDefinition = "integer")
 	private Integer modifyBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "modify_on")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
 	// end
@@ -70,20 +73,20 @@ public class Voucher {
 		this.id = id;
 	}
 
-	public String getIdVoucher() {
-		return idVoucher;
+	public String getSerial() {
+		return serial;
 	}
 
-	public void setIdVoucher(String idVoucher) {
-		this.idVoucher = idVoucher;
+	public void setSerial(String serial) {
+		this.serial = serial;
 	}
 
-	public Integer getIdAccount() {
-		return idAccount;
+	public Integer getAccountId() {
+		return accountId;
 	}
 
-	public void setIdAccount(Integer idAccount) {
-		this.idAccount = idAccount;
+	public void setAccountId(Integer accountId) {
+		this.accountId = accountId;
 	}
 
 	public String getType() {
@@ -116,6 +119,14 @@ public class Voucher {
 
 	public void setObject(String object) {
 		this.object = object;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public Boolean getIsDeleted() {
@@ -163,6 +174,7 @@ public class Voucher {
 	// region -- Methods --
 
 	public Voucher() {
+
 	}
 
 	// end
