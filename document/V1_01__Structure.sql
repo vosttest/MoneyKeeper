@@ -23,6 +23,15 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Account', 'ACC05', 'Save Account', NULL, 5, NULL),
 	('Account', 'ACC06', 'Other', NULL, 6, NULL),
 	
+	('Income', 'INC01', 'Borrow', NULL, 1, NULL),
+	('Income', 'INC02', 'Collecting Debts', NULL, 2, NULL),
+	
+	('Expense', 'EXP01', 'Lend', NULL, 1, NULL),
+	('Expense', 'EXP02', 'Repayment', NULL, 2, NULL),
+	('Expense', 'EXP03', 'Food and Dining', NULL, 3, NULL),	
+	('Expense', 'EXP04', 'Groceries', NULL, 4, 11),
+	('Expense', 'EXP05', 'Restaurant', NULL, 6, 11),
+	
 	('Setting', '20:00', 'Reminder', NULL, 5, NULL);
 	
 DROP TABLE IF EXISTS PUBLIC."account";
@@ -60,11 +69,11 @@ INSERT INTO PUBLIC."account" ("value", "text", "description", "sequence", "paren
 DROP TABLE IF EXISTS PUBLIC."setting";
 CREATE TABLE PUBLIC."setting"
 (
-	"id"					SERIAL PRIMARY KEY,	
+	"id"					SERIAL PRIMARY KEY,
 	"value"					VARCHAR(64),
 	"text"					VARCHAR(128),
 	"description"			VARCHAR(256),
-	"user_id"				INT4,	
+	"user_id"				INT4,
 	"create_by"				INT4,
 	"create_on"				TIMESTAMP,
 	"modify_by"				INT4,
@@ -74,3 +83,47 @@ CREATE TABLE PUBLIC."setting"
 INSERT INTO PUBLIC."setting" ("value", "text", "description", "user_id") VALUES
 	('20:00', 'Reminder', NULL, 1),
 	('19:00', 'Reminder', NULL, 2);
+	
+DROP TABLE IF EXISTS PUBLIC."income";
+CREATE TABLE PUBLIC."income"
+(
+	"id"					SERIAL PRIMARY KEY,
+	"value"					VARCHAR(64),
+	"text"					VARCHAR(128),
+	"description"			VARCHAR(256),
+	"sequence"				INT4,
+	"parent_id"				INT4,
+	"user_id"				INT4,
+	"is_deleted"			BOOLEAN DEFAULT FALSE,
+	"create_by"				INT4,
+	"create_on"				TIMESTAMP,
+	"modify_by"				INT4,
+	"modify_on"				TIMESTAMP
+);
+
+INSERT INTO PUBLIC."income" ("value", "text", "description", "sequence", "parent_id", "user_id") VALUES
+	('INC01', 'Borrow', NULL, 1, NULL, 1);
+
+DROP TABLE IF EXISTS PUBLIC."expense";
+CREATE TABLE PUBLIC."expense"
+(
+	"id"					SERIAL PRIMARY KEY,
+	"value"					VARCHAR(64),
+	"text"					VARCHAR(128),
+	"description"			VARCHAR(256),
+	"sequence"				INT4,
+	"parent_id"				INT4,
+	"user_id"				INT4,
+	"is_deleted"			BOOLEAN DEFAULT FALSE,
+	"create_by"				INT4,
+	"create_on"				TIMESTAMP,
+	"modify_by"				INT4,
+	"modify_on"				TIMESTAMP
+);
+
+INSERT INTO PUBLIC."expense" ("value", "text", "description", "sequence", "parent_id", "user_id") VALUES
+	('EXP01', 'Lend', NULL, 1, NULL, 1),
+	('EXP02', 'Repayment', NULL, 2, NULL, 1),
+	('EXP03', 'Food and Dining', NULL, 3, NULL, 1),
+	('EXP04', 'Groceries', NULL, 4, 3, 1),
+	('EXP05', 'Restaurant', NULL, 6, 3, 1);
