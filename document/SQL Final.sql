@@ -45,12 +45,12 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Expense', 'EXP20', 'Cable TV', NULL, 20, 10),
 	('Expense', 'EXP21', 'Mobile Phone', NULL, 21, 10),
 	('Expense', 'EXP22', 'Home Phone', NULL, 22, 10),
-	('Expense', 'EXP23', 'Hiring maid', NULL, 23, 10),
+	('Expense', 'EXP23', 'Hiring Maid', NULL, 23, 10),
 	('Expense', 'EXP24', 'Fuel', NULL, 24, 11),
 	('Expense', 'EXP25', 'Service & Parts', NULL, 25, 11),
 	('Expense', 'EXP26', 'Repair Vehicles', NULL, 26, 11),
 	('Expense', 'EXP27', 'Parking', NULL, 27, 11),
-	('Expense', 'EXP28', 'Car wash', NULL, 28, 11),
+	('Expense', 'EXP28', 'Car Wash', NULL, 28, 11),
 	('Expense', 'EXP29', 'Taxi', NULL, 29, 11),
 	('Expense', 'EXP30', 'Tuition', NULL, 30, 12),
 	('Expense', 'EXP31', 'Books', NULL, 31, 12),
@@ -84,7 +84,7 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Income', 'INC04', 'Bonus', NULL, 4, NULL),
 	('Income', 'INC05', 'Awarded', NULL, 6, NULL),
 	('Income', 'INC06', 'Interest', NULL, 7, NULL),
-	('Income', 'INC07', 'Savings interest', NULL, 6, NULL),
+	('Income', 'INC07', 'Savings Interest', NULL, 6, NULL),
 	
 	('Setting', '20:00', 'Reminder', NULL, 1, NULL);
 
@@ -146,7 +146,8 @@ CREATE TABLE PUBLIC."income"
 
 INSERT INTO PUBLIC."income" ("code", "text", "description", "sequence", "parent_id", "user_id") VALUES
 ('INC03', 'Salary', '', 1, NULL, 2),
-('INC03', 'Salary', '', 1, NULL, 2),
+('INC07', 'Savings Interest', '', 1, NULL, 2),
+('INC05', 'Awarded', '', 1, NULL, 2),
 ('INC03', 'Salary', '', 2, NULL, 3);
 
 DROP TABLE IF EXISTS PUBLIC."expense";
@@ -205,9 +206,9 @@ CREATE TABLE PUBLIC."voucher_detail"
 );
 
 INSERT INTO PUBLIC."voucher_detail" ("voucher_id", "category", "amount") VALUES
-(1, '', 5000),
-(1, '', 2000),
-(1, '', 3000);
+(1, 'EXP03', 5000),
+(1, 'EXP07', 2000),
+(1, 'EXP05', 3000);
 
 DROP TABLE IF EXISTS PUBLIC."role_func";
 CREATE TABLE PUBLIC."role_func"
@@ -250,7 +251,8 @@ CREATE TABLE PUBLIC."role"
 );
 
 INSERT INTO PUBLIC."role" ("name", "remark") VALUES
-('Admin', 'Full Role');
+('Admin', 'Full'),
+('User', 'Limit');
 
 DROP TABLE IF EXISTS PUBLIC."users";
 CREATE TABLE PUBLIC."users"
@@ -271,8 +273,10 @@ CREATE TABLE PUBLIC."users"
 	"modify_on"				TIMESTAMP
 );
 
-INSERT INTO PUBLIC."users" ("user_name", "password", "first_name", "last_name", "email", "contact_no", "remark")
-values ('admin', 'admin', 't', 'nt', '1311517345b@gmail.com', '+841596321478', 'Admin');
+INSERT INTO PUBLIC."users" ("user_name", "password", "first_name", "last_name", "email", "contact_no", "remark") VALUES
+('admin', 'admin', 't', 'nt', '1311517345b@gmail.com', '+841596321478', 'Admin'),
+('u1', 'aa', 't', 'nt', '1311517345c@gmail.com', '+841593321478', 'User'),
+('u2', 'aa', 't', 'nt', '1311517345d@gmail.com', '+841596521478', 'User');
 
 DROP TABLE IF EXISTS PUBLIC."user_role";
 CREATE TABLE PUBLIC."user_role"
@@ -288,7 +292,7 @@ CREATE TABLE PUBLIC."user_role"
 );
 
 INSERT INTO PUBLIC."user_role" ("user_id", "role_id") VALUES
-('1', '1');
+(2, 2), (1, 1), (3, 2);
 
 DROP TABLE IF EXISTS PUBLIC."log";
 CREATE TABLE PUBLIC."log"
