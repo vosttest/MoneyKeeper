@@ -16,12 +16,12 @@ CREATE TABLE PUBLIC."common"
 );
 
 INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence", "parent_id") VALUES
-	('Account', 'CSH', 'Cash', NULL, 1, NULL),
-	('Account', 'BNK', 'Bank Account', NULL, 2, NULL),
-	('Account', 'ATM', 'ATM', NULL, 3, NULL),
-	('Account', 'DAT', 'Deposit Account', NULL, 4, NULL),
-	('Account', 'SAT', 'Save Account', NULL, 5, NULL),
-	('Account', 'OTH', 'Other', NULL, 6, NULL),
+	('Account', 'ACC01', 'Cash', NULL, 1, NULL),
+	('Account', 'ACC02', 'Bank Account', NULL, 2, NULL),
+	('Account', 'ACC03', 'ATM', NULL, 3, NULL),
+	('Account', 'ACC04', 'Deposit Account', NULL, 4, NULL),
+	('Account', 'ACC05', 'Save Account', NULL, 5, NULL),
+	('Account', 'ACC06', 'Other', NULL, 6, NULL),
 	
 	('Setting', '20:00', 'Reminder', NULL, 5, NULL);
 	
@@ -44,18 +44,18 @@ CREATE TABLE PUBLIC."account"
 );
 
 INSERT INTO PUBLIC."account" ("value", "text", "description", "sequence", "parent_id", "user_id", "balance") VALUES
-	('CSH', 'Cash', NULL, 1, NULL, 1, 0),
-	('BNK', 'Bank Account', NULL, 2, NULL, 1, 0),
-	('ATM', 'ATM', NULL, 3, NULL, 1, 0),
-	('DAT', 'Deposit Account', NULL, 4, NULL, 1, 0),
-	('SAT', 'Save Account', NULL, 5, NULL, 1, 0),
-	('OTH', 'Other', NULL, 6, NULL, 1, 0),
-	('CSH', 'Cash', NULL, 1, NULL, 2, 0),
-	('BNK', 'Bank Account', NULL, 2, NULL, 2, 0),
-	('ATM', 'ATM', NULL, 3, NULL, 2, 0),
-	('DAT', 'Deposit Account', NULL, 4, NULL, 2, 0),
-	('SAT', 'Save Account', NULL, 5, NULL, 2, 0),
-	('OTH', 'Other', NULL, 6, NULL, 2, 0);
+	('ACC01', 'Cash', NULL, 1, NULL, 1, 0),
+	('ACC02', 'Bank Account', NULL, 2, NULL, 1, 0),
+	('ACC03', 'ATM', NULL, 3, NULL, 1, 0),
+	('ACC04', 'Deposit Account', NULL, 4, NULL, 1, 0),
+	('ACC05', 'Save Account', NULL, 5, NULL, 1, 0),
+	('ACC06', 'Other', NULL, 6, NULL, 1, 0),
+	('ACC01', 'Cash', NULL, 1, NULL, 2, 0),
+	('ACC02', 'Bank Account', NULL, 2, NULL, 2, 0),
+	('ACC03', 'ATM', NULL, 3, NULL, 2, 0),
+	('ACC04', 'Deposit Account', NULL, 4, NULL, 2, 0),
+	('ACC05', 'Save Account', NULL, 5, NULL, 2, 0),
+	('ACC06', 'Other', NULL, 6, NULL, 2, 0);
 
 DROP TABLE IF EXISTS PUBLIC."setting";
 CREATE TABLE PUBLIC."setting"
