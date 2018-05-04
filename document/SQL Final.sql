@@ -181,6 +181,7 @@ CREATE TABLE PUBLIC."voucher"
 	"total"					FLOAT8,
 	"description"			VARCHAR(256),
 	"object"				VARCHAR(64),
+	"user_id"				INT4,
 	"is_deleted"			BOOLEAN DEFAULT FALSE,
 	"create_by"				INT4,
 	"create_on"				TIMESTAMP,
@@ -338,7 +339,8 @@ ALTER TABLE PUBLIC."account"
 	ADD CONSTRAINT FK_account_users FOREIGN KEY ("user_id") REFERENCES PUBLIC."users" ("id");
 
 ALTER TABLE PUBLIC."voucher"
-	ADD CONSTRAINT FK_voucher_account FOREIGN KEY ("account_id") REFERENCES PUBLIC."account" ("id");
+	ADD CONSTRAINT FK_voucher_account FOREIGN KEY ("account_id") REFERENCES PUBLIC."account" ("id"),
+	ADD CONSTRAINT FK_voucher_users FOREIGN KEY ("user_id") REFERENCES PUBLIC."users" ("id");
 
 ALTER TABLE PUBLIC."role_func"
 	ADD CONSTRAINT FK_role_func_role FOREIGN KEY ("role_id") REFERENCES PUBLIC."role" ("id"),
