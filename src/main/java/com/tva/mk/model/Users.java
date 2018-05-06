@@ -33,10 +33,10 @@ public class Users {
 	private String firstName;
 
 	@Column(columnDefinition = "varchar(32)")
-	private Integer lastName;
+	private String lastName;
 
 	@Column(columnDefinition = "varchar(128)")
-	private Integer email;
+	private String email;
 
 	@Column(columnDefinition = "varchar(16)")
 	private String contactNo;
@@ -100,19 +100,19 @@ public class Users {
 		this.firstName = firstName;
 	}
 
-	public Integer getLastName() {
+	public String getLastName() {
 		return lastName;
 	}
 
-	public void setLastName(Integer lastName) {
+	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
 
-	public Integer getEmail() {
+	public String getEmail() {
 		return email;
 	}
 
-	public void setEmail(Integer email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 

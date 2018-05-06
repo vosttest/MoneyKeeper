@@ -42,7 +42,7 @@ public class Voucher {
 	private String object;
 
 	@Column(columnDefinition = "integer")
-	private String userId;
+	private Integer userId;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -121,11 +121,11 @@ public class Voucher {
 		this.object = object;
 	}
 
-	public String getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 

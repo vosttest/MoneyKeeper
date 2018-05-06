@@ -23,8 +23,8 @@ INSERT INTO PUBLIC."voucher_detail" ("voucher_id", "category", "amount") VALUES
 
 */
 
-INSERT INTO PUBLIC."users" ("user_name", "password", "first_name", "last_name", "email", "contact_no", "remark") VALUES
-('admin', 'admin', 't', 'nt', '1311517345b@gmail.com', '+841596321478', 'Admin');
+INSERT INTO PUBLIC."users" ("user_name", "password", "first_name", "last_name", "email", "contact_no", "remark", "status") VALUES
+('admin', '$2a$10$4TAsr1zYbpIiv4xp7Yhskecfvw6qcVE3Pg7lD5ArVegvv2/FVX4D.', NULL, NULL, NULL, NULL, 'Admin', 'ACT');
 
 INSERT INTO PUBLIC."role" ("name", "remark") VALUES
 ('Admin', 'Full'),

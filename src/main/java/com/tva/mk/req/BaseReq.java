@@ -5,19 +5,30 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BaseReq {
 	// region -- Fields --
 
-	@JsonProperty(value = "keyword")
-	private String keyword;
+	@JsonProperty(value = "userId")
+	private Integer userId;
+
+	@JsonProperty(value = "keyWord")
+	private String keyWord;
 
 	// end
 
 	// region -- Get set --
 
-	public String getKeyword() {
-		return keyword;
+	public String getKeyWord() {
+		return keyWord;
 	}
 
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
+	}
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
 	// end
@@ -27,8 +38,9 @@ public class BaseReq {
 	public BaseReq() {
 	}
 
-	public BaseReq(String keyword) {
-		this.keyword = keyword;
+	public BaseReq(String keyWord, Integer userId) {
+		this.userId = userId;
+		this.keyWord = keyWord;
 	}
 
 	// end

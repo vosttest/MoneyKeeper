@@ -24,10 +24,10 @@ public class RoleFunc {
 	private Integer id;
 
 	@Column(columnDefinition = "integer")
-	private String roleId;
+	private Integer roleId;
 
 	@Column(columnDefinition = "integer")
-	private String funcId;
+	private Integer funcId;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -58,19 +58,19 @@ public class RoleFunc {
 		this.id = id;
 	}
 
-	public String getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(String roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 
-	public String getFuncId() {
+	public Integer getFuncId() {
 		return funcId;
 	}
 
-	public void setFuncId(String funcId) {
+	public void setFuncId(Integer funcId) {
 		this.funcId = funcId;
 	}
 

@@ -6,5 +6,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 public class VoucherService {
+	// region -- Fields --
 
+	// end
+
+	// region -- Methods --
+
+	// end
 }

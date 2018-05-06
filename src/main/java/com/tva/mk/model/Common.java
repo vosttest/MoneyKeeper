@@ -48,14 +48,14 @@ public class Common {
 	private Integer createBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "registration_date__c")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date createOn;
 
 	@Column(columnDefinition = "integer")
 	private Integer modifyBy;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE", name = "registration_date__c")
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
 	// end
