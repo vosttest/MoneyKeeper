@@ -74,6 +74,7 @@ public class JwtTokenUtil implements Serializable {
 		res.setLastName(user.getLastName());
 		res.setEmail(user.getEmail());
 		res.setContactNo(user.getContactNo());
+		res.setAccountNo(user.getAccountNo());
 		res.setUserName(user.getUserName());
 		res.setRemark(user.getRemarks());
 

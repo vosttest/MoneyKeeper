@@ -22,7 +22,6 @@ import com.tva.mk.bll.UsersService;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.UsersReq;
-import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -52,16 +51,19 @@ public class UsersController {
 
 		try {
 			// Get data
+			String email = req.getEmail();
+			String accountNo = req.getAccountNo();
 			String userName = req.getUserName();
 			String password = req.getPassword();
 
 			// Handle
-			Users u = usersService.getUsersByUserName(userName);
+			Users u = usersService.getUsersByUserNameOrEmailOrAccountNo(userName, email, accountNo);
 			if (u == null) {
 				rsp.setStatus("Fail");
 				rsp.setMessage("Wrong user name or password!");
 			} else {
-				UsernamePasswordAuthenticationToken x = new UsernamePasswordAuthenticationToken(userName, password);
+				UsernamePasswordAuthenticationToken x = new UsernamePasswordAuthenticationToken(u.getUserName(),
+						password);
 				Authentication y = authenticationManager.authenticate(x);
 				SecurityContextHolder.getContext().setAuthentication(y);
 
@@ -73,7 +75,7 @@ public class UsersController {
 			}
 		} catch (AuthenticationException e) {
 			rsp.setStatus("Fail");
-			rsp.setMessage("Unauthorized / Invalid email or password!");
+			rsp.setMessage("Unauthorized / Invalid user name/email/account no or password!");
 		} catch (Exception ex) {
 			rsp.setStatus("Fail");
 			rsp.setMessage(ex.getMessage());
@@ -84,7 +86,7 @@ public class UsersController {
 
 	@PostMapping("/signUp")
 	public ResponseEntity<?> signUp(@RequestBody UsersReq req) {
-		BaseRsp rsp = new BaseRsp();
+		SingleRsp rsp = new SingleRsp();
 
 		// Get data
 		String userName = req.getUserName();
@@ -116,10 +118,15 @@ public class UsersController {
 		u.setModifyOn(new Date());
 		String tmp = usersService.save(u);
 
-		// Set Data
 		if (tmp == null) {
 			rsp.setStatus("Fail");
-			rsp.setMessage("User name or email have already register!");
+			rsp.setMessage("User name or email have already registed!");
+		} else {
+			List<SimpleGrantedAuthority> z = usersService.getRole(u.getId());
+			String token = jwtTokenUtil.doGenerateToken(u, z);
+
+			// Set Data
+			rsp.setResult(token);
 		}
 		return new ResponseEntity<>(rsp, HttpStatus.OK);
 	}

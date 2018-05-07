@@ -20,6 +20,9 @@ public class UsersReq {
 	@JsonProperty(value = "email")
 	private String email;
 
+	@JsonProperty(value = "accountNo")
+	private String accountNo;
+
 	@JsonProperty(value = "contactNo")
 	private String contactNo;
 
@@ -29,6 +32,22 @@ public class UsersReq {
 	// end
 
 	// region -- Get set --
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	public String getFirstName() {
 		return firstName;
@@ -54,6 +73,14 @@ public class UsersReq {
 		this.email = email;
 	}
 
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
 	public String getContactNo() {
 		return contactNo;
 	}
@@ -68,22 +95,6 @@ public class UsersReq {
 
 	public void setRemark(String remark) {
 		this.remark = remark;
-	}
-
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	// end

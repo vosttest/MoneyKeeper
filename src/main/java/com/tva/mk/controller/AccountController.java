@@ -1,5 +1,7 @@
 package com.tva.mk.controller;
 
+import static com.tva.mk.common.Constants.HEADER_STRING;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.AccountService;
+import com.tva.mk.common.Utils;
 import com.tva.mk.model.Account;
 import com.tva.mk.req.BaseReq;
 import com.tva.mk.rsp.SingleRsp;
@@ -34,10 +37,9 @@ public class AccountController {
 		SingleRsp rsp = new SingleRsp();
 
 		// Get data
-		int userId = req.getUserId();
 		String keyWord = req.getKeyword();
-		List<String> authorizations = header.get("authorization");
-		String authorization = authorizations.get(0);
+		String token = header.get(HEADER_STRING).get(0);
+		int userId = Utils.getUserIdFromToken(token);
 
 		// Handle
 		List<Account> res = ser.searchAccountBelongToUserId(userId, keyWord);

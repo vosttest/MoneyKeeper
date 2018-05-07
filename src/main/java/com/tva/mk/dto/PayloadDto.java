@@ -11,6 +11,8 @@ public class PayloadDto {
 
 	private String lastName;
 
+	private String accountNo;
+
 	private String email;
 
 	private String contactNo;
@@ -51,6 +53,14 @@ public class PayloadDto {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
 	}
 
 	public String getEmail() {

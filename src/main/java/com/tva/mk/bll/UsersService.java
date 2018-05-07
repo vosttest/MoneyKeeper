@@ -60,8 +60,8 @@ public class UsersService implements UserDetailsService {
 		return roles.stream().map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
 	}
 
-	public Users getUsersByUserName(String userName) {
-		Users u = dao.getUsersByUserName(userName);
+	public Users getUsersByUserNameOrEmailOrAccountNo(String userName, String email, String accountNo) {
+		Users u = dao.getUsersByUserNameOrEmailOrAccountNo(userName, email, accountNo);
 		return u;
 	}
 
@@ -73,7 +73,7 @@ public class UsersService implements UserDetailsService {
 	public String save(Users newU) {
 		Users tmp;
 		if (newU.getId() == null) {
-			tmp = dao.getUsersByUserName(newU.getUserName());
+			tmp = dao.checkUsersByUserNameOrEmail(newU.getUserName(), newU.getEmail());
 			if (tmp != null) {
 				return null;
 			}

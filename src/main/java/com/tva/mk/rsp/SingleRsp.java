@@ -27,8 +27,8 @@ public class SingleRsp extends BaseRsp {
 	public SingleRsp() {
 	}
 
-	public SingleRsp(String callstatus, String message, Object result) {
-		super(callstatus, message);
+	public SingleRsp(String status, String message, Object result) {
+		super(status, message);
 		this.result = result;
 	}
 

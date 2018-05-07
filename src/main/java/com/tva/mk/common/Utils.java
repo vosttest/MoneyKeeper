@@ -1,5 +1,8 @@
 package com.tva.mk.common;
 
+import static com.tva.mk.common.Constants.SIGNING_KEY;
+import static com.tva.mk.common.Constants.TOKEN_PREFIX;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -8,6 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import com.tva.mk.dto.PayloadDto;
+
+import io.jsonwebtoken.Jwts;
 
 public class Utils {
 	// region -- Fields --
@@ -35,6 +42,12 @@ public class Utils {
 		}
 
 		return Collections.emptyList();
+	}
+
+	public static int getUserIdFromToken(String token) {
+		PayloadDto res = (PayloadDto) Jwts.parser().setSigningKey(SIGNING_KEY)
+				.parseClaimsJws(token.replace(TOKEN_PREFIX, "")).getBody().get("user");
+		return res.getId();
 	}
 
 	// end

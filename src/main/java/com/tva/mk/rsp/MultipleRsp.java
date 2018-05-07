@@ -29,8 +29,8 @@ public class MultipleRsp extends BaseRsp {
 	public MultipleRsp() {
 	}
 
-	public MultipleRsp(String callstatus, String message, Map<String, Object> result) {
-		super(callstatus, message);
+	public MultipleRsp(String status, String message, Map<String, Object> result) {
+		super(status, message);
 		this.result = result;
 	}
 

@@ -16,6 +16,6 @@ public interface AccountDao extends CrudRepository<Account, Integer> {
 	public Account getAccountById(@Param("id") int id);
 
 	@Query("FROM Account a WHERE a.userId = :userId AND a.isDeleted = FALSE AND"
-			+ " UPPER(a.text) LIKE CONCAT('%', :keyWord, '%'))")
-	public List<Account> searchAccountBelongToUserId(@Param("userId") int userId, @Param("keyWord") String keyWord);
+			+ " UPPER(a.text) LIKE CONCAT('%', :keyword, '%'))")
+	public List<Account> searchAccountBelongToUserId(@Param("userId") int userId, @Param("keyword") String keyword);
 }
