@@ -4,5 +4,16 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+    production: false
 };
+
+export const config = {
+    //apiUrl: 'http://localhost:8080',
+    //imgUrl: 'http://localhost:8080/assets/img',
+
+    //apiUrl: 'https://mk.herokuapp.com',
+    //imgUrl: 'https://mk.herokuapp.com/assets/img',
+
+    apiUrl: 'https://mk-dev.herokuapp.com',
+    imgUrl: 'https://mk-dev.herokuapp.com/assets/img'
+}
