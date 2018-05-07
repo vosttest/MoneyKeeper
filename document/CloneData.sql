@@ -1,79 +1,106 @@
+-- 1. Drop trigger and function
+DROP TRIGGER IF EXISTS register ON public.user;
+DROP FUNCTION IF EXISTS clone_data();
 
-CREATE OR REPLACE FUNCTION cloneData(tableName VARCHAR, id_User INTEGER)
-RETURNS record AS $$
+-- 2. Create function
+CREATE FUNCTION clone_data()
+RETURNS TRIGGER AS $body$
 DECLARE
-   rec record;
-		rowid  INTEGER;
-		ParentCode VARCHAR;
-		curs1 CURSOR FOR SELECT value, text,parent_id
-    FROM common WHERE type like 'Expense' and parent_id is NOT NULL;
+	rec record;
+	id INTEGER;
+	rowid INTEGER;
+	parent_code VARCHAR;
+	curr_expense CURSOR FOR
+		SELECT value, text, parent_id
+		FROM common WHERE type LIKE 'Expense' AND parent_id IS NOT NULL;
+	curr_income CURSOR FOR
+		SELECT value, text, parent_id
+		FROM common WHERE type LIKE 'Income' AND parent_id IS NOT NULL;
 BEGIN
-		IF tableName = 'Account' THEN
-			INSERT INTO account(code, text, user_id)
-				SELECT value, text, id_User
-				FROM common
-				WHERE type like tableName;
-		ELSIF tableName = 'Expense' THEN
-			INSERT INTO expense(code, text, user_id)
-				SELECT value, text, id_User
-				FROM common
-				WHERE type like 'Expense' AND parent_id is NULL;
+	id := ROW(NEW.id); -- get user id
 
-				OPEN curs1;		
-				
-					LOOP
-					-- fetch row into the film
-					 FETCH curs1 INTO rec;
-					-- exit when no more row to fetch
-					 EXIT WHEN NOT FOUND;       
-					-- build the output
-					
-					SELECT value into ParentCode
-					fROM  common  
-					where common."id"  = rec.parent_id; 
-					
-					SELECT id into rowid 
-					FROM  expense 
-					where expense.code = ParentCode AND expense.user_id = id_User;
+	-- Account ----------------------------
+	INSERT INTO account(code, text, user_id)
+	SELECT value, text, uid
+	FROM common
+	WHERE type LIKE 'Account';
+	---------------------------------------
 
-					INSERT INTO expense(code, text, user_id, parent_id) 
-					VALUES(rec.value, rec.text, id_User, rowid);
+	-- Expense ----------------------------
+	-- Step 1
+	INSERT INTO expense(code, text, user_id)
+	SELECT value, text, uid
+	FROM common
+	WHERE type LIKE 'Expense' AND parent_id IS NULL;
+	-- Step 2
+	OPEN curr_expense;
+		LOOP
+			FETCH curr_expense INTO rec;			
+			EXIT WHEN NOT FOUND;			
+
+			SELECT value into parent_code
+			FROM common  
+			WHERE common.id = rec.parent_id;
+
+			SELECT id into rowid
+			FROM expense
+			WHERE expense.code = parent_code AND expense.user_id = uid;
+
+			INSERT INTO expense(code, text, user_id, parent_id) 
+			VALUES(rec.value, rec.text, uid, rowid);
+		END LOOP;
+	CLOSE curr_expense;
+	---------------------------------------
 				
-					END LOOP;
-				 
-			 CLOSE curs1;
-				
-		ELSIF tableName = 'Income' THEN
-			INSERT INTO income(code, text, user_id)
-				SELECT value, text, id_User 
-				FROM common
-				WHERE type like tableName;
-					
-		ELSIF tableName = 'Setting' THEN
-			INSERT INTO setting(code, text, user_id)
-				SELECT value, text, id_User 
-				FROM common
-				WHERE type like tableName;
-		END IF;
-		RETURN rec;
+	-- Income ----------------------------
+	-- Step 1
+	INSERT INTO income(code, text, user_id)
+	SELECT value, text, uid
+	FROM common
+	WHERE type LIKE 'Income' AND parent_id IS NULL;
+	-- Step 2
+	OPEN curr_income;
+		LOOP
+			FETCH curr_income INTO rec;			
+			EXIT WHEN NOT FOUND;			
+
+			SELECT value into parent_code
+			FROM common  
+			WHERE common.id = rec.parent_id;
+
+			SELECT id into rowid
+			FROM income
+			WHERE income.code = parent_code AND income.user_id = uid;
+
+			INSERT INTO income(code, text, user_id, parent_id) 
+			VALUES(rec.value, rec.text, uid, rowid);
+		END LOOP;
+	CLOSE curr_income;
+	---------------------------------------
+	
+	-- Setting ----------------------------
+	INSERT INTO setting(code, text, user_id)
+	SELECT value, text, uid
+	FROM common
+	WHERE type LIKE 'Setting';
+	---------------------------------------
+	RETURN rec;
 END;
-$$ LANGUAGE plpgsql;
+$body$ LANGUAGE plpgsql;
 
+-- 3. Create trigger
+CREATE TRIGGER register
+AFTER INSERT ON public.user
+FOR EACH ROW EXECUTE PROCEDURE clone_data();
 
-
--- Test Data
-SELECT cloneData('Account', 1)
-SELECT cloneData('Expense', 1)
-SELECT cloneData('Income', 1)
-SELECT cloneData('Setting', 1)
-
--- Delete All Rows in Table
+/* Delete data
+DELETE FROM account;
 DELETE FROM expense;
+DELETE FROM income;
+DELETE FROM setting;
 
--- Reset IDENTITY = 0 
+TRUNCATE TABLE account RESTART IDENTITY;
 TRUNCATE TABLE expense RESTART IDENTITY;
-
-
-		
-		
-		
+TRUNCATE TABLE income RESTART IDENTITY;
+TRUNCATE TABLE setting RESTART IDENTITY;
+*/
