@@ -29,8 +29,8 @@ public class Function {
 	@Column(columnDefinition = "varchar(64)")
 	private String code;
 
-	@Column(columnDefinition = "varchar(64)")
-	private String displayAs;
+	@Column(columnDefinition = "varchar(128)")
+	private String text;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -77,12 +77,12 @@ public class Function {
 		this.code = code;
 	}
 
-	public String getDisplayAs() {
-		return displayAs;
+	public String getText() {
+		return text;
 	}
 
-	public void setDisplayAs(String displayAs) {
-		this.displayAs = displayAs;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public Boolean getIsDeleted() {

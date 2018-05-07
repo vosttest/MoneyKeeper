@@ -1,38 +1,3 @@
-/*
-
-INSERT INTO PUBLIC."account" ("code", "text", "description", "sequence", "parent_id", "user_id") VALUES
-('ACC01', 'Wallet', '', 1, NULL, 2),
-('ACC01', 'In Stock', '', 2, NULL, 3);
-INSERT INTO PUBLIC."setting" ("code", "text", "description", "user_id") VALUES
-('20:00', 'Reminder', '', 2),
-('20:00', 'Reminder', '', 3);
-INSERT INTO PUBLIC."income" ("code", "text", "description", "sequence", "parent_id", "user_id") VALUES
-('INC03', 'Salary', '', 1, NULL, 2),
-('INC07', 'Savings Interest', '', 1, NULL, 2),
-('INC05', 'Awarded', '', 1, NULL, 2),
-('INC03', 'Salary', '', 2, NULL, 3);
-INSERT INTO PUBLIC."expense" ("code", "text", "description", "sequence", "parent_id", "user_id") VALUES
-('EXP03', 'Food And Dining', '', 1, NULL, 2),
-('EXP04', 'Utilities', '', 2, NULL, 3);
-INSERT INTO PUBLIC."voucher" ("serial", "account_id", "type", "total", "description", "object") VALUES
-('155s85w5w1ds3a3', 1, 'Income', 10000, '', 'myself');
-INSERT INTO PUBLIC."voucher_detail" ("voucher_id", "category", "amount") VALUES
-(1, 'EXP03', 5000),
-(1, 'EXP07', 2000),
-(1, 'EXP05', 3000);
-
-*/
-
-INSERT INTO PUBLIC."users" ("user_name", "password", "first_name", "last_name", "email", "contact_no", "remark", "status") VALUES
-('admin', '$2a$10$4TAsr1zYbpIiv4xp7Yhskecfvw6qcVE3Pg7lD5ArVegvv2/FVX4D.', NULL, NULL, NULL, NULL, 'Admin', 'ACT');
-
-INSERT INTO PUBLIC."role" ("name", "remark") VALUES
-('Admin', 'Full'),
-('User', 'Limit');
-
-INSERT INTO PUBLIC."user_role" ("user_id", "role_id") VALUES
-(1, 1);
-
 INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence", "parent_id") VALUES
 	('Account', 'ACC01', 'Cash', NULL, 1, NULL),
 	('Account', 'ACC02', 'Bank Account', NULL, 2, NULL),
@@ -40,15 +5,15 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Account', 'ACC04', 'Deposit Account', NULL, 4, NULL),
 	('Account', 'ACC05', 'Save Account', NULL, 5, NULL),
 	('Account', 'ACC06', 'Other', NULL, 6, NULL),
-	
+
 	('Expense', 'EXP01', 'Lend', NULL, 1, NULL),
 	('Expense', 'EXP02', 'Repayment', NULL, 2, NULL),
-	('Expense', 'EXP03', 'Food And Dining', NULL, 3, NULL),	
+	('Expense', 'EXP03', 'Food And Dining', NULL, 3, NULL),
 	('Expense', 'EXP04', 'Utilities', NULL, 4, NULL),
 	('Expense', 'EXP05', 'Auto & Transport', NULL, 5, NULL),
 	('Expense', 'EXP06', 'Kids', NULL, 6, NULL),
 	('Expense', 'EXP07', 'Clothing', NULL, 7, NULL),
-	('Expense', 'EXP08', 'Gift & Donations', NULL, 8, NULL),	
+	('Expense', 'EXP08', 'Gift & Donations', NULL, 8, NULL),
 	('Expense', 'EXP09', 'Health & Fitness', NULL, 9, NULL),
 	('Expense', 'EXP10', 'Home', NULL, 10, NULL),
 	('Expense', 'EXP11', 'Entertainment', NULL, 11, NULL),
@@ -72,7 +37,7 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Expense', 'EXP29', 'Taxi', NULL, 29, 11),
 	('Expense', 'EXP30', 'Tuition', NULL, 30, 12),
 	('Expense', 'EXP31', 'Books', NULL, 31, 12),
-	('Expense', 'EXP32', 'Baby Supplies', NULL, 32, 12),	
+	('Expense', 'EXP32', 'Baby Supplies', NULL, 32, 12),
 	('Expense', 'EXP33', 'Toys', NULL, 33, 12),
 	('Expense', 'EXP34', 'Allowance', NULL, 34, 12),
 	('Expense', 'EXP35', 'Clothes', NULL, 35, 13),
@@ -82,7 +47,7 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Expense', 'EXP39', 'Funerals', NULL, 39, 14),
 	('Expense', 'EXP40', 'Charity', NULL, 40, 14),
 	('Expense', 'EXP41', 'Gifts', NULL, 41, 14),
-	('Expense', 'EXP42', 'Doctor', NULL, 42, 15),	
+	('Expense', 'EXP42', 'Doctor', NULL, 42, 15),
 	('Expense', 'EXP43', 'Pharmacy', NULL, 43, 15),
 	('Expense', 'EXP44', 'Sports', NULL, 44, 15),
 	('Expense', 'EXP45', 'Furnishing', NULL, 45, 16),
@@ -95,7 +60,7 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Expense', 'EXP52', 'Cosmetic', NULL, 52, 17),	
 	('Expense', 'EXP53', 'Education', NULL, 53, 18),
 	('Expense', 'EXP54', 'Hobbies', NULL, 54, 18),
-	
+
 	('Income', 'INC01', 'Borrow', NULL, 1, NULL),
 	('Income', 'INC02', 'Collecting Debts', NULL, 2, NULL),
 	('Income', 'INC03', 'Salary', NULL, 3, NULL),	
@@ -103,5 +68,5 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Income', 'INC05', 'Awarded', NULL, 6, NULL),
 	('Income', 'INC06', 'Interest', NULL, 7, NULL),
 	('Income', 'INC07', 'Savings Interest', NULL, 6, NULL),
-	
+
 	('Setting', '20:00', 'Reminder', NULL, 1, NULL);

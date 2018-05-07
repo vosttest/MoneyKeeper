@@ -14,7 +14,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "role_func", schema = "public")
-public class RoleFunc {
+public class RoleFunction {
 	// region -- Fields --
 
 	@Id
@@ -27,7 +27,7 @@ public class RoleFunc {
 	private Integer roleId;
 
 	@Column(columnDefinition = "integer")
-	private Integer funcId;
+	private Integer functionId;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -66,12 +66,12 @@ public class RoleFunc {
 		this.roleId = roleId;
 	}
 
-	public Integer getFuncId() {
-		return funcId;
+	public Integer getFunctionId() {
+		return functionId;
 	}
 
-	public void setFuncId(Integer funcId) {
-		this.funcId = funcId;
+	public void setFunctionId(Integer functionId) {
+		this.functionId = functionId;
 	}
 
 	public Boolean getIsDeleted() {
@@ -118,7 +118,7 @@ public class RoleFunc {
 
 	// region -- Methods --
 
-	public RoleFunc() {
+	public RoleFunction() {
 
 	}
 

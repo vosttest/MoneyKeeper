@@ -102,9 +102,9 @@ public class UsersController {
 		u.setEmail(email);
 		u.setFirstName(firstName);
 		u.setLastName(lastName);
-		u.setPassword(passwordHash);
+		u.setPasswordHash(passwordHash);
 		u.setUserName(userName);
-		u.setRemark(remark);
+		u.setRemarks(remark);
 		u.setStatus("DAC");
 		u.setIsDeleted(false);
 		u.setCreateBy(0);

@@ -45,7 +45,7 @@ public class UsersService implements UserDetailsService {
 		}
 
 		List<String> roles = daoRole.getRoleByUserId(u.getId());
-		String hash = u.getPassword();
+		String hash = u.getPasswordHash();
 
 		return new org.springframework.security.core.userdetails.User(userName, hash, getAuthority(roles));
 	}

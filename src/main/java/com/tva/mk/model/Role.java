@@ -26,8 +26,8 @@ public class Role {
 	@Column(columnDefinition = "varchar(64)")
 	private String name;
 
-	@Column(columnDefinition = "varchar(64)")
-	private String remark;
+	@Column(columnDefinition = "varchar(128)")
+	private String remarks;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -66,12 +66,12 @@ public class Role {
 		this.name = name;
 	}
 
-	public String getRemark() {
-		return remark;
+	public String getRemarks() {
+		return remarks;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	public Boolean getIsDeleted() {
