@@ -7,7 +7,7 @@ CREATE FUNCTION clone_data()
 RETURNS TRIGGER AS $body$
 DECLARE
 	rec record;
-	id INTEGER;
+	uid INTEGER;
 	rowid INTEGER;
 	parent_code VARCHAR;
 	curr_expense CURSOR FOR
@@ -17,7 +17,7 @@ DECLARE
 		SELECT value, text, parent_id
 		FROM common WHERE type LIKE 'Income' AND parent_id IS NOT NULL;
 BEGIN
-	id := ROW(NEW.id); -- get user id
+	uid := NEW.id; -- get user id
 
 	-- Account ----------------------------
 	INSERT INTO account(code, text, user_id)
@@ -84,7 +84,7 @@ BEGIN
 	FROM common
 	WHERE type LIKE 'Setting';
 	---------------------------------------
-	RETURN rec;
+	RETURN NEW;
 END;
 $body$ LANGUAGE plpgsql;
 
