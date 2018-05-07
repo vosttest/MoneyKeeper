@@ -35,9 +35,6 @@ public class Setting {
 	@Column(columnDefinition = "integer")
 	private Integer userId;
 
-	@Column(columnDefinition = "bool")
-	private Boolean isDeleted;
-
 	@Column(columnDefinition = "integer")
 	private Integer createBy;
 
@@ -94,14 +91,6 @@ public class Setting {
 
 	public void setUserId(Integer userId) {
 		this.userId = userId;
-	}
-
-	public Boolean getIsDeleted() {
-		return isDeleted;
-	}
-
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
 	}
 
 	public Integer getCreateBy() {

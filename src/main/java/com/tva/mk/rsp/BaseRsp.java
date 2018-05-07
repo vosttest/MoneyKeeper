@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class BaseRsp {
 	// region -- Fields --
 
-	@JsonProperty(value = "callStatus")
-	private String callStatus;
+	@JsonProperty(value = "status")
+	private String status;
 
 	@JsonProperty(value = "message")
 	private String message;
@@ -15,12 +15,12 @@ public class BaseRsp {
 
 	// region -- Get set --
 
-	public String getCallStatus() {
-		return callStatus;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setCallStatus(String callStatus) {
-		this.callStatus = callStatus;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getMessage() {
@@ -36,12 +36,12 @@ public class BaseRsp {
 	// region -- Methods --
 
 	public BaseRsp() {
-		this.callStatus = "success";
+		this.status = "success";
 		this.message = "";
 	}
 
-	public BaseRsp(String callStatus, String message) {
-		this.callStatus = callStatus;
+	public BaseRsp(String status, String message) {
+		this.status = status;
 		this.message = message;
 	}
 

@@ -58,7 +58,7 @@ public class UsersController {
 			// Handle
 			Users u = usersService.getUsersByUserName(userName);
 			if (u == null) {
-				rsp.setCallStatus("Fail");
+				rsp.setStatus("Fail");
 				rsp.setMessage("Wrong user name or password!");
 			} else {
 				UsernamePasswordAuthenticationToken x = new UsernamePasswordAuthenticationToken(userName, password);
@@ -72,10 +72,10 @@ public class UsersController {
 				rsp.setResult(token);
 			}
 		} catch (AuthenticationException e) {
-			rsp.setCallStatus("Fail");
+			rsp.setStatus("Fail");
 			rsp.setMessage("Unauthorized / Invalid email or password!");
 		} catch (Exception ex) {
-			rsp.setCallStatus("Fail");
+			rsp.setStatus("Fail");
 			rsp.setMessage(ex.getMessage());
 		}
 
@@ -105,7 +105,10 @@ public class UsersController {
 		u.setPasswordHash(passwordHash);
 		u.setUserName(userName);
 		u.setRemarks(remark);
-		u.setStatus("DAC");
+		u.setIsEmailVerified(false);
+		u.setStatus("ACT");
+		u.setFailedAuthAttempts(0);
+		u.setIsLocked(false);
 		u.setIsDeleted(false);
 		u.setCreateBy(0);
 		u.setCreateOn(new Date());
@@ -115,7 +118,7 @@ public class UsersController {
 
 		// Set Data
 		if (tmp == null) {
-			rsp.setCallStatus("Fail");
+			rsp.setStatus("Fail");
 			rsp.setMessage("User name or email have already register!");
 		}
 		return new ResponseEntity<>(rsp, HttpStatus.OK);

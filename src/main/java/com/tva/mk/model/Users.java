@@ -87,6 +87,9 @@ public class Users {
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date lockExpiryOn;
 
+	@Column(columnDefinition = "bool")
+	private Boolean isLocked;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date lastDeclarationOn;
@@ -97,9 +100,6 @@ public class Users {
 
 	@Column(columnDefinition = "integer")
 	private Integer failedAuthAttempts;
-
-	@Column(columnDefinition = "bool")
-	private Boolean isLocked;
 
 	@Column(columnDefinition = "bool")
 	private Boolean isDeleted;
@@ -282,6 +282,14 @@ public class Users {
 		this.lockExpiryOn = lockExpiryOn;
 	}
 
+	public Boolean getIsLocked() {
+		return isLocked;
+	}
+
+	public void setIsLocked(Boolean isLocked) {
+		this.isLocked = isLocked;
+	}
+
 	public Date getLastDeclarationOn() {
 		return lastDeclarationOn;
 	}
@@ -304,14 +312,6 @@ public class Users {
 
 	public void setFailedAuthAttempts(Integer failedAuthAttempts) {
 		this.failedAuthAttempts = failedAuthAttempts;
-	}
-
-	public Boolean getIsLocked() {
-		return isLocked;
-	}
-
-	public void setIsLocked(Boolean isLocked) {
-		this.isLocked = isLocked;
 	}
 
 	public Boolean getIsDeleted() {

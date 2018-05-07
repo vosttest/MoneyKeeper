@@ -13,13 +13,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "role_func", schema = "public")
+@Table(name = "role_function", schema = "public")
 public class RoleFunction {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_func_id_seq_generator")
-	@SequenceGenerator(name = "role_func_id_seq_generator", sequenceName = "public.role_func_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_function_id_seq_generator")
+	@SequenceGenerator(name = "role_function_id_seq_generator", sequenceName = "public.role_function_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 

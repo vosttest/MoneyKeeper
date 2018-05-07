@@ -35,7 +35,7 @@ public class AccountController {
 
 		// Get data
 		int userId = req.getUserId();
-		String keyWord = req.getKeyWord();
+		String keyWord = req.getKeyword();
 		List<String> authorizations = header.get("authorization");
 		String authorization = authorizations.get(0);
 

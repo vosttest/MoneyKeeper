@@ -8,19 +8,19 @@ public class BaseReq {
 	@JsonProperty(value = "userId")
 	private Integer userId;
 
-	@JsonProperty(value = "keyWord")
-	private String keyWord;
+	@JsonProperty(value = "keyword")
+	private String keyword;
 
 	// end
 
 	// region -- Get set --
 
-	public String getKeyWord() {
-		return keyWord;
+	public String getKeyword() {
+		return keyword;
 	}
 
-	public void setKeyWord(String keyWord) {
-		this.keyWord = keyWord;
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public Integer getUserId() {
@@ -38,9 +38,9 @@ public class BaseReq {
 	public BaseReq() {
 	}
 
-	public BaseReq(String keyWord, Integer userId) {
+	public BaseReq(String keyword, Integer userId) {
 		this.userId = userId;
-		this.keyWord = keyWord;
+		this.keyword = keyword;
 	}
 
 	// end

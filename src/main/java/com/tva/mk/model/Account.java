@@ -36,6 +36,9 @@ public class Account {
 	private Integer sequence;
 
 	@Column(columnDefinition = "integer")
+	private Integer parentId;
+
+	@Column(columnDefinition = "integer")
 	private Integer userId;
 
 	@Column(columnDefinition = "bool")
@@ -97,6 +100,14 @@ public class Account {
 
 	public void setSequence(Integer sequence) {
 		this.sequence = sequence;
+	}
+
+	public Integer getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
 	public Integer getUserId() {
