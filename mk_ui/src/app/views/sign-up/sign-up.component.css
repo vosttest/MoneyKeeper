@@ -1,5 +1,6 @@
 h1 {
     margin: 0 auto;
+    width: 25%;
     text-align: center;
     margin-bottom: 50px;
 }
@@ -15,11 +16,6 @@ button.btn.btn-primary {
 
 button.btn.btn-primary {
     width: 384px;
-    margin-bottom: 10px;
-}
-
-.row button.btn.btn-primary {
-    width: 180px;
     margin-bottom: 10px;
 }
 

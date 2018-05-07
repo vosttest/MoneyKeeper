@@ -15,11 +15,13 @@ import { RsaService } from './utils';
 
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
+import { SignUpComponent } from './views/sign-up/sign-up.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        SignInComponent
+        SignInComponent,
+        SignUpComponent
     ],
     imports: [
         BrowserModule,
