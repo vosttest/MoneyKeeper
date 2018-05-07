@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { AppComponent } from './app.component';
-import { SignInComponent } from './views/sign-in/sign-in.component';
 import { AppRoutingModule } from './app-routing.module';
+
+import { SignInComponent } from './views/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
@@ -20,4 +20,5 @@ import { FormsModule } from '@angular/forms';
     providers: [],
     bootstrap: [AppComponent]
 })
+
 export class AppModule { }
