@@ -56,17 +56,18 @@ public class UserController {
 			String password = req.getPassword();
 
 			// Handle
-			Users u = userService.getBy(userName, userName);
-			if (u == null) {
+			Users m = userService.getBy(userName, userName);
+			if (m == null) {
 				res.setError("Wrong user name or password!");
 			} else {
+				userName = m.getUserName();
 				UsernamePasswordAuthenticationToken x;
 				x = new UsernamePasswordAuthenticationToken(userName, password);
 				Authentication y = authenticationManager.authenticate(x);
 				SecurityContextHolder.getContext().setAuthentication(y);
 
-				List<SimpleGrantedAuthority> z = userService.getRole(u.getId());
-				String token = jwtTokenUtil.doGenerateToken(u, z);
+				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+				String token = jwtTokenUtil.doGenerateToken(m, z);
 
 				// Set data
 				res.setResult(token);

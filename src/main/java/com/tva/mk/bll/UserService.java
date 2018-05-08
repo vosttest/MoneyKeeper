@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -48,7 +49,7 @@ public class UserService implements UserDetailsService {
 		List<String> roles = roleDao.getRoleByUserId(u.getId());
 		String hash = u.getPasswordHash();
 
-		return new org.springframework.security.core.userdetails.User(userName, hash, getAuthority(roles));
+		return new User(userName, hash, getAuthority(roles));
 	}
 
 	public List<SimpleGrantedAuthority> getRole(int id) {
