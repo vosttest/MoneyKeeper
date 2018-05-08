@@ -1,0 +1,62 @@
+<button><a routerLink="/insertAcc">Back</a></button>
+<h1>Add Account</h1>
+<form>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" placeholder="Name">
+        </div>
+        <div class="form-group col-md-6">
+            <select id="inputState" class="form-control">
+                <option selected>Type</option>
+                <option>...</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <select id="inputState" class="form-control">
+            <option selected>Currency</option>
+            <option>...</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <input type="number" class="form-control" placeholder="Initial Balance" min="0">
+    </div>
+    <div class="form-group">
+        <input type="number" class="form-control" placeholder="Credit Limit" min="0">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <select id="inputState" class="form-control">
+                <option selected>Term</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" placeholder="Interest rate">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <select id="inputState" class="form-control">
+                <option selected>Interest paid</option>
+                <option>...</option>
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <select id="inputState" class="form-control">
+                <option selected>Term end</option>
+                <option>...</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <select id="inputState" class="form-control">
+            <option selected>Transfer money from account</option>
+            <option>...</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
