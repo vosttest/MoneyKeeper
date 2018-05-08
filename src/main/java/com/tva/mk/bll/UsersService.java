@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.RoleDao;
-import com.tva.mk.dal.UsersDao;
+import com.tva.mk.dal.UserDao;
 import com.tva.mk.model.Users;
 
 @Service(value = "usersService")
@@ -24,7 +24,7 @@ public class UsersService implements UserDetailsService {
 	// region -- Fields --
 
 	@Autowired
-	private UsersDao dao;
+	private UserDao dao;
 
 	@PersistenceContext
 	private EntityManager entityManager;

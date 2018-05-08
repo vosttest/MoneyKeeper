@@ -2,7 +2,7 @@ package com.tva.mk.req;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class UsersReq {
+public class UserReq {
 	// region -- Fields --
 
 	@JsonProperty(value = "userName")
@@ -101,7 +101,7 @@ public class UsersReq {
 
 	// region -- Methods --
 
-	public UsersReq() {
+	public UserReq() {
 	}
 
 	// end

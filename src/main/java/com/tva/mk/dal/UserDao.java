@@ -6,7 +6,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.tva.mk.model.Users;
 
-public interface UsersDao extends CrudRepository<Users, Integer> {
+public interface UserDao extends CrudRepository<Users, Integer> {
 	@Query("FROM Users a WHERE a.userName = :userName AND a.status = 'ACT' AND a.isDeleted = FALSE")
 	public Users getUsersByUserName(@Param("userName") String userName);
 

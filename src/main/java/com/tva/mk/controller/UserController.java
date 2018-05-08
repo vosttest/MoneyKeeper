@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.UsersService;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.model.Users;
-import com.tva.mk.req.UsersReq;
+import com.tva.mk.req.UserReq;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
-@RequestMapping("/users")
-public class UsersController {
+@RequestMapping("/user")
+public class UserController {
 	// region -- Fields --
 
 	@Autowired
@@ -45,8 +45,8 @@ public class UsersController {
 
 	// region -- Methods --
 
-	@PostMapping("/signIn")
-	public ResponseEntity<?> signIn(@RequestBody UsersReq req) {
+	@PostMapping("/sign-in")
+	public ResponseEntity<?> signIn(@RequestBody UserReq req) {
 		SingleRsp rsp = new SingleRsp();
 
 		try {
@@ -84,8 +84,8 @@ public class UsersController {
 		return new ResponseEntity<>(rsp, HttpStatus.OK);
 	}
 
-	@PostMapping("/signUp")
-	public ResponseEntity<?> signUp(@RequestBody UsersReq req) {
+	@PostMapping("/sign-up")
+	public ResponseEntity<?> signUp(@RequestBody UserReq req) {
 		SingleRsp rsp = new SingleRsp();
 
 		// Get data
