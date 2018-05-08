@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProvider } from '../../providers/providers';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular5-social-login';
 
 @Component({
     selector: 'app-category',
