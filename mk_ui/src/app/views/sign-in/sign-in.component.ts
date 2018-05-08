@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProvider } from '../../providers/providers';
-import { AuthService, FacebookLoginProvider, GoogleLoginProvider } from 'angular5-social-login';
 
 @Component({
     selector: 'app-sign-in',
@@ -13,7 +12,7 @@ export class SignInComponent implements OnInit {
     public loader: boolean = false;
     public message = '';
 
-    constructor(private pro: UserProvider, private svr: AuthService) { }
+    constructor(private pro: UserProvider) { }
 
     ngOnInit() { }
 
@@ -30,31 +29,5 @@ export class SignInComponent implements OnInit {
 
             this.loader = false;
         }, err => console.log(err));
-    }
-
-    public signIn(socialPlatform: string) {
-        let socialPlatformProvider;
-        if (socialPlatform == 'facebook') {
-            socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
-        } else if (socialPlatform == 'google') {
-            socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
-        }
-        this.svr.signIn(socialPlatformProvider).then(
-            data => {
-                let vm = {
-                    'accountNo': '',
-                    'contactNo': '',
-                    'email': data.email,
-                    'firstName': '',
-                    'lastName': '',
-                    'password': data.id,
-                    'remarks': '',
-                    'userName': data.id
-                };
-                this.pro.signUp(data).subscribe(res => {
-                    console.log(res);
-                });
-            }
-        );
     }
 }
