@@ -42,7 +42,7 @@ public class CommonController {
 			String keyword = req.getKeyword();
 
 			// Handle
-			List<Common> tmp = commonService.getByType(req);
+			List<Common> tmp = commonService.getByType(keyword);
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();

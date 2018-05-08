@@ -22,14 +22,9 @@ public class CommonService {
 
 	// region -- Methods --
 
-	public List<Common> getByType(BaseReq req) {
-		String keyword = req.getKeyword();
-
-		// Check empty
-		if (keyword == null || keyword.isEmpty()) {
-			keyword = "%";
-		}
-		return commonDao.getByType(keyword);
+	public List<Common> getByType(String type) {
+		List<Common> res = commonDao.getByType(type);
+		return res;
 	}
 
 	// end
