@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -25,6 +26,7 @@ import { SignUpComponent } from './views/sign-up/sign-up.component';
     ],
     imports: [
         BrowserModule,
+        HttpClientModule,
         FormsModule,
         AppRoutingModule
     ],

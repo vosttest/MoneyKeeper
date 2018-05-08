@@ -31,28 +31,28 @@ export class UserProvider {
     }
 
     /**
-     * Register
+     * Sign up
      * @param info
      */
-    public register(info: any) {
-        info.password = this.rsa.encrypt(info.password); // encrypt password
-        return this.api.postz('user/register', info);
+    public signUp(info: any) {
+        //info.password = this.rsa.encrypt(info.password); // encrypt password
+        return this.api.postz('user/sign-up', info);
     }
 
     /**
-     * Login
+     * Sign in
      * @param info
      */
-    public login(info: any) {
-        info.password = this.rsa.encrypt(info.password); // encrypt password
-        return this.api.postz('user/login', info);
+    public signIn(info: any) {
+        //info.password = this.rsa.encrypt(info.password); // encrypt password
+        return this.api.postz('user/sign-in', info);
     }
 
     /**
-     * Logout
+     * Sign out
      */
-    public logout() {
-        this.api.get('user/logout').subscribe((rsp: any) => {
+    public signOut() {
+        this.api.get('user/sign-out').subscribe((rsp: any) => {
         }, err => console.log(err));
         localStorage.removeItem("CURRENT_TOKEN");
         this.rou.navigate(['/']);
@@ -63,8 +63,8 @@ export class UserProvider {
     * @param info
     */
     public changePassword(info: any) {
-        info.oldpassword = this.rsa.encrypt(info.oldpassword); // encrypt password
-        info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
+        //info.oldpassword = this.rsa.encrypt(info.oldpassword); // encrypt password
+        //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
         return this.api.postz('user/change-password', info);
     }
 
@@ -73,7 +73,7 @@ export class UserProvider {
      * @param info
      */
     public resetPassword(info: any) {
-        info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
+        //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
         return this.api.postz('user/reset-password', info);
     }
 
@@ -121,7 +121,7 @@ export class UserProvider {
         this.subscriptionLogout = this.timerLogout.subscribe(x => {
             let now = new Date();
             if (now > this.api.nextRun && this.api.allowLogout) {
-                this.logout();
+                this.signOut();
             }
         });
 
