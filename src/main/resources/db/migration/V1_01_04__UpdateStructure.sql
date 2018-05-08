@@ -1,18 +1,18 @@
 ALTER TABLE "account"
-	ADD COLUMN "currency" VARCHAR(64),
-	ADD COLUMN "bank" VARCHAR(128),
-	ADD COLUMN "start_date" timestamp,
-	ADD COLUMN "term" VARCHAR(64),
-	ADD COLUMN "interest_rate" FLOAT8,
-	ADD COLUMN "interest_rates" FLOAT8,
-	ADD COLUMN "interest_paid" VARCHAR(64),
-	ADD COLUMN "term_ended" VARCHAR(64),
-	ADD COLUMN "from_account" INT4;
+	ADD COLUMN "currency"			VARCHAR(64),
+	ADD COLUMN "bank"				VARCHAR(128),
+	ADD COLUMN "start_date"			TIMESTAMP,
+	ADD COLUMN "term"				VARCHAR(64),
+	ADD COLUMN "interest_rate"		FLOAT8,
+	ADD COLUMN "interest_rates"		FLOAT8,
+	ADD COLUMN "interest_paid"		VARCHAR(64),
+	ADD COLUMN "term_ended"			VARCHAR(64),
+	ADD COLUMN "from_account"		INT4;
 
-INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence") VALUES
-	('Currency', 'CUR01', 'VND', NULL, 1, NULL),
-	('Currency', 'CUR02', 'USD', NULL, 2, NULL),
-	('Currency', 'CUR03', 'EUR', NULL, 3, NULL),
+INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence", "parent_id") VALUES
+	('Currency', 'VND', 'Việt Nam Đồng', NULL, 1, NULL),
+	('Currency', 'USD', 'United States Dollar', NULL, 2, NULL),
+	('Currency', 'EUR', 'Euro', NULL, 3, NULL),
 	
 	('Term', 'TRM01', '1 Week', NULL, 1, NULL),
 	('Term', 'TRM02', '2 Weeks', NULL, 2, NULL),
@@ -23,12 +23,11 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence")
 	('Term', 'TRM07', '12 Months', NULL, 7, NULL),
 	('Term', 'TRM08', 'Other', NULL, 8, NULL),
 	
-	('Interest paid', 'IPD01', 'Up-front', NULL, 1, NULL),
-	('Interest paid', 'IPD02', 'Maturity', NULL, 2, NULL),
-	('Interest paid', 'IPD03', 'Monthly', NULL, 3, NULL),
-	('Interest paid', 'IPD04', 'Quarterly', NULL, 4, NULL),
+	('InterestPaid', 'IPD01', 'Up-front', NULL, 1, NULL),
+	('InterestPaid', 'IPD02', 'Maturity', NULL, 2, NULL),
+	('InterestPaid', 'IPD03', 'Monthly', NULL, 3, NULL),
+	('InterestPaid', 'IPD04', 'Quarterly', NULL, 4, NULL),
 	
-	('Term end', 'TRE01', 'EUR', NULL, 1, NULL),
-	('Term end', 'TRE02', 'EUR', NULL, 2, NULL),
-	('Term end', 'TRE03', 'EUR', NULL, 3, NULL);
-	
+	('TermEnd', 'TRE01', 'Rollover principal', NULL, 1, NULL),
+	('TermEnd', 'TRE02', 'Rollover principal and interest', NULL, 2, NULL),
+	('TermEnd', 'TRE03', 'Close account', NULL, 3, NULL);
