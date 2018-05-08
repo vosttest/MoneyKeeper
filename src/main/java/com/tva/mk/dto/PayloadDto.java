@@ -1,22 +1,29 @@
 package com.tva.mk.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PayloadDto {
 	// region -- Fields --
 
+	@JsonProperty(value = "id")
 	private Integer id;
 
+	@JsonProperty(value = "userName")
 	private String userName;
 
+	@JsonProperty(value = "firstName")
 	private String firstName;
 
+	@JsonProperty(value = "lastName")
 	private String lastName;
 
-	private String accountNo;
-
+	@JsonProperty(value = "email")
 	private String email;
 
+	@JsonProperty(value = "contactNo")
 	private String contactNo;
 
+	@JsonProperty(value = "remarks")
 	private String remarks;
 
 	// end
@@ -53,14 +60,6 @@ public class PayloadDto {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getAccountNo() {
-		return accountNo;
-	}
-
-	public void setAccountNo(String accountNo) {
-		this.accountNo = accountNo;
 	}
 
 	public String getEmail() {
