@@ -42,10 +42,10 @@ public class JwtTokenUtil implements Serializable {
 		return claimsResolver.apply(claims);
 	}
 
-	public String doGenerateToken(Users m, List<SimpleGrantedAuthority> authorities) {
-		Claims claims = Jwts.claims().setSubject(m.getUserName());
+	public String doGenerateToken(Users user, List<SimpleGrantedAuthority> authorities) {
+		Claims claims = Jwts.claims().setSubject(user.getUserName());
 		claims.put("scopes", authorities);
-		claims.put("user", getPayload(m));
+		claims.put("user", getPayload(user));
 
 		return Jwts.builder().setClaims(claims).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_TIME * 1000))
@@ -70,11 +70,12 @@ public class JwtTokenUtil implements Serializable {
 		PayloadDto res = new PayloadDto();
 
 		res.setId(m.getId());
+		res.setUserName(m.getUserName());
 		res.setFirstName(m.getFirstName());
 		res.setLastName(m.getLastName());
+		res.setAccountNo(m.getAccountNo());
 		res.setEmail(m.getEmail());
 		res.setContactNo(m.getContactNo());
-		res.setUserName(m.getUserName());
 		res.setRemarks(m.getRemarks());
 
 		return res;

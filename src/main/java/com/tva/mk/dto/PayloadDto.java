@@ -17,6 +17,9 @@ public class PayloadDto {
 	@JsonProperty(value = "lastName")
 	private String lastName;
 
+	@JsonProperty(value = "accountNo")
+	private String accountNo;
+
 	@JsonProperty(value = "email")
 	private String email;
 
@@ -84,6 +87,14 @@ public class PayloadDto {
 
 	public void setRemarks(String remarks) {
 		this.remarks = remarks;
+	}
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
 	}
 
 	// end

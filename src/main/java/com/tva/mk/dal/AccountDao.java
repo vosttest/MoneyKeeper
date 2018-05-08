@@ -15,6 +15,6 @@ public interface AccountDao extends CrudRepository<Account, Integer> {
 	@Query(nativeQuery = true, value = "SELECT MAX(sequence) + 1 as sequence FROM account WHERE user_id = :userId GROUP BY user_id")
 	public int getNextSeq(@Param("userId") int userId);
 
-	@Query("FROM Account a WHERE a.userId = :userId AND a.isDeleted = FALSE AND UPPER(a.text) LIKE CONCAT('%', :keyword, '%'))")
+	@Query(nativeQuery = true, value = "SELECT * FROM account a WHERE a.user_id = :userId AND a.is_deleted = FALSE AND UPPER(a.text) LIKE UPPER(CONCAT('%', :keyword, '%'))")
 	public List<Account> search(@Param("userId") int userId, @Param("keyword") String keyword);
 }
