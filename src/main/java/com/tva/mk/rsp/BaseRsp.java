@@ -1,6 +1,7 @@
 package com.tva.mk.rsp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tva.mk.common.Constants;
 
 public class BaseRsp {
 	// region -- Fields --
@@ -36,12 +37,17 @@ public class BaseRsp {
 	// region -- Methods --
 
 	public BaseRsp() {
-		this.status = "success";
+		this.status = Constants.STATUS_SUCCESS;
 		this.message = "";
 	}
 
 	public BaseRsp(String status, String message) {
 		this.status = status;
+		this.message = message;
+	}
+
+	public void setError(String message) {
+		this.status = Constants.STATUS_ERROR;
 		this.message = message;
 	}
 

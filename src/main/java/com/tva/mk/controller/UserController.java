@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.UserService;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.model.Users;
-import com.tva.mk.req.UserReq;
+import com.tva.mk.req.UserSignInReq;
+import com.tva.mk.req.UserSignUpReq;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -45,20 +46,19 @@ public class UserController {
 	// region -- Methods --
 
 	@PostMapping("/sign-in")
-	public ResponseEntity<?> signIn(@RequestBody UserReq req) {
+	public ResponseEntity<?> signIn(@RequestBody UserSignInReq req) {
 		SingleRsp res = new SingleRsp();
 
 		try {
 			// Get data
-			String email = req.getEmail();
+
 			String userName = req.getUserName();
 			String password = req.getPassword();
 
 			// Handle
-			Users u = userService.getBy(userName, email);
+			Users u = userService.getBy(userName, userName);
 			if (u == null) {
-				res.setStatus("Fail");
-				res.setMessage("Wrong user name or password!");
+				res.setError("Wrong user name or password!");
 			} else {
 				UsernamePasswordAuthenticationToken x;
 				x = new UsernamePasswordAuthenticationToken(userName, password);
@@ -72,18 +72,16 @@ public class UserController {
 				res.setResult(token);
 			}
 		} catch (AuthenticationException e) {
-			res.setStatus("Fail");
-			res.setMessage("Unauthorized/Invalid user name/email or password!");
+			res.setError("Unauthorized/Invalid user name/email or password!");
 		} catch (Exception ex) {
-			res.setStatus("Fail");
-			res.setMessage(ex.getMessage());
+			res.setError(ex.getMessage());
 		}
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
 	@PostMapping("/sign-up")
-	public ResponseEntity<?> signUp(@RequestBody UserReq req) {
+	public ResponseEntity<?> signUp(@RequestBody UserSignUpReq req) {
 		SingleRsp res = new SingleRsp();
 
 		try {
@@ -117,12 +115,10 @@ public class UserController {
 				// Set Data
 				res.setResult(token);
 			} else {
-				res.setStatus("Fail");
-				res.setMessage("User name or email have already registed!");
+				res.setError("User name or email have already registed!");
 			}
 		} catch (Exception ex) {
-			res.setStatus("Fail");
-			res.setMessage(ex.getMessage());
+			res.setError(ex.getMessage());
 		}
 
 		return new ResponseEntity<>(res, HttpStatus.OK);

@@ -10,4 +10,8 @@ public class Constants {
 	public static final String HEADER_STRING = "Authorization";
 
 	public static final String ROLE_ADMIN = "Admin";
+
+	public static final String STATUS_SUCCESS = "success";
+
+	public static final String STATUS_ERROR = "error";
 }
