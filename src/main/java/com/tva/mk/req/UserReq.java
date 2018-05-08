@@ -26,8 +26,8 @@ public class UserReq {
 	@JsonProperty(value = "contactNo")
 	private String contactNo;
 
-	@JsonProperty(value = "remark")
-	private String remark;
+	@JsonProperty(value = "remarks")
+	private String remarks;
 
 	// end
 
@@ -89,12 +89,12 @@ public class UserReq {
 		this.contactNo = contactNo;
 	}
 
-	public String getRemark() {
-		return remark;
+	public String getRemarks() {
+		return remarks;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	// end

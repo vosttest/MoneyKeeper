@@ -28,7 +28,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	// region -- Fields --
 
-	@Resource(name = "usersService")
+	@Resource(name = "userService")
 	private UserDetailsService userDetailsService;
 
 	@Autowired
@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers("/", "/users/signIn", "/users/signUp", "/swagger-ui.html").permitAll().anyRequest()
+				.antMatchers("/", "/user/sign-in", "/user/sign-up", "/swagger-ui.html").permitAll().anyRequest()
 				.authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

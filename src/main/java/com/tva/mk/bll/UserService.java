@@ -1,5 +1,6 @@
 package com.tva.mk.bll;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,7 @@ public class UserService implements UserDetailsService {
 	// region -- Fields --
 
 	@Autowired
-	private UserDao dao;
+	private UserDao userDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -38,7 +39,7 @@ public class UserService implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-		Users u = dao.getUsersByUserName(userName);
+		Users u = userDao.getBy(userName);
 
 		if (u == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
@@ -60,42 +61,64 @@ public class UserService implements UserDetailsService {
 		return roles.stream().map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
 	}
 
-	public Users getUsersByUserNameOrEmailOrAccountNo(String userName, String email, String accountNo) {
-		Users u = dao.getUsersByUserNameOrEmailOrAccountNo(userName, email, accountNo);
-		return u;
+	public Users getBy(int id) {
+		Users res = userDao.getBy(id);
+		return res;
 	}
 
-	public Users getUsersById(int id) {
-		Users u = dao.getUsersById(id);
-		return u;
+	public Users getBy(String userName, String email) {
+		Users res = userDao.getBy(userName, email);
+		return res;
 	}
 
-	public String save(Users newU) {
-		Users tmp;
-		if (newU.getId() == null) {
-			tmp = dao.checkUsersByUserNameOrEmail(newU.getUserName(), newU.getEmail());
-			if (tmp != null) {
-				return null;
+	public String save(Users m) {
+		String res = "";
+
+		Integer id = m.getId();
+		String userName = m.getUserName();
+		String email = m.getEmail();
+
+		Users m1;
+		if (id == null || id == 0) {
+			m1 = userDao.getBy(userName, email);
+			if (m1 != null) {
+				res = "Duplicate data";
+			} else {
+				m.setStatus("ACT");
+				m.setIsEmailVerified(false);
+				m.setFailedAuthAttempts(0);
+				m.setIsLocked(false);
+				m.setIsDeleted(false);
+				m.setCreateBy(1);
+				m.setCreateOn(new Date());
+
+				m1 = userDao.save(m);
 			}
-			tmp = dao.save(newU);
 		} else {
-			tmp = dao.getUsersById(newU.getId());
-			if (tmp == null) {
-				return null;
+			m1 = userDao.getBy(id);
+			if (m1 == null) {
+				res = "Id does not exist";
+			} else {
+				m.setModifyBy(1);
+				m.setModifyOn(new Date());
+
+				m1 = entityManager.merge(m);
 			}
-			tmp = entityManager.merge(newU);
 		}
-		return tmp.getId().toString();
+
+		return res;
 	}
 
 	public String delete(int id) {
-		Users tmp = dao.getUsersById(id);
-		if (tmp != null) {
-			tmp.setStatus("DEA");
-			tmp = entityManager.merge(tmp);
-			return tmp.getId().toString();
+		String res = "";
+
+		Users m = userDao.getBy(id);
+		if (m != null) {
+			m.setIsDeleted(true);
+			userDao.save(m);
 		}
-		return null;
+
+		return res;
 	}
 
 	// end

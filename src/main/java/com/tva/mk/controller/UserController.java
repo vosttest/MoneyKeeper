@@ -1,6 +1,5 @@
 package com.tva.mk.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,23 +46,22 @@ public class UserController {
 
 	@PostMapping("/sign-in")
 	public ResponseEntity<?> signIn(@RequestBody UserReq req) {
-		SingleRsp rsp = new SingleRsp();
+		SingleRsp res = new SingleRsp();
 
 		try {
 			// Get data
 			String email = req.getEmail();
-			String accountNo = req.getAccountNo();
 			String userName = req.getUserName();
 			String password = req.getPassword();
 
 			// Handle
-			Users u = userService.getUsersByUserNameOrEmailOrAccountNo(userName, email, accountNo);
+			Users u = userService.getBy(userName, email);
 			if (u == null) {
-				rsp.setStatus("Fail");
-				rsp.setMessage("Wrong user name or password!");
+				res.setStatus("Fail");
+				res.setMessage("Wrong user name or password!");
 			} else {
-				UsernamePasswordAuthenticationToken x = new UsernamePasswordAuthenticationToken(u.getUserName(),
-						password);
+				UsernamePasswordAuthenticationToken x;
+				x = new UsernamePasswordAuthenticationToken(userName, password);
 				Authentication y = authenticationManager.authenticate(x);
 				SecurityContextHolder.getContext().setAuthentication(y);
 
@@ -71,64 +69,63 @@ public class UserController {
 				String token = jwtTokenUtil.doGenerateToken(u, z);
 
 				// Set data
-				rsp.setResult(token);
+				res.setResult(token);
 			}
 		} catch (AuthenticationException e) {
-			rsp.setStatus("Fail");
-			rsp.setMessage("Unauthorized / Invalid user name/email/account no or password!");
+			res.setStatus("Fail");
+			res.setMessage("Unauthorized/Invalid user name/email or password!");
 		} catch (Exception ex) {
-			rsp.setStatus("Fail");
-			rsp.setMessage(ex.getMessage());
+			res.setStatus("Fail");
+			res.setMessage(ex.getMessage());
 		}
 
-		return new ResponseEntity<>(rsp, HttpStatus.OK);
+		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
 	@PostMapping("/sign-up")
 	public ResponseEntity<?> signUp(@RequestBody UserReq req) {
-		SingleRsp rsp = new SingleRsp();
+		SingleRsp res = new SingleRsp();
 
-		// Get data
-		String userName = req.getUserName();
-		String password = req.getPassword();
-		String passwordHash = bCryptPasswordEncoder.encode(password);
-		String firstName = req.getFirstName();
-		String lastName = req.getLastName();
-		String email = req.getEmail();
-		String contactNo = req.getContactNo();
-		String remark = req.getRemark();
+		try {
+			// Get data
+			String userName = req.getUserName();
+			String password = req.getPassword();
+			password = bCryptPasswordEncoder.encode(password);
+			String firstName = req.getFirstName();
+			String lastName = req.getLastName();
+			String email = req.getEmail();
+			String contactNo = req.getContactNo();
+			String remarks = req.getRemarks();
 
-		// Handle
-		Users u = new Users();
-		u.setContactNo(contactNo);
-		u.setEmail(email);
-		u.setFirstName(firstName);
-		u.setLastName(lastName);
-		u.setPasswordHash(passwordHash);
-		u.setUserName(userName);
-		u.setRemarks(remark);
-		u.setIsEmailVerified(false);
-		u.setStatus("ACT");
-		u.setFailedAuthAttempts(0);
-		u.setIsLocked(false);
-		u.setIsDeleted(false);
-		u.setCreateBy(0);
-		u.setCreateOn(new Date());
-		u.setModifyBy(0);
-		u.setModifyOn(new Date());
-		String tmp = userService.save(u);
+			// Convert data
+			Users m = new Users();
+			m.setContactNo(contactNo);
+			m.setEmail(email);
+			m.setFirstName(firstName);
+			m.setLastName(lastName);
+			m.setPasswordHash(password);
+			m.setUserName(userName);
+			m.setRemarks(remarks);
 
-		if (tmp == null) {
-			rsp.setStatus("Fail");
-			rsp.setMessage("User name or email have already registed!");
-		} else {
-			List<SimpleGrantedAuthority> z = userService.getRole(u.getId());
-			String token = jwtTokenUtil.doGenerateToken(u, z);
+			// Handle
+			String tmp = userService.save(m);
 
-			// Set Data
-			rsp.setResult(token);
+			if (tmp.isEmpty()) {
+				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+				String token = jwtTokenUtil.doGenerateToken(m, z);
+
+				// Set Data
+				res.setResult(token);
+			} else {
+				res.setStatus("Fail");
+				res.setMessage("User name or email have already registed!");
+			}
+		} catch (Exception ex) {
+			res.setStatus("Fail");
+			res.setMessage(ex.getMessage());
 		}
-		return new ResponseEntity<>(rsp, HttpStatus.OK);
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
 	// end
