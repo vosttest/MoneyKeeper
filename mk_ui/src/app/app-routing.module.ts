@@ -7,11 +7,12 @@ import { SignUpComponent } from './views/sign-up/sign-up.component';
 const routes: Routes = [
     { path: '', redirectTo: 'signIn', pathMatch: 'full' },
     { path: 'signIn', component: SignInComponent },
-    { path: 'signUp', component: SignUpComponent }
+    { path: 'signUp', component: SignUpComponent },
+    { path: '**', redirectTo: 'signIn', pathMatch: 'full' }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
+    imports: [RouterModule.forRoot(routes, {useHash: true})],
     exports: [RouterModule]
 })
 

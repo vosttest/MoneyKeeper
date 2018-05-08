@@ -11,6 +11,24 @@
     <button type="submit" class="btn btn-primary">SIGN IN</button><br/>
     <div class="row">
         <div class="col-md-6"><button type="submit" class="btn btn-primary" routerLink="/signUp" value="">SIGN UP</button></div>
-        <div class="col-md-6"> <button type="submit" class="btn btn-primary"><a routerLink="/#" style="color: #fff">FORGOT PASSWORD?</a></button></div>
+        <div class="col-md-6"><button type="submit" class="btn btn-primary"><a routerLink="/#" style="color: #fff">FORGOT PASSWORD?</a></button></div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="gSignInWrapper" (click)="signIn('google')">
+                <div id="customBtn" class="customGPlusSignIn">
+                    <span class="iconG"></span>
+                    <span class="buttonText">Sign in Google</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div id="gSignInWrapper" (click)="signIn('google')">
+                <div id="customBtn" class="customFacebookSignIn">
+                    <span class="iconF"></span>
+                    <span class="buttonText">Sign in Facebook</span>
+                </div>
+            </div>
+        </div>
     </div>
 </form>
