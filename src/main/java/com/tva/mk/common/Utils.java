@@ -52,9 +52,11 @@ public class Utils {
 	public static PayloadDto getTokenInfor(HttpHeaders header) {
 		String token = header.get(HEADER_STRING).get(0);
 		token = token.replace(TOKEN_PREFIX, "");
+
 		JwtParser x = Jwts.parser().setSigningKey(SIGNING_KEY);
 		Claims y = x.parseClaimsJws(token).getBody();
 		Object z = y.get("user");
+
 		ObjectMapper mapper = new ObjectMapper();
 		PayloadDto res = mapper.convertValue(z, PayloadDto.class);
 		return res;

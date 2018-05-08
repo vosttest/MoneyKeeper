@@ -23,7 +23,6 @@
         "@angular/platform-browser-dynamic": "^5.2.0",
         "@angular/router": "^5.2.0",
         "angular2-jwt": "^0.2.3",
-        "angular5-social-login": "^1.0.9",
         "core-js": "^2.4.1",
         "jsencrypt": "^2.3.1",
         "rxjs": "^5.5.6",
