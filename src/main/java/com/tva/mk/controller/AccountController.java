@@ -1,7 +1,5 @@
 package com.tva.mk.controller;
 
-import static com.tva.mk.common.Constants.HEADER_STRING;
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.AccountService;
 import com.tva.mk.common.Utils;
+import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Account;
 import com.tva.mk.req.BaseReq;
 import com.tva.mk.rsp.SingleRsp;
@@ -26,28 +25,33 @@ public class AccountController {
 	// region -- Fields --
 
 	@Autowired
-	private AccountService ser;
+	private AccountService accountService;
 
 	// end
 
 	// region -- Methods --
 
-	@PostMapping("")
-	public ResponseEntity<?> searchAccount(@RequestHeader HttpHeaders header, @RequestBody BaseReq req) {
-		SingleRsp rsp = new SingleRsp();
+	@PostMapping("/search")
+	public ResponseEntity<?> search(@RequestHeader HttpHeaders header, @RequestBody BaseReq req) {
+		SingleRsp res = new SingleRsp();
 
-		// Get data
-		String keyWord = req.getKeyword();
-		String token = header.get(HEADER_STRING).get(0);
-		int userId = Utils.getUserIdFromToken(token);
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
 
-		// Handle
-		List<Account> res = ser.searchAccountBelongToUserId(userId, keyWord);
+			// Get data
+			String keyword = req.getKeyword();
 
-		// Set data
-		rsp.setResult(res);
+			// Handle
+			List<Account> tmp = accountService.search(id, keyword);
 
-		return new ResponseEntity<>(rsp, HttpStatus.OK);
+			// Set data
+			res.setResult(tmp);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
 	// end

@@ -1,5 +1,6 @@
 package com.tva.mk.bll;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,13 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tva.mk.dal.AccountDao;
 import com.tva.mk.model.Account;
 
-@Service
+@Service(value = "accountService")
 @Transactional
 public class AccountService {
 	// region -- Fields --
 
 	@Autowired
-	private AccountDao dao;
+	private AccountDao accountDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -27,35 +28,61 @@ public class AccountService {
 
 	// region -- Methods --
 
-	public List<Account> searchAccountBelongToUserId(int userId, String keyWord) {
-		List<Account> tmp = dao.searchAccountBelongToUserId(userId, keyWord);
+	/**
+	 * Search by user id with keyword
+	 * 
+	 * @param id
+	 *            User id
+	 * @param keyword
+	 * @return
+	 */
+	public List<Account> search(int id, String keyword) {
+		List<Account> tmp = accountDao.search(id, keyword);
 		return tmp;
 	}
 
-	public String save(Account newA) {
-		Account tmp;
-		if (newA.getId() == null) {
-			int tmp2 = dao.getSequenceByUserId(newA.getUserId());
-			newA.setSequence(tmp2);
-			tmp = dao.save(newA);
+	public String save(Account m) {
+		String res = "";
+
+		Integer id = m.getId();
+		int userId = m.getUserId();
+
+		Account m1;
+		if (id == null || id == 0) {
+			int sequence = accountDao.getNextSeq(userId);
+			m.setSequence(sequence);
+
+			m.setIsDeleted(false);
+			m.setCreateBy(1);
+			m.setCreateOn(new Date());
+
+			m1 = accountDao.save(m);
+
 		} else {
-			tmp = dao.getAccountById(newA.getId());
-			if (tmp == null) {
-				return null;
+			m1 = accountDao.getBy(id);
+			if (m1 == null) {
+				res = "Id does not exist";
+			} else {
+				m.setModifyBy(1);
+				m.setModifyOn(new Date());
+
+				m1 = entityManager.merge(m);
 			}
-			tmp = entityManager.merge(newA);
 		}
-		return tmp.getId().toString();
+
+		return res;
 	}
 
 	public String delete(int id) {
-		Account tmp = dao.getAccountById(id);
-		if (tmp != null) {
-			tmp.setIsDeleted(true);
-			tmp = entityManager.merge(tmp);
-			return tmp.getId().toString();
+		String res = "";
+
+		Account m = accountDao.getBy(id);
+		if (m != null) {
+			m.setIsDeleted(true);
+			accountDao.save(m);
 		}
-		return null;
+
+		return res;
 	}
 
 	// end

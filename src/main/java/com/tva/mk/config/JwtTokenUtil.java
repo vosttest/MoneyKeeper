@@ -66,17 +66,17 @@ public class JwtTokenUtil implements Serializable {
 		return expiration.before(new Date());
 	}
 
-	private PayloadDto getPayload(Users user) {
+	private PayloadDto getPayload(Users m) {
 		PayloadDto res = new PayloadDto();
 
-		res.setId(user.getId());
-		res.setFirstName(user.getFirstName());
-		res.setLastName(user.getLastName());
-		res.setEmail(user.getEmail());
-		res.setContactNo(user.getContactNo());
-		res.setAccountNo(user.getAccountNo());
-		res.setUserName(user.getUserName());
-		res.setRemark(user.getRemarks());
+		res.setId(m.getId());
+		res.setFirstName(m.getFirstName());
+		res.setLastName(m.getLastName());
+		res.setEmail(m.getEmail());
+		res.setContactNo(m.getContactNo());
+		res.setAccountNo(m.getAccountNo());
+		res.setUserName(m.getUserName());
+		res.setRemarks(m.getRemarks());
 
 		return res;
 	}

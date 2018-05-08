@@ -17,7 +17,7 @@ public class PayloadDto {
 
 	private String contactNo;
 
-	private String remark;
+	private String remarks;
 
 	// end
 
@@ -79,12 +79,12 @@ public class PayloadDto {
 		this.contactNo = contactNo;
 	}
 
-	public String getRemark() {
-		return remark;
+	public String getRemarks() {
+		return remarks;
 	}
 
-	public void setRemark(String remark) {
-		this.remark = remark;
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
 	}
 
 	// end
