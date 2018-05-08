@@ -5,6 +5,7 @@ CREATE TABLE PUBLIC."account"
 	"code"					VARCHAR(64),
 	"text"					VARCHAR(128),
 	"description"			VARCHAR(256),
+	"balance"				FLOAT8,
 	"sequence"				INT4,
 	"parent_id"				INT4,
 	"user_id"				INT4,

@@ -32,6 +32,9 @@ public class Account {
 	@Column(columnDefinition = "varchar(256)")
 	private String description;
 
+	@Column(columnDefinition = "float")
+	private Float balance;
+
 	@Column(columnDefinition = "integer")
 	private Integer sequence;
 
@@ -92,6 +95,14 @@ public class Account {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Float getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Float balance) {
+		this.balance = balance;
 	}
 
 	public Integer getSequence() {
