@@ -27,6 +27,7 @@ import { ManageAccountEditComponent } from './views/manage-account-edit/manage-a
         AppComponent,
         SignInComponent,
         SignUpComponent,
+        CategoryComponent,
         ManageAccountComponent,
         ManageAccountAddComponent,
         ManageAccountEditComponent
