@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tva.mk.bll.UsersService;
+import com.tva.mk.bll.UserService;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.UserReq;
@@ -30,7 +30,7 @@ public class UserController {
 	// region -- Fields --
 
 	@Autowired
-	private UsersService usersService;
+	private UserService userService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -57,7 +57,7 @@ public class UserController {
 			String password = req.getPassword();
 
 			// Handle
-			Users u = usersService.getUsersByUserNameOrEmailOrAccountNo(userName, email, accountNo);
+			Users u = userService.getUsersByUserNameOrEmailOrAccountNo(userName, email, accountNo);
 			if (u == null) {
 				rsp.setStatus("Fail");
 				rsp.setMessage("Wrong user name or password!");
@@ -67,7 +67,7 @@ public class UserController {
 				Authentication y = authenticationManager.authenticate(x);
 				SecurityContextHolder.getContext().setAuthentication(y);
 
-				List<SimpleGrantedAuthority> z = usersService.getRole(u.getId());
+				List<SimpleGrantedAuthority> z = userService.getRole(u.getId());
 				String token = jwtTokenUtil.doGenerateToken(u, z);
 
 				// Set data
@@ -116,13 +116,13 @@ public class UserController {
 		u.setCreateOn(new Date());
 		u.setModifyBy(0);
 		u.setModifyOn(new Date());
-		String tmp = usersService.save(u);
+		String tmp = userService.save(u);
 
 		if (tmp == null) {
 			rsp.setStatus("Fail");
 			rsp.setMessage("User name or email have already registed!");
 		} else {
-			List<SimpleGrantedAuthority> z = usersService.getRole(u.getId());
+			List<SimpleGrantedAuthority> z = userService.getRole(u.getId());
 			String token = jwtTokenUtil.doGenerateToken(u, z);
 
 			// Set Data

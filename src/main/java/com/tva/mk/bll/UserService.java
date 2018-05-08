@@ -18,9 +18,9 @@ import com.tva.mk.dal.RoleDao;
 import com.tva.mk.dal.UserDao;
 import com.tva.mk.model.Users;
 
-@Service(value = "usersService")
+@Service(value = "userService")
 @Transactional
-public class UsersService implements UserDetailsService {
+public class UserService implements UserDetailsService {
 	// region -- Fields --
 
 	@Autowired
@@ -30,7 +30,7 @@ public class UsersService implements UserDetailsService {
 	private EntityManager entityManager;
 
 	@Autowired
-	private RoleDao daoRole;
+	private RoleDao roleDao;
 
 	// end
 
@@ -44,14 +44,14 @@ public class UsersService implements UserDetailsService {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
 
-		List<String> roles = daoRole.getRoleByUserId(u.getId());
+		List<String> roles = roleDao.getRoleByUserId(u.getId());
 		String hash = u.getPasswordHash();
 
 		return new org.springframework.security.core.userdetails.User(userName, hash, getAuthority(roles));
 	}
 
 	public List<SimpleGrantedAuthority> getRole(int id) {
-		List<String> roles = daoRole.getRoleByUserId(id);
+		List<String> roles = roleDao.getRoleByUserId(id);
 		List<SimpleGrantedAuthority> res = getAuthority(roles);
 		return res;
 	}
