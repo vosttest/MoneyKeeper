@@ -35,7 +35,7 @@ import { CategoryComponent } from './views/category/category.component';
     providers: [
         ApiProvider,
         UserProvider,
-        RsaService]
+        RsaService],
     bootstrap: [AppComponent]
 })
 
