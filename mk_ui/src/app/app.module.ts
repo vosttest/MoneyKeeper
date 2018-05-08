@@ -40,7 +40,7 @@ import { ManageAccountEditComponent } from './views/manage-account-edit/manage-a
     providers: [
         ApiProvider,
         UserProvider,
-        RsaService,
+        RsaService],
     bootstrap: [AppComponent]
 })
 
