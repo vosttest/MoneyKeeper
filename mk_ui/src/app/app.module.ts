@@ -9,7 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import {
     ApiProvider,
     UserProvider,
-    CommonProvider
+    CommonProvider,
+    ExpenseProvider
 } from './providers/providers';
 
 // Import utilities
@@ -47,6 +48,7 @@ import { IncomeProvider } from './providers/income';
     providers: [
         ApiProvider,
         UserProvider,
+        ExpenseProvider,
         CommonProvider,
         IncomeProvider,
         RsaService],
