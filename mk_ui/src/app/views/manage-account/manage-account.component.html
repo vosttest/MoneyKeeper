@@ -20,7 +20,7 @@
                 <h2>Accounts</h2>
             </div>
             <div class="col-md-4">
-                <button id="add"><a routerLink="/addAcc">Add</a></button>
+                <button id="add"><a routerLink="/add-acc">Add</a></button>
             </div>
         </div>
         <div class="row">
@@ -29,7 +29,7 @@
                     <li class="list-group-item" *ngFor="let a of account">
                         <div class="acc left"> {{ a.name }}</div>
                         <div class="acc right"> Balance:
-                            <button><a routerLink="/editAcc">Edit</a></button>
+                            <button><a routerLink="/edit-acc">Edit</a></button>
                         </div>
                     </li>
                 </ul>

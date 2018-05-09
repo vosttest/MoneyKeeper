@@ -19,3 +19,15 @@ button.btn-primary {
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
+
+input[type=number] {
+    text-align: right;
+}
+
+select {
+    text-align-last: right;
+}
+
+input[type=text] {
+    text-align: right;
+}
