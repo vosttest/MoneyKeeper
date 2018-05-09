@@ -20,8 +20,8 @@ export class SignUpComponent implements OnInit {
         this.loader = true;
 
         this.pro.signUp(this.vm).subscribe((rsp: any) => {
-            console.log(rsp);
             if (rsp.status === 'success') {
+                this.message = '';
                 this.pro.saveAuth(rsp.result);
             } else {
                 this.message = rsp.message;

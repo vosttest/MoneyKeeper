@@ -1,7 +1,7 @@
-<h1>Money Keeper</h1>
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
+        <h1 class="text-center">Money Keeper</h1>
         <form class="sign-in" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signIn()">
             <div class="form-group">
                 <label for="userName">Email address</label>
@@ -10,6 +10,9 @@
             <div class="form-group">
                 <label for="password">Password</label>
                 <input id="password" name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" placeholder="Password">
+            </div>
+            <div *ngIf="message != ''" class="form-group">
+                <label>{{message}}</label>
             </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary full-width">SIGN IN</button>

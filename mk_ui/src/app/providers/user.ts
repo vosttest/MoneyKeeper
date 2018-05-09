@@ -111,6 +111,7 @@ export class UserProvider {
         });
 
         if (redirect) {
+            this.rou.navigate(['/account']);
             //this.checkRedirect(t.user.accessrights);
         }
     }
