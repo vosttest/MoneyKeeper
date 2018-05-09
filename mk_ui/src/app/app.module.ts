@@ -21,6 +21,7 @@ import { CategoryComponent } from './views/category/category.component';
 import { ManageAccountComponent } from './views/manage-account/manage-account.component';
 import { ManageAccountAddComponent } from './views/manage-account-add/manage-account-add.component';
 import { ManageAccountEditComponent } from './views/manage-account-edit/manage-account-edit.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
     declarations: [
@@ -36,7 +37,8 @@ import { ManageAccountEditComponent } from './views/manage-account-edit/manage-a
         BrowserModule,
         HttpClientModule,
         FormsModule,
-        AppRoutingModule
+        AppRoutingModule,
+        BsDatepickerModule.forRoot()
     ],
     providers: [
         ApiProvider,

@@ -4,59 +4,81 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <input type="text" class="form-control" placeholder="Name">
+            <hr>
         </div>
         <div class="form-group col-md-6">
             <select id="inputState" class="form-control">
-                <option selected>Type</option>
-                <option>...</option>
+                    <option selected>Type</option>
+                    <option>...</option>
             </select>
+            <hr>
         </div>
     </div>
     <div class="form-group">
         <select id="inputState" class="form-control">
-            <option selected>Currency</option>
-            <option>...</option>
+                <option selected>Currency</option>
+                <option>...</option>
         </select>
+        <hr>
     </div>
     <div class="form-group">
         <input type="number" class="form-control" placeholder="Initial Balance" min="0">
+        <hr>
     </div>
     <div class="form-group">
         <input type="number" class="form-control" placeholder="Credit Limit" min="0">
+        <hr>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" [bsConfig]="{showWeekNumbers: false,dateInputFormat:'DD-MMM-YYYY HH:mm'}" bsDatepicker [(bsValue)]="startDate" value="{{startDate | date:'dd-MMM-yyyy'}}"
+                placeholder="Start Date">
+            <hr>
+        </div>
+        <div class="form-group col-md-6">
+            <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" [bsConfig]="{showWeekNumbers: false,dateInputFormat:'DD-MMM-YYYY HH:mm'}" bsDatepicker [(bsValue)]="endDate" value="{{endDate | date:'dd-MMM-yyyy'}}" placeholder="End Date">
+            <hr>
+        </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <select id="inputState" class="form-control">
-                <option selected>Term</option>
-                <option>...</option>
+                    <option selected>Term</option>
+                    <option>...</option>
             </select>
+            <hr>
         </div>
         <div class="form-group col-md-6">
             <input type="text" class="form-control" placeholder="Interest rate">
+            <hr>
         </div>
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
             <select id="inputState" class="form-control">
-                <option selected>Interest paid</option>
-                <option>...</option>
+                    <option selected>Interest paid</option>
+                    <option>...</option>
             </select>
+            <hr>
         </div>
         <div class="form-group col-md-6">
             <select id="inputState" class="form-control">
-                <option selected>Term end</option>
-                <option>...</option>
+                    <option selected>Term end</option>
+                    <option>...</option>
             </select>
+            <hr>
         </div>
     </div>
     <div class="form-group">
         <select id="inputState" class="form-control">
-            <option selected>Transfer money from account</option>
-            <option>...</option>
+                <option selected>Transfer money from account</option>
+                <option>...</option>
         </select>
+        <hr>
     </div>
     <div class="form-group">
-        <textarea class="form-control" rows="4" placeholder="Description"></textarea>
+        <textarea class="form-control" rows="2" placeholder="Description"></textarea>
+        <hr>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>
 </form>
