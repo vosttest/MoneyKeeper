@@ -1,11 +1,13 @@
 import { ApiProvider } from './api';
-import { UserProvider } from './user';
 import { CommonProvider } from './common';
 import { ExpenseProvider } from './expense';
+import { IncomeProvider } from './income';
+import { UserProvider } from './user';
 
 export {
     ApiProvider,
-    UserProvider,
     CommonProvider,
-    ExpenseProvider
+    ExpenseProvider,
+    IncomeProvider,
+    UserProvider
 };

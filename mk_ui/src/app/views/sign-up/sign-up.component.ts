@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProvider } from '../../providers/providers';
+import { UserProvider } from '../../providers/provider';
 
 @Component({
     selector: 'app-sign-up',
@@ -21,8 +21,8 @@ export class SignUpComponent implements OnInit {
 
         this.pro.signUp(this.vm).subscribe((rsp: any) => {
             console.log(rsp);
-            if (rsp.callstatus === 'success') {
-                this.pro.saveAuth(rsp.authtoken);
+            if (rsp.status === 'success') {
+                this.pro.saveAuth(rsp.result);
             } else {
                 this.message = rsp.message;
             }

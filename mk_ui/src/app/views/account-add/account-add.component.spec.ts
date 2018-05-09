@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ManageAccountAddComponent } from './manage-account-add.component';
+import { AccountAddComponent } from './account-add.component';
 
-describe('ManageAccountAddComponent', () => {
-    let component: ManageAccountAddComponent;
-    let fixture: ComponentFixture<ManageAccountAddComponent>;
+describe('AccountAddComponent', () => {
+    let component: AccountAddComponent;
+    let fixture: ComponentFixture<AccountAddComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ManageAccountAddComponent]
+            declarations: [AccountAddComponent]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ManageAccountAddComponent);
+        fixture = TestBed.createComponent(AccountAddComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -7,14 +7,6 @@ export class ExpenseProvider {
     constructor(private api: ApiProvider) { }
 
     /**
-    * Handle error
-    * @param error
-    */
-    public handleError(error: any) {
-        return 'Error message';
-    }
-
-    /**
      * Search
      */
     public search() {

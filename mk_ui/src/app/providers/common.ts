@@ -7,15 +7,8 @@ export class CommonProvider {
     constructor(private api: ApiProvider) { }
 
     /**
-    * Handle error
-    * @param error
-    */
-    public handleError(error: any) {
-        return 'Error message';
-    }
-
-    /**
-     * Get list common
+     * Search by
+     * @param type
      */
     public search(type: string) {
         let x = {

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ApiProvider } from './api';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Rx';
-import { RsaService } from '../utils';
+import { RsaService } from './../utilities/utility';
 
 @Injectable()
 export class UserProvider {
@@ -14,21 +14,6 @@ export class UserProvider {
     constructor(private api: ApiProvider,
         private rou: Router,
         private rsa: RsaService) { }
-
-    /**
-     * Get API URL
-     */
-    public getURL() {
-        return this.api.apiUrl + '/';
-    }
-
-    /**
-    * Handle error
-    * @param error
-    */
-    public handleError(error: any) {
-        return 'Error message';
-    }
 
     /**
      * Sign up
@@ -126,7 +111,7 @@ export class UserProvider {
         });
 
         if (redirect) {
-            this.checkRedirect(t.user.accessrights);
+            //this.checkRedirect(t.user.accessrights);
         }
     }
 

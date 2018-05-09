@@ -12,6 +12,7 @@ import { JwtHelper } from 'angular2-jwt';
 export class ApiProvider {
     public apiUrl = '';
     public imgUrl = '';
+
     public allowLogout = true;
     public nextRun: Date;
     public milliseconds = 0;
@@ -198,7 +199,7 @@ export class ApiProvider {
                 let info = { 'token': json.token };
 
                 this.posty('user/refresh-token', info).subscribe((rsp: any) => {
-                    if (rsp.callstatus === 'success') {
+                    if (rsp.status === 'success') {
                         this.saveToken(rsp.authtoken);
                     }
                     else {

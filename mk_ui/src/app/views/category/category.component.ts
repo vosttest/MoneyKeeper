@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserProvider } from '../../providers/providers';
-import { IncomeProvider } from '../../providers/income';
-import { ExpenseProvider } from '../../providers/expense';
+import {
+    UserProvider,
+    IncomeProvider,
+    ExpenseProvider
+} from '../../providers/provider';
 
 @Component({
     selector: 'app-category',
@@ -10,23 +12,25 @@ import { ExpenseProvider } from '../../providers/expense';
 })
 
 export class CategoryComponent implements OnInit {
-    public ltsParentIncome = [];
+    public lstParentIncome = [];
+    public lstChildIncome = [];
+
     public lstParentExpense = [];
     public lstChildExpense = [];
 
-    constructor(private pro: IncomeProvider,
+    constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider) { }
 
     ngOnInit() {
-        this.search();
-        this.loadParentExpense();
+        this.searchIncome();
+        this.searchExpense();
     }
 
-    public search() {
-        this.pro.search().subscribe((rsp: any) => {
+    private searchIncome() {
+        this.proIncome.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.ltsParentIncome = rsp.result.parent;
-                console.log(this.ltsParentIncome);
+                this.lstParentIncome = rsp.result.parent;
+                console.log(this.lstParentIncome);
             }
             else {
                 console.log(rsp.message);
@@ -34,7 +38,7 @@ export class CategoryComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public loadParentExpense() {
+    private searchExpense() {
         this.proExpense.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.lstParentExpense = rsp.result.parent;

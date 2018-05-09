@@ -1,29 +1,34 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AccountComponent } from './views/account/account.component';
+import { AccountAddComponent } from './views/account-add/account-add.component';
+import { AccountEditComponent } from './views/account-edit/account-edit.component';
+import { CategoryComponent } from './views/category/category.component';
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
-import { CategoryComponent } from './views/category/category.component';
 import { VoucherComponent } from './views/voucher/voucher.component';
-import { ManageAccountComponent } from './views/manage-account/manage-account.component';
-import { ManageAccountAddComponent } from './views/manage-account-add/manage-account-add.component';
-import { ManageAccountEditComponent } from './views/manage-account-edit/manage-account-edit.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+    { path: 'account', component: AccountComponent },
+    { path: 'account-add', component: AccountAddComponent },
+    { path: 'account-edit', component: AccountEditComponent },
+    { path: 'category', component: CategoryComponent },
     { path: 'sign-in', component: SignInComponent },
     { path: 'sign-up', component: SignUpComponent },
-    { path: 'category', component: CategoryComponent },
-    { path: 'insert-acc', component: ManageAccountComponent },
-    { path: 'add-acc', component: ManageAccountAddComponent },
-    { path: 'edit-acc', component: ManageAccountEditComponent },
     { path: 'voucher', component: VoucherComponent },
     { path: '**', redirectTo: 'sign-in', pathMatch: 'full' },
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes, { useHash: true })],
-    exports: [RouterModule]
+    imports: [
+        CommonModule,
+        RouterModule.forRoot(routes, { useHash: true })
+    ],
+    exports: [RouterModule],
+    declarations: []
 })
 
 export class AppRoutingModule { }

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonProvider } from '../../providers/providers';
+import { CommonProvider } from '../../providers/provider';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 
 @Component({
-    selector: 'app-manage-account-add',
-    templateUrl: './manage-account-add.component.html',
-    styleUrls: ['./manage-account-add.component.css']
+    selector: 'app-account-edit',
+    templateUrl: './account-edit.component.html',
+    styleUrls: ['./account-edit.component.css']
 })
-export class ManageAccountAddComponent implements OnInit {
+
+export class AccountEditComponent implements OnInit {
     public lstType: any[] = [];
     public lstCurrency: any[] = [];
     public lstTerm: any[] = [];
@@ -16,7 +16,7 @@ export class ManageAccountAddComponent implements OnInit {
     public lstTermEnd: any[] = [];
     public selected = '';
 
-    constructor(private proCommon: CommonProvider) { }
+    constructor(private pro: CommonProvider) { }
 
     ngOnInit() {
         this.getType('Account');
@@ -27,7 +27,7 @@ export class ManageAccountAddComponent implements OnInit {
     }
 
     private getType(type: string) {
-        this.proCommon.search(type).subscribe((rsp: any) => {
+        this.pro.search(type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 if (type == 'Account') {
                     this.lstType = rsp.result.data;
@@ -46,7 +46,6 @@ export class ManageAccountAddComponent implements OnInit {
                     console.log(this.lstTermEnd);
                 }
             }
-
-        }, err => this.proCommon.handleError(err));
+        }, err => console.log(err));
     }
 }

@@ -2,56 +2,57 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app-routing.module';
-
 // Import providers
 import {
     ApiProvider,
-    UserProvider,
     CommonProvider,
-    ExpenseProvider
-} from './providers/providers';
+    ExpenseProvider,
+    IncomeProvider,
+    UserProvider
+} from './providers/provider';
 
 // Import utilities
-import { RsaService } from './utils';
+import { RsaService } from './utilities/utility';
 
-import { SignInComponent } from './views/sign-in/sign-in.component';
-import { FormsModule } from '@angular/forms';
-import { SignUpComponent } from './views/sign-up/sign-up.component';
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './/app-routing.module';
+import { AccountComponent } from './views/account/account.component';
+import { AccountAddComponent } from './views/account-add/account-add.component';
+import { AccountEditComponent } from './views/account-edit/account-edit.component';
 import { CategoryComponent } from './views/category/category.component';
-import { ManageAccountComponent } from './views/manage-account/manage-account.component';
-import { ManageAccountAddComponent } from './views/manage-account-add/manage-account-add.component';
-import { ManageAccountEditComponent } from './views/manage-account-edit/manage-account-edit.component';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { SignInComponent } from './views/sign-in/sign-in.component';
+import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { VoucherComponent } from './views/voucher/voucher.component';
-import { IncomeProvider } from './providers/income';
+
+import { FormsModule } from '@angular/forms';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
     declarations: [
         AppComponent,
+        AccountComponent,
+        AccountAddComponent,
+        AccountEditComponent,
+        CategoryComponent,
         SignInComponent,
         SignUpComponent,
-        CategoryComponent,
-        VoucherComponent,
-        ManageAccountComponent,
-        ManageAccountAddComponent,
-        ManageAccountEditComponent
+        VoucherComponent
     ],
     imports: [
         BrowserModule,
+        AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        AppRoutingModule,
         BsDatepickerModule.forRoot()
     ],
     providers: [
         ApiProvider,
-        UserProvider,
-        ExpenseProvider,
         CommonProvider,
+        ExpenseProvider,
         IncomeProvider,
-        RsaService],
+        UserProvider,
+        RsaService
+    ],
     bootstrap: [AppComponent]
 })
 

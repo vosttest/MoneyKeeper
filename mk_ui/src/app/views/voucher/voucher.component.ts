@@ -5,15 +5,13 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './voucher.component.html',
     styleUrls: ['./voucher.component.css']
 })
-export class VoucherComponent implements OnInit {
 
+export class VoucherComponent implements OnInit {
     constructor() { }
 
     ngOnInit() {
         this.testing();
     }
 
-    public testing() {
-        
-    }
+    private testing() { }
 }
