@@ -31,12 +31,11 @@
     </div>
     <div class="form-row">
         <div class="form-group col-md-6">
-            <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" [bsConfig]="{showWeekNumbers: false,dateInputFormat:'DD-MMM-YYYY HH:mm'}" bsDatepicker [(bsValue)]="startDate" value="{{startDate | date:'dd-MMM-yyyy'}}"
-                placeholder="Start Date">
+            <input type="text" class="form-control" #dp="bsDatepicker" [bsConfig]="{showWeekNumbers: false,dateInputFormat:'DD-MMM-YYYY HH:mm'}" bsDatepicker placeholder="Start Date">
             <hr>
         </div>
         <div class="form-group col-md-6">
-            <input type="text" class="form-control" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" [bsConfig]="{showWeekNumbers: false,dateInputFormat:'DD-MMM-YYYY HH:mm'}" bsDatepicker [(bsValue)]="endDate" value="{{endDate | date:'dd-MMM-yyyy'}}" placeholder="End Date">
+            <input type="text" class="form-control" #dp="bsDatepicker" [bsConfig]="{showWeekNumbers: false,dateInputFormat:'DD-MMM-YYYY HH:mm'}" bsDatepicker placeholder="End Date">
             <hr>
         </div>
     </div>
