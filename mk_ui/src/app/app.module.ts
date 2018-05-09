@@ -24,6 +24,7 @@ import { ManageAccountAddComponent } from './views/manage-account-add/manage-acc
 import { ManageAccountEditComponent } from './views/manage-account-edit/manage-account-edit.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { VoucherComponent } from './views/voucher/voucher.component';
+import { IncomeProvider } from './providers/income';
 
 @NgModule({
     declarations: [
@@ -47,6 +48,7 @@ import { VoucherComponent } from './views/voucher/voucher.component';
         ApiProvider,
         UserProvider,
         CommonProvider,
+        IncomeProvider,
         RsaService],
     bootstrap: [AppComponent]
 })
