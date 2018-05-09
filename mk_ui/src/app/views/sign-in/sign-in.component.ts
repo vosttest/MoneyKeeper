@@ -16,7 +16,7 @@ export class SignInComponent implements OnInit {
 
     ngOnInit() { }
 
-    public login() {
+    public signIn() {
         this.loader = true;
 
         this.pro.signIn(this.vm).subscribe((rsp: any) => {
