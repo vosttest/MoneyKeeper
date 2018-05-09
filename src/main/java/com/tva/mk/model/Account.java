@@ -61,6 +61,34 @@ public class Account {
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
+	@Column(columnDefinition = "varchar(64)")
+	private String currency;
+
+	@Column(columnDefinition = "varchar(128)")
+	private String bank;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Date startDate;
+
+	@Column(columnDefinition = "varchar(64)")
+	private String term;
+
+	@Column(columnDefinition = "float")
+	private Float interestRate;
+
+	@Column(columnDefinition = "float")
+	private Float interestRates;
+
+	@Column(columnDefinition = "varchar(64)")
+	private String interestPaid;
+
+	@Column(columnDefinition = "varchar(64)")
+	private String termEnded;
+
+	@Column(columnDefinition = "integer")
+	private Integer fromAccount;
+
 	// end
 
 	// region -- Get set --
@@ -167,6 +195,78 @@ public class Account {
 
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
+	}
+
+	public String getBank() {
+		return bank;
+	}
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getTerm() {
+		return term;
+	}
+
+	public void setTerm(String term) {
+		this.term = term;
+	}
+
+	public Float getInterestRate() {
+		return interestRate;
+	}
+
+	public void setInterestRate(Float interestRate) {
+		this.interestRate = interestRate;
+	}
+
+	public Float getInterestRates() {
+		return interestRates;
+	}
+
+	public void setInterestRates(Float interestRates) {
+		this.interestRates = interestRates;
+	}
+
+	public String getInterestPaid() {
+		return interestPaid;
+	}
+
+	public void setInterestPaid(String interestPaid) {
+		this.interestPaid = interestPaid;
+	}
+
+	public String getTermEnded() {
+		return termEnded;
+	}
+
+	public void setTermEnded(String termEnded) {
+		this.termEnded = termEnded;
+	}
+
+	public Integer getFromAccount() {
+		return fromAccount;
+	}
+
+	public void setFromAccount(Integer fromAccount) {
+		this.fromAccount = fromAccount;
 	}
 
 	// end

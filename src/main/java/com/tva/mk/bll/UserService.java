@@ -85,11 +85,6 @@ public class UserService implements UserDetailsService {
 			if (m1 != null) {
 				res = "Duplicate data";
 			} else {
-				m.setStatus("ACT");
-				m.setIsEmailVerified(false);
-				m.setFailedAuthAttempts(0);
-				m.setIsLocked(false);
-				m.setIsDeleted(false);
 				m.setCreateBy(1);
 				m.setCreateOn(new Date());
 

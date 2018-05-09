@@ -48,7 +48,7 @@ public class Users {
 	private String remarks;
 
 	@Column(columnDefinition = "char(3)")
-	private String status;
+	private String status = "ACT";
 
 	@Type(type = "pg-uuid")
 	private UUID uuid;
@@ -61,7 +61,7 @@ public class Users {
 	private Date eothExpiryOn;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isEmailVerified;
+	private Boolean isEmailVerified = false;
 
 	@Column(columnDefinition = "varchar(256)")
 	private String passwordHash;
@@ -88,7 +88,7 @@ public class Users {
 	private Date lockExpiryOn;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isLocked;
+	private Boolean isLocked = false;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
@@ -99,10 +99,10 @@ public class Users {
 	private Date lastLoginOn;
 
 	@Column(columnDefinition = "integer")
-	private Integer failedAuthAttempts;
+	private Integer failedAuthAttempts = 0;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isDeleted;
+	private Boolean isDeleted = false;
 
 	@Column(columnDefinition = "integer")
 	private Integer createBy;
