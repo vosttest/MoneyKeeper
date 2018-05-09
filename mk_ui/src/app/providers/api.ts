@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { config, environment } from '../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { JwtHelper } from 'angular2-jwt';
-import { config, environment } from '../../environments/environment';
 
 /**
  * API is a generic REST Api handler. Set your API url first.
@@ -49,30 +49,10 @@ export class ApiProvider {
         return this.http.get(this.apiUrl + '/' + endpoint, reqOpts);
     }
 
-    public posty(endpoint: string, body: any, reqOpts?: any) {
-        if (!reqOpts) {
-            let h = new HttpHeaders().set('Authorization', this.getTokeny())
-            h = h.append('Content-Type', 'application/json');
-            reqOpts = { headers: h };
-        }
-
-        return this.http.post(this.apiUrl + '/' + endpoint, body, reqOpts);
-    }
-
-    public postz(endpoint: string, body: any, reqOpts?: any) {
-        if (!reqOpts) {
-            let h = new HttpHeaders().set('Authorization', this.getToken())
-            h = h.append('Content-Type', 'application/json');
-            reqOpts = { headers: h };
-        }
-
-        return this.http.post(this.apiUrl + '/' + endpoint, body, reqOpts);
-    }
-
     public post(endpoint: string, body: any, reqOpts?: any) {
         if (!reqOpts) {
             let h = new HttpHeaders().set('Authorization', this.getToken())
-            h = h.append('Content-Type', 'application/x-www-form-urlencoded');
+            h = h.append('Content-Type', 'application/json');
             reqOpts = { headers: h };
         }
 
@@ -109,7 +89,7 @@ export class ApiProvider {
     }
 
     public getUserId(): string {
-        let t = localStorage.getItem("CURRENT_TOKEN");
+        let t = localStorage.getItem('CURRENT_TOKEN');
         let json = JSON.parse(t);
 
         if (json === null) {
@@ -146,12 +126,8 @@ export class ApiProvider {
             accessRights: t.user.accessrights
         };
 
-        user.avatar = "6.jpg";
-        user.permissions = "admin";
-        user.roles = "full";
-
-        localStorage.removeItem("CURRENT_TOKEN");
-        localStorage.setItem("CURRENT_TOKEN", JSON.stringify(user));
+        localStorage.removeItem('CURRENT_TOKEN');
+        localStorage.setItem('CURRENT_TOKEN', JSON.stringify(user));
 
         // Check token is expired will redirect to sign in page
         let seconds = t.exp - t.iat;
@@ -172,13 +148,13 @@ export class ApiProvider {
     }
 
     private getTokeny(): string {
-        let t = localStorage.getItem("CURRENT_TOKEN");
+        let t = localStorage.getItem('CURRENT_TOKEN');
         let json = JSON.parse(t);
 
         if (json === null) {
-            t = "";
+            t = '';
         } else {
-            t = "Bearer " + json.token;
+            t = 'Bearer ' + json.token;
             let jwt = new JwtHelper();
             let ok = jwt.isTokenExpired(json.token);
             if (ok) {
@@ -189,8 +165,18 @@ export class ApiProvider {
         return t;
     }
 
+    private posty(endpoint: string, body: any, reqOpts?: any) {
+        if (!reqOpts) {
+            let h = new HttpHeaders().set('Authorization', this.getTokeny())
+            h = h.append('Content-Type', 'application/json');
+            reqOpts = { headers: h };
+        }
+
+        return this.http.post(this.apiUrl + '/' + endpoint, body, reqOpts);
+    }
+
     private getToken(): string {
-        let res = localStorage.getItem("CURRENT_TOKEN");
+        let res = localStorage.getItem('CURRENT_TOKEN');
         let json = JSON.parse(res);
 
         if (json === null) {
@@ -200,19 +186,19 @@ export class ApiProvider {
             let ok = jwt.isTokenExpired(json.token);
 
             if (ok) {
-                localStorage.removeItem("CURRENT_TOKEN");
+                localStorage.removeItem('CURRENT_TOKEN');
                 this.rou.navigate(['/']);
             }
 
-            res = "Bearer " + json.token;
+            res = 'Bearer ' + json.token;
             let now = new Date();
 
             if (now > this.nextRun) {
                 this.allowLogout = false;
-                let info = { "authtoken": json.token };
+                let info = { 'token': json.token };
 
-                this.posty('user/refreshtoken', info).subscribe((rsp: any) => {
-                    if (rsp.callstatus == "success") {
+                this.posty('user/refresh-token', info).subscribe((rsp: any) => {
+                    if (rsp.callstatus === 'success') {
                         this.saveToken(rsp.authtoken);
                     }
                     else {

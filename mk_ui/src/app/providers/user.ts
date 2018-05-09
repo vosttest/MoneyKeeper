@@ -19,7 +19,7 @@ export class UserProvider {
      * Get API URL
      */
     public getURL() {
-        return this.api.apiUrl + "/";
+        return this.api.apiUrl + '/';
     }
 
     /**
@@ -27,7 +27,7 @@ export class UserProvider {
     * @param error
     */
     public handleError(error: any) {
-        return "Error message";
+        return 'Error message';
     }
 
     /**
@@ -36,7 +36,7 @@ export class UserProvider {
      */
     public signUp(info: any) {
         //info.password = this.rsa.encrypt(info.password); // encrypt password
-        return this.api.postz('user/sign-up', info);
+        return this.api.post('user/sign-up', info);
     }
 
     /**
@@ -45,7 +45,7 @@ export class UserProvider {
      */
     public signIn(info: any) {
         //info.password = this.rsa.encrypt(info.password); // encrypt password
-        return this.api.postz('user/sign-in', info);
+        return this.api.post('user/sign-in', info);
     }
 
     /**
@@ -54,7 +54,7 @@ export class UserProvider {
     public signOut() {
         this.api.get('user/sign-out').subscribe((rsp: any) => {
         }, err => console.log(err));
-        localStorage.removeItem("CURRENT_TOKEN");
+        localStorage.removeItem('CURRENT_TOKEN');
         this.rou.navigate(['/']);
     }
 
@@ -65,7 +65,7 @@ export class UserProvider {
     public changePassword(info: any) {
         //info.oldpassword = this.rsa.encrypt(info.oldpassword); // encrypt password
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
-        return this.api.postz('user/change-password', info);
+        return this.api.post('user/change-password', info);
     }
 
     /**
@@ -74,7 +74,7 @@ export class UserProvider {
      */
     public resetPassword(info: any) {
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
-        return this.api.postz('user/reset-password', info);
+        return this.api.post('user/reset-password', info);
     }
 
     /**
@@ -83,7 +83,7 @@ export class UserProvider {
      */
     public forgotPassword(info: any) {
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
-        return this.api.postz('user/forgot-password', info);
+        return this.api.post('user/forgot-password', info);
     }
 
     /**
@@ -91,7 +91,7 @@ export class UserProvider {
      * @param info
      */
     public saveUser(info: any) {
-        return this.api.postz('user/save', info);
+        return this.api.post('user/save', info);
     }
 
     /**
@@ -135,24 +135,24 @@ export class UserProvider {
      * @param right
      */
     public checkAccessRights(right: String): boolean {
-        let res: any = JSON.parse(localStorage.getItem("CURRENT_TOKEN"));
+        let res: any = JSON.parse(localStorage.getItem('CURRENT_TOKEN'));
         if (res == null) {
             return false;
         }
 
-        if (right === "/dashboard") {
-            right = "Dashboard"
+        if (right === '/dashboard') {
+            right = 'Dashboard';
         }
 
         let ok = res.accessRights.find(x => x === right);
-        return ok != undefined && ok != "";
+        return ok != undefined && ok != '';
     }
 
     /**
      * Check redirection
      */
     public checkRedirection() {
-        let user = JSON.parse(localStorage.getItem("CURRENT_TOKEN"));
+        let user = JSON.parse(localStorage.getItem('CURRENT_TOKEN'));
         if (user != null) {
             this.checkRedirect(user.accessRights);
         }
@@ -163,8 +163,8 @@ export class UserProvider {
      * @param ar Access rights
      */
     private checkRedirect(ar: any) {
-        let dashboard = ar.find(myObj => myObj == "Dashboard");
-        let report = ar.find(myObj => myObj == "Report");
+        let dashboard = ar.find(myObj => myObj == 'Dashboard');
+        let report = ar.find(myObj => myObj == 'Report');
 
         if (dashboard != undefined) {
             this.rou.navigate(['/dashboard']);
