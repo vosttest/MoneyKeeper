@@ -1,1 +1,69 @@
-<h1>Hello !!!</h1>
+<a data-toggle="pill" href="#" style="float:right;">
+    <h1>+</h1>
+</a>
+<h3 style="margin-bottom: 3%">CATEGORIES</h3>
+<div class="input-group mb-3 nav" style="width: 50%; margin: auto; text-align: center">
+    <a class="form-control" data-toggle="pill" href="#expense">Expense</a>
+    <a class="form-control format-input" data-toggle="pill" href="#income">Income</a>
+</div>
+<div class="tab-content">
+    <div id="expense" class="tab-pane fade">
+        <input class="form-control" type="text" placeholder="Search.." id="myInput">
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Lend
+                          </button>
+                    </h5>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingOne">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="true" aria-controls="collapseOne">
+                                Repayment
+                              </button>
+                    </h5>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="true" aria-controls="collapseOne">
+                                    Food And Dining
+                                  </button>
+                        </h5>
+                    </div>
+                    <div id="collapseOne2" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            <li class="list-group-item">Groceries</li>
+                            <li class="list-group-item">Restaurant</li>
+                            <li class="list-group-item">Bars & Coffee</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="income" class="tab-pane fade">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Borrow  
+                              </button>
+                </h5>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Collecting Debts 
+                                  </button>
+                </h5>
+            </div>
+        </div>
+    </div>
+</div>
