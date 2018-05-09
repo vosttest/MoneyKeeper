@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TreeviewItem } from 'ngx-treeview';
 
 @Component({
     selector: 'app-voucher',
@@ -8,16 +7,6 @@ import { TreeviewItem } from 'ngx-treeview';
 })
 export class VoucherComponent implements OnInit {
 
-    config = {
-        'hasAllCheckBox': false,
-        'hasFilter': true,
-        'hasCollapseExpand': false,
-        'decoupleChildFromParent': false,
-        'maxHeight': 500
-    }
-
-    items: TreeviewItem[];
-
     constructor() { }
 
     ngOnInit() {
@@ -25,8 +14,6 @@ export class VoucherComponent implements OnInit {
     }
 
     public testing() {
-        let l1: any[] = [];
-        let l2: any[] = [];
-        let l3: any[] = [];
+        
     }
 }

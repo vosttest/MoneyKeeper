@@ -18,7 +18,6 @@ export class SignUpComponent implements OnInit {
 
     public signUp() {
         this.loader = true;
-console.log(this.vm);
 
         this.pro.signUp(this.vm).subscribe((rsp: any) => {
             console.log(rsp);

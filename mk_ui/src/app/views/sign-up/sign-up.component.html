@@ -1,5 +1,5 @@
 <h1>Money Keeper</h1>
-<form class="signUp" #f="ngForm" (ngSubmit)="signUp()">
+<form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signUp()">
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -8,6 +8,8 @@
         <label for="exampleInputPassword1">Password</label>
         <input name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
     </div>
-    <button type="submit" class="btn btn-primary" routerLink="#" value="">SIGN UP</button><br/>
-    <button type="submit" class="btn btn-primary" routerLink="/signIn" value="">Already Have an Account?</button>
+    <div class="row">
+        <div class="col-md-6"><button type="submit" class="btn btn-primary" routerLink="/sign-in" value="">SIGN UP</button></div>
+        <div class="col-md-6"><button type="submit" class="btn btn-primary"><a routerLink="/sign-in" style="color: #fff">ALREADY HAVE ACCOUNT</a></button></div>
+    </div>
 </form>

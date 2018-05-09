@@ -1,5 +1,5 @@
 <h1>Money Keeper</h1>
-<form class="signUp" name="form" #f="ngForm" (ngSubmit)="f.form.valid && login()">
+<form class="sign-in" name="form" #f="ngForm" (ngSubmit)="f.form.valid && login()">
     <div class="form-group">
         <label for="exampleInputEmail1">Email address</label>
         <input name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -10,7 +10,7 @@
     </div>
     <button type="submit" class="btn btn-primary">SIGN IN</button><br/>
     <div class="row">
-        <div class="col-md-6"><button type="submit" class="btn btn-primary" routerLink="/signUp" value="">SIGN UP</button></div>
+        <div class="col-md-6"><button type="submit" class="btn btn-primary" routerLink="/sign-up" value="">SIGN UP</button></div>
         <div class="col-md-6"><button type="submit" class="btn btn-primary"><a routerLink="/#" style="color: #fff">FORGOT PASSWORD?</a></button></div>
     </div>
 </form>

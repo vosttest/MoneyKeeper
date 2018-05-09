@@ -23,6 +23,7 @@
             "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
         ],
         "scripts": [
+            "../node_modules/jquery/dist/jquery.min.js",
             "../node_modules/jsencrypt/bin/jsencrypt.min.js",
             "../node_modules/bootstrap/dist/js/bootstrap.min.js"
         ],

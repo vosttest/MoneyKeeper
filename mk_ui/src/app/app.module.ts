@@ -14,7 +14,6 @@ import {
 
 // Import utilities
 import { RsaService } from './utils';
-import { TreeviewModule } from 'ngx-treeview';
 
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
@@ -42,8 +41,7 @@ import { VoucherComponent } from './views/voucher/voucher.component';
         HttpClientModule,
         FormsModule,
         AppRoutingModule,
-        BsDatepickerModule.forRoot(),
-        TreeviewModule.forRoot()
+        BsDatepickerModule.forRoot()
     ],
     providers: [
         ApiProvider,
