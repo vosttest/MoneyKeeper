@@ -10,6 +10,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 })
 export class ManageAccountAddComponent implements OnInit {
     public lstType: any[] = [];
+    public selected = '';
 
     constructor(private proCommon: CommonProvider) { }
 

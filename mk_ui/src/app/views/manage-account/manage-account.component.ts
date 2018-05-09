@@ -10,4 +10,22 @@ export class ManageAccountComponent implements OnInit {
     constructor() { }
 
     ngOnInit() { }
+
+    account : any[] = [
+        {
+          "name": "Douglas  Pace"
+        },
+        {
+          "name": "Mcleod  Mueller"
+        },
+        {
+          "name": "Day  Meyers"
+        },
+        {
+          "name": "Aguirre  Ellis"
+        },
+        {
+          "name": "Cook  Tyson"
+        }
+      ];
 }

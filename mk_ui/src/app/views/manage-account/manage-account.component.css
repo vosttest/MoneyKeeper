@@ -1,0 +1,33 @@
+button#add {
+    margin-left: 80px;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    width: 100%;
+}
+
+li .left {
+    display: inline;
+}
+
+li .right {
+    float: right;
+}
+
+.card {
+    margin-top: 20px;
+    width: 90%;
+}
+
+.form-control {
+    border: none;
+}
+
+.content-left {
+    padding-left: 20px;
+    margin-top: 29px;
+}
