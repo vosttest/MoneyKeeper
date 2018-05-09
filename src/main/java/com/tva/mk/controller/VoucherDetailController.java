@@ -10,10 +10,6 @@ public class VoucherDetailController {
 
 	// end
 
-	// region -- Get set --
-
-	// end
-
 	// region -- Methods --
 
 	// end

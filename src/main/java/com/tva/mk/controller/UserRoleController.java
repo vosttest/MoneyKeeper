@@ -10,10 +10,6 @@ public class UserRoleController {
 
 	// end
 
-	// region -- Get set --
-
-	// end
-
 	// region -- Methods --
 
 	// end

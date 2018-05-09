@@ -10,10 +10,6 @@ public class FunctionController {
 
 	// end
 
-	// region -- Get set --
-
-	// end
-
 	// region -- Methods --
 
 	// end

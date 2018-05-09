@@ -10,10 +10,6 @@ public class ExpenseController {
 
 	// end
 
-	// region -- Get set --
-
-	// end
-
 	// region -- Methods --
 
 	// end

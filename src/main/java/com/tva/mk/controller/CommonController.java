@@ -27,10 +27,6 @@ public class CommonController {
 
 	// end
 
-	// region -- Get set --
-
-	// end
-
 	// region -- Methods --
 
 	@PostMapping("/search")

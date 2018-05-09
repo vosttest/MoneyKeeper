@@ -10,10 +10,6 @@ public class RoleController {
 
 	// end
 
-	// region -- Get set --
-
-	// end
-
 	// region -- Methods --
 
 	// end
