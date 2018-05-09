@@ -1,15 +1,23 @@
 <h1>Money Keeper</h1>
-<form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signUp()">
-    <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signUp()">
+            <div class="form-group">
+                <label for="userName">Email address</label>
+                <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary full-width">SIGN UP</button>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary full-width" routerLink="/sign-in">ALREADY HAVE ACCOUNT</button>
+            </div>
+        </form>
     </div>
-    <div class="form-group">
-        <label for="exampleInputPassword1">Password</label>
-        <input name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-    </div>
-    <div class="row">
-        <div class="col-md-6"><button type="submit" class="btn btn-primary" routerLink="/sign-in" value="">SIGN UP</button></div>
-        <div class="col-md-6"><button type="submit" class="btn btn-primary"><a routerLink="/sign-in" style="color: #fff">ALREADY HAVE ACCOUNT</a></button></div>
-    </div>
-</form>
+    <div class="col-md-4"></div>
+</div>
