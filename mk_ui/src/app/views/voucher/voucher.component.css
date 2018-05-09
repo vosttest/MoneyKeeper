@@ -1,0 +1,11 @@
+.container {
+    text-align: center;
+    width: 40%;
+}
+
+span.k-in>span.highlight {
+    background: #7EA700;
+    color: #ffffff;
+    border: 1px solid green;
+    padding: 1px;
+}

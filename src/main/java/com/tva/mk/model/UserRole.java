@@ -30,7 +30,7 @@ public class UserRole {
 	private Integer roleId;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isDeleted;
+	private boolean isDeleted;
 
 	@Column(columnDefinition = "integer")
 	private Integer createBy;
@@ -74,11 +74,11 @@ public class UserRole {
 		this.roleId = roleId;
 	}
 
-	public Boolean getIsDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 

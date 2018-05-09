@@ -14,6 +14,7 @@ import {
 
 // Import utilities
 import { RsaService } from './utils';
+import { TreeviewModule } from 'ngx-treeview';
 
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { FormsModule } from '@angular/forms';
@@ -23,6 +24,7 @@ import { ManageAccountComponent } from './views/manage-account/manage-account.co
 import { ManageAccountAddComponent } from './views/manage-account-add/manage-account-add.component';
 import { ManageAccountEditComponent } from './views/manage-account-edit/manage-account-edit.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { VoucherComponent } from './views/voucher/voucher.component';
 
 @NgModule({
     declarations: [
@@ -30,6 +32,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         SignInComponent,
         SignUpComponent,
         CategoryComponent,
+        VoucherComponent,
         ManageAccountComponent,
         ManageAccountAddComponent,
         ManageAccountEditComponent
@@ -39,7 +42,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         HttpClientModule,
         FormsModule,
         AppRoutingModule,
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        TreeviewModule.forRoot()
     ],
     providers: [
         ApiProvider,

@@ -9,14 +9,15 @@ import { ManageAccountAddComponent } from './views/manage-account-add/manage-acc
 import { ManageAccountEditComponent } from './views/manage-account-edit/manage-account-edit.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'signIn', pathMatch: 'full' },
-    { path: 'signIn', component: SignInComponent },
-    { path: 'signUp', component: SignUpComponent },
+    { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+    { path: 'sign-in', component: SignInComponent },
+    { path: 'sign-up', component: SignUpComponent },
     { path: 'category', component: CategoryComponent },
-    { path: 'insertAcc', component: ManageAccountComponent },
-    { path: 'addAcc', component: ManageAccountAddComponent },
-    { path: 'editAcc', component: ManageAccountEditComponent },
-    { path: '**', redirectTo: 'signIn', pathMatch: 'full' },
+    { path: 'insert-acc', component: ManageAccountComponent },
+    { path: 'add-acc', component: ManageAccountAddComponent },
+    { path: 'edit-acc', component: ManageAccountEditComponent },
+    { path: 'voucher', component: ManageAccountEditComponent },
+    { path: '**', redirectTo: 'sign-in', pathMatch: 'full' },
 ];
 
 @NgModule({

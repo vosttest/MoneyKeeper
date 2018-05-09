@@ -33,7 +33,7 @@ public class VoucherDetail {
 	private Float amount;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isDeleted;
+	private boolean isDeleted;
 
 	@Column(columnDefinition = "integer")
 	private Integer createBy;
@@ -85,11 +85,11 @@ public class VoucherDetail {
 		this.amount = amount;
 	}
 
-	public Boolean getIsDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 

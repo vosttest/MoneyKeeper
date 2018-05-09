@@ -316,11 +316,11 @@ public class Users {
 		this.failedAuthAttempts = failedAuthAttempts;
 	}
 
-	public Boolean getIsDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 

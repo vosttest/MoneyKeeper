@@ -19,10 +19,12 @@
         "prefix": "app",
         "styles": [
             "styles.css",
+            "../node_modules/bootstrap/dist/css/bootstrap.min.css",
             "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
         ],
         "scripts": [
-            "../node_modules/jsencrypt/bin/jsencrypt.min.js"
+            "../node_modules/jsencrypt/bin/jsencrypt.min.js",
+            "../node_modules/bootstrap/dist/js/bootstrap.min.js"
         ],
         "environmentSource": "environments/environment.ts",
         "environments": {

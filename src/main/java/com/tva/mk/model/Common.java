@@ -42,7 +42,7 @@ public class Common {
 	private Integer parentId;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isDeleted;
+	private boolean isDeleted;
 
 	@Column(columnDefinition = "integer")
 	private Integer createBy;
@@ -118,11 +118,11 @@ public class Common {
 		this.parentId = parentId;
 	}
 
-	public Boolean getIsDeleted() {
+	public boolean getIsDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
