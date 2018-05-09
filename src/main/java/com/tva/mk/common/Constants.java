@@ -14,4 +14,8 @@ public class Constants {
 	public static final String STATUS_SUCCESS = "success";
 
 	public static final String STATUS_ERROR = "error";
+
+	public static final String STATUS_ACTIVE = "ACT";
+
+	public static final int FAILED_AUTH_ATTEMPTS = 2;
 }

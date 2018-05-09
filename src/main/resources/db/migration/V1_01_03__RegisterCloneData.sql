@@ -20,7 +20,7 @@ BEGIN
 	uid := NEW.id; -- get user id
 
 	-- Account ----------------------------
-	INSERT INTO account(code, text, user_id, description, sequence, balance)
+	INSERT INTO account(type, text, user_id, description, sequence, balance)
 	SELECT value, text, uid, description, sequence, 0
 	FROM common
 	WHERE type LIKE 'Account';

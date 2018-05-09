@@ -15,6 +15,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
+import com.tva.mk.common.Constants;
+
 @Entity
 @Table(name = "user", schema = "public")
 public class Users {
@@ -48,7 +50,7 @@ public class Users {
 	private String remarks;
 
 	@Column(columnDefinition = "char(3)")
-	private String status = "ACT";
+	private String status;
 
 	@Type(type = "pg-uuid")
 	private UUID uuid;
@@ -61,7 +63,7 @@ public class Users {
 	private Date eothExpiryOn;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isEmailVerified = false;
+	private boolean isEmailVerified;
 
 	@Column(columnDefinition = "varchar(256)")
 	private String passwordHash;
@@ -88,7 +90,7 @@ public class Users {
 	private Date lockExpiryOn;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isLocked = false;
+	private boolean isLocked;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
@@ -99,10 +101,10 @@ public class Users {
 	private Date lastLoginOn;
 
 	@Column(columnDefinition = "integer")
-	private Integer failedAuthAttempts = 0;
+	private int failedAuthAttempts;
 
 	@Column(columnDefinition = "bool")
-	private Boolean isDeleted = false;
+	private boolean isDeleted;
 
 	@Column(columnDefinition = "integer")
 	private Integer createBy;
@@ -359,7 +361,8 @@ public class Users {
 	// region -- Methods --
 
 	public Users() {
-
+		this.status = Constants.STATUS_ACTIVE;
+		this.failedAuthAttempts = Constants.FAILED_AUTH_ATTEMPTS;
 	}
 
 	// end
