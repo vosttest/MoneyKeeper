@@ -6,6 +6,8 @@ import { AccountComponent } from './views/account/account.component';
 import { AccountAddComponent } from './views/account-add/account-add.component';
 import { AccountEditComponent } from './views/account-edit/account-edit.component';
 import { CategoryComponent } from './views/category/category.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { SettingComponent } from './views/setting/setting.component';
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { VoucherComponent } from './views/voucher/voucher.component';
@@ -16,6 +18,8 @@ const routes: Routes = [
     { path: 'account-add', component: AccountAddComponent },
     { path: 'account-edit', component: AccountEditComponent },
     { path: 'category', component: CategoryComponent },
+    { path: 'dashboard', component: DashboardComponent },
+    { path: 'setting', component: SettingComponent },
     { path: 'sign-in', component: SignInComponent },
     { path: 'sign-up', component: SignUpComponent },
     { path: 'voucher', component: VoucherComponent },

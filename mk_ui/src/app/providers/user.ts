@@ -111,7 +111,7 @@ export class UserProvider {
         });
 
         if (redirect) {
-            this.rou.navigate(['/account']);
+            this.rou.navigate(['/dashboard']);
             //this.checkRedirect(t.user.accessrights);
         }
     }

@@ -20,6 +20,8 @@ import { AccountComponent } from './views/account/account.component';
 import { AccountAddComponent } from './views/account-add/account-add.component';
 import { AccountEditComponent } from './views/account-edit/account-edit.component';
 import { CategoryComponent } from './views/category/category.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { SettingComponent } from './views/setting/setting.component';
 import { SignInComponent } from './views/sign-in/sign-in.component';
 import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { VoucherComponent } from './views/voucher/voucher.component';
@@ -34,6 +36,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         AccountAddComponent,
         AccountEditComponent,
         CategoryComponent,
+        DashboardComponent,
+        SettingComponent,
         SignInComponent,
         SignUpComponent,
         VoucherComponent
