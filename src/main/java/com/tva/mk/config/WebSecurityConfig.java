@@ -22,6 +22,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import com.tva.mk.common.Constants;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -56,18 +58,40 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers("/", "/user/sign-in", "/user/sign-up", "/common/search", "/swagger-ui.html").permitAll()
-				.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)
-				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		// Get environment variable
+		String mod = System.getenv("DEV_MODE");
+
+		if (mod != null && "Y".equals(mod)) {
+			http.cors().and().csrf().disable();
+		} else {
+			http.csrf().disable();
+			http.headers().frameOptions().sameOrigin().httpStrictTransportSecurity().disable();
+		}
+
+		http.authorizeRequests()
+				.antMatchers("/", "/user/sign-in", "/user/sign-up", "/user/refresh-token", "/common/search").permitAll()
+				.antMatchers("/user/reset-password").hasAuthority(Constants.ROLE_ADMIN).anyRequest().authenticated()
+				.and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
 		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 	}
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/index.html", "/*.css", "/*.js", "/*.png", "/*.ico", "/*.jpg", "/*.jpeg", "/*.gif",
-				"/*.bmp", "/assets/**", "/*.ttf", "/*.woff", "/*.woff2", "/*.eot", "/*.svg", "/v2/api-docs",
-				"/configuration/ui", "/swagger-resources", "/configuration/security", "/webjars/**");
+		// Get environment variable
+		String mod = System.getenv("DEV_MODE");
+
+		if (mod != null && "Y".equals(mod)) {
+			web.ignoring().antMatchers("/*.html", "/*.css", "/*.js", "/*.png", "/*.ico", "/*.jpg", "/*.jpeg", "/*.gif",
+					"/*.bmp", "/assets/**", "/*.ttf", "/*.woff", "/*.woff2", "/*.eot", "/*.svg", "/v2/api-docs",
+					"/configuration/ui", "/swagger-resources", "/configuration/security", "/swagger-ui.html",
+					"/webjars/**");
+		} else {
+			web.ignoring().antMatchers("/*.html", "/*.css", "/*.js", "/*.png", "/*.ico", "/*.jpg", "/*.jpeg", "/*.gif",
+					"/*.bmp", "/assets/**", "/*.ttf", "/*.woff", "/*.woff2", "/*.eot", "/*.svg", "/v2/api-docs",
+					"/configuration/ui", "/configuration/security", "/webjars/**");
+		}
 	}
 
 	@Bean
@@ -77,12 +101,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("*"));
-		config.setAllowedMethods(Arrays.asList("*"));
-		config.setAllowedHeaders(Arrays.asList("*"));
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
+
+		// Get environment variable
+		String mod = System.getenv("DEV_MODE");
+
+		if (mod != null && "Y".equals(mod)) {
+			CorsConfiguration config = new CorsConfiguration();
+			config.setAllowedOrigins(Arrays.asList("*"));
+			config.setAllowedMethods(Arrays.asList("*"));
+			config.setAllowedHeaders(Arrays.asList("*"));
+			source.registerCorsConfiguration("/**", config);
+		}
+
 		return source;
 	}
 

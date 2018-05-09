@@ -46,7 +46,7 @@ export class ApiProvider {
             }
         }
 
-        return this.http.get(this.apiUrl + '/' + endpoint, reqOpts);
+        return this.http.get(this.apiUrl + endpoint, reqOpts);
     }
 
     public post(endpoint: string, body: any, reqOpts?: any) {
@@ -56,7 +56,7 @@ export class ApiProvider {
             reqOpts = { headers: h };
         }
 
-        return this.http.post(this.apiUrl + '/' + endpoint, body, reqOpts);
+        return this.http.post(this.apiUrl + endpoint, body, reqOpts);
     }
 
     public put(endpoint: string, body: any, reqOpts?: any) {
@@ -66,7 +66,7 @@ export class ApiProvider {
             reqOpts = { headers: h };
         }
 
-        return this.http.put(this.apiUrl + '/' + endpoint, body, reqOpts);
+        return this.http.put(this.apiUrl + endpoint, body, reqOpts);
     }
 
     public delete(endpoint: string, reqOpts?: any) {
@@ -75,7 +75,7 @@ export class ApiProvider {
             reqOpts = { headers: h };
         }
 
-        return this.http.delete(this.apiUrl + '/' + endpoint, reqOpts);
+        return this.http.delete(this.apiUrl + endpoint, reqOpts);
     }
 
     public patch(endpoint: string, body: any, reqOpts?: any) {
@@ -85,7 +85,7 @@ export class ApiProvider {
             reqOpts = { headers: h };
         }
 
-        return this.http.patch(this.apiUrl + '/' + endpoint, body, reqOpts);
+        return this.http.patch(this.apiUrl + endpoint, body, reqOpts);
     }
 
     public getUserId(): string {
@@ -108,7 +108,7 @@ export class ApiProvider {
                 responseType: 'blob'
             };
         }
-        return this.http.get(this.apiUrl + '/' + token + '/' + 'download', reqOpts);
+        return this.http.get(this.apiUrl + token + '/' + 'download', reqOpts);
     }
 
     public saveToken(token: string) {
@@ -172,7 +172,7 @@ export class ApiProvider {
             reqOpts = { headers: h };
         }
 
-        return this.http.post(this.apiUrl + '/' + endpoint, body, reqOpts);
+        return this.http.post(this.apiUrl + endpoint, body, reqOpts);
     }
 
     private getToken(): string {
