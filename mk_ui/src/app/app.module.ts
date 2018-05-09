@@ -8,7 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 // Import providers
 import {
     ApiProvider,
-    UserProvider
+    UserProvider,
+    CommonProvider
 } from './providers/providers';
 
 // Import utilities
@@ -43,6 +44,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     providers: [
         ApiProvider,
         UserProvider,
+        CommonProvider,
         RsaService],
     bootstrap: [AppComponent]
 })
