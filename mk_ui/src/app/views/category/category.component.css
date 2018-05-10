@@ -1,4 +1,58 @@
-button {
+.button {
     width: 100%;
     text-align: left;
 }
+
+h2 {
+    margin-bottom: 7%;
+    margin-top: 50px;
+    color: #017DE3;
+    font-weight: 700;
+}
+
+.format-layout {
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+}
+
+.format-layout {
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+}
+
+.none-border {
+    border: none;
+}
+
+.col-form-label {
+    font-size: x-large;
+    font-weight: 700
+}
+
+.format-image {
+    height: 70px;
+    width: 75%;
+    position: absolute;
+    left: 11px;
+    bottom: -15px;
+}
+
+.margin-top {
+    margin-top: 1%;
+}
+
+.btnSave {
+    margin-top: 2%;
+    float: right;
+}
+
+.scroll {
+    overflow-x: auto;
+}
+
+#inputState {
+    position: absolute;
+    bottom: 0px
+}
+
+.icon {}

@@ -44,4 +44,16 @@ export class CategoryComponent implements OnInit {
             }
         }, err => console.log(err));
     }
+
+    private redirectAdd()
+    {
+        document.getElementById("divAdd").style.display="block";
+        document.getElementById("divCategory").style.display="none";
+    }
+
+    private redirectCategory()
+    {
+        document.getElementById("divAdd").style.display="none";
+        document.getElementById("divCategory").style.display="block";
+    }
 }
