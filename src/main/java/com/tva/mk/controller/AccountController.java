@@ -1,6 +1,8 @@
 package com.tva.mk.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -46,7 +48,10 @@ public class AccountController {
 			List<Account> tmp = accountService.search(id, keyword);
 
 			// Set data
-			res.setResult(tmp);
+			Map<String, Object> data = new LinkedHashMap<>();
+			data.put("count", tmp.size());
+			data.put("data", tmp);
+			res.setResult(data);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

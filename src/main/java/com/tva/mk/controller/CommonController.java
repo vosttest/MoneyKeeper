@@ -44,8 +44,6 @@ public class CommonController {
 			Map<String, Object> data = new LinkedHashMap<>();
 			data.put("count", tmp.size());
 			data.put("data", tmp);
-
-			// Set data
 			res.setResult(data);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());

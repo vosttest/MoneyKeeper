@@ -1,9 +1,17 @@
 package com.tva.mk.dal;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.tva.mk.model.Setting;
 
 public interface SettingDao extends CrudRepository<Setting, Integer> {
+	@Query("FROM Setting a WHERE a.id = :id")
+	public Setting getBy(@Param("id") int id);
 
+	@Query("FROM Setting a WHERE a.userId = :userId")
+	public List<Setting> search(@Param("userId") int userId);
 }

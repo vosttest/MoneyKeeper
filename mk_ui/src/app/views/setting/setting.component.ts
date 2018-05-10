@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingProvider } from '../../providers/provider';
 
 @Component({
     selector: 'app-setting',
@@ -7,7 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class SettingComponent implements OnInit {
-    constructor() { }
+    public data = [];
 
-    ngOnInit() { }
+    constructor(private pro: SettingProvider) { }
+
+    ngOnInit() {
+        this.search();
+    }
+
+    private search() {
+        this.pro.search().subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.data = rsp.result.data;
+                console.log(this.data);
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+    }
 }

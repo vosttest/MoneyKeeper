@@ -37,8 +37,8 @@ public class AccountService {
 	 * @return
 	 */
 	public List<Account> search(int id, String keyword) {
-		List<Account> tmp = accountDao.search(id, keyword);
-		return tmp;
+		List<Account> res = accountDao.search(id, keyword);
+		return res;
 	}
 
 	public String save(Account m) {

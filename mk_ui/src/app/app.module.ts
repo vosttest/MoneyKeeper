@@ -8,6 +8,7 @@ import {
     CommonProvider,
     ExpenseProvider,
     IncomeProvider,
+    SettingProvider,
     UserProvider
 } from './providers/provider';
 
@@ -54,6 +55,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         CommonProvider,
         ExpenseProvider,
         IncomeProvider,
+        SettingProvider,
         UserProvider,
         RsaService
     ],
