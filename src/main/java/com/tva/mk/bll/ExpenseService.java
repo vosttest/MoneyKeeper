@@ -1,5 +1,6 @@
 package com.tva.mk.bll;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,31 @@ public class ExpenseService {
 
 	public List<Expense> getChild(int id) {
 		List<Expense> res = expenseDao.getChild(id);
+		return res;
+	}
+
+	public String save(Expense m) {
+		String res = "";
+
+		Integer id = m.getId();
+		int userId = m.getUserId();
+		Expense m1;
+		if (id == null || id == 0) {
+			m.setCreateBy(userId);
+			m.setCreateOn(new Date());
+			int tmp = expenseDao.getSequence(userId);
+			String[] tmp1 = expenseDao.getCode(userId).get(0).split("EXP");
+			String tmp2 = "EXP" + (Integer.parseInt(tmp1[1]) + 1);
+			m.setSequence(tmp);
+			m.setCode(tmp2);
+			expenseDao.save(m);
+		} else {
+			m1 = expenseDao.getBy(id);
+			m1.setModifyBy(userId);
+			m1.setModifyOn(new Date());
+			expenseDao.save(m1);
+		}
+
 		return res;
 	}
 
