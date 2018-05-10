@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.tva.mk.common.Const;
+
 @Entity
 @Table(name = "setting", schema = "public")
 public class Setting {
@@ -34,6 +36,9 @@ public class Setting {
 
 	@Column(columnDefinition = "varchar(256)")
 	private String description;
+
+	@Column(columnDefinition = "char(3)")
+	private String status;
 
 	@Column(columnDefinition = "integer")
 	private Integer userId;
@@ -96,6 +101,14 @@ public class Setting {
 		this.description = description;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Integer getUserId() {
 		return userId;
 	}
@@ -141,7 +154,7 @@ public class Setting {
 	// region -- Methods --
 
 	public Setting() {
-
+		this.status = Const.STATUS_INACTIVE;
 	}
 
 	// end

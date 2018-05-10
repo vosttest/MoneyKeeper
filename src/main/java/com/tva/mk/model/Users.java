@@ -361,7 +361,7 @@ public class Users {
 	// region -- Methods --
 
 	public Users() {
-		this.status = Const.User.STATUS_ACTIVE;
+		this.status = Const.STATUS_ACTIVE;
 		this.failedAuthAttempts = Const.User.FAILED_AUTH_ATTEMPTS;
 	}
 

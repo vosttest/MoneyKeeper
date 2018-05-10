@@ -51,7 +51,6 @@ public class UserController {
 
 		try {
 			// Get data
-
 			String userName = req.getUserName();
 			String password = req.getPassword();
 

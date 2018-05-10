@@ -1,6 +1,10 @@
 package com.tva.mk.common;
 
 public class Const {
+	public static final String STATUS_ACTIVE = "ACT";
+
+	public static final String STATUS_INACTIVE = "INA";
+
 	public class Authentication {
 		public static final long TOKEN_TIME = 24 * 60 * 60;
 
@@ -38,8 +42,16 @@ public class Const {
 	}
 
 	public class User {
-		public static final String STATUS_ACTIVE = "ACT";
-
 		public static final int FAILED_AUTH_ATTEMPTS = 2;
+	}
+
+	public class Setting {
+		public static final String CODE_REMINDER = "SET01";
+
+		public static final String CODE_CURRENCY = "SET02";
+
+		public static final String DEFAULT_REMINDER = "20:00";
+
+		public static final String DEFAULT_CURRENCY = "VND";
 	}
 }
