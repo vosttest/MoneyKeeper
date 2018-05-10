@@ -1,11 +1,12 @@
-.container {
-    text-align: center;
-    width: 40%;
+.height-modal {
+    height: 5in;
 }
 
-span.k-in>span.highlight {
-    background: #7EA700;
-    color: #ffffff;
-    border: 1px solid green;
-    padding: 1px;
+.modal-body {
+    overflow-x: auto;
+}
+
+.mb-0>.btn-icon {
+    text-align: left;
+    width: 100%;
 }

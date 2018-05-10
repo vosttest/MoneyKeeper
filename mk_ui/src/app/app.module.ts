@@ -10,7 +10,8 @@ import {
     ExpenseProvider,
     IncomeProvider,
     SettingProvider,
-    UserProvider
+    UserProvider,
+    VoucherProvider
 } from './providers/provider';
 
 // Import utilities
@@ -64,6 +65,7 @@ import { ChangePasswordComponent } from './views/change-password/change-password
         IncomeProvider,
         SettingProvider,
         UserProvider,
+        VoucherProvider,
         RsaService
     ],
     bootstrap: [AppComponent]
