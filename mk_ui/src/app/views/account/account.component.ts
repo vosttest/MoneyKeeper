@@ -9,19 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class AccountComponent implements OnInit {
     public account: any[] = [
         {
-            "name": "Douglas  Pace"
+            "name": "Cash"
         },
         {
-            "name": "Mcleod  Mueller"
+            "name": "Bank Account"
         },
         {
-            "name": "Day  Meyers"
+            "name": "ATM"
         },
         {
-            "name": "Aguirre  Ellis"
+            "name": "Deposit Account"
         },
         {
-            "name": "Cook  Tyson"
+            "name": "Save Account"
         }
     ];
 

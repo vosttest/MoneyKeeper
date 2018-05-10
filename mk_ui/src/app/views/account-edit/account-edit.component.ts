@@ -15,6 +15,10 @@ export class AccountEditComponent implements OnInit {
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
     public selected = '';
+    public select = '';
+    public pickSaveAcc = false;
+    public pickAtm = false;
+    public pickOther = false;
 
     constructor(private pro: CommonProvider) { }
 
@@ -47,5 +51,20 @@ export class AccountEditComponent implements OnInit {
                 }
             }
         }, err => console.log(err));
+    }
+
+    public checkType(va: string) {
+        console.log(va);    
+        if (va === "ACC05") {
+            this.pickSaveAcc = false;
+            this.pickOther = true;           
+        }
+        else if(va === "ACC03"){
+            this.pickSaveAcc = true;
+            this.pickAtm=false; 
+        }else{
+            this.pickSaveAcc = true; 
+            this.pickAtm=true; 
+        }
     }
 }

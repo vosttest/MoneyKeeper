@@ -1,73 +1,76 @@
-<button><a routerLink="/insert-acc">Back</a></button>
-<h1>Edit Account</h1>
-<form>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="col-md-2">
-                    <p>Name</p>
-                </div>
-                <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Account Name">
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="form-group-row col-md-6">
-            <div class="form-row">
-                <div class="col-md-2">
-                    <p>Type</p>
-                </div>
-                <div class="col-md-10">
-                    <select #type="ngModel" [(ngModel)]="selected" class="form-control">
-                        <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
-                    </select>
-                </div>
-            </div>
-            <hr>
-        </div>
+<div class="row">
+    <div class="col-md-4"><button routerLink="/account">Back</button></div>
+    <div class="col-md-4">
+        <h3 class="text-center">Edit Account</h3>
     </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="col-md-2">
-                    <p>Currency</p>
+    <div class="col-md-4"></div>
+</div>
+<div class="row">
+    <form name="account-edit" class="full-width">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Name</p>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Account Name">
+                    </div>
                 </div>
-                <div class="col-md-10">
-                    <select #type="ngModel" [(ngModel)]="selected" class="form-control">
-                        <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
-                    </select>
-                </div>
+                <hr>
             </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="col-md-2">
-                    <p>Bank</p>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Type</p>
+                    </div>
+                    <div class="col-md-10">
+                        <select name="type" (change)="checkType(type.value)" #type="ngModel" [(ngModel)]="selected" class="form-control">
+                            <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Bank name">
-                </div>
+                <hr>
             </div>
-            <hr>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="form-row">
+        <div class="row" [hidden]="pickSaveAcc">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Currency</p>
+                    </div>
+                    <div class="col-md-10">
+                        <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="select">
+                            <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Bank</p>
+                    </div>
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Bank name">
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row" [hidden]="pickOther">
             <div class="col-md-2">
                 <p>Currency</p>
             </div>
             <div class="col-md-10">
-                <select #type="ngModel" [(ngModel)]="selected" class="form-control">
+                <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="selected">
                     <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
                 </select>
             </div>
         </div>
         <hr>
-    </div>
-    <div class="form-group">
-        <div class="form-row">
+        <div class="row">
             <div class="col-md-2">
                 <p>Initial Balance</p>
             </div>
@@ -76,9 +79,7 @@
             </div>
         </div>
         <hr>
-    </div>
-    <div class="form-group">
-        <div class="form-row">
+        <div class="row" [hidden]="pickOther || (pickSaveAcc && pickAtm)">
             <div class="col-md-2">
                 <p>Credit Limit</p>
             </div>
@@ -87,9 +88,7 @@
             </div>
         </div>
         <hr>
-    </div>
-    <div class="form-group">
-        <div class="form-row">
+        <div class="row" [hidden]="pickSaveAcc">
             <div class="form-group col-md-6">
                 <div class="form-row">
                     <div class="col-md-3">
@@ -113,71 +112,71 @@
                 <hr>
             </div>
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="col-md-2">
-                    <p>Term</p>
+        <div class="row" [hidden]="pickSaveAcc">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Term</p>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="term" class="form-control" #term="ngModel" [(ngModel)]="selected">
+                            <option *ngFor="let i of lstTerm" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-md-10">
-                    <select #type="ngModel" [(ngModel)]="selected" class="form-control">
-                        <option *ngFor="let i of lstTerm" value="{{i.value}}">{{i.text}}</option>
-                    </select>
-                </div>
+                <hr>
             </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Interest rate</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" placeholder="%">
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row" [hidden]="pickSaveAcc">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>InterestPaid</p>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="interestPaid" class="form-control" #interestPaid="ngModel" [(ngModel)]="selected">
+                            <option *ngFor="let i of lstInterestPaid" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>TermEnd</p>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="termEnd" class="form-control" #termEnd="ngModel" [(ngModel)]="selected">
+                            <option *ngFor="let i of lstTermEnd" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="form-group" [hidden]="pickSaveAcc">
+            <select id="inputState" class="form-control">
+                <option selected>Transfer money from account</option>
+                <option>...</option>
+            </select>
             <hr>
         </div>
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="col-md-4">
-                    <p>Interest rate</p>
-                </div>
-                <div class="col-md-8">
-                    <input type="text" class="form-control" placeholder="%">
-                </div>
-            </div>
+        <div class="form-group">
+            <textarea class="form-control" rows="2" placeholder="Description"></textarea>
             <hr>
         </div>
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="col-md-4">
-                    <p>InterestPaid</p>
-                </div>
-                <div class="col-md-8">
-                    <select #type="ngModel" [(ngModel)]="selected" class="form-control">
-                        <option *ngFor="let i of lstInterestPaid" value="{{i.value}}">{{i.text}}</option>
-                    </select>
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6">
-            <div class="form-row">
-                <div class="col-md-4">
-                    <p>InterestPaid</p>
-                </div>
-                <div class="col-md-8">
-                    <select #type="ngModel" [(ngModel)]="selected" class="form-control">
-                        <option *ngFor="let i of lstTermEnd" value="{{i.value}}">{{i.text}}</option>
-                    </select>
-                </div>
-            </div>
-            <hr>
-        </div>
-    </div>
-    <div class="form-group">
-        <select id="inputState" class="form-control">
-            <option selected>Transfer money from account</option>
-            <option>...</option>
-        </select>
-        <hr>
-    </div>
-    <div class="form-group">
-        <textarea class="form-control" rows="2" placeholder="Description"></textarea>
-        <hr>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+</div>

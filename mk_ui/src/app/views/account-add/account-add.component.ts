@@ -14,7 +14,11 @@ export class AccountAddComponent implements OnInit {
     public lstTerm: any[] = [];
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
-    public selected = '';
+    public selected = '';    
+    public select = '';
+    public pickSaveAcc = false;
+    public pickAtm = false;
+    public pickOther = false;
 
     constructor(private pro: CommonProvider) { }
 
@@ -31,21 +35,32 @@ export class AccountAddComponent implements OnInit {
             if (rsp.status === 'success') {
                 if (type == 'Account') {
                     this.lstType = rsp.result.data;
-                    console.log(this.lstType);
                 } else if (type == 'Currency') {
                     this.lstCurrency = rsp.result.data;
-                    console.log(this.lstCurrency);
                 } else if (type == 'Term') {
                     this.lstTerm = rsp.result.data;
-                    console.log(this.lstTerm);
                 } else if (type == 'InterestPaid') {
                     this.lstInterestPaid = rsp.result.data;
-                    console.log(this.lstInterestPaid);
                 } else if (type == 'TermEnd') {
                     this.lstTermEnd = rsp.result.data;
-                    console.log(this.lstTermEnd);
                 }
             }
         }, err => console.log(err));
+    }
+
+    public checkType(va: string) {
+        console.log(va);    
+        if (va === "ACC05") {
+            this.pickSaveAcc = false;
+            this.pickOther = true;           
+        }
+        else if(va === "ACC03"){
+            this.pickSaveAcc = true;
+            this.pickAtm=false; 
+        }else{
+            this.pickSaveAcc = true; 
+            this.pickAtm=true; 
+            this.pickOther= false;
+        }
     }
 }
