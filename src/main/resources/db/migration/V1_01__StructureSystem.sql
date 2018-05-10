@@ -20,6 +20,7 @@ CREATE TABLE PUBLIC."setting"
 (
 	"id"					SERIAL PRIMARY KEY,
 	"code"					VARCHAR(64),
+	"value"					VARCHAR(64),
 	"text"					VARCHAR(128),
 	"description"			VARCHAR(256),
 	"user_id"				INT4,

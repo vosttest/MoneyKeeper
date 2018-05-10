@@ -1,8 +1,5 @@
 package com.tva.mk.config;
 
-import static com.tva.mk.common.Constants.HEADER_STRING;
-import static com.tva.mk.common.Constants.TOKEN_PREFIX;
-
 import java.io.IOException;
 
 import javax.servlet.FilterChain;
@@ -17,6 +14,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
+
+import com.tva.mk.common.Const;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
@@ -37,12 +36,12 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
 			throws IOException, ServletException {
-		String header = req.getHeader(HEADER_STRING);
+		String header = req.getHeader(Const.Authentication.HEADER_STRING);
 		String username = null;
 		String authToken = null;
 
-		if (header != null && header.startsWith(TOKEN_PREFIX)) {
-			authToken = header.replace(TOKEN_PREFIX, "");
+		if (header != null && header.startsWith(Const.Authentication.TOKEN_PREFIX)) {
+			authToken = header.replace(Const.Authentication.TOKEN_PREFIX, "");
 
 			try {
 				username = jwtTokenUtil.getUsernameFromToken(authToken);

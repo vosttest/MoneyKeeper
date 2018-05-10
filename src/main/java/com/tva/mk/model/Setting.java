@@ -26,6 +26,9 @@ public class Setting {
 	@Column(columnDefinition = "varchar(64)")
 	private String code;
 
+	@Column(columnDefinition = "varchar(64)")
+	private String value;
+
 	@Column(columnDefinition = "varchar(128)")
 	private String text;
 
@@ -67,6 +70,14 @@ public class Setting {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
 	}
 
 	public String getText() {

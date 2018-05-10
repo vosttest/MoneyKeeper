@@ -1,8 +1,5 @@
 package com.tva.mk.config;
 
-import static com.tva.mk.common.Constants.SIGNING_KEY;
-import static com.tva.mk.common.Constants.TOKEN_TIME;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -12,6 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.tva.mk.common.Const;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Users;
 
@@ -48,8 +46,8 @@ public class JwtTokenUtil implements Serializable {
 		claims.put("user", getPayload(m));
 
 		return Jwts.builder().setClaims(claims).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + TOKEN_TIME * 1000))
-				.signWith(SignatureAlgorithm.HS256, SIGNING_KEY).compact();
+				.setExpiration(new Date(System.currentTimeMillis() + Const.Authentication.TOKEN_TIME * 1000))
+				.signWith(SignatureAlgorithm.HS256, Const.Authentication.SIGNING_KEY).compact();
 	}
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
@@ -58,7 +56,7 @@ public class JwtTokenUtil implements Serializable {
 	}
 
 	private Claims getAllClaimsFromToken(String token) {
-		return Jwts.parser().setSigningKey(SIGNING_KEY).parseClaimsJws(token).getBody();
+		return Jwts.parser().setSigningKey(Const.Authentication.SIGNING_KEY).parseClaimsJws(token).getBody();
 	}
 
 	private Boolean isTokenExpired(String token) {

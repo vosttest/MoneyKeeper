@@ -22,7 +22,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.tva.mk.common.Constants;
+import com.tva.mk.common.Const;
 
 @Configuration
 @EnableWebSecurity
@@ -70,9 +70,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.authorizeRequests()
 				.antMatchers("/", "/user/sign-in", "/user/sign-up", "/user/refresh-token", "/common/search").permitAll()
-				.antMatchers("/user/reset-password").hasAuthority(Constants.ROLE_ADMIN).anyRequest().authenticated()
-				.and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+				.antMatchers("/user/reset-password").hasAuthority(Const.Authentication.ROLE_ADMIN).anyRequest()
+				.authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 	}

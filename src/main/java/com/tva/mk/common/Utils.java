@@ -1,9 +1,5 @@
 package com.tva.mk.common;
 
-import static com.tva.mk.common.Constants.HEADER_STRING;
-import static com.tva.mk.common.Constants.SIGNING_KEY;
-import static com.tva.mk.common.Constants.TOKEN_PREFIX;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -50,10 +46,10 @@ public class Utils {
 	}
 
 	public static PayloadDto getTokenInfor(HttpHeaders header) {
-		String token = header.get(HEADER_STRING).get(0);
-		token = token.replace(TOKEN_PREFIX, "");
+		String token = header.get(Const.Authentication.HEADER_STRING).get(0);
+		token = token.replace(Const.Authentication.TOKEN_PREFIX, "");
 
-		JwtParser x = Jwts.parser().setSigningKey(SIGNING_KEY);
+		JwtParser x = Jwts.parser().setSigningKey(Const.Authentication.SIGNING_KEY);
 		Claims y = x.parseClaimsJws(token).getBody();
 		Object z = y.get("user");
 

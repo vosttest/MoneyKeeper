@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.Type;
 
-import com.tva.mk.common.Constants;
+import com.tva.mk.common.Const;
 
 @Entity
 @Table(name = "user", schema = "public")
@@ -361,8 +361,8 @@ public class Users {
 	// region -- Methods --
 
 	public Users() {
-		this.status = Constants.STATUS_ACTIVE;
-		this.failedAuthAttempts = Constants.FAILED_AUTH_ATTEMPTS;
+		this.status = Const.User.STATUS_ACTIVE;
+		this.failedAuthAttempts = Const.User.FAILED_AUTH_ATTEMPTS;
 	}
 
 	// end

@@ -69,7 +69,8 @@ INSERT INTO PUBLIC."common" ("type", "value", "text", "description", "sequence",
 	('Income', 'INC06', 'Interest', NULL, 7, NULL),
 	('Income', 'INC07', 'Savings Interest', NULL, 6, NULL),
 
-	('Setting', '20:00', 'Reminder', NULL, 1, NULL),
+	('Setting', 'SET01', 'Reminder', NULL, 1, NULL),
+	('Setting', 'SET02', 'Currency', NULL, 1, NULL),
 
 	('Currency', 'VND', 'Việt Nam Đồng', NULL, 1, NULL),
 	('Currency', 'USD', 'United States Dollar', NULL, 2, NULL),
