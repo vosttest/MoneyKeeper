@@ -12,25 +12,20 @@ import {
 })
 
 export class CategoryComponent implements OnInit {
-    public lstParentIncome = [];
-    public lstChildIncome = [];
-
-    public lstParentExpense = [];
-    public lstChildExpense = [];
+    public lstParent = [];
+    public lstChild = [];
 
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider) { }
 
     ngOnInit() {
-        this.searchIncome();
-        this.searchExpense();
     }
 
     private searchIncome() {
         this.proIncome.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.lstParentIncome = rsp.result.parent;
-                console.log(this.lstParentIncome);
+                this.lstParent = rsp.result.parent;
+                this.lstChild = rsp.result.child;
             }
             else {
                 console.log(rsp.message);
@@ -41,9 +36,8 @@ export class CategoryComponent implements OnInit {
     private searchExpense() {
         this.proExpense.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.lstParentExpense = rsp.result.parent;
-                this.lstChildExpense = rsp.result.child;
-                console.log(rsp);
+                this.lstParent = rsp.result.parent;
+                this.lstChild = rsp.result.child;
             }
             else {
                 console.log(rsp.message);

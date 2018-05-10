@@ -1,13 +1,4 @@
-h3 {
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 50px;
-}
-
-h1 {
-    float: right;
-}
-
-a {
-    text-decoration: none;
+button {
+    width: 100%;
+    text-align: left;
 }
