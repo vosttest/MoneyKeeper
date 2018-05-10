@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <h1 class="text-center">Money Keeper</h1>
+        <h1 class="text-center">Money Keeper <i class="far fa-money-bill-alt"></i></h1>
         <form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signUp()">
             <div class="form-group">
                 <label for="userName">Email address</label>
-                <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter email">
+                <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="email" class="form-control" placeholder="Enter email">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
