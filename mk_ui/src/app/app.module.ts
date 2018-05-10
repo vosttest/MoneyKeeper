@@ -30,6 +30,9 @@ import { VoucherComponent } from './views/voucher/voucher.component';
 import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './views/change-password/change-password.component';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -41,7 +44,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
         SettingComponent,
         SignInComponent,
         SignUpComponent,
-        VoucherComponent
+        VoucherComponent,
+        ForgotPasswordComponent,
+        ChangePasswordComponent
     ],
     imports: [
         BrowserModule,
