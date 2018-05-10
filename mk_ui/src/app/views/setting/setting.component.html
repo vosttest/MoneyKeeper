@@ -1,3 +1,76 @@
-<p>
-    setting works!
-</p>
+<div class="row setting-body">
+    <div class="col-md-4"></div>
+    <div class="col-md-4 text-center">
+        <ul *ngFor="let item of data">
+            <li value="{{item.code}}" (click)="showDetailSetting(item.code)">{{item.text}}</li>
+        </ul>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<!-- Modal -->
+<div bsModal #reminderPopup="bs-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Reminder</h4>
+                <button type="button" class="close" (click)="closeModal('reminder')">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="form-group">
+                    <img class="img-reminder" src="../../../assets/images/reminder.png" />
+                </div>
+                <div class="form-group">
+                    Hệ thống sẽ gửi thông báo nhắc bạn nhập dữ liệu thu chi mỗi ngày.
+                </div>
+                <hr/>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        Nhắc nhập liệu
+                    </div>
+                    <div class="col-md-6">
+                        <label class="switch">
+                            <input type="checkbox" data-toggle="collapse" data-target="#timeReminder">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group row collapse" id="timeReminder">
+                    <div class="col-md-6">Vào lúc</div>
+                    <div class="col-md-6">20:00</div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"> </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-block" (click)="closeModal('reminder')">OK</button>
+                    </div>
+                    <div class="col-md-3"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #currencyPopup="bs-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Currency</h4>
+                <button type="button" class="close" (click)="closeModal('currency')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    abc
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-3"> </div>
+                        <div class="col-md-6">
+                            <button type="button" class="btn btn-primary btn-block" (click)="closeModal('currency')">OK</button>
+                        </div>
+                        <div class="col-md-3"> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

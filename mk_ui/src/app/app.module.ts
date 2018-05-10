@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 // Import providers
 import {
@@ -53,7 +54,8 @@ import { ChangePasswordComponent } from './views/change-password/change-password
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
-        BsDatepickerModule.forRoot()
+        BsDatepickerModule.forRoot(),
+        ModalModule.forRoot()
     ],
     providers: [
         ApiProvider,
