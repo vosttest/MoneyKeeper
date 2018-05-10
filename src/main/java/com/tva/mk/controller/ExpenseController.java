@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.ExpenseService;
+import com.tva.mk.common.Utils;
+import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Expense;
 import com.tva.mk.rsp.MultipleRsp;
 
@@ -34,12 +36,12 @@ public class ExpenseController {
 		MultipleRsp res = new MultipleRsp();
 
 		try {
-			// PayloadDto pl = Utils.getTokenInfor(header);
-			// int id = pl.getId();
+			 PayloadDto pl = Utils.getTokenInfor(header);
+			 int id = pl.getId();
 
 			// Handle
-			List<Expense> child = expenseService.getChild(1);
-			List<Expense> parent = expenseService.getParrent(1);
+			List<Expense> child = expenseService.getChild(id);
+			List<Expense> parent = expenseService.getParrent(id);
 
 			Map<String, Object> tmp = new LinkedHashMap<>();
 			tmp.put("parent", parent);
