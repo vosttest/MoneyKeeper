@@ -21,7 +21,7 @@ export class CategoryComponent implements OnInit {
     ngOnInit() {
     }
 
-    private searchIncome() {
+    public searchIncome() {
         this.proIncome.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.lstParent = rsp.result.parent;
@@ -33,7 +33,7 @@ export class CategoryComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    private searchExpense() {
+    public searchExpense() {
         this.proExpense.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.lstParent = rsp.result.parent;
