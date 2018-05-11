@@ -149,4 +149,18 @@ export class CategoryComponent implements OnInit {
             document.getElementById("arrow" + id).style.transform = null;
         }
     }
+
+    public addCategory() {
+        if (this.tab == "Expense") {
+        }
+        else {
+        }
+    }
+
+    public editCategory() {
+        if (this.tab == "Expense") {
+        }
+        else {
+        }
+    }
 }

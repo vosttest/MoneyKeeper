@@ -55,7 +55,7 @@
             <div class="col-md-4">
             </div>
         </div>
-        <form>
+        <form #f="ngForm" (ngSubmit)="addCategory()">
             <div class="row">
                 <div class="col-md-1 text-center">
                     <img src="../../../../assets/img/question.png" class="format-image " />
@@ -87,7 +87,7 @@
                 <label class="col-form-label">Note</label>
                 <input class="form-control none-border" />
                 <hr />
-                <button class="btn btn-primary btnSave" type="button">Save</button>
+                <button class="btn btn-primary btnSave" type="submit">Save</button>
             </div>
         </form>
     </div>
@@ -104,51 +104,54 @@
             <div class="col-md-4">
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-1 text-center">
-                <img src="../../../../assets/img/question.png" class="format-image " />
+        <form #f1="ngForm" (ngSubmit)="editCategory()">
+            <div class="row">
+                <div class="col-md-1 text-center">
+                    <img src="../../../../assets/img/question.png" class="format-image " />
+                </div>
+                <div class="col-md-4 margin-top" *ngIf="!isNull">
+                    <input class="form-control none-border font-xLarge" placeholder="Sub-Category Name" value="{{vmExpense.text}}" />
+                </div>
+                <div class="col-md-3" *ngIf="!isNull">
+                    <label class="col-form-label">Category</label>
+                </div>
+                <div class="col-md-4 margin-top" *ngIf="!isNull">
+                    <select class="form-control none-border" #parentId="ngModel" [(ngModel)]="vmExpense.parentId">
+                                <option *ngFor="let i of lstParentTmp" value="{{i.id}}" [selected]="selEdit">{{i.text}}</option>
+                            </select>
+                </div>
+                <div class="col-md-11" *ngIf="isNull">
+                    <input class="form-control none-border" value="{{vmExpense.text}}" />
+                </div>
             </div>
-            <div class="col-md-4 margin-top" *ngIf="!isNull">
-                <input class="form-control none-border font-xLarge" placeholder="Sub-Category Name" value="{{vmExpense.text}}" />
+            <div class="row">
+                <div class="col-md-1">
+                    <hr/>
+                </div>
+                <div class="col-md-4" *ngIf="!isNull">
+                    <hr/>
+                </div>
+                <div class="col-md-7" *ngIf="!isNull">
+                    <hr/>
+                </div>
+                <div class="col-md-11" *ngIf="isNull">
+                    <hr/>
+                </div>
             </div>
-            <div class="col-md-3" *ngIf="!isNull">
-                <label class="col-form-label">Category</label>
+            <div class="form-control none-border">
+                <label class="col-form-label">Note</label>
+                <input class="form-control none-border font-xLarge" value="{{vmExpense.desciption}}" />
+                <hr />
             </div>
-            <div class="col-md-4 margin-top" *ngIf="!isNull">
-                <select class="form-control none-border" #parentId="ngModel" [(ngModel)]="vmExpense.parentId">
-                    <option *ngFor="let i of lstParentTmp" value="{{i.id}}" [selected]="selEdit">{{i.text}}</option>
-                </select>
+            <div class="row">
+                <div class="col-11">
+                    <button class="btn btn-danger float-right" type="button">Delete</button>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-primary float-right" type="submit">Save</button>
+                </div>
             </div>
-            <div class="col-md-11" *ngIf="isNull">
-                <input class="form-control none-border" value="{{vmExpense.text}}" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1">
-                <hr/>
-            </div>
-            <div class="col-md-4" *ngIf="!isNull">
-                <hr/>
-            </div>
-            <div class="col-md-7" *ngIf="!isNull">
-                <hr/>
-            </div>
-            <div class="col-md-11" *ngIf="isNull">
-                <hr/>
-            </div>
-        </div>
-        <div class="form-control none-border">
-            <label class="col-form-label">Note</label>
-            <input class="form-control none-border font-xLarge" value="{{vmExpense.desciption}}" />
-            <hr />
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <button *ngIf="isNull" class="btn btn-danger float-right" type="button">Delete</button>
-            </div>
-            <div class="col-1">
-                <button class="btn btn-primary float-right" type="button">Save</button>
-            </div>
-        </div>
+        </form>
+
     </div>
 </section>
