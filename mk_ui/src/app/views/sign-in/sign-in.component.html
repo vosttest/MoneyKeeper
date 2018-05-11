@@ -63,7 +63,7 @@
                             <span class="text-danger">*</span>
                         </div>
                         <div class="row">
-                            <input id="femail" name="femail" type="text" class="form-control" #femail="ngModel" [(ngModel)]="vm.femail" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+                            <input id="femail" name="femail" type="text" class="form-control" #femail="ngModel" [(ngModel)]="vm.femail" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" maxlength="64" />
                             <span [hidden]="femail.valid || (femail.pristine && !forgotForm.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                 <span *ngIf="femail.errors?.required">
                                     <i class="fa fa-exclamation-triangle"></i>Please enter email address.

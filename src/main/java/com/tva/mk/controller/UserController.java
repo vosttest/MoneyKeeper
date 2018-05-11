@@ -12,6 +12,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
+import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -117,6 +119,27 @@ public class UserController {
 			} else {
 				res.setError("User name or email have already registed!");
 			}
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@PostMapping("/send-email-verification-link/{email}")
+	public ResponseEntity<?> sendMailWithVerificationLink(@PathVariable("email") String email) {
+		BaseRsp res = new BaseRsp();
+
+		try {
+			// Handle
+			Users m = userService.getBy("", email);
+			if(m== null) {
+				res.setMessage("Email doesn't existed.");
+			}
+			else {
+				boolean t = false;	
+			}
+
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
