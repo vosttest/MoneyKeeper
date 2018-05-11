@@ -16,28 +16,32 @@ export class CategoryComponent implements OnInit {
     public lstChild = [];
     public lstParentTmp = [];
     public lstChildTmp = [];
-    public keyword= '';
+    public keyword = '';
+    public isShow: boolean = true;
+    public tab: string = "";
+    public isCollapsed: boolean = true;
+    public isNull: boolean = true;
+    public parent_id: any;
+    public vmExpense = [];
+    public selEdit: any = "";
+
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider) { }
 
     ngOnInit() {
+        this.loadExpense();
     }
 
     public loadIncome() {
+        this.tab = "Income";
+        document.getElementById("tabExpense").style.backgroundColor = "white";
+        document.getElementById("tabExpense").style.color = "black";
+        document.getElementById("tabIncome").style.backgroundColor = "#017DE3";
+        document.getElementById("tabIncome").style.color = "white";
+
         this.proIncome.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.lstParent = rsp.result.parent;
-                this.lstChild = rsp.result.child;
-            }
-            else {
-                console.log(rsp.message);
-            }
-        }, err => console.log(err));
-    }
-
-    public loadExpense() {
-        this.proExpense.search().subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+                this.isShow = false;
                 this.lstParent = rsp.result.parent;
                 this.lstParentTmp = this.lstParent;
                 this.lstChild = rsp.result.child;
@@ -49,16 +53,68 @@ export class CategoryComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public redirectAdd()
-    {
-        document.getElementById("divAdd").style.display="block";
-        document.getElementById("divCategory").style.display="none";
+    public loadExpense() {
+        this.tab = "Expense";
+        document.getElementById("tabExpense").style.backgroundColor = "#017DE3";
+        document.getElementById("tabExpense").style.color = "white";
+        document.getElementById("tabIncome").style.backgroundColor = "white";
+        document.getElementById("tabIncome").style.color = "black";
+
+        this.proExpense.search().subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.isShow = true;
+                this.lstParent = rsp.result.parent;
+                this.lstParentTmp = this.lstParent;
+                this.lstChild = rsp.result.child;
+                this.lstChildTmp = this.lstChild;
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
     }
 
-    public redirectCategory()
-    {
-        document.getElementById("divAdd").style.display="none";
-        document.getElementById("divCategory").style.display="block";
+    public redirectAdd() {
+        document.getElementById("divAdd").style.display = "block";
+        document.getElementById("divEdit").style.display = "none";
+        document.getElementById("divCategory").style.display = "none";
+    }
+
+    public redirectEdit(parentId: any, id: any) {
+        parentId == null ? this.isNull = true : this.isNull = false;
+
+        document.getElementById("divEdit").style.display = "block";
+        document.getElementById("divAdd").style.display = "none";
+        document.getElementById("divCategory").style.display = "none";
+
+        if (this.tab == "Expense") {
+            this.proExpense.getById(id).subscribe((rsp: any) => {
+                if (rsp.status === 'success') {
+                    this.vmExpense = rsp.result;
+                    this.selEdit = rsp.result.parentId;
+                }
+                else {
+                    console.log(rsp.message);
+                }
+            })
+        }
+        else {
+            this.proIncome.getById(id).subscribe((rsp: any) => {
+                if (rsp.status === 'success') {
+                    this.vmExpense = rsp.result;
+                    this.selEdit = rsp.result.parentId;
+                }
+                else {
+                    console.log(rsp.message);
+                }
+            })
+        }
+    }
+
+    public redirectCategory() {
+        document.getElementById("divAdd").style.display = "none";
+        document.getElementById("divEdit").style.display = "none";
+        document.getElementById("divCategory").style.display = "block";
     }
 
     public search() {
@@ -80,6 +136,17 @@ export class CategoryComponent implements OnInit {
                     this.lstChildTmp.push(obj);
                 }
             });
+        }
+    }
+
+    public changeIcon(id: any) {
+        let arrow = document.getElementById("arrow" + id).style.transform;
+
+        if (arrow == "") {
+            document.getElementById("arrow" + id).style.transform = "rotate(180deg)";
+        }
+        else {
+            document.getElementById("arrow" + id).style.transform = null;
         }
     }
 }

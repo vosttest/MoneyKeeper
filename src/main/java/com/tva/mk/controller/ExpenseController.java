@@ -9,10 +9,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.ExpenseService;
@@ -21,6 +23,7 @@ import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Expense;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.MultipleRsp;
+import com.tva.mk.rsp.SingleRsp;
 
 @RestController
 @RequestMapping("/expense")
@@ -80,6 +83,23 @@ public class ExpenseController {
 			}
 
 			expenseService.save(m);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getUser(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			Expense exp = expenseService.getById(id);
+
+			// Set data
+			res.setResult(exp);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

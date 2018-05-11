@@ -12,4 +12,11 @@ export class IncomeProvider {
     public search() {
         return this.api.get('income/search')
     }
+
+    /**
+     * Get By Id
+     */
+    public getById(id: any) {
+        return this.api.get('income/getById/' + id);
+    }
 }

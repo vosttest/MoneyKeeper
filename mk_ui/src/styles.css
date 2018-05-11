@@ -46,3 +46,11 @@ span.k-tooltip {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     line-height: normal;
 }
+
+.float-right {
+    float: right;
+}
+
+.pointer {
+    cursor: pointer;
+}

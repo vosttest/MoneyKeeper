@@ -12,4 +12,12 @@ export class ExpenseProvider {
     public search() {
         return this.api.get('expense/search');
     }
+
+    /**
+     * Get By Id
+     */
+    public getById(id: any) {
+        return this.api.get('expense/getById/' + id);
+    }
 }
+

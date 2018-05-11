@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.IncomeDao;
+import com.tva.mk.model.Expense;
 import com.tva.mk.model.Income;
 
 @Service(value = "incomeService")
@@ -62,6 +63,11 @@ public class IncomeService {
 			m1.setModifyOn(new Date());
 			incomeDao.save(m1);
 		}
+		return res;
+	}
+	
+	public Income getById(int id) {
+		Income res = incomeDao.getBy(id);
 		return res;
 	}
 

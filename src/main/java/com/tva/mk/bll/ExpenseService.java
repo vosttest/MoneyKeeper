@@ -56,6 +56,11 @@ public class ExpenseService {
 
 		return res;
 	}
+	
+	public Expense getById(int id) {
+		Expense res = expenseDao.getBy(id);
+		return res;
+	}
 
 	// end
 }

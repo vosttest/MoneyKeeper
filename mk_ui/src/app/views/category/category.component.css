@@ -10,14 +10,18 @@ h2 {
     font-weight: 700;
 }
 
-.format-layout {
-    margin-left: 50px !important;
-    margin-right: 50px !important;
+a {
+    text-decoration-line: none;
 }
 
 .format-layout {
     margin-left: 50px !important;
     margin-right: 50px !important;
+}
+
+.row-margin {
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .none-border {
@@ -55,4 +59,13 @@ h2 {
     bottom: 0px
 }
 
-.icon {}
+.padding-left {
+    padding-left: 5%;
+}
+
+.format-iconUp {
+    margin: auto;
+    font-size: large;
+    cursor: pointer;
+    color: #017DE3;
+}
