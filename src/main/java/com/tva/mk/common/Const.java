@@ -15,6 +15,10 @@ public class Const {
 		public static final String HEADER_STRING = "Authorization";
 
 		public static final String ROLE_ADMIN = "Admin";
+
+		public static final String RSA_PRIVATE = "RSA_PRIVATE_KEY";
+
+		public static final String RSA_PUBLIC = "RSA_PUBLIC_KEY";
 	}
 
 	public class HTTP {
@@ -53,5 +57,11 @@ public class Const {
 		public static final String DEFAULT_REMINDER = "20:00";
 
 		public static final String DEFAULT_CURRENCY = "VND";
+	}
+
+	public class Mode {
+		public static final String DEV = "DEV_MODE";
+
+		public static final String RSA = "RSA_MODE";
 	}
 }

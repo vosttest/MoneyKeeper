@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Get environment variable
-		String mod = System.getenv("DEV_MODE");
+		String mod = System.getenv(Const.Mode.DEV);
 
 		if (mod != null && "Y".equals(mod)) {
 			http.cors().and().csrf().disable();
@@ -80,7 +80,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(WebSecurity web) throws Exception {
 		// Get environment variable
-		String mod = System.getenv("DEV_MODE");
+		String mod = System.getenv(Const.Mode.DEV);
 
 		if (mod != null && "Y".equals(mod)) {
 			web.ignoring().antMatchers("/*.html", "/*.css", "/*.js", "/*.png", "/*.ico", "/*.jpg", "/*.jpeg", "/*.gif",
