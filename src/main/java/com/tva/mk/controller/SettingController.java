@@ -87,7 +87,7 @@ public class SettingController {
 			String tmp = settingService.save(m);
 
 			if (!tmp.isEmpty()) {
-				res.setError("User name or email have already registed!");
+				res.setError("Save setting error!");
 			}
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());

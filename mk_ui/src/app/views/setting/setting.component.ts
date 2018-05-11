@@ -13,7 +13,8 @@ import { element } from 'protractor';
 export class SettingComponent implements OnInit {
     public data = [];
     public reminder: any = {};
-    public ismeridian=false;
+    public ismeridian = false;
+    public isTime = false;
 
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
@@ -31,10 +32,11 @@ export class SettingComponent implements OnInit {
 
                 this.data.forEach(element => {
                     if (element.code == 'SET01') {
-                        this.reminder.time = element.value;
-                        this.reminder.checked = element.status == 'ACT' ? true : false;
-                        this.reminder.id=element.id;
-                        console.log(this.reminder.checked);
+                        //this.reminder.time = element.value;
+                        this.reminder.time = new Date(element.value);
+                        this.reminder.status = element.status == 'ACT' ? true : false;
+                        this.reminder.id = element.id;
+                        return;
                     }
                 });
             }
@@ -66,6 +68,34 @@ export class SettingComponent implements OnInit {
     }
 
     public changeTime() {
-       
+        this.isTime = false;
+        if (this.reminder.status && this.reminder.time == null) {
+            this.isTime = true;
+            return;
+        }
+    }
+
+    public saveReminder() {
+        this.isTime = false;
+        if (this.reminder.status && this.reminder.time == null) {
+            this.isTime = true;
+            return;
+        }
+
+        this.reminder.status = this.reminder.status ? 'ACT' : 'INA';
+        this.reminder.time = this.reminder.time.toISOString();
+
+        let x = {
+            "id": this.reminder.id,
+            "value": this.reminder.time,
+            "status": this.reminder.status
+        }
+
+        this.pro.save(x).subscribe((rsp: any) => {
+            if (rsp.status == "success" && rsp.message == "") {
+                this.search();
+                this.closeModal('reminder');
+            }
+        }, err => console.log(err));
     }
 }

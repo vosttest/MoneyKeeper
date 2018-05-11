@@ -14,4 +14,12 @@ export class SettingProvider {
         let x = {};
         return this.api.post('setting/search', x);
     }
+
+    /**
+     * Save setting
+     * @param info
+     */
+    public save(info: any) {
+        return this.api.post('setting/save', info);
+    }
 }
