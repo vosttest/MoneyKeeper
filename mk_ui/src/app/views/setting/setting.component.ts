@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SettingProvider } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
+import { TimepickerModule } from 'ngx-bootstrap';
+import { element } from 'protractor';
 
 @Component({
     selector: 'app-setting',
@@ -10,6 +12,8 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 export class SettingComponent implements OnInit {
     public data = [];
+    public reminder: any = {};
+    public ismeridian=false;
 
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
@@ -24,6 +28,15 @@ export class SettingComponent implements OnInit {
         this.pro.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.data = rsp.result.data;
+
+                this.data.forEach(element => {
+                    if (element.code == 'SET01') {
+                        this.reminder.time = element.value;
+                        this.reminder.checked = element.status == 'ACT' ? true : false;
+                        this.reminder.id=element.id;
+                        console.log(this.reminder.checked);
+                    }
+                });
             }
             else {
                 console.log(rsp.message);
@@ -50,5 +63,9 @@ export class SettingComponent implements OnInit {
             case 'currency':
                 this.currencyPopup.hide();
         }
+    }
+
+    public changeTime() {
+       
     }
 }

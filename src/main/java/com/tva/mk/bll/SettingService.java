@@ -57,10 +57,13 @@ public class SettingService {
 			if (m1 == null) {
 				res = "Id does not exist";
 			} else {
-				m.setModifyBy(1);
-				m.setModifyOn(new Date());
+				m1.setValue(m.getValue());
+				m1.setDescription(m.getDescription());
+				m1.setStatus(m.getStatus());
+				m1.setModifyBy(1);
+				m1.setModifyOn(new Date());
 
-				m1 = entityManager.merge(m);
+				m1 = settingDao.save(m1);
 			}
 		}
 

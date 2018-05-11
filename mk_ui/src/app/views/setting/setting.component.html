@@ -30,14 +30,16 @@
                     </div>
                     <div class="col-md-6">
                         <label class="switch">
-                            <input type="checkbox" data-toggle="collapse" data-target="#timeReminder">
+                            <input type="checkbox" [checked]="reminder.checked" data-toggle="collapse" data-target="#timeReminder">
                             <span class="slider round"></span>
                         </label>
                     </div>
                 </div>
                 <div class="form-group row collapse" id="timeReminder">
                     <div class="col-md-6">Vào lúc</div>
-                    <div class="col-md-6">20:00</div>
+                    <div class="col-md-6">20:00
+                        <timepicker [(ngModel)]="reminder.time" [showMeridian]="ismeridian" class="test123" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
+                    </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-3"> </div>
