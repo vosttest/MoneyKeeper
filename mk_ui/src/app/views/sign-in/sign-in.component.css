@@ -1,0 +1,9 @@
+.modal-header>button {
+    border-color: #00000000;
+    background-color: #00000000;
+}
+
+.modal {
+    width: 50%;
+    margin: auto;
+}

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserProvider } from '../../providers/provider';
+import { ModalDirective } from 'ngx-bootstrap';
+import { NgForm } from '@angular/forms';
 
 @Component({
     selector: 'app-sign-in',
@@ -9,8 +11,11 @@ import { UserProvider } from '../../providers/provider';
 
 export class SignInComponent implements OnInit {
     public vm: any = { userName: '', password: '' };
+    public vm1:any = { femail:'' }
     public loader: boolean = false;
     public message = '';
+
+    @ViewChild('ForgotPassModal') public categoryModal: ModalDirective;
 
     constructor(private pro: UserProvider) { }
 
@@ -29,5 +34,9 @@ export class SignInComponent implements OnInit {
 
             this.loader = false;
         }, err => console.log(err));
+    }
+
+    public sendEmailVerificationLink(valid: boolean){
+        this.categoryModal.hide();
     }
 }
