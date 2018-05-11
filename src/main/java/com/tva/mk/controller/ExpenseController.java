@@ -47,14 +47,13 @@ public class ExpenseController {
 
 			// Handle
 			List<Expense> child = expenseService.getChild(id);
-			List<Expense> parent = expenseService.getParrent(id);
-
-			Map<String, Object> tmp = new LinkedHashMap<>();
-			tmp.put("parent", parent);
-			tmp.put("child", child);
+			List<Expense> parent = expenseService.getParent(id);
 
 			// Set data
-			res.setResult(tmp);
+			Map<String, Object> t = new LinkedHashMap<>();
+			t.put("parent", parent);
+			t.put("child", child);
+			res.setResult(t);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
@@ -89,7 +88,7 @@ public class ExpenseController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getUser(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
 		SingleRsp res = new SingleRsp();

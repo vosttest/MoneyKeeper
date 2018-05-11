@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.IncomeDao;
-import com.tva.mk.model.Expense;
 import com.tva.mk.model.Income;
 
 @Service(value = "incomeService")
@@ -23,11 +22,6 @@ public class IncomeService {
 
 	// region -- Methods --
 
-	/**
-	 * Load parent_id from Income
-	 * 
-	 * 
-	 */
 	public List<Income> getParent(int id) {
 		List<Income> res = incomeDao.getParent(id);
 		return res;
@@ -46,26 +40,36 @@ public class IncomeService {
 
 		Income m1;
 		if (id == null || id == 0) {
+			int sequence = incomeDao.getNextSeq(userId);
+			m.setSequence(sequence);
 
-			m.setCreateBy(userId);
+			m.setIsDeleted(false);
+			m.setCreateBy(1);
 			m.setCreateOn(new Date());
-			int tmp = incomeDao.getSequence(userId);
-			String[] tmp1 = incomeDao.getCode(userId).get(0).split("EXP");
-			String tmp2 = "EXP" + (Integer.parseInt(tmp1[1]) + 1);
-			m.setSequence(tmp);
-			m.setCode(tmp2);
-			incomeDao.save(m);
+
+			int t = incomeDao.getNextSeqCode(userId);
+			String t1 = String.format("INC%02d", t + 1);
+			m.setSequence(sequence);
+			m.setCode(t1);
+
+			m1 = incomeDao.save(m);
 
 		} else {
-
 			m1 = incomeDao.getBy(id);
-			m1.setModifyBy(userId);
-			m1.setModifyOn(new Date());
-			incomeDao.save(m1);
+			if (m1 == null) {
+				res = "Id does not exist";
+			} else {
+				m1 = incomeDao.getBy(id);
+				m1.setModifyBy(userId);
+				m1.setModifyOn(new Date());
+
+				incomeDao.save(m1);
+			}
 		}
+
 		return res;
 	}
-	
+
 	public Income getById(int id) {
 		Income res = incomeDao.getBy(id);
 		return res;

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.IncomeService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
-import com.tva.mk.model.Expense;
 import com.tva.mk.model.Income;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.MultipleRsp;
@@ -51,11 +50,10 @@ public class IncomeController {
 			List<Income> parent = incomeService.getParent(id);
 
 			// Set data
-			Map<String, Object> tmp2 = new LinkedHashMap<>();
-			tmp2.put("parent", parent);
-			tmp2.put("child", child);
-
-			res.setResult(tmp2);
+			Map<String, Object> t = new LinkedHashMap<>();
+			t.put("parent", parent);
+			t.put("child", child);
+			res.setResult(t);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
@@ -90,7 +88,7 @@ public class IncomeController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> getUser(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
 		SingleRsp res = new SingleRsp();

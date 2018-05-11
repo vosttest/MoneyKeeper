@@ -22,8 +22,8 @@ public class ExpenseService {
 
 	// region -- Methods --
 
-	public List<Expense> getParrent(int id) {
-		List<Expense> res = expenseDao.getParrent(id);
+	public List<Expense> getParent(int id) {
+		List<Expense> res = expenseDao.getParent(id);
 		return res;
 	}
 
@@ -37,26 +37,41 @@ public class ExpenseService {
 
 		Integer id = m.getId();
 		int userId = m.getUserId();
-		Expense m1;
+
 		if (id == null || id == 0) {
-			m.setCreateBy(userId);
+			int sequence = expenseDao.getNextSeq(userId);
+			m.setSequence(sequence);
+
+			m.setIsDeleted(false);
+			m.setCreateBy(1);
 			m.setCreateOn(new Date());
-			int tmp = expenseDao.getSequence(userId);
-			String[] tmp1 = expenseDao.getCode(userId).get(0).split("EXP");
-			String tmp2 = "EXP" + (Integer.parseInt(tmp1[1]) + 1);
-			m.setSequence(tmp);
-			m.setCode(tmp2);
+
+			int t = expenseDao.getNextSeqCode(userId);
+			String t1 = String.format("EXP%02d", t + 1);
+			m.setSequence(sequence);
+			m.setCode(t1);
+
 			expenseDao.save(m);
 		} else {
-			m1 = expenseDao.getBy(id);
-			m1.setModifyBy(userId);
-			m1.setModifyOn(new Date());
-			expenseDao.save(m1);
+			Expense m1 = expenseDao.getBy(id);
+			if (m1 == null) {
+				res = "Id does not exist";
+			} else {
+				m1 = expenseDao.getBy(id);
+				m1.setModifyBy(userId);
+				m1.setModifyOn(new Date());
+
+				m1.setText(m.getText());
+				m1.setDescription(m.getDescription());
+				m1.setParentId(m.getParentId());
+
+				expenseDao.save(m1);
+			}
 		}
 
 		return res;
 	}
-	
+
 	public Expense getById(int id) {
 		Expense res = expenseDao.getBy(id);
 		return res;

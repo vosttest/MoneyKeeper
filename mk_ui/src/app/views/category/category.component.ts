@@ -22,7 +22,7 @@ export class CategoryComponent implements OnInit {
     public isCollapsed: boolean = true;
     public isNull: boolean = true;
     public parent_id: any;
-    public vmExpense = [];
+    public vmExpense: any = {};
     public selEdit: any = "";
 
     constructor(private proIncome: IncomeProvider,
