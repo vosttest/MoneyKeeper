@@ -1,5 +1,6 @@
 package com.tva.mk.bll;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,42 @@ public class IncomeService {
 	 * 
 	 * 
 	 */
-	public List<Income> loadParentIncome(int id) {
-		List<Income> tmp = incomeDao.loadParentIncome(id);
-		return tmp;
+	public List<Income> getParent(int id) {
+		List<Income> res = incomeDao.getParent(id);
+		return res;
 	}
 
-	public List<Income> loadChildIncome(int id) {
-		List<Income> tmp = incomeDao.loadChildIncome(id);
-		return tmp;
+	public List<Income> getChild(int id) {
+		List<Income> res = incomeDao.getChild(id);
+		return res;
+	}
+
+	public String save(Income m) {
+		String res = "";
+
+		Integer id = m.getId();
+		int userId = m.getUserId();
+
+		Income m1;
+		if (id == null || id == 0) {
+
+			m.setCreateBy(userId);
+			m.setCreateOn(new Date());
+			int tmp = incomeDao.getSequence(userId);
+			String[] tmp1 = incomeDao.getCode(userId).get(0).split("EXP");
+			String tmp2 = "EXP" + (Integer.parseInt(tmp1[1]) + 1);
+			m.setSequence(tmp);
+			m.setCode(tmp2);
+			incomeDao.save(m);
+
+		} else {
+
+			m1 = incomeDao.getBy(id);
+			m1.setModifyBy(userId);
+			m1.setModifyOn(new Date());
+			incomeDao.save(m1);
+		}
+		return res;
 	}
 
 	// end
