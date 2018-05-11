@@ -16,7 +16,7 @@ export class CategoryComponent implements OnInit {
     public lstChild = [];
     public lstParentTmp = [];
     public lstChildTmp = [];
-
+    public keyword= '';
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider) { }
 
@@ -61,8 +61,8 @@ export class CategoryComponent implements OnInit {
         document.getElementById("divCategory").style.display="block";
     }
 
-    public search(keyword: string) {
-        keyword = keyword.toLowerCase();
+    public search() {
+        let keyword = this.keyword.toLowerCase();
         this.lstParentTmp = this.lstParent;
         this.lstChildTmp = this.lstChild;
         if (keyword != "" || keyword != null) {
