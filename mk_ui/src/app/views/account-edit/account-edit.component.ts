@@ -15,7 +15,10 @@ export class AccountEditComponent implements OnInit {
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
     public selected = '';
-    public select = '';
+    public selectedCurrency = '';
+    public selectedTerm = '';
+    public selectedTermEnd = '';
+    public selectedInterestPaid = '';
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
@@ -35,19 +38,14 @@ export class AccountEditComponent implements OnInit {
             if (rsp.status === 'success') {
                 if (type == 'Account') {
                     this.lstType = rsp.result.data;
-                    console.log(this.lstType);
                 } else if (type == 'Currency') {
                     this.lstCurrency = rsp.result.data;
-                    console.log(this.lstCurrency);
                 } else if (type == 'Term') {
                     this.lstTerm = rsp.result.data;
-                    console.log(this.lstTerm);
                 } else if (type == 'InterestPaid') {
                     this.lstInterestPaid = rsp.result.data;
-                    console.log(this.lstInterestPaid);
                 } else if (type == 'TermEnd') {
                     this.lstTermEnd = rsp.result.data;
-                    console.log(this.lstTermEnd);
                 }
             }
         }, err => console.log(err));
@@ -65,6 +63,7 @@ export class AccountEditComponent implements OnInit {
         }else{
             this.pickSaveAcc = true; 
             this.pickAtm=true; 
+            this.pickOther= false;
         }
     }
 }

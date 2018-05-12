@@ -53,7 +53,7 @@ public class AccountService {
 			m.setSequence(sequence);
 
 			m.setIsDeleted(false);
-			m.setCreateBy(1);
+			m.setCreateBy(userId);
 			m.setCreateOn(new Date());
 
 			m1 = accountDao.save(m);
@@ -63,10 +63,26 @@ public class AccountService {
 			if (m1 == null) {
 				res = "Id does not exist";
 			} else {
-				m.setModifyBy(1);
+				m.setModifyBy(userId);
 				m.setModifyOn(new Date());
 
-				m1 = entityManager.merge(m);
+				m1.setType(m.getType());
+				m1.setText(m.getText());
+				m1.setTermEnded(m.getTermEnded());
+				m1.setTerm(m.getTerm());
+				m1.setInterestPaid(m.getInterestPaid());
+				m1.setDescription(m.getDescription());
+				m1.setCurrency(m.getCurrency());
+				m1.setBank(m.getBank());
+				m1.setUserId(userId);
+				m1.setSequence(m.getSequence());
+				m1.setAccountId(m.getAccountId());
+				m1.setInterestRateFree(m.getInterestRateFree());
+				m1.setInterestRate(m.getInterestRate());
+				m1.setBalance(m.getBalance());
+				m1.setStartDate(m.getStartDate());
+
+				accountDao.save(m1);
 			}
 		}
 

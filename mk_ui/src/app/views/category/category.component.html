@@ -116,7 +116,7 @@
                     <label class="col-form-label">Category</label>
                 </div>
                 <div class="col-md-4 margin-top" *ngIf="!isNull">
-                    <select class="form-control none-border" #parentId="ngModel" [(ngModel)]="vmExpense.parentId">
+                    <select class="form-control none-border" name="parentId" #parentId="ngModel" [(ngModel)]="vmExpense.parentId">
                                 <option *ngFor="let i of lstParentTmp" value="{{i.id}}" [selected]="selEdit">{{i.text}}</option>
                             </select>
                 </div>

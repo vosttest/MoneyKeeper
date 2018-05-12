@@ -14,8 +14,11 @@ export class AccountAddComponent implements OnInit {
     public lstTerm: any[] = [];
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
-    public selected = '';    
-    public select = '';
+    public selected = '';
+    public selectedCurrency = '';
+    public selectedTerm = 'TRM02';
+    public selectedTermEnd = '';
+    public selectedInterestPaid = '';
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
@@ -28,6 +31,7 @@ export class AccountAddComponent implements OnInit {
         this.getType('Term');
         this.getType('InterestPaid');
         this.getType('TermEnd');
+        console.log(this.selectedTerm);
     }
 
     private getType(type: string) {
@@ -49,18 +53,23 @@ export class AccountAddComponent implements OnInit {
     }
 
     public checkType(va: string) {
-        console.log(va);    
+        console.log(va);
         if (va === "ACC05") {
             this.pickSaveAcc = false;
-            this.pickOther = true;           
+            this.pickOther = true;
+            this.pickAtm = true;
         }
-        else if(va === "ACC03"){
+        else if (va === "ACC03") {
             this.pickSaveAcc = true;
-            this.pickAtm=false; 
-        }else{
-            this.pickSaveAcc = true; 
-            this.pickAtm=true; 
-            this.pickOther= false;
+            this.pickAtm = false;
+            this.pickOther = false;
+        } else {
+            this.pickSaveAcc = true;
+            this.pickAtm = true;
+            this.pickOther = false;
         }
+    }
+    public testing(){
+        console.log(this.selectedTerm);
     }
 }

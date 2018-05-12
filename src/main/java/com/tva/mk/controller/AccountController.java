@@ -1,5 +1,6 @@
 package com.tva.mk.controller;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +19,9 @@ import com.tva.mk.bll.AccountService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Account;
+import com.tva.mk.req.AccountReq;
 import com.tva.mk.req.BaseReq;
+import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -59,5 +62,57 @@ public class AccountController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
+	@PostMapping("/save")
+	public ResponseEntity<?> save(@RequestHeader HttpHeaders header, @RequestBody AccountReq req) {
+		BaseRsp res = new BaseRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int userId = pl.getId();
+
+			// Get data
+			int id = req.getId();
+			String type = req.getType();
+			String text = req.getText();
+			String description = req.getDescription();
+			String currency = req.getCurrency();
+			String bank = req.getBank();
+			Float balance = req.getBalance();
+			String term = req.getTerm();
+			Float interestRate = req.getInterestRate();
+			Date startDate = req.getStartDate();
+			Float interestRateFree = req.getInterestRateFree();
+			String interestPaid = req.getInterestPaid();
+			String termEnded = req.getTermEnded();
+			Integer accountId = req.getAccountId();
+			Integer sequence = req.getSequence();
+
+			// Convert data
+			Account m = new Account();
+			m.setId(id);
+			m.setType(type);
+			m.setText(text);
+			m.setTermEnded(termEnded);
+			m.setTerm(term);
+			m.setInterestPaid(interestPaid);
+			m.setDescription(description);
+			m.setCurrency(currency);
+			m.setBank(bank);
+			m.setInterestRateFree(interestRateFree);
+			m.setInterestRate(interestRate);
+			m.setBalance(balance);
+			m.setStartDate(startDate);
+			m.setAccountId(accountId);
+			m.setSequence(sequence);
+			m.setUserId(userId);
+
+			// Handle
+			accountService.save(m);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 	// end
 }
