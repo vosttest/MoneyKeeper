@@ -7,7 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ForgotPasswordComponent implements OnInit {
+    public vm: any = { newPassword: "", confirmPassword: "" };
     constructor() { }
 
     ngOnInit() { }
+
+    public change() {
+
+    }
+
+    public resetPassword(){
+        console.log(this.vm);
+    }
 }

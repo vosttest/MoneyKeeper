@@ -50,7 +50,7 @@
             </button>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal form-label-left input_mask" name #forgotForm="ngForm" (ngSubmit)="sendEmailVerificationLink(forgotForm.valid)">
+            <form class="form-horizontal form-label-left input_mask" name="forgotForm" #forgotForm="ngForm" (ngSubmit)="sendEmailVerificationLink(forgotForm.valid)">
                 <div class=" col-md-12 col-sm-12 col-xs-12 ">
                     <div class="form-group ">
                         <div class="row ">
@@ -63,7 +63,7 @@
                             <span class="text-danger">*</span>
                         </div>
                         <div class="row">
-                            <input id="femail" name="femail" type="text" class="form-control" #femail="ngModel" [(ngModel)]="vm.femail" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" maxlength="64" />
+                            <input id="femail" name="femail" type="text" class="form-control" #femail="ngModel" [(ngModel)]="vm1.email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" maxlength="64" />
                             <span [hidden]="femail.valid || (femail.pristine && !forgotForm.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                 <span *ngIf="femail.errors?.required">
                                     <i class="fa fa-exclamation-triangle"></i>Please enter email address.
@@ -75,13 +75,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group ">
+                <div class="form-group">
                     <div class="row ">
                         <div class="col-md-6 ">
-                            <button type="button " class="btn btn-block " (click)="ForgotPassModal.hide() ">Cancel</button>
+                            <button type="button" class="btn btn-block" (click)="ForgotPassModal.hide()">Cancel</button>
                         </div>
-                        <div class="col-md-6 ">
-                            <button type="submit " class="btn btn-primary btn-block ">Next</button>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary btn-block">Next</button>
                         </div>
                     </div>
                 </div>

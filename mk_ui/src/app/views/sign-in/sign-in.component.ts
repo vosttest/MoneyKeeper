@@ -11,11 +11,11 @@ import { NgForm } from '@angular/forms';
 
 export class SignInComponent implements OnInit {
     public vm: any = { userName: '', password: '' };
-    public vm1:any = { femail:'' }
+    public vm1:any = { email:'' }
     public loader: boolean = false;
     public message = '';
 
-    @ViewChild('ForgotPassModal') public categoryModal: ModalDirective;
+    @ViewChild('ForgotPassModal') public forgotPassModal: ModalDirective;
 
     constructor(private pro: UserProvider) { }
 
@@ -37,6 +37,14 @@ export class SignInComponent implements OnInit {
     }
 
     public sendEmailVerificationLink(valid: boolean){
-        this.categoryModal.hide();
+        this.pro.forgotPassword(this.vm1).subscribe((rsp:any)=>{
+            if (rsp.status === 'success') {
+                alert("Please check mail box to change your password!");
+            } else {
+                let msg = rsp.message;
+                alert(msg);
+            }
+            this.forgotPassModal.hide();
+        });
     }
 }

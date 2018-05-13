@@ -1,7 +1,9 @@
 package com.tva.mk.bll;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -13,9 +15,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tva.mk.common.Utils;
 import com.tva.mk.dal.RoleDao;
 import com.tva.mk.dal.UserDao;
 import com.tva.mk.model.Users;
@@ -33,6 +37,9 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private RoleDao roleDao;
+
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	// end
 
@@ -112,6 +119,64 @@ public class UserService implements UserDetailsService {
 		if (m != null) {
 			m.setIsDeleted(true);
 			userDao.save(m);
+		}
+
+		return res;
+	}
+
+	public boolean sendVerificationLinkMail(String email) throws Exception {
+		Users m = getBy("", email);
+		if (m == null) {
+			throw new Exception("Email doesn't exist!");
+		}
+
+		/* Generate Password Reminder Token */
+		String pwdReminderToken;
+		try {
+			StringBuilder token = new StringBuilder("");
+			token.append(m.getEmail());
+			token.append(m.getUserName());
+			pwdReminderToken = bCryptPasswordEncoder.encode(token);
+		} catch (Exception e) {
+			throw new Exception("Failed to generate password_reminder_token");
+		}
+
+		/* Get PasswordReminder Token Expire Time */
+		Date tokenExpiryTime = getPwdTokenExpiryTimeInUTC();
+		if (tokenExpiryTime == null) {
+			throw new Exception("Failed to generate Password Reminder Token Expiry Time");
+		}
+
+		/*
+		 * update user table with password_reminder_token and password_reminder_expire
+		 */
+
+		m.setPassReminderExpire(tokenExpiryTime);
+		m.setPassReminderToken(pwdReminderToken);
+
+		userDao.save(m);
+
+		/* Send mail */
+		Utils.NotifyForForgottenPassword(m.getEmail(), pwdReminderToken, m.getFirstName());
+
+		return true;
+	}
+
+	/**
+	 * Get password token expire time (current time + 5 minutes)
+	 * 
+	 * @return
+	 */
+	private Date getPwdTokenExpiryTimeInUTC() throws Exception {
+		Date res = null;
+
+		try {
+			TimeZone t = TimeZone.getTimeZone("UTC");
+			Calendar t1 = Calendar.getInstance(t);
+			t1.add(Calendar.MINUTE, 5);
+			res = t1.getTime();
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 
 		return res;
