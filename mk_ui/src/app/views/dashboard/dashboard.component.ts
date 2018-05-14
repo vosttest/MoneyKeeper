@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AccountProvider } from '../../providers/provider';
 
 @Component({
     selector: 'app-dashboard',
@@ -7,25 +8,22 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DashboardComponent implements OnInit {
-    public account: any[] = [
-        {
-            "name": "Douglas  Pace"
-        },
-        {
-            "name": "Mcleod  Mueller"
-        },
-        {
-            "name": "Day  Meyers"
-        },
-        {
-            "name": "Aguirre  Ellis"
-        },
-        {
-            "name": "Cook  Tyson"
-        }
-    ];
-    
-    constructor() { }
+    public account = [];
 
-    ngOnInit() { }
+    constructor(private proAcc: AccountProvider) { }
+
+    ngOnInit() {
+        this.search();
+    }
+
+    private search() {
+        this.proAcc.search().subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.account = rsp.result.data;
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+    }
 }

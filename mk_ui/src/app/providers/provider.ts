@@ -5,6 +5,7 @@ import { IncomeProvider } from './income';
 import { SettingProvider } from './setting';
 import { UserProvider } from './user';
 import { VoucherProvider } from './voucher';
+import { AccountProvider } from './account';
 
 export {
     ApiProvider,
@@ -13,5 +14,6 @@ export {
     IncomeProvider,
     SettingProvider,
     UserProvider,
-    VoucherProvider
+    VoucherProvider,
+    AccountProvider
 };

@@ -20,9 +20,9 @@
         <div class="row">
             <div class="card">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" *ngFor="let a of account">
-                        <div class="acc left"> {{ a.name }}</div>
-                        <div class="acc right"> Balance:
+                    <li class="list-group-item" *ngFor="let item of account">
+                        <div class="acc left"> {{ item.text }}</div>
+                        <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
                             <button type="button" routerLink="/account-edit"><i class="fa fa-edit"></i></button>
                         </div>
                     </li>
