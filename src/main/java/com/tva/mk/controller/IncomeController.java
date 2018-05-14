@@ -21,6 +21,7 @@ import com.tva.mk.bll.IncomeService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Income;
+import com.tva.mk.req.IncomeReq;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.MultipleRsp;
 import com.tva.mk.rsp.SingleRsp;
@@ -62,7 +63,7 @@ public class IncomeController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<?> search(@RequestHeader HttpHeaders header, @RequestBody Income req) {
+	public ResponseEntity<?> search(@RequestHeader HttpHeaders header, @RequestBody IncomeReq req) {
 		BaseRsp res = new BaseRsp();
 
 		try {
@@ -94,7 +95,6 @@ public class IncomeController {
 		SingleRsp res = new SingleRsp();
 
 		try {
-			PayloadDto pl = Utils.getTokenInfor(header);
 			Income exp = incomeService.getById(id);
 
 			// Set data

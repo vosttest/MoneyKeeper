@@ -21,6 +21,7 @@ import com.tva.mk.bll.ExpenseService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Expense;
+import com.tva.mk.req.ExpenseReq;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.MultipleRsp;
 import com.tva.mk.rsp.SingleRsp;
@@ -62,7 +63,7 @@ public class ExpenseController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<?> save(@RequestHeader HttpHeaders header, @RequestBody Expense req) {
+	public ResponseEntity<?> save(@RequestHeader HttpHeaders header, @RequestBody ExpenseReq req) {
 		BaseRsp res = new BaseRsp();
 
 		try {
@@ -94,7 +95,6 @@ public class ExpenseController {
 		SingleRsp res = new SingleRsp();
 
 		try {
-			PayloadDto pl = Utils.getTokenInfor(header);
 			Expense exp = expenseService.getById(id);
 
 			// Set data
