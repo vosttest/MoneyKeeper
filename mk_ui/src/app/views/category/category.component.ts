@@ -152,11 +152,9 @@ export class CategoryComponent implements OnInit {
 
     public saveCategory() {
         if (this.tab == "Expense") {
-            
             this.proExpense.save(this.vm).subscribe((rsp: any) => {
-                console.log(rsp);
                 if (rsp.status === 'success') {
-
+                    //TODO
                 }
                 else {
                     console.log(rsp.message);
@@ -167,8 +165,16 @@ export class CategoryComponent implements OnInit {
         }
     }
 
-    public deleteCategory() {
+    public delete(id: any) {
         if (this.tab == "Expense") {
+            this.proExpense.delete(id).subscribe((rsp: any) => {
+                if (rsp.status === 'success') {
+                    //TODO
+                }
+                else {
+                    console.log(rsp.message);
+                }
+            })
         }
         else {
         }
