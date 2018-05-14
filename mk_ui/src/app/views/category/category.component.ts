@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
+import { Router } from '@angular/router';
 import {
     UserProvider,
     IncomeProvider,
@@ -25,8 +27,11 @@ export class CategoryComponent implements OnInit {
     public selEdit: any = "";
     public vm: any = { text: "", description: "", parentId: null }
 
+    @ViewChild('confirmModal') public confirmModal: ModalDirective;
+
     constructor(private proIncome: IncomeProvider,
-        private proExpense: ExpenseProvider) { }
+        private proExpense: ExpenseProvider,
+        private rou: Router, ) { }
 
     ngOnInit() {
         this.loadExpense();
@@ -150,7 +155,11 @@ export class CategoryComponent implements OnInit {
         }
     }
 
-    public saveCategory() {
+    public saveCategory(valid: boolean) {
+        if (!valid) {
+            return;
+        }
+
         if (this.tab == "Expense") {
             this.proExpense.save(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
@@ -169,7 +178,9 @@ export class CategoryComponent implements OnInit {
         if (this.tab == "Expense") {
             this.proExpense.delete(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    //TODO
+                    this.redirectCategory();
+                    this.loadExpense();
+                    this.confirmModal.hide();
                 }
                 else {
                     console.log(rsp.message);
