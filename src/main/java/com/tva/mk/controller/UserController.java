@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.UserService;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.model.Users;
+import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
 import com.tva.mk.rsp.BaseRsp;
@@ -130,12 +131,37 @@ public class UserController {
 		BaseRsp res = new BaseRsp();
 
 		try {
-			// Get date
+			// Get data
 			String email = req.getEmail();
 
 			// Handle
 			userService.sendVerificationLinkMail(email);
 
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@PostMapping("/renew-password")
+	public ResponseEntity<?> renewPassword(@RequestBody UserForgotPwdReq req) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Get data
+			String token = req.getToken();
+			String password = req.getPassword();
+			String passwordHash = bCryptPasswordEncoder.encode(password);
+
+			// Handle
+			Users m = userService.resetForgottenPassword(passwordHash, token);
+
+			// Set data
+			List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+			String tokenJWT = jwtTokenUtil.doGenerateToken(m, z);
+
+			res.setResult(tokenJWT);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

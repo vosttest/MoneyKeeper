@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { UserProvider } from '../../providers/provider';
 
 @Component({
     selector: 'app-forgot-password',
@@ -7,16 +9,36 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ForgotPasswordComponent implements OnInit {
-    public vm: any = { newPassword: "", confirmPassword: "" };
-    constructor() { }
+    public vm: any = { newPassword: '', confirmPassword: '' };
+    public token: string = '';
+    public message: string = '';
 
-    ngOnInit() { }
+    constructor(private rou: Router,
+        private act: ActivatedRoute,
+        private pro: UserProvider) { }
 
-    public change() {
-
+    ngOnInit() {
+        this.act.queryParams
+            .filter(params => params.token)
+            .subscribe(params => {
+                this.token = params.token;
+            });
     }
 
-    public resetPassword(){
-        console.log(this.vm);
+    public resetPassword() {
+        if (this.vm.newPassword != this.vm.confirmPassword) {
+            this.message = 'Password does not match!';
+            return;
+        }
+        let obj = { token: this.token, password: this.vm.newPassword };
+        
+        this.pro.renewPassword(obj).subscribe((rsp: any) => {
+            if(rsp.status === 'success'){
+                this.message = '';
+                this.pro.saveAuth(rsp.result);
+            }else{
+                alert(rsp.message);
+            }
+        }, err => console.log(err));
     }
 }

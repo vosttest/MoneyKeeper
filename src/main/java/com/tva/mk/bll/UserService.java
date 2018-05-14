@@ -1,9 +1,7 @@
 package com.tva.mk.bll;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -124,7 +122,28 @@ public class UserService implements UserDetailsService {
 		return res;
 	}
 
-	public boolean sendVerificationLinkMail(String email) throws Exception {
+	public Users resetForgottenPassword(String password, String token) throws Exception {
+		Users m = userDao.getByToken(token);
+
+		if (m == null) {
+			throw new Exception("Invalid token, no such token allocated to a user!");
+		}
+
+		Date t = m.getPassReminderExpire();
+		if (!Utils.validateVerificationLinkToken(t)) {
+			throw new Exception("Invalid token , token has expired");
+		}
+
+		m.setPasswordHash(password);
+		m.setPassReminderExpire(null);
+		m.setPassReminderToken(null);
+		m.setModifyOn(new Date());
+		m.setModifyBy(m.getId());
+		Users m1 = userDao.save(m);
+		return m1;
+	}
+
+	public void sendVerificationLinkMail(String email) throws Exception {
 		Users m = getBy("", email);
 		if (m == null) {
 			throw new Exception("Email doesn't exist!");
@@ -142,7 +161,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		/* Get PasswordReminder Token Expire Time */
-		Date tokenExpiryTime = getPwdTokenExpiryTimeInUTC();
+		Date tokenExpiryTime = Utils.getPwdTokenExpiryTimeInUTC();
 		if (tokenExpiryTime == null) {
 			throw new Exception("Failed to generate Password Reminder Token Expiry Time");
 		}
@@ -158,28 +177,6 @@ public class UserService implements UserDetailsService {
 
 		/* Send mail */
 		Utils.NotifyForForgottenPassword(m.getEmail(), pwdReminderToken, m.getFirstName());
-
-		return true;
-	}
-
-	/**
-	 * Get password token expire time (current time + 5 minutes)
-	 * 
-	 * @return
-	 */
-	private Date getPwdTokenExpiryTimeInUTC() throws Exception {
-		Date res = null;
-
-		try {
-			TimeZone t = TimeZone.getTimeZone("UTC");
-			Calendar t1 = Calendar.getInstance(t);
-			t1.add(Calendar.MINUTE, 5);
-			res = t1.getTime();
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
-
-		return res;
 	}
 
 	// end

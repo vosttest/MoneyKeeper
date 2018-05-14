@@ -2,9 +2,11 @@ package com.tva.mk.common;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpHeaders;
@@ -60,6 +62,37 @@ public class Utils {
 
 	public static void NotifyForForgottenPassword(String userEmail, String token, String userFirstName) {
 		EmailService.NotifyForForgottenPasswordStatic(userEmail, token, userFirstName);
+	}
+
+	/**
+	 * Get password token expire time (current time + 5 minutes)
+	 * 
+	 * @return
+	 */
+	public static Date getPwdTokenExpiryTimeInUTC() throws Exception {
+		Date res = null;
+
+		try {
+			TimeZone t = TimeZone.getTimeZone("UTC");
+			Calendar t1 = Calendar.getInstance(t);
+			t1.add(Calendar.MINUTE, 5);
+			res = t1.getTime();
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+		return res;
+	}
+
+	public static boolean validateVerificationLinkToken(Date tokenExpiry) {
+		TimeZone t = TimeZone.getTimeZone("UTC");
+		Calendar t1 = Calendar.getInstance(t);
+
+		if (tokenExpiry.compareTo(t1.getTime()) < 0) {
+			return false;
+		}
+
+		return true;
 	}
 
 	// end

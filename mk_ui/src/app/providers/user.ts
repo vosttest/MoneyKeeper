@@ -63,6 +63,15 @@ export class UserProvider {
     }
 
     /**
+     * Renew password
+     * @param info
+     */
+    public renewPassword(info: any) {
+        //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
+        return this.api.post('user/renew-password', info);
+    }
+
+    /**
      * Forget password
      * @param info
      */

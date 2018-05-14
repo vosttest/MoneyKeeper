@@ -11,7 +11,7 @@ import { NgForm } from '@angular/forms';
 
 export class SignInComponent implements OnInit {
     public vm: any = { userName: '', password: '' };
-    public vm1:any = { email:'' }
+    public vm1: any = { email: '' }
     public loader: boolean = false;
     public message = '';
 
@@ -36,8 +36,8 @@ export class SignInComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public sendEmailVerificationLink(valid: boolean){
-        this.pro.forgotPassword(this.vm1).subscribe((rsp:any)=>{
+    public sendEmailVerificationLink(valid: boolean) {
+        this.pro.forgotPassword(this.vm1).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 alert("Please check mail box to change your password!");
             } else {
