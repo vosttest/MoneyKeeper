@@ -55,20 +55,25 @@
             <div class="col-md-4">
             </div>
         </div>
-        <form #f="ngForm" (ngSubmit)="addCategory()">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && addCategory()">
             <div class="row">
                 <div class="col-md-1 text-center">
                     <img src="../../../../assets/img/question.png" class="format-image " />
                 </div>
                 <div class="col-md-4 margin-top">
-                    <input class="form-control none-border" placeholder="Sub-Category Name" />
+                    <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
+                    <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                        <span *ngIf="subCategoryName.errors?.required">
+                            <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
+                        </span>
+                    </span>
                 </div>
                 <div class="col-md-3">
                     <label class="col-form-label">Category</label>
                 </div>
                 <div class="col-md-4">
-                    <select id="inputState" class="form-control none-border">
-                        <option *ngFor="let i of lstParentTmp" value="i.code">{{i.text}}</option>
+                    <select id="inputState" class="form-control none-border" name="categoryName" #categoryName="ngModel" [(ngModel)]="vm.parentId">
+                        <option *ngFor="let i of lstParentTmp" value="{{i.id}}">{{i.text}}</option>
                     </select>
                 </div>
             </div>
@@ -85,7 +90,7 @@
             </div>
             <div class="form-control none-border">
                 <label class="col-form-label">Note</label>
-                <input class="form-control none-border" />
+                <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
                 <hr />
                 <button class="btn btn-primary btnSave" type="submit">Save</button>
             </div>
@@ -110,18 +115,28 @@
                     <img src="../../../../assets/img/question.png" class="format-image " />
                 </div>
                 <div class="col-md-4 margin-top" *ngIf="!isNull">
-                    <input class="form-control none-border font-xLarge" placeholder="Sub-Category Name" value="{{vmExpense.text}}" />
+                    <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
+                    <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                        <span *ngIf="subCategoryName.errors?.required">
+                            <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
+                        </span>
+                    </span>
                 </div>
                 <div class="col-md-3" *ngIf="!isNull">
                     <label class="col-form-label">Category</label>
                 </div>
                 <div class="col-md-4 margin-top" *ngIf="!isNull">
-                    <select class="form-control none-border" name="parentId" #parentId="ngModel" [(ngModel)]="vmExpense.parentId">
-                                <option *ngFor="let i of lstParentTmp" value="{{i.id}}" [selected]="selEdit">{{i.text}}</option>
-                            </select>
+                    <select id="inputState" class="form-control none-border" name="categoryName" #categoryName="ngModel" [(ngModel)]="vm.parentId">
+                        <option *ngFor="let i of lstParentTmp" value="{{i.id}}"  [selected]="selEdit">{{i.text}}</option>
+                    </select>
                 </div>
                 <div class="col-md-11" *ngIf="isNull">
-                    <input class="form-control none-border" value="{{vmExpense.text}}" />
+                    <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
+                    <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                            <span *ngIf="subCategoryName.errors?.required">
+                                <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
+                            </span>
+                    </span>
                 </div>
             </div>
             <div class="row">
@@ -140,7 +155,7 @@
             </div>
             <div class="form-control none-border">
                 <label class="col-form-label">Note</label>
-                <input class="form-control none-border font-xLarge" value="{{vmExpense.desciption}}" />
+                <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
                 <hr />
             </div>
             <div class="row">

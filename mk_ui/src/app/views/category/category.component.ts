@@ -22,8 +22,8 @@ export class CategoryComponent implements OnInit {
     public isCollapsed: boolean = true;
     public isNull: boolean = true;
     public parent_id: any;
-    public vmExpense: any = {};
     public selEdit: any = "";
+    public vm: any = { text: "", description: "", parentId: null }
 
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider) { }
@@ -90,7 +90,7 @@ export class CategoryComponent implements OnInit {
         if (this.tab == "Expense") {
             this.proExpense.getById(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.vmExpense = rsp.result;
+                    this.vm = rsp.result;
                     this.selEdit = rsp.result.parentId;
                 }
                 else {
@@ -101,7 +101,7 @@ export class CategoryComponent implements OnInit {
         else {
             this.proIncome.getById(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.vmExpense = rsp.result;
+                    this.vm = rsp.result;
                     this.selEdit = rsp.result.parentId;
                 }
                 else {
@@ -152,6 +152,16 @@ export class CategoryComponent implements OnInit {
 
     public addCategory() {
         if (this.tab == "Expense") {
+            
+            this.proExpense.save(this.vm).subscribe((rsp: any) => {
+                console.log(rsp);
+                if (rsp.status === 'success') {
+
+                }
+                else {
+                    console.log(rsp.message);
+                }
+            })
         }
         else {
         }
@@ -159,6 +169,15 @@ export class CategoryComponent implements OnInit {
 
     public editCategory() {
         if (this.tab == "Expense") {
+            this.proExpense.save(this.vm).subscribe((rsp: any) => {
+                console.log(rsp);
+                if (rsp.status === 'success') {
+
+                }
+                else {
+                    console.log(rsp.message);
+                }
+            })
         }
         else {
         }

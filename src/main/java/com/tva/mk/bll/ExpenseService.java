@@ -64,6 +64,7 @@ public class ExpenseService {
 				m1.setText(m.getText());
 				m1.setDescription(m.getDescription());
 				m1.setParentId(m.getParentId());
+				m1.setIsDeleted(false);
 
 				expenseDao.save(m1);
 			}
@@ -77,5 +78,25 @@ public class ExpenseService {
 		return res;
 	}
 
+	
+	public String delete(Expense m) {
+		String res = "";
+		
+		if (m == null) {
+			res = "Id does not exist";
+		} else {
+			int userId = m.getUserId();
+			
+			m.setModifyBy(userId);
+			m.setModifyOn(new Date());
+			
+			m.setIsDeleted(true);
+
+			expenseDao.save(m);
+		}
+		
+		return res;
+	}
+	
 	// end
 }

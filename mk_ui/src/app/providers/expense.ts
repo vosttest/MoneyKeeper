@@ -19,5 +19,18 @@ export class ExpenseProvider {
     public getById(id: any) {
         return this.api.get('expense/getById/' + id);
     }
-}
 
+    /**
+     * Post add
+     */
+    public save(info: any) {
+        return this.api.post('expense/save', info);
+    }
+
+    /**
+     * Delete
+     */
+    public delete(id: any) {
+        return this.api.delete('expense/delete/' + id);
+    }
+}

@@ -6,7 +6,7 @@ public class ExpenseReq {
 
 	// region -- Fields --
 	@JsonProperty(value = "id")
-	private String id;
+	private Integer id;
 
 	@JsonProperty(value = "text")
 	private String text;
@@ -16,16 +16,19 @@ public class ExpenseReq {
 
 	@JsonProperty(value = "parentId")
 	private int parentId;
+	
+	@JsonProperty(value = "isDelete")
+	private Boolean isDelete;
 
 	// end
 
 	// region -- Get set --
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -51,6 +54,14 @@ public class ExpenseReq {
 
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
+	}
+	
+	public boolean getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(boolean isDelete) {
+		this.isDelete = isDelete;
 	}
 
 	// end

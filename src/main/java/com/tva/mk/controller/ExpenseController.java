@@ -68,16 +68,18 @@ public class ExpenseController {
 
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
-			int id = pl.getId();
+			int userId = pl.getId();
 
+			Integer id = req.getId();
 			String text = req.getText();
 			String description = req.getDescription();
 			int parentId = req.getParentId();
 
 			Expense m = new Expense();
+			m.setId(id);
 			m.setText(text);
 			m.setDescription(description);
-			m.setUserId(id);
+			m.setUserId(userId);
 			if (parentId != 0) {
 				m.setParentId(parentId);
 			}
@@ -99,6 +101,24 @@ public class ExpenseController {
 
 			// Set data
 			res.setResult(exp);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header,  @PathVariable("id") int id) {
+		BaseRsp res = new BaseRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int userId = pl.getId();
+
+			Expense m = expenseService.getById(id);
+			
+			expenseService.delete(m);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
