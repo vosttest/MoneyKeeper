@@ -21,7 +21,7 @@ export class ExpenseProvider {
     }
 
     /**
-     * Post add
+     * Add, Edit
      */
     public save(info: any) {
         return this.api.post('expense/save', info);

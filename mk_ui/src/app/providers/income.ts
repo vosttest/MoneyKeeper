@@ -19,4 +19,18 @@ export class IncomeProvider {
     public getById(id: any) {
         return this.api.get('income/getById/' + id);
     }
-}
+
+    /**
+     * Add, Edit
+     */
+    public save(info: any) {
+        return this.api.post('income/save/', info);
+    }
+
+    /**
+     * Delete
+     */
+    public delete(id: any) {
+        return this.api.delete('income/delete/' + id);
+    }
+}   

@@ -107,9 +107,9 @@ public class ExpenseController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header,  @PathVariable("id") int id) {
+	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
 		BaseRsp res = new BaseRsp();
 
 		try {
@@ -117,7 +117,7 @@ public class ExpenseController {
 			int userId = pl.getId();
 
 			Expense m = expenseService.getById(id);
-			
+
 			expenseService.delete(m);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());

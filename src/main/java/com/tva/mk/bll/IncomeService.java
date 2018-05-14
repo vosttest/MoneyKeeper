@@ -38,7 +38,6 @@ public class IncomeService {
 		Integer id = m.getId();
 		int userId = m.getUserId();
 
-		Income m1;
 		if (id == null || id == 0) {
 			int sequence = incomeDao.getNextSeq(userId);
 			m.setSequence(sequence);
@@ -52,16 +51,21 @@ public class IncomeService {
 			m.setSequence(sequence);
 			m.setCode(t1);
 
-			m1 = incomeDao.save(m);
+			incomeDao.save(m);
 
 		} else {
-			m1 = incomeDao.getBy(id);
+			Income m1 = incomeDao.getBy(id);
 			if (m1 == null) {
 				res = "Id does not exist";
 			} else {
 				m1 = incomeDao.getBy(id);
 				m1.setModifyBy(userId);
 				m1.setModifyOn(new Date());
+
+				m1.setText(m.getText());
+				m1.setDescription(m.getDescription());
+				m1.setParentId(m.getParentId());
+				m1.setIsDeleted(false);
 
 				incomeDao.save(m1);
 			}
@@ -72,6 +76,25 @@ public class IncomeService {
 
 	public Income getById(int id) {
 		Income res = incomeDao.getBy(id);
+		return res;
+	}
+
+	public String delete(Income m) {
+		String res = "";
+
+		if (m == null) {
+			res = "Id does not exist";
+		} else {
+			int userId = m.getUserId();
+
+			m.setModifyBy(userId);
+			m.setModifyOn(new Date());
+
+			m.setIsDeleted(true);
+
+			incomeDao.save(m);
+		}
+
 		return res;
 	}
 

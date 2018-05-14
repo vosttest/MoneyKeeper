@@ -78,25 +78,24 @@ public class ExpenseService {
 		return res;
 	}
 
-	
 	public String delete(Expense m) {
 		String res = "";
-		
+
 		if (m == null) {
 			res = "Id does not exist";
 		} else {
 			int userId = m.getUserId();
-			
+
 			m.setModifyBy(userId);
 			m.setModifyOn(new Date());
-			
+
 			m.setIsDeleted(true);
 
 			expenseDao.save(m);
 		}
-		
+
 		return res;
 	}
-	
+
 	// end
 }
