@@ -169,6 +169,38 @@ public class UserController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	@PostMapping("/change-password")
+	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordReq req, @RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Get date
+			String oldPassword = req.getOldPassword();
+			String newPassword = req.getNewPassword();
+
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			Users m = userService.changePassword(oldPassword, newPassword, id);
+			String tmp = userService.save(m);
+
+			if (tmp.isEmpty()) {
+				res.setError("Success");
+			} else {
+				res.setError("f");
+			}
+
+			// Handle
+
+		} catch (
+
+		Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 
 	// end
 }

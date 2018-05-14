@@ -174,6 +174,15 @@ public class UserService implements UserDetailsService {
 
 		Utils.sendMail(email, token, m.getFirstName());
 	}
+	
+	public Users changePassword(String oldPassword, String newPassword, int id) {
+		Users m = getBy(id);
+		if (m.getPasswordHash().equals((oldPassword))) {
+			m.setPasswordHash(newPassword);
+		}
 
+		return m;
+
+	}
 	// end
 }
