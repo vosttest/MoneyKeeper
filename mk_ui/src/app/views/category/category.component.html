@@ -55,7 +55,7 @@
             <div class="col-md-4">
             </div>
         </div>
-        <form #f="ngForm" (ngSubmit)="f.form.valid && addCategory()">
+        <form #f="ngForm" (ngSubmit)="f.form.valid && saveCategory()">
             <div class="row">
                 <div class="col-md-1 text-center">
                     <img src="../../../../assets/img/question.png" class="format-image " />
@@ -109,7 +109,7 @@
             <div class="col-md-4">
             </div>
         </div>
-        <form #f1="ngForm" (ngSubmit)="editCategory()">
+        <form #f1="ngForm" (ngSubmit)="f.form.valid && saveCategory()">
             <div class="row">
                 <div class="col-md-1 text-center">
                     <img src="../../../../assets/img/question.png" class="format-image " />
@@ -160,7 +160,7 @@
             </div>
             <div class="row">
                 <div class="col-11">
-                    <button class="btn btn-danger float-right" type="button">Delete</button>
+                    <button class="btn btn-danger float-right" type="button" (click)="delete()">Delete</button>
                 </div>
                 <div class="col-1">
                     <button class="btn btn-primary float-right" type="submit">Save</button>

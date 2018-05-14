@@ -150,7 +150,7 @@ export class CategoryComponent implements OnInit {
         }
     }
 
-    public addCategory() {
+    public saveCategory() {
         if (this.tab == "Expense") {
             
             this.proExpense.save(this.vm).subscribe((rsp: any) => {
@@ -167,17 +167,8 @@ export class CategoryComponent implements OnInit {
         }
     }
 
-    public editCategory() {
+    public deleteCategory() {
         if (this.tab == "Expense") {
-            this.proExpense.save(this.vm).subscribe((rsp: any) => {
-                console.log(rsp);
-                if (rsp.status === 'success') {
-
-                }
-                else {
-                    console.log(rsp.message);
-                }
-            })
         }
         else {
         }
