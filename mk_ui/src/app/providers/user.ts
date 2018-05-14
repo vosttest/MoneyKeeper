@@ -66,9 +66,9 @@ export class UserProvider {
      * Renew password
      * @param info
      */
-    public renewPassword(info: any) {
+    public verifyMail(info: any) {
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
-        return this.api.post('user/renew-password', info);
+        return this.api.post('user/verify-mail', info);
     }
 
     /**

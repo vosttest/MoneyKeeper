@@ -122,9 +122,8 @@ public class UserService implements UserDetailsService {
 		return res;
 	}
 
-	public Users resetForgottenPassword(String password, String token) throws Exception {
+	public Users forgotPassword(String password, String token) throws Exception {
 		Users m = userDao.getByToken(token);
-
 		if (m == null) {
 			throw new Exception("Invalid token, no such token allocated to a user!");
 		}
@@ -139,44 +138,41 @@ public class UserService implements UserDetailsService {
 		m.setPassReminderToken(null);
 		m.setModifyOn(new Date());
 		m.setModifyBy(m.getId());
-		Users m1 = userDao.save(m);
-		return m1;
+
+		userDao.save(m);
+
+		return m;
 	}
 
-	public void sendVerificationLinkMail(String email) throws Exception {
+	public void verifyMail(String email) throws Exception {
 		Users m = getBy("", email);
 		if (m == null) {
 			throw new Exception("Email doesn't exist!");
 		}
 
-		/* Generate Password Reminder Token */
-		String pwdReminderToken;
+		// Generate password reminder token
+		String token;
 		try {
-			StringBuilder token = new StringBuilder("");
-			token.append(m.getEmail());
-			token.append(m.getUserName());
-			pwdReminderToken = bCryptPasswordEncoder.encode(token);
+			StringBuilder t = new StringBuilder("");
+			t.append(email);
+			t.append(m.getUserName());
+			token = bCryptPasswordEncoder.encode(t);
 		} catch (Exception e) {
 			throw new Exception("Failed to generate password_reminder_token");
 		}
 
-		/* Get PasswordReminder Token Expire Time */
-		Date tokenExpiryTime = Utils.getPwdTokenExpiryTimeInUTC();
-		if (tokenExpiryTime == null) {
+		// Get password reminder token expire time
+		Date expire = Utils.getPwdTokenExpiryTimeInUTC();
+		if (expire == null) {
 			throw new Exception("Failed to generate Password Reminder Token Expiry Time");
 		}
 
-		/*
-		 * update user table with password_reminder_token and password_reminder_expire
-		 */
-
-		m.setPassReminderExpire(tokenExpiryTime);
-		m.setPassReminderToken(pwdReminderToken);
+		m.setPassReminderExpire(expire);
+		m.setPassReminderToken(token);
 
 		userDao.save(m);
 
-		/* Send mail */
-		Utils.NotifyForForgottenPassword(m.getEmail(), pwdReminderToken, m.getFirstName());
+		Utils.sendMail(email, token, m.getFirstName());
 	}
 
 	// end

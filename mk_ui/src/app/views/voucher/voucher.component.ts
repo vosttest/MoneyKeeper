@@ -5,12 +5,14 @@ import { ModalDirective } from 'ngx-bootstrap';
 @Component({
     selector: 'app-voucher',
     templateUrl: './voucher.component.html',
-    styleUrls: ['./voucher.component.css']
+    styleUrls: ['./voucher.component.css', '../category/category.component.css']
 })
 
 export class VoucherComponent implements OnInit {
     public lstParent = [];
     public lstChild = [];
+    public lstParentTmp = [];
+    public lstChildTmp = [];
     public message = '';
     public selected = { code: '', text: '-- Select Category --' };
 
@@ -27,8 +29,8 @@ export class VoucherComponent implements OnInit {
     public getExpense() {
         this.proExpense.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.lstParent = rsp.result.parent;
-                this.lstChild = rsp.result.child;
+                this.lstParent = this.lstParentTmp = rsp.result.parent;
+                this.lstChild = this.lstChildTmp = rsp.result.child;
             } else {
                 this.message = rsp.message;
             }
@@ -38,12 +40,23 @@ export class VoucherComponent implements OnInit {
     public getIncome() {
         this.proIncome.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.lstParent = rsp.result.parent;
-                this.lstChild = rsp.result.child;
+                this.lstParent = this.lstParentTmp = rsp.result.parent;
+                this.lstChild = this.lstChildTmp = rsp.result.child;
             } else {
                 this.message = rsp.message;
             }
         }, err => console.log(err));
+    }
+
+    public changeIcon(id: any) {
+        let arrow = document.getElementById("arrow" + id).style.transform;
+
+        if (arrow == "") {
+            document.getElementById("arrow" + id).style.transform = "rotate(180deg)";
+        }
+        else {
+            document.getElementById("arrow" + id).style.transform = null;
+        }
     }
 
     public chooseCategoryModal() {
@@ -53,5 +66,6 @@ export class VoucherComponent implements OnInit {
     public chooseCategory(code: string, text: string) {
         this.selected.code = code;
         this.selected.text = text;
+        this.categoryModal.hide();
     }
 }
