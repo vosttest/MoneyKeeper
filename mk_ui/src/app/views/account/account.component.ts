@@ -9,6 +9,7 @@ import { AccountProvider } from '../../providers/account';
 
 export class AccountComponent implements OnInit {
     public account = [];
+    public keyword: string = '';
 
     constructor(private pro: AccountProvider) { }
 
@@ -17,7 +18,8 @@ export class AccountComponent implements OnInit {
     }
 
     private search() {
-        this.pro.search().subscribe((rsp: any) => {
+        let obj = { keyword: this.keyword };
+        this.pro.search(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
 

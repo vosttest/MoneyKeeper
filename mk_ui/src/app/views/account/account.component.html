@@ -23,7 +23,7 @@
                     <li class="list-group-item" *ngFor="let item of account">
                         <div class="acc left"> {{ item.text }}</div>
                         <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
-                            <button type="button" routerLink="/account-edit"><i class="fa fa-edit"></i></button>
+                            <button type="button" routerLink="/account-edit/{{item.id}}"><i class="fa fa-edit"></i></button>
                         </div>
                     </li>
                 </ul>

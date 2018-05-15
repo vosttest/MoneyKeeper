@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonProvider } from '../../providers/provider';
+import { CommonProvider, AccountProvider } from '../../providers/provider';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-account-add',
@@ -22,8 +23,20 @@ export class AccountAddComponent implements OnInit {
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
+    public vm: any = { id: '' };
+    public message = '';
+    public account: any[] = [];
 
-    constructor(private pro: CommonProvider) { }
+    // Datepicker
+
+    minDate = new Date(2018, 1, 1);
+    maxDate = new Date(2050, 12, 12);
+
+    bsValue: Date = new Date();
+
+    constructor(private proCommon: CommonProvider,
+        private proAccount: AccountProvider,
+        private rou: Router) { }
 
     ngOnInit() {
         this.getType('Account');
@@ -31,11 +44,11 @@ export class AccountAddComponent implements OnInit {
         this.getType('Term');
         this.getType('InterestPaid');
         this.getType('TermEnd');
-        console.log(this.selectedTerm);
+        this.search();
     }
 
     private getType(type: string) {
-        this.pro.search(type).subscribe((rsp: any) => {
+        this.proCommon.search(type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 if (type == 'Account') {
                     this.lstType = rsp.result.data;
@@ -69,7 +82,29 @@ export class AccountAddComponent implements OnInit {
             this.pickOther = false;
         }
     }
-    public testing(){
-        console.log(this.selectedTerm);
+
+    public save() {
+        console.log(this.vm);
+        this.proAccount.save(this.vm).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.rou.navigate(['/account']);
+            } else {
+                this.message = rsp.message;
+            }
+        }, err => console.log(err))
+    }
+
+    private search() {
+        let obj = { keyword: '' };
+        this.proAccount.search(obj).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.account = rsp.result.data;
+
+                console.log(this.account);
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
     }
 }
