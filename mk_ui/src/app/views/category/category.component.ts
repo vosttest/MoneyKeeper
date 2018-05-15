@@ -81,6 +81,9 @@ export class CategoryComponent implements OnInit {
     }
 
     public redirectAdd() {
+        this.vm.text = '';
+        this.vm.parentId = '';
+        this.vm.description = '';
         document.getElementById("divAdd").style.display = "block";
         document.getElementById("divEdit").style.display = "none";
         document.getElementById("divCategory").style.display = "none";
@@ -89,7 +92,7 @@ export class CategoryComponent implements OnInit {
     public redirectEdit(parentId: any, id: any, count: any) {
         parentId == null ? this.isNull = true : this.isNull = false;
         this.count = count;
-console.log(this.count);
+        console.log(this.count);
 
         document.getElementById("divEdit").style.display = "block";
         document.getElementById("divAdd").style.display = "none";

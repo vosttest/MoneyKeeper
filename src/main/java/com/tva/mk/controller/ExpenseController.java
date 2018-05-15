@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.ExpenseService;
 import com.tva.mk.common.Utils;
+import com.tva.mk.dto.CategoryParentDto;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Expense;
 import com.tva.mk.req.ExpenseReq;
@@ -48,7 +49,7 @@ public class ExpenseController {
 
 			// Handle
 			List<Expense> child = expenseService.getChild(id);
-			List<Expense> parent = expenseService.getParent(id);
+			List<CategoryParentDto> parent = expenseService.getParent(id);
 
 			// Set data
 			Map<String, Object> t = new LinkedHashMap<>();
@@ -117,6 +118,7 @@ public class ExpenseController {
 			int userId = pl.getId();
 
 			Expense m = expenseService.getById(id);
+
 			expenseService.delete(m, userId);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());

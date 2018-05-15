@@ -58,6 +58,9 @@ public class Expense {
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
+	@Column(columnDefinition = "varchar(100)")
+	private String icon;
+
 	// end
 
 	// region -- Get set --
