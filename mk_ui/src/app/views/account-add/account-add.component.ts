@@ -17,7 +17,7 @@ export class AccountAddComponent implements OnInit {
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
-    public vm: any = { id: '' };
+    public vm: any = { id: '', type: 'ACC01' };
     public message = '';
     public account: any[] = [];
 
@@ -39,6 +39,7 @@ export class AccountAddComponent implements OnInit {
         this.getType('InterestPaid');
         this.getType('TermEnd');
         this.search();
+        this.checkType(this.vm.type);
     }
 
     private getType(type: string) {

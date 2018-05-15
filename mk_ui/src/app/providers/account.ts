@@ -1,5 +1,5 @@
-import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
+import 'rxjs/add/operator/toPromise';
 import { ApiProvider } from './api';
 
 @Injectable()
@@ -27,5 +27,12 @@ export class AccountProvider {
      */
     public getAccount(id: any) {
         return this.api.get('account/getById/' + id);
+    }
+
+    /**
+     * Delete by Id
+     */
+    public delete(id: any) {
+        return this.api.delete('account/delete/' + id);
     }
 }

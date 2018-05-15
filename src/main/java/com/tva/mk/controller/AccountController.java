@@ -123,10 +123,29 @@ public class AccountController {
 
 		try {
 			// Handle
-			Account acc = accountService.getById(id);
+			Account m = accountService.getById(id);
 
 			// Set data
-			res.setResult(acc);
+			res.setResult(m);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
+		BaseRsp res = new BaseRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int userId = pl.getId();
+
+			// Handle
+			Account m = accountService.getById(id);
+
+			accountService.delete(m, userId);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

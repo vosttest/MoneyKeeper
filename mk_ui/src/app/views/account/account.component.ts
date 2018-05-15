@@ -10,6 +10,9 @@ import { AccountProvider } from '../../providers/account';
 
 export class AccountComponent implements OnInit {
     public account = [];
+    public other = []; // list chua cac account khong phai save account
+    public saveAccount = []; // nguoc lai
+    public lstTmp = [];
     public keyword: string = '';
     public vm: any = {};
 
@@ -20,11 +23,20 @@ export class AccountComponent implements OnInit {
         this.search();
     }
 
+    public changeType(info: string) {
+        if (info === 'other') {
+            this.lstTmp = this.account.filter(a => a.type != 'ACC05');
+        } else {
+            this.lstTmp = this.account.filter(a => a.type === 'ACC05');
+        }
+    }
+
     private search() {
-        let info = { keyword: this.keyword };
+        let info = { keyword: '' };
         this.pro.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
+                this.lstTmp = this.account.filter(a => a.type != 'ACC05');
             }
             else {
                 console.log(rsp.message);

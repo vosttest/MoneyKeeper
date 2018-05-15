@@ -94,12 +94,17 @@ public class AccountService {
 		return res;
 	}
 
-	public String delete(int id) {
+	public String delete(Account m, int userId) {
 		String res = "";
 
-		Account m = accountDao.getBy(id);
-		if (m != null) {
+		if (m == null) {
+			res = "Id does not exist";
+		} else {
+			m.setModifyBy(userId);
+			m.setModifyOn(new Date());
+
 			m.setIsDeleted(true);
+
 			accountDao.save(m);
 		}
 

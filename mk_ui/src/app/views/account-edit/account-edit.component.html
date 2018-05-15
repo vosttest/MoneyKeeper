@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-4"><button routerLink="/account">Back</button></div>
     <div class="col-md-4">
-        <h3 class="text-center">Edit Account</h3>
+        <h3 class="text-center">Edit Account: {{vm.text}} </h3>
     </div>
     <div class="col-md-4"></div>
 </div>
@@ -93,36 +93,21 @@
         </div>
         <div [hidden]="pickSaveAcc">
             <div class="row">
-                <div class="form-group col-md-6">
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <p>Start Date</p>
-                        </div>
-                        <div class="col-md-9">
-                            <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="vm.startDate" type="text" class="form-control" placeholder="Start Date">
-                        </div>
-                    </div>
-                    <hr>
+                <div class="col-md-2">
+                    <p>Start Date</p>
                 </div>
-                <div class="form-group col-md-6">
-                    <div class="form-row">
-                        <div class="col-md-3">
-                            <p>End Date</p>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control" #dp="bsDatepicker" [bsConfig]="{showWeekNumbers: false,dateInputFormat:'DD-MMM-YYYY HH:mm'}" bsDatepicker placeholder="End Date">
-                        </div>
-                    </div>
-                    <hr>
+                <div class="col-md-10">
+                    <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="vm.startDate" type="text" class="form-control" placeholder="Start Date">
                 </div>
             </div>
+            <hr>
         </div>
         <div [hidden]="pickSaveAcc">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <p>Term</p>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-10">
                     <select name="term" class="form-control" #term="ngModel" [(ngModel)]="vm.term">
                         <option *ngFor="let i of lstTerm" value="{{i.value}}">{{i.text}}</option>
                     </select>
@@ -200,5 +185,26 @@
             <hr>
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-danger" (click)="confirmModal.show()">Delete</button>
     </form>
+</div>
+<!-- Modal -->
+<div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                Are you sure delete this Account ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="confirmModal.hide()">No</button>
+                <button type="button" class="btn btn-primary" (click)="delete()">Yes</button>
+            </div>
+        </div>
+    </div>
 </div>

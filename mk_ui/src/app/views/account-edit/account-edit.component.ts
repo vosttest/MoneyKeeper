@@ -1,7 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap';
 import { AccountProvider, CommonProvider } from '../../providers/provider';
+
+
 
 @Component({
     selector: 'app-account-edit',
@@ -21,6 +24,10 @@ export class AccountEditComponent implements OnInit {
     public vm: any = { id: '', type: '' };
     public message = '';
     public account: any[] = [];
+
+    datePipe = new DatePipe("en");
+
+    @ViewChild('confirmModal') public confirmModal: ModalDirective;
 
     // Datepicker
 
@@ -88,8 +95,8 @@ export class AccountEditComponent implements OnInit {
     }
 
     private search() {
-        let obj = { keyword: '' };
-        this.proAccount.search(obj).subscribe((rsp: any) => {
+        let info = { keyword: '' };
+        this.proAccount.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }
@@ -99,8 +106,6 @@ export class AccountEditComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    datePipe = new DatePipe("en");
-
     public getAccount() {
         const id = +this.route.snapshot.paramMap.get('id');
         this.proAccount.getAccount(id).subscribe((rsp: any) => {
@@ -109,6 +114,18 @@ export class AccountEditComponent implements OnInit {
                 this.vm.startDate = this.datePipe.transform(this.vm.startDate, 'yyyy-MM-dd');
 
                 this.checkType(this.vm.type);
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+    }
+
+    public delete() {
+        const id = +this.route.snapshot.paramMap.get('id');
+        this.proAccount.delete(id).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.rou.navigate(['/account']);
             }
             else {
                 console.log(rsp.message);
