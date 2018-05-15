@@ -64,13 +64,13 @@ import { ChangePasswordComponent } from './views/change-password/change-password
     providers: [
         ApiProvider,
         CommonProvider,
+        AccountProvider,
         ExpenseProvider,
         IncomeProvider,
         SettingProvider,
         UserProvider,
         VoucherProvider,
-        RsaService,
-        AccountProvider
+        RsaService
     ],
     bootstrap: [AppComponent]
 })

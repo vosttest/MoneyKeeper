@@ -17,7 +17,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private search() {
-        this.proAcc.search().subscribe((rsp: any) => {
+        let obj = { keyword: '' };
+        this.proAcc.search(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }

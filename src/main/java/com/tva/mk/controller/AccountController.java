@@ -114,5 +114,6 @@ public class AccountController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+
 	// end
 }
