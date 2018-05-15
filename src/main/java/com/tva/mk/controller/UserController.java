@@ -30,7 +30,6 @@ import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
 import com.tva.mk.rsp.BaseRsp;
-import com.tva.mk.rsp.MultipleRsp;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -175,7 +174,7 @@ public class UserController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@PostMapping("/change-password")
 	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordReq req, @RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
@@ -192,7 +191,7 @@ public class UserController {
 			String tmp = userService.save(m);
 
 			if (tmp.isEmpty()) {
-				res.setError("Success");
+				
 			} else {
 				res.setError("f");
 			}
