@@ -28,8 +28,8 @@ BEGIN
 
 	-- Expense ----------------------------
 	-- Step 1
-	INSERT INTO expense(code, text, user_id, description, sequence)
-	SELECT value, text, uid, description, sequence
+	INSERT INTO expense(code, text, user_id, description, sequence, icon)
+	SELECT value, text, uid, description, sequence, concat('expense/', value, '.png')
 	FROM common
 	WHERE type LIKE 'Expense' AND parent_id IS NULL;
 	-- Step 2
@@ -46,16 +46,16 @@ BEGIN
 			FROM expense
 			WHERE expense.code = parent_code AND expense.user_id = uid;
 
-			INSERT INTO expense(code, text, user_id, parent_id, sequence) 
-			VALUES(rec.value, rec.text, uid, rowid, rec.sequence);
+			INSERT INTO expense(code, text, user_id, parent_id, sequence, icon) 
+			VALUES(rec.value, rec.text, uid, rowid, rec.sequence, concat('expense/', rec.value, '.png'));
 		END LOOP;
 	CLOSE curr_expense;
 	---------------------------------------
 				
 	-- Income ----------------------------
 	-- Step 1
-	INSERT INTO income(code, text, user_id, description, sequence)
-	SELECT value, text, uid, description, sequence
+	INSERT INTO income(code, text, user_id, description, sequence, icon)
+	SELECT value, text, uid, description, sequence, concat('income/', value, '.png')
 	FROM common
 	WHERE type LIKE 'Income' AND parent_id IS NULL;
 	-- Step 2
@@ -72,8 +72,8 @@ BEGIN
 			FROM income
 			WHERE income.code = parent_code AND income.user_id = uid;
 
-			INSERT INTO income(code, text, user_id, parent_id, sequence)
-			VALUES(rec.value, rec.text, uid, rowid, rec.sequence);
+			INSERT INTO income(code, text, user_id, parent_id, sequence, icon)
+			VALUES(rec.value, rec.text, uid, rowid, rec.sequence, concat('income/', rec.value, '.png'));
 		END LOOP;
 	CLOSE curr_income;
 	---------------------------------------

@@ -63,9 +63,25 @@ a {
     padding-left: 5%;
 }
 
+.padding-right {
+    padding-right: 2%;
+}
+
 .format-iconUp {
     margin: auto;
     font-size: large;
     cursor: pointer;
     color: #017DE3;
+}
+
+.col-md-1 {
+    width: auto !important;
+    padding: unset !important;
+    max-width: 4%;
+}
+
+.col-md-10 {
+    width: auto !important;
+    padding: unset !important;
+    margin: auto !important;
 }

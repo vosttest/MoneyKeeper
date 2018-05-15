@@ -27,6 +27,7 @@ export class CategoryComponent implements OnInit {
     public selEdit: any = "";
     public vm: any = { text: "", description: "", parentId: null }
     public count: any;
+    public apiURL: string = "../../../../assets/img/";
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
 

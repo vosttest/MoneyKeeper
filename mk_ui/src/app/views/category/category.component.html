@@ -24,7 +24,10 @@
                     <div class="accordion" id="accordionExample">
                         <div *ngFor="let i of lstParentTmp" class="card">
                             <div class="card-header row row-margin" id="headingOne">
-                                <div class="col-md-11">
+                                <div class="col-md-1">
+                                    <img src="{{apiURL + i.icon}}" />
+                                </div>
+                                <div class="col-md-10">
                                     <h5 class="mb-0" (click)="redirectEdit(i.parentId, i.id, i.count)">
                                         <button class="btn btn-link button" type="button">{{ i.text }}</button>
                                     </h5>
@@ -35,7 +38,9 @@
                             </div>
                             <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
                                 <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
-                                    <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="redirectEdit(i2.parentId, i2.id)">{{i2.text}}</li>
+                                    <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="redirectEdit(i2.parentId, i2.id)">
+                                        <img src="{{apiURL + i2.icon}}" class="padding-right" /> {{i2.text}}
+                                    </li>
                                 </ul>
                             </div>
                         </div>
