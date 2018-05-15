@@ -16,7 +16,7 @@ public class ExpenseReq {
 
 	@JsonProperty(value = "parentId")
 	private int parentId;
-	
+
 	@JsonProperty(value = "isDelete")
 	private Boolean isDelete;
 
@@ -55,7 +55,7 @@ public class ExpenseReq {
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
-	
+
 	public boolean getIsDelete() {
 		return isDelete;
 	}

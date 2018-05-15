@@ -2,6 +2,11 @@
     height: 5in;
 }
 
+.modal-header>button {
+    border-color: #00000000;
+    background-color: #00000000;
+}
+
 .modal-body {
     overflow-x: auto;
 }

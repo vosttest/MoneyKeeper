@@ -37,7 +37,8 @@ export class SignInComponent implements OnInit {
     }
 
     public sendEmailVerificationLink(valid: boolean) {
-        this.pro.forgotPassword(this.vm1).subscribe((rsp: any) => {
+        let obj = { keyword: this.vm1.email };
+        this.pro.verifyMail(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 alert("Please check mail box to change your password!");
             } else {

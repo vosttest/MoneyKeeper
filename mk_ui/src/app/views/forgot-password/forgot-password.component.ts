@@ -25,14 +25,17 @@ export class ForgotPasswordComponent implements OnInit {
             });
     }
 
-    public resetPassword() {
+    public resetPassword(valid: boolean) {
+        if(!valid){
+            return;
+        }
         if (this.vm.newPassword != this.vm.confirmPassword) {
             this.message = 'Password does not match!';
             return;
         }
         let obj = { token: this.token, password: this.vm.newPassword };
         
-        this.pro.renewPassword(obj).subscribe((rsp: any) => {
+        this.pro.forgotPassword(obj).subscribe((rsp: any) => {
             if(rsp.status === 'success'){
                 this.message = '';
                 this.pro.saveAuth(rsp.result);

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.UserService;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.model.Users;
+import com.tva.mk.req.BaseReq;
 import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
@@ -126,16 +127,16 @@ public class UserController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@PostMapping("/forgot-password")
-	public ResponseEntity<?> forgotPassword(@RequestBody UserSignUpReq req) {
+	@PostMapping("/verify-mail")
+	public ResponseEntity<?> verifyMail(@RequestBody BaseReq req) {
 		BaseRsp res = new BaseRsp();
 
 		try {
 			// Get data
-			String email = req.getEmail();
+			String email = req.getKeyword();
 
 			// Handle
-			userService.sendVerificationLinkMail(email);
+			userService.verifyMail(email);
 
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
@@ -144,24 +145,24 @@ public class UserController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@PostMapping("/renew-password")
-	public ResponseEntity<?> renewPassword(@RequestBody UserForgotPwdReq req) {
+	@PostMapping("/forgot-password")
+	public ResponseEntity<?> forgotPassword(@RequestBody UserForgotPwdReq req) {
 		SingleRsp res = new SingleRsp();
 
 		try {
 			// Get data
 			String token = req.getToken();
 			String password = req.getPassword();
-			String passwordHash = bCryptPasswordEncoder.encode(password);
+			password = bCryptPasswordEncoder.encode(password);
 
 			// Handle
-			Users m = userService.resetForgottenPassword(passwordHash, token);
+			Users m = userService.forgotPassword(password, token);
+
+			List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+			token = jwtTokenUtil.doGenerateToken(m, z);
 
 			// Set data
-			List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
-			String tokenJWT = jwtTokenUtil.doGenerateToken(m, z);
-
-			res.setResult(tokenJWT);
+			res.setResult(token);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

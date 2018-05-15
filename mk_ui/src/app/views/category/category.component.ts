@@ -163,7 +163,8 @@ export class CategoryComponent implements OnInit {
         if (this.tab == "Expense") {
             this.proExpense.save(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    //TODO
+                    this.redirectCategory();
+                    this.loadExpense();
                 }
                 else {
                     console.log(rsp.message);
@@ -171,6 +172,15 @@ export class CategoryComponent implements OnInit {
             })
         }
         else {
+            this.proIncome.save(this.vm).subscribe((rsp: any) => {
+                if (rsp.status === 'success') {
+                    this.redirectCategory();
+                    this.loadIncome();
+                }
+                else {
+                    console.log(rsp.message);
+                }
+            })
         }
     }
 
@@ -188,6 +198,16 @@ export class CategoryComponent implements OnInit {
             })
         }
         else {
+            this.proIncome.delete(id).subscribe((rsp: any) => {
+                if (rsp.status === 'success') {
+                    this.redirectCategory();
+                    this.loadIncome();
+                    this.confirmModal.hide();
+                }
+                else {
+                    console.log(rsp.message);
+                }
+            })
         }
     }
 }

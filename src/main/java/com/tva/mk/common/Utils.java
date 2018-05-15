@@ -60,8 +60,8 @@ public class Utils {
 		return res;
 	}
 
-	public static void NotifyForForgottenPassword(String userEmail, String token, String userFirstName) {
-		EmailService.NotifyForForgottenPasswordStatic(userEmail, token, userFirstName);
+	public static void sendMail(String userEmail, String token, String userFirstName) {
+		EmailService.forgotPassword(userEmail, token, userFirstName);
 	}
 
 	/**

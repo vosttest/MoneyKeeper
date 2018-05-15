@@ -3,53 +3,61 @@
     <div class="col-md-4 text-center">
         <h1>Voucher</h1>
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+            <input type="number" class="form-control" placeholder="Amount">
             <div class="input-group-append">
-                <span class="input-group-text" id="basic-addon2">currency</span>
+                <span class="input-group-text" id="basic-addon2">VND</span>
             </div>
         </div>
-        <div class="row">
+        <div class="row form-group">
             <div class="col-md-3">
-                Category
+                <label for="chooseCategory">Category</label>
             </div>
             <div class="col-md-9" (click)='chooseCategoryModal()'>
                 {{ selected.text }}
             </div>
         </div>
+        <div class="row form-group">
+            <div class="col-md-3">
+                <label for="description">Description</label>
+            </div>
+            <div class="col-md-9">
+                <input type="text" class="form-control" id="description" name="description" placeholder="Description" />
+            </div>
+        </div>
+        <div class="col-md-4"></div>
     </div>
-    <div class="col-md-4"></div>
-</div>
-<div bsModal #categoryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                Choose Category
-                <button type="button" class="text-right" style="border-color: #00000000; background-color: #00000000" (click)="categoryModal.hide()" aria-label="Close">
+    <div bsModal #categoryModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    Choose Category
+                    <button type="button" class="text-right" (click)="categoryModal.hide()" aria-label="Close">
                     <i class="fa fa-window-close"></i>
                 </button>
-            </div>
-            <div class="modal-body height-modal">
-                <div *ngFor="let i of lstParent" class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" (click)="chooseCategory(i.code, i.text)" type="button">
-                                {{ i.text }}
-                            </button>
-                            <button type="button" class="btn-icon" data-toggle="collapse" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
-                                <i class="far fa-caret-square-down"></i>
-                            </button>
-                        </h5>
-                    </div>
-                    <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
-                        <ul *ngFor='let i2 of lstChild' class="list-group">
-                            <li *ngIf="i2.parentId === i.id" class="list-group-item" (click)="chooseCategory(i.code, i.text)">
-                                {{i2.text}}
-                            </li>
-                        </ul>
+                </div>
+                <div class="modal-body height-modal">
+                    <input #keyword="ngModel" ngModel type="text" class="form-control" placeholder="Search.." (keyup)="search(keyword.value)">
+                    <div class="accordion" id="accordionExample">
+                        <div *ngFor="let i of lstParentTmp" class="card">
+                            <div class="card-header row row-margin" id="headingOne">
+                                <div class="col-md-11">
+                                    <h5 class="mb-0">
+                                        <button class="btn btn-link button" (click)="chooseCategory(i.id, i.text)" type="button">{{ i.text }}</button>
+                                    </h5>
+                                </div>
+                                <div class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <i id="arrow{{i.id}}" class="pull-right fa fa-chevron-up"></i>
+                                </div>
+                            </div>
+                            <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
+                                <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
+                                    <li *ngIf="i2.parentId === i.id" (click)="chooseCategory(i2.id, i2.text)" class="list-group-item padding-left">{{i2.text}}</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="modal-footer"></div>
             </div>
-            <div class="modal-footer"></div>
         </div>
     </div>
-</div>

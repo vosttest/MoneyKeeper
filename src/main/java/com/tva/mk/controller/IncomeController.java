@@ -63,21 +63,23 @@ public class IncomeController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<?> search(@RequestHeader HttpHeaders header, @RequestBody IncomeReq req) {
+	public ResponseEntity<?> save(@RequestHeader HttpHeaders header, @RequestBody IncomeReq req) {
 		BaseRsp res = new BaseRsp();
 
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
-			int id = pl.getId();
+			int userId = pl.getId();
 
+			Integer id = req.getId();
 			String text = req.getText();
 			String description = req.getDescription();
 			int parentId = req.getParentId();
 
 			Income m = new Income();
+			m.setId(id);
 			m.setText(text);
 			m.setDescription(description);
-			m.setUserId(id);
+			m.setUserId(userId);
 			if (parentId != 0) {
 				m.setParentId(parentId);
 			}
@@ -99,6 +101,24 @@ public class IncomeController {
 
 			// Set data
 			res.setResult(exp);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
+		BaseRsp res = new BaseRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int userId = pl.getId();
+
+			Income m = incomeService.getById(id);
+
+			incomeService.delete(m);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
