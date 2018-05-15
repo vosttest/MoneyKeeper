@@ -25,7 +25,7 @@ import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.BaseReq;
-import com.tva.mk.req.ChangePasswordReq;
+import com.tva.mk.req.UserChangePwdReq;
 import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
@@ -176,31 +176,32 @@ public class UserController {
 	}
 
 	@PostMapping("/change-password")
-	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordReq req, @RequestHeader HttpHeaders header) {
+	public ResponseEntity<?> changePassword(@RequestBody UserChangePwdReq req, @RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
 
 		try {
-			// Get date
-			String oldPassword = req.getOldPassword();
-			String newPassword = req.getNewPassword();
-
 			PayloadDto pl = Utils.getTokenInfor(header);
 			int id = pl.getId();
+			// Get data
+			String oldPassword = req.getOldPassword();
+			String password = req.getNewPassword();
+			password = bCryptPasswordEncoder.encode(password);
 
-			Users m = userService.changePassword(oldPassword, newPassword, id);
-			String tmp = userService.save(m);
-
-			if (tmp.isEmpty()) {
-
-			} else {
-				res.setError("f");
-			}
+			// Authenticate with old password
+			Users m = userService.getBy(id);
+			String userName = m.getUserName();
+			UsernamePasswordAuthenticationToken x;
+			x = new UsernamePasswordAuthenticationToken(userName, oldPassword);
+			Authentication y = authenticationManager.authenticate(x);
+			SecurityContextHolder.getContext().setAuthentication(y);
 
 			// Handle
-
-		} catch (
-
-		Exception ex) {
+			m.setPasswordHash(password);
+			String tmp = userService.save(m);
+			if (!tmp.isEmpty()) {
+				res.setError("Can Not Update Password ...");
+			}
+		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
 

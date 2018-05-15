@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserProvider } from '../../providers/provider';
+import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-change-password',
@@ -9,7 +11,10 @@ import { UserProvider } from '../../providers/provider';
 
 export class ChangePasswordComponent implements OnInit {
     public vm: any = { newPassword: '', confirmPassword: '', oldPassword: '' };
-    constructor(private pro: UserProvider) { }
+
+    @ViewChild('confirmModal') public confirmModal: ModalDirective;
+
+    constructor(private pro: UserProvider, private rou: Router) { }
 
     ngOnInit() { }
 
@@ -17,17 +22,21 @@ export class ChangePasswordComponent implements OnInit {
         if (this.vm.newPassword == this.vm.confirmPassword) {
             this.pro.changePassword(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    console.log(this.vm.oldPassword);
-                    this.pro.saveAuth(rsp.result);
+                    this.rou.navigate(['/sign-in']);
+                    alert("Password Update Success");
                 } else {
-
+                    alert("Old Password Does Not Match");
                 }
             })
-
+        } else {
+            alert("New Password And Confirm Password Does Not Match");
         }
+    }
 
-
+    public showConfirm(valid: boolean) {
+        if (!valid) {
+            return;
+        }
+        this.confirmModal.show();
     }
 }
-
-
