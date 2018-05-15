@@ -61,7 +61,7 @@ public class Utils {
 	}
 
 	public static void sendMail(String userEmail, String token, String userFirstName) {
-		EmailService.notifyForgottenPassword(userEmail, token, userFirstName);
+		EmailService.forgotPassword(userEmail, token, userFirstName);
 	}
 
 	/**
