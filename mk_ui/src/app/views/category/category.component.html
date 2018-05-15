@@ -25,7 +25,7 @@
                         <div *ngFor="let i of lstParentTmp" class="card">
                             <div class="card-header row row-margin" id="headingOne">
                                 <div class="col-md-11">
-                                    <h5 class="mb-0" (click)="redirectEdit(i.parentId, i.id)">
+                                    <h5 class="mb-0" (click)="redirectEdit(i.parentId, i.id, i.count)">
                                         <button class="btn btn-link button" type="button">{{ i.text }}</button>
                                     </h5>
                                 </div>
@@ -113,7 +113,7 @@
                 <div class="col-md-1 text-center">
                     <img src="../../../../assets/img/question.png" class="format-image " />
                 </div>
-                <div class="col-md-4 margin-top" *ngIf="!isNull">
+                <div class="col-md-4 margin-top" *ngIf="!isNull || count == 0">
                     <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
                     <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                         <span *ngIf="subCategoryName.errors?.required">
@@ -121,16 +121,16 @@
                         </span>
                     </span>
                 </div>
-                <div class="col-md-3" *ngIf="!isNull">
+                <div class="col-md-3" *ngIf="!isNull || count == 0">
                     <label class="col-form-label">Category</label>
                 </div>
-                <div class="col-md-4 margin-top" *ngIf="!isNull">
+                <div class="col-md-4 margin-top" *ngIf="!isNull || count == 0">
                     <select id="inputState" class="form-control none-border" name="categoryName" #categoryName="ngModel" [(ngModel)]="vm.parentId">
                             <option value="0" >No item selected</option>
                         <option *ngFor="let i of lstParentTmp" value="{{i.id}}"  [selected]="selEdit">{{i.text}}</option>
                     </select>
                 </div>
-                <div class="col-md-11" *ngIf="isNull">
+                <div class="col-md-11" *ngIf="isNull && count != 0">
                     <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
                     <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                             <span *ngIf="subCategoryName.errors?.required">

@@ -26,6 +26,7 @@ export class CategoryComponent implements OnInit {
     public parent_id: any;
     public selEdit: any = "";
     public vm: any = { text: "", description: "", parentId: null }
+    public count: any;
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
 
@@ -85,8 +86,10 @@ export class CategoryComponent implements OnInit {
         document.getElementById("divCategory").style.display = "none";
     }
 
-    public redirectEdit(parentId: any, id: any) {
+    public redirectEdit(parentId: any, id: any, count: any) {
         parentId == null ? this.isNull = true : this.isNull = false;
+        this.count = count;
+console.log(this.count);
 
         document.getElementById("divEdit").style.display = "block";
         document.getElementById("divAdd").style.display = "none";
@@ -97,6 +100,7 @@ export class CategoryComponent implements OnInit {
                 if (rsp.status === 'success') {
                     this.vm = rsp.result;
                     this.selEdit = rsp.result.parentId;
+
                 }
                 else {
                     console.log(rsp.message);
