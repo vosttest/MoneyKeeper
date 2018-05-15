@@ -3,6 +3,7 @@ package com.tva.mk.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,17 +15,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.UserService;
+import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
+import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.BaseReq;
+import com.tva.mk.req.ChangePasswordReq;
 import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
 import com.tva.mk.rsp.BaseRsp;
+import com.tva.mk.rsp.MultipleRsp;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
