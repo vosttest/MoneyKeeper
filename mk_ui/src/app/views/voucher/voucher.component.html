@@ -36,7 +36,7 @@
                 </button>
                 </div>
                 <div class="modal-body height-modal">
-                    <input class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="keyword" (keyup)="search(keyword)">
+                    <input #keyword="ngModel" ngModel type="text" class="form-control" placeholder="Search.." (keyup)="search(keyword.value)">
                     <div class="accordion" id="accordionExample">
                         <div *ngFor="let i of lstParentTmp" class="card">
                             <div class="card-header row row-margin" id="headingOne">

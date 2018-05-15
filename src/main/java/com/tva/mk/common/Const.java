@@ -5,6 +5,10 @@ public class Const {
 
 	public static final String STATUS_INACTIVE = "INA";
 
+	public static final String APP_BASE_URL = "APP_BASE_URL";
+
+	public static final String APP_FROM_EMAIL = "APP_FROM_EMAIL";
+
 	public class Authentication {
 		public static final long TOKEN_TIME = 24 * 60 * 60;
 
@@ -66,21 +70,17 @@ public class Const {
 	}
 
 	public class Email {
-		public static final String TEMPLATE_FORGOT_PWD_EMAIL = "<div style=\"font-family:arial;\">Hi {0},<br/>"
+		public static final String TEMPLATE_FORGOT_PASSWORD = "<div style=\"font-family:arial;\">Hi {0},<br/>"
 				+ "<p>We recently received a password reset request for your Money Keeper account login.<br/>"
 				+ "If you would like to reset your password, please <a href=\"{1}\">click here</a>.</p>"
 				+ "<p>If you did not request a password reset, please ignore this email.<br/>"
 				+ "Your password won't change until you access the link above and create a new one.</p>"
 				+ "<p>With regards,<br><strong>Money Keeper Team</strong></p></div>";
 
-		public static final String APP_BASE_URL = "APP_BASE_URL";
-
 		public static final String SENDGRID_API_KEY = "SENDGRID_API_KEY";
 
 		public static final String SENDGRID_USERNAME = "SENDGRID_USERNAME";
 
 		public static final String SENDGRID_PASSWORD = "SENDGRID_PASSWORD";
-
-		public static final String FROM_EMAIL = "FROM_EMAIL";
 	}
 }

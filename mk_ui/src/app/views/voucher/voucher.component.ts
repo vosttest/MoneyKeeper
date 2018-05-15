@@ -68,4 +68,8 @@ export class VoucherComponent implements OnInit {
         this.selected.text = text;
         this.categoryModal.hide();
     }
+
+    public search(keyword: string) {
+
+    }
 }
