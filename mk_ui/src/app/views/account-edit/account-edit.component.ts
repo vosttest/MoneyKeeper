@@ -1,7 +1,7 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { CommonProvider } from '../../providers/provider';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AccountProvider, CommonProvider } from '../../providers/provider';
 
 @Component({
     selector: 'app-account-edit',
@@ -15,16 +15,24 @@ export class AccountEditComponent implements OnInit {
     public lstTerm: any[] = [];
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
-    public selected = '';
-    public selectedCurrency = '';
-    public selectedTerm = '';
-    public selectedTermEnd = '';
-    public selectedInterestPaid = '';
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
+    public vm: any = { id: '', type: '' };
+    public message = '';
+    public account: any[] = [];
 
-    constructor(private pro: CommonProvider, private route: ActivatedRoute) { }
+    // Datepicker
+
+    minDate = new Date(2018, 1, 1);
+    maxDate = new Date(2050, 12, 12);
+
+    bsValue: Date = new Date();
+
+    constructor(private pro: CommonProvider,
+        private rou: Router,
+        private proAccount: AccountProvider,
+        private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.getType('Account');
@@ -32,7 +40,8 @@ export class AccountEditComponent implements OnInit {
         this.getType('Term');
         this.getType('InterestPaid');
         this.getType('TermEnd');
-
+        this.search();
+        this.getAccount();
     }
 
     private getType(type: string) {
@@ -54,12 +63,11 @@ export class AccountEditComponent implements OnInit {
     }
 
     public checkType(va: string) {
-        console.log(va);
-        if (va === "ACC05") {
+        if (va === 'ACC05') {
             this.pickSaveAcc = false;
             this.pickOther = true;
         }
-        else if (va === "ACC03") {
+        else if (va === 'ACC03') {
             this.pickSaveAcc = true;
             this.pickAtm = false;
         } else {
@@ -67,5 +75,44 @@ export class AccountEditComponent implements OnInit {
             this.pickAtm = true;
             this.pickOther = false;
         }
+    }
+
+    public save() {
+        this.proAccount.save(this.vm).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.rou.navigate(['/account']);
+            } else {
+                this.message = rsp.message;
+            }
+        }, err => console.log(err))
+    }
+
+    private search() {
+        let obj = { keyword: '' };
+        this.proAccount.search(obj).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.account = rsp.result.data;
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+    }
+
+    datePipe = new DatePipe("en");
+
+    public getAccount() {
+        const id = +this.route.snapshot.paramMap.get('id');
+        this.proAccount.getAccount(id).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.vm = rsp.result;
+                this.vm.startDate = this.datePipe.transform(this.vm.startDate, 'yyyy-MM-dd');
+
+                this.checkType(this.vm.type);
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
     }
 }

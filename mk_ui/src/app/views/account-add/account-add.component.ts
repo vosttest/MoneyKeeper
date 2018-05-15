@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonProvider, AccountProvider } from '../../providers/provider';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker';
 import { Router } from '@angular/router';
+import { AccountProvider, CommonProvider } from '../../providers/provider';
 
 @Component({
     selector: 'app-account-add',
@@ -15,11 +14,6 @@ export class AccountAddComponent implements OnInit {
     public lstTerm: any[] = [];
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
-    public selected = '';
-    public selectedCurrency = '';
-    public selectedTerm = 'TRM02';
-    public selectedTermEnd = '';
-    public selectedInterestPaid = '';
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
@@ -66,13 +60,12 @@ export class AccountAddComponent implements OnInit {
     }
 
     public checkType(va: string) {
-        console.log(va);
-        if (va === "ACC05") {
+        if (va === 'ACC05') {
             this.pickSaveAcc = false;
             this.pickOther = true;
             this.pickAtm = true;
         }
-        else if (va === "ACC03") {
+        else if (va === 'ACC03') {
             this.pickSaveAcc = true;
             this.pickAtm = false;
             this.pickOther = false;
@@ -84,7 +77,6 @@ export class AccountAddComponent implements OnInit {
     }
 
     public save() {
-        console.log(this.vm);
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.rou.navigate(['/account']);
@@ -95,12 +87,10 @@ export class AccountAddComponent implements OnInit {
     }
 
     private search() {
-        let obj = { keyword: '' };
-        this.proAccount.search(obj).subscribe((rsp: any) => {
+        let info = { keyword: '' };
+        this.proAccount.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
-
-                console.log(this.account);
             }
             else {
                 console.log(rsp.message);

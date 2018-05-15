@@ -89,6 +89,11 @@ public class AccountService {
 		return res;
 	}
 
+	public Account getById(int id) {
+		Account res = accountDao.getBy(id);
+		return res;
+	}
+
 	public String delete(int id) {
 		String res = "";
 

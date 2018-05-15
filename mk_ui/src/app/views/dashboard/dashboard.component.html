@@ -2,15 +2,29 @@
     <div class="col-md-6">
         <h2>Expense vs Income</h2>
         <div class="content-left">
-            <select id="inputState" class="form-control">
-                <option selected>Account</option>
-                <option>...</option>
-                </select>
-            <hr>
-            <select id="inputState" class="form-control">
-                <option selected>Viewed By</option>
-                <option>...</option>
-            </select>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Account</p>
+                </div>
+                <div class="col-md-8">
+                    <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                    </select>
+                </div>
+                <hr>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Viewed By</p>
+                </div>
+                <div class="col-md-8">
+                    <select class="form-control">
+                        <option selected></option>
+                        <option>...</option>
+                    </select>
+                </div>
+                <hr>
+            </div>
             <hr>
         </div>
     </div>
@@ -30,7 +44,7 @@
                     <li class="list-group-item" *ngFor="let item of account">
                         <div class="acc left"> {{ item.text }}</div>
                         <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
-                            <button id="edit " routerLink="/account-edit"><i class="fa fa-edit"></i></button>
+                            <button id="edit " routerLink="/account-edit/{{item.id}}"><i class="fa fa-edit"></i></button>
                         </div>
                     </li>
                 </ul>

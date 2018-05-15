@@ -17,7 +17,15 @@ export class AccountProvider {
      * Search by
      * @param type
      */
-    public search(obj:any) {
-        return this.api.post('account/search', obj);
+    public search(info: any) {
+        return this.api.post('account/search', info);
+    }
+
+    /**
+     * Get Account by Id
+     *
+     */
+    public getAccount(id: any) {
+        return this.api.get('account/getById/' + id);
     }
 }

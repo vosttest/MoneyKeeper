@@ -9,6 +9,7 @@ import { AccountProvider } from '../../providers/provider';
 
 export class DashboardComponent implements OnInit {
     public account = [];
+    public vm: any = {};
 
     constructor(private proAcc: AccountProvider) { }
 
@@ -17,8 +18,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private search() {
-        let obj = { keyword: '' };
-        this.proAcc.search(obj).subscribe((rsp: any) => {
+        let info = { keyword: '' };
+        this.proAcc.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }

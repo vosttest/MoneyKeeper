@@ -9,10 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.AccountService;
@@ -108,6 +110,23 @@ public class AccountController {
 
 			// Handle
 			accountService.save(m);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getAccount(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Handle
+			Account acc = accountService.getById(id);
+
+			// Set data
+			res.setResult(acc);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AccountProvider } from '../../providers/account';
 
 @Component({
@@ -10,20 +11,20 @@ import { AccountProvider } from '../../providers/account';
 export class AccountComponent implements OnInit {
     public account = [];
     public keyword: string = '';
+    public vm: any = {};
 
-    constructor(private pro: AccountProvider) { }
+    constructor(private pro: AccountProvider,
+        private rou: Router) { }
 
     ngOnInit() {
         this.search();
     }
 
     private search() {
-        let obj = { keyword: this.keyword };
-        this.pro.search(obj).subscribe((rsp: any) => {
+        let info = { keyword: this.keyword };
+        this.pro.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
-
-                console.log(this.account);
             }
             else {
                 console.log(rsp.message);

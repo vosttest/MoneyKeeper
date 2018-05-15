@@ -177,16 +177,13 @@ public class UserService implements UserDetailsService {
 
 	public Users changePassword(String oldPassword, String newPassword, int id) {
 		Users m = getBy(id);
-		
+
 		if (m.getPasswordHash().equals((oldPassword))) {
 			m.setPasswordHash(newPassword);
 			return m;
-		}
-		else {
+		} else {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
-
-		
 
 	}
 	// end
