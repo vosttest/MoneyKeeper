@@ -19,7 +19,7 @@ const routes: Routes = [
     { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
     { path: 'account', component: AccountComponent },
     { path: 'account-add', component: AccountAddComponent },
-    { path: 'account-edit/:id', component: AccountEditComponent },
+    { path: 'account-edit', component: AccountEditComponent },
     { path: 'category', component: CategoryComponent },
     { path: 'dashboard', component: DashboardComponent },
     { path: 'setting', component: SettingComponent },

@@ -17,7 +17,6 @@ export class SignUpComponent implements OnInit {
     ngOnInit() { }
 
     public signUp() {
-        console.log(this.vm);
         this.loader = true;
 
         this.pro.signUp(this.vm).subscribe((rsp: any) => {

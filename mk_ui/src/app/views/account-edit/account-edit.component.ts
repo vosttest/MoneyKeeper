@@ -27,9 +27,6 @@ export class AccountEditComponent implements OnInit {
     constructor(private pro: CommonProvider, private route: ActivatedRoute) { }
 
     ngOnInit() {
-        const id = +this.route.snapshot.paramMap.get('id');
-        console.log(id);
-
         this.getType('Account');
         this.getType('Currency');
         this.getType('Term');

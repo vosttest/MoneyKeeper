@@ -15,6 +15,11 @@ export class AccountAddComponent implements OnInit {
     public lstTerm: any[] = [];
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
+    public selected = '';
+    public selectedCurrency = '';
+    public selectedTerm = 'TRM02';
+    public selectedTermEnd = '';
+    public selectedInterestPaid = '';
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
@@ -61,6 +66,7 @@ export class AccountAddComponent implements OnInit {
     }
 
     public checkType(va: string) {
+        console.log(va);
         if (va === "ACC05") {
             this.pickSaveAcc = false;
             this.pickOther = true;
