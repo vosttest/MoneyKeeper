@@ -1,5 +1,6 @@
 package com.tva.mk.bll;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.IncomeDao;
+import com.tva.mk.dto.CategoryParentDto;
 import com.tva.mk.model.Income;
 
 @Service(value = "incomeService")
@@ -22,8 +24,23 @@ public class IncomeService {
 
 	// region -- Methods --
 
-	public List<Income> getParent(int id) {
-		List<Income> res = incomeDao.getParent(id);
+	public List<CategoryParentDto> getParent(int id) {
+		List<Object[]> t = incomeDao.getParent(id);
+		List<CategoryParentDto> res = new ArrayList<>();
+		for (Object[] item : t) {
+			CategoryParentDto t1 = new CategoryParentDto();
+			t1.setId(Integer.parseInt(item[0].toString()));
+			t1.setCode(item[1].toString());
+			t1.setText(item[2].toString());
+			Integer t2 = item[3] == null ? null : Integer.parseInt(item[3].toString());
+			t1.setParentId(t2);
+			String t3 = item[4] == null ? null : item[4].toString();
+			t1.setDescription(t3);
+			t1.setCount(Integer.parseInt(item[5].toString()));
+			String t4 = item[6] == null ? null : item[6].toString();
+			t1.setIcon(t4);
+			res.add(t1);
+		}
 		return res;
 	}
 
@@ -79,13 +96,12 @@ public class IncomeService {
 		return res;
 	}
 
-	public String delete(Income m) {
+	public String delete(Income m, Integer userId) {
 		String res = "";
 
 		if (m == null) {
 			res = "Id does not exist";
 		} else {
-			int userId = m.getUserId();
 
 			m.setModifyBy(userId);
 			m.setModifyOn(new Date());

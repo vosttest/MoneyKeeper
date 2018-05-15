@@ -58,6 +58,9 @@ public class Income {
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
+	@Column(columnDefinition = "varchar(100)")
+	private String icon;
+
 	// end
 
 	// region -- Get set --
@@ -156,6 +159,14 @@ public class Income {
 
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	// end

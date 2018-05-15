@@ -117,8 +117,7 @@ public class ExpenseController {
 			int userId = pl.getId();
 
 			Expense m = expenseService.getById(id);
-
-			expenseService.delete(m);
+			expenseService.delete(m, userId);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
