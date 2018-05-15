@@ -24,11 +24,7 @@ import { AppRoutingModule } from './/app-routing.module';
 import { AccountComponent } from './views/account/account.component';
 import { AccountAddComponent } from './views/account-add/account-add.component';
 import { AccountEditComponent } from './views/account-edit/account-edit.component';
-import { CategoryComponent } from './views/category/category.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
 import { SettingComponent } from './views/setting/setting.component';
-import { SignInComponent } from './views/sign-in/sign-in.component';
-import { SignUpComponent } from './views/sign-up/sign-up.component';
 import { VoucherComponent } from './views/voucher/voucher.component';
 
 import { FormsModule } from '@angular/forms';
@@ -36,6 +32,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './views/change-password/change-password.component';
+import { LayoutComponent } from './views/layout/layout.component';
 
 @NgModule({
     declarations: [
@@ -43,14 +40,11 @@ import { ChangePasswordComponent } from './views/change-password/change-password
         AccountComponent,
         AccountAddComponent,
         AccountEditComponent,
-        CategoryComponent,
-        DashboardComponent,
         SettingComponent,
-        SignInComponent,
-        SignUpComponent,
         VoucherComponent,
         ForgotPasswordComponent,
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        LayoutComponent
     ],
     imports: [
         BrowserModule,

@@ -14,17 +14,30 @@ import { VoucherComponent } from './views/voucher/voucher.component';
 
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './views/change-password/change-password.component';
+import { LayoutComponent } from './views/layout/layout.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
     { path: 'account', component: AccountComponent },
     { path: 'account-add', component: AccountAddComponent },
     { path: 'account-edit/:id', component: AccountEditComponent },
-    { path: 'category', component: CategoryComponent },
-    { path: 'dashboard', component: DashboardComponent },
+    {
+        path: 'category', component: LayoutComponent, children:
+            [{
+                path: '',
+                loadChildren: './views/category/category.module#CategoryModule'
+            }]
+    },
+    {
+        path: 'dashboard', component: LayoutComponent, children:
+            [{
+                path: '',
+                loadChildren: './views/dashboard/dashboard.module#DashboardModule'
+            }]
+    },
     { path: 'setting', component: SettingComponent },
-    { path: 'sign-in', component: SignInComponent },
-    { path: 'sign-up', component: SignUpComponent },
+    { path: 'sign-in', loadChildren: './views/sign-in/sign-in.module#SignInModule' },
+    { path: 'sign-up', loadChildren: './views/sign-up/sign-up.module#SignUpModule' },
     { path: 'voucher', component: VoucherComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: 'change-password', component: ChangePasswordComponent },
