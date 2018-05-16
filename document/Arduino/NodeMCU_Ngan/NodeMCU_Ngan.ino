@@ -44,12 +44,12 @@
 
 // You should get Auth Token in the Blynk App.
 // Go to the Project Settings (nut icon).
-char auth[] = "5d99a4b1e23a4767903fa650fb344e45";
+char auth[] = "2262d35e1fa84d69b9424b7f2dd5b16f";
 
 // Your WiFi credentials.
 // Set password to "" for open networks.
-char ssid[] = "Appoint-CWS-1-VNPT";
-char pass[] = "P@SSnhucu123";
+char ssid[] = "ZTE-9h79DE";
+char pass[] = "*#201715@!";
 
 // Attach virtual serial terminal to Virtual Pin V0
 WidgetTerminal terminal(V0);
