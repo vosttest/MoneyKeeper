@@ -116,6 +116,10 @@ BLYNK_WRITE(V2)
   }
 }
 
+BLYNK_CONNECTED() {
+    Blynk.syncAll();
+}
+
 void setLights(int state) {
   digitalWrite(D0, state);
   digitalWrite(D1, state);
@@ -125,6 +129,8 @@ void setLights(int state) {
   digitalWrite(D5, state);
   digitalWrite(D6, state);
   digitalWrite(D7, state);
+
+  Blynk.syncAll();
 }
 
 void setOutput() {
