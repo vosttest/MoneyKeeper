@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.IncomeService;
 import com.tva.mk.common.Utils;
-import com.tva.mk.dto.CategoryParentDto;
+import com.tva.mk.dto.CategoryDto;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Income;
 import com.tva.mk.req.IncomeReq;
@@ -48,8 +48,8 @@ public class IncomeController {
 			int id = pl.getId();
 
 			// Handle
-			List<Income> child = incomeService.getChild(id);
-			List<CategoryParentDto> parent = incomeService.getParent(id);
+			List<CategoryDto> child = incomeService.getChild(id);
+			List<CategoryDto> parent = incomeService.getParent(id);
 
 			// Set data
 			Map<String, Object> t = new LinkedHashMap<>();

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.IncomeDao;
-import com.tva.mk.dto.CategoryParentDto;
+import com.tva.mk.dto.CategoryDto;
 import com.tva.mk.model.Income;
 
 @Service(value = "incomeService")
@@ -24,11 +24,11 @@ public class IncomeService {
 
 	// region -- Methods --
 
-	public List<CategoryParentDto> getParent(int id) {
+	public List<CategoryDto> getParent(int id) {
 		List<Object[]> t = incomeDao.getParent(id);
-		List<CategoryParentDto> res = new ArrayList<>();
+		List<CategoryDto> res = new ArrayList<>();
 		for (Object[] item : t) {
-			CategoryParentDto t1 = new CategoryParentDto();
+			CategoryDto t1 = new CategoryDto();
 			t1.setId(Integer.parseInt(item[0].toString()));
 			t1.setCode(item[1].toString());
 			t1.setText(item[2].toString());
@@ -44,8 +44,23 @@ public class IncomeService {
 		return res;
 	}
 
-	public List<Income> getChild(int id) {
-		List<Income> res = incomeDao.getChild(id);
+	public List<CategoryDto> getChild(int id) {
+		List<Object[]> t = incomeDao.getChild(id);
+		List<CategoryDto> res = new ArrayList<>();
+		for (Object[] item : t) {
+			CategoryDto t1 = new CategoryDto();
+			t1.setId(Integer.parseInt(item[0].toString()));
+			t1.setCode(item[1].toString());
+			t1.setText(item[2].toString());
+			Integer t2 = item[3] == null ? null : Integer.parseInt(item[3].toString());
+			t1.setParentId(t2);
+			String t3 = item[4] == null ? null : item[4].toString();
+			t1.setDescription(t3);
+			t1.setCount(Integer.parseInt(item[5].toString()));
+			String t4 = item[6] == null ? null : item[6].toString();
+			t1.setIcon(t4);
+			res.add(t1);
+		}
 		return res;
 	}
 

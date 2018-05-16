@@ -74,6 +74,8 @@ export class CategoryComponent implements OnInit {
                 this.lstParentTmp = this.lstParent;
                 this.lstChild = rsp.result.child;
                 this.lstChildTmp = this.lstChild;
+                console.log(this.lstChildTmp);
+                console.log(this.lstParentTmp);
             }
             else {
                 console.log(rsp.message);

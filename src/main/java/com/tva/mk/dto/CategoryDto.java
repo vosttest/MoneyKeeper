@@ -2,7 +2,7 @@ package com.tva.mk.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class CategoryParentDto {
+public class CategoryDto {
 	// region -- Fields --
 
 	@JsonProperty(value = "id")
@@ -90,7 +90,7 @@ public class CategoryParentDto {
 
 	// region -- Methods --
 
-	public CategoryParentDto() {
+	public CategoryDto() {
 
 	}
 
