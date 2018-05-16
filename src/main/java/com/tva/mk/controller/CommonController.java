@@ -52,5 +52,28 @@ public class CommonController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
+	@PostMapping("/getImages")
+	public ResponseEntity<?> getImages(@RequestBody BaseReq req) {
+		MultipleRsp res = new MultipleRsp();
+
+		try {
+			// Get data
+			String type = req.getType();
+			String value = req.getValue();
+
+			// Handle
+			List<Common> tmp = commonService.getImages(type, value);
+
+			// Set data
+			Map<String, Object> data = new LinkedHashMap<>();
+			data.put("data", tmp);
+			res.setResult(data);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
 	// end
 }

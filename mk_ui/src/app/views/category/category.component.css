@@ -85,3 +85,17 @@ a {
     padding: unset !important;
     margin: auto !important;
 }
+
+.btn-group {
+    display: unset;
+}
+
+.btn-light {
+    background-color: white;
+    border-color: white;
+}
+
+.list-icon {
+    overflow-x: auto;
+    max-height: 5in;
+}

@@ -26,5 +26,10 @@ public class CommonService {
 		return res;
 	}
 
+	public List<Common> getImages(String type, String value) {
+		List<Common> res = commonDao.getImages(type, value);
+		return res;
+	}
+
 	// end
 }

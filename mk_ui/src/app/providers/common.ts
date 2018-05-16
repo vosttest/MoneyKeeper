@@ -17,4 +17,12 @@ export class CommonProvider {
 
         return this.api.post('common/search', x);
     }
+
+    /**
+     * Search by
+     * @param type
+     */
+    public getImages(info: any) {
+        return this.api.post('common/getImages', info);
+    }
 }

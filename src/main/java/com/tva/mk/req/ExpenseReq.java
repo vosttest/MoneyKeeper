@@ -20,6 +20,9 @@ public class ExpenseReq {
 	@JsonProperty(value = "isDelete")
 	private Boolean isDelete;
 
+	@JsonProperty(value = "icon")
+	private String icon;
+
 	// end
 
 	// region -- Get set --
@@ -62,6 +65,14 @@ public class ExpenseReq {
 
 	public void setIsDelete(boolean isDelete) {
 		this.isDelete = isDelete;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 
 	// end

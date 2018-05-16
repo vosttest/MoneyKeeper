@@ -161,6 +161,14 @@ public class Expense {
 		this.modifyOn = modifyOn;
 	}
 
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 	// end
 
 	// region -- Methods --

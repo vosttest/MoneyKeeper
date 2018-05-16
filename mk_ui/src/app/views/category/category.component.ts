@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import {
     UserProvider,
     IncomeProvider,
-    ExpenseProvider
+    ExpenseProvider,
+    CommonProvider
 } from '../../providers/provider';
 
 @Component({
@@ -18,6 +19,7 @@ export class CategoryComponent implements OnInit {
     public lstChild = [];
     public lstParentTmp = [];
     public lstChildTmp = [];
+    public lstImages = [];
     public keyword = '';
     public isShow: boolean = true;
     public tab: string = "";
@@ -25,14 +27,17 @@ export class CategoryComponent implements OnInit {
     public isNull: boolean = true;
     public parent_id: any;
     public selEdit: any = "";
-    public vm: any = { text: "", description: "", parentId: null }
+    public vm: any = { text: "", description: "", parentId: null, icon: "question.png" };
+    public vmImage: any = { type: "", value: "" };
     public count: any;
     public apiURL: string = "../../../../assets/img/";
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
+    @ViewChild('iconModal') public iconModal: ModalDirective;
 
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider,
+        private proCommon: CommonProvider,
         private rou: Router, ) { }
 
     ngOnInit() {
@@ -74,8 +79,6 @@ export class CategoryComponent implements OnInit {
                 this.lstParentTmp = this.lstParent;
                 this.lstChild = rsp.result.child;
                 this.lstChildTmp = this.lstChild;
-                console.log(this.lstChildTmp);
-                console.log(this.lstParentTmp);
             }
             else {
                 console.log(rsp.message);
@@ -87,19 +90,24 @@ export class CategoryComponent implements OnInit {
         this.vm.text = '';
         this.vm.parentId = '';
         this.vm.description = '';
+        this.vm.icon = 'question.png';
+
         document.getElementById("divAdd").style.display = "block";
         document.getElementById("divEdit").style.display = "none";
         document.getElementById("divCategory").style.display = "none";
+
+        this.getImages();
     }
 
     public redirectEdit(parentId: any, id: any, count: any) {
         parentId == null ? this.isNull = true : this.isNull = false;
         this.count = count;
-        console.log(this.count);
 
         document.getElementById("divEdit").style.display = "block";
         document.getElementById("divAdd").style.display = "none";
         document.getElementById("divCategory").style.display = "none";
+
+        this.getImages();
 
         if (this.tab == "Expense") {
             this.proExpense.getById(id).subscribe((rsp: any) => {
@@ -219,5 +227,24 @@ export class CategoryComponent implements OnInit {
                 }
             })
         }
+    }
+
+    public getImages() {
+        this.vmImage = { type: "Image", value: this.tab };
+        this.proCommon.getImages(this.vmImage).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.lstImages = rsp.result.data;
+
+            }
+            else {
+                console.log(rsp.message);
+            }
+            console.log(rsp);
+        })
+    }
+
+    public selectIcon(iconName: string) {
+        this.vm.icon = iconName;
+        this.iconModal.hide();
     }
 }

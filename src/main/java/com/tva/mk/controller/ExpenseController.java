@@ -74,6 +74,7 @@ public class ExpenseController {
 			Integer id = req.getId();
 			String text = req.getText();
 			String description = req.getDescription();
+			String icon = req.getIcon();
 			int parentId = req.getParentId();
 
 			Expense m = new Expense();
@@ -81,6 +82,7 @@ public class ExpenseController {
 			m.setText(text);
 			m.setDescription(description);
 			m.setUserId(userId);
+			m.setIcon(icon);
 			if (parentId != 0) {
 				m.setParentId(parentId);
 			}
