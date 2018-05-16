@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimepickerModule } from 'ngx-bootstrap';
 
+
 // Import providers
 import {
     ApiProvider,
@@ -32,6 +33,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './views/change-password/change-password.component';
+import { EqualValidator } from './views/change-password/equal-validator.directive';
 import { LayoutComponent } from './views/layout/layout.component';
 
 @NgModule({
@@ -44,7 +46,8 @@ import { LayoutComponent } from './views/layout/layout.component';
         VoucherComponent,
         ForgotPasswordComponent,
         ChangePasswordComponent,
-        LayoutComponent
+        LayoutComponent,
+        EqualValidator
     ],
     imports: [
         BrowserModule,

@@ -11,32 +11,48 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 export class ChangePasswordComponent implements OnInit {
     public vm: any = { newPassword: '', confirmPassword: '', oldPassword: '' };
+    public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
+    public type = "password";
+    public typeConfirm = "password";
+    public typeOld = "password";
+    public show = false;
+    public showConfirm = false;
+
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
+
+    @ViewChild('messageModal') public messageModal: ModalDirective;
+
+    @ViewChild('messageModal1') public messageModal1: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
     ngOnInit() { }
 
     public changePassword() {
-        if (this.vm.newPassword == this.vm.confirmPassword) {
-            this.pro.changePassword(this.vm).subscribe((rsp: any) => {
-                if (rsp.status === 'success') {
-                    this.rou.navigate(['/sign-in']);
-                    alert("Password Update Success");
-                } else {
-                    alert("Old Password Does Not Match");
-                }
-            })
-        } else {
-            alert("New Password And Confirm Password Does Not Match");
-        }
+        this.pro.changePassword(this.vm).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.rou.navigate(['/sign-in']);
+            } else {
+                this.messageModal.show();
+                this.confirmModal.hide();
+            }
+        })
+
     }
 
-    public showConfirm(valid: boolean) {
-        if (!valid) {
-            return;
-        }
+    public showConfirm1() {
         this.confirmModal.show();
+    }
+
+    public toggleShow(para?: string) {
+        if (para == 'P') {
+            this.show = !this.show;
+            this.type = this.show ? "text" : "password";
+        }
+        else {
+            this.showConfirm = !this.showConfirm;
+            this.typeConfirm = this.showConfirm ? "text" : "password";
+        }
     }
 }
