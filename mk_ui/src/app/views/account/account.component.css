@@ -30,3 +30,9 @@ li .right {
 .btn-left button i {
     float: right;
 }
+
+h2 {
+    margin-top: 20px;
+    color: #017DE3;
+    font-weight: 700;
+}

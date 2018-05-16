@@ -14,16 +14,17 @@
                 <h2 class="text-center">Account</h2>
             </div>
             <div class="col-md-4">
-                <button type="button" routerLink="/account-add"><i class="fa fa-plus"></i></button>
+                <h2 class="text-right"><i class="fa fa-plus" routerLink="/account-add"></i></h2>
             </div>
         </div>
         <div class="row">
             <div class="card">
+                <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item" *ngFor="let item of lstTmp">
-                        <div class="acc left"> {{ item.text }}</div>
-                        <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
-                            <button type="button" routerLink="/account-edit/{{item.id}}"><i class="fa fa-edit"></i></button>
+                    <li class="list-group-item" *ngFor="let i of lstTmp | filter : searchText">
+                        <div class="acc left"> {{ i.text }}</div>
+                        <div class="acc right"> Balance: {{ i.balance }} {{ i.currency }}
+                            <i class="fa fa-edit" routerLink="/account-edit/{{i.id}}"></i>
                         </div>
                     </li>
                 </ul>

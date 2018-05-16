@@ -1,12 +1,14 @@
 <div class="row">
-    <div class="col-md-4"><button routerLink="/account">Back</button></div>
     <div class="col-md-4">
-        <h3 class="text-center">Add Account</h3>
+        <h2><i class="fa fa-arrow-left pointer" routerLink="/account"></i></h2>
+    </div>
+    <div class="col-md-4">
+        <h2 class="text-center">Add Account</h2>
     </div>
     <div class="col-md-4"></div>
 </div>
 <div class="row">
-    <form name="form" (ngSubmit)="save()" class="full-width">
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" class="full-width">
         <div class="row">
             <div class="form-group col-md-6">
                 <div class="row">
@@ -14,10 +16,13 @@
                         <p>Name</p>
                     </div>
                     <div class="col-md-10">
-                        <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" placeholder="Account Name">
+                        <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" placeholder="Account Name" required>
                     </div>
                 </div>
                 <hr>
+                <span [hidden]="text.valid || (text.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    <i class="fa fa-exclamation-triangle"></i> Please choose a Account name.!
+                </span>
             </div>
             <div class="form-group col-md-6">
                 <div class="row">
@@ -40,9 +45,12 @@
                         <p>Currency</p>
                     </div>
                     <div class="col-md-10">
-                        <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="vm.currency">
+                        <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="vm.currency" required>
                             <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
                         </select>
+                        <span [hidden]="currency.valid || (currency.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                <i class="fa fa-exclamation-triangle"></i> Required!
+                        </span>
                     </div>
                 </div>
                 <hr>
@@ -78,15 +86,21 @@
                     <p>Initial Balance</p>
                 </div>
                 <div class="col-md-10">
-                    <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0">
+                    <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
                 </div>
             </div>
             <hr>
+            <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                <i class="fa fa-exclamation-triangle"></i> Please input balance account!
+            </span>
         </div>
         <div [hidden]="pickSaveAcc">
             <div class="row">
                 <div class="col-md">
-                    <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0">
+                    <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
+                    <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                            <i class="fa fa-exclamation-triangle"></i> Please input balance account!
+                    </span>
                 </div>
             </div>
             <hr>

@@ -35,6 +35,7 @@ import { ForgotPasswordComponent } from './views/forgot-password/forgot-password
 import { ChangePasswordComponent } from './views/change-password/change-password.component';
 import { EqualValidator } from './views/change-password/equal-validator.directive';
 import { LayoutComponent } from './views/layout/layout.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { LayoutComponent } from './views/layout/layout.component';
         ForgotPasswordComponent,
         ChangePasswordComponent,
         LayoutComponent,
-        EqualValidator
+        EqualValidator,
+        FilterPipe    
     ],
     imports: [
         BrowserModule,

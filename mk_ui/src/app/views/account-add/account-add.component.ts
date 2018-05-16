@@ -17,7 +17,7 @@ export class AccountAddComponent implements OnInit {
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
-    public vm: any = { id: '', type: 'ACC01' };
+    public vm: any = { id: '', type: 'ACC01', currency: 'USD', term: 'TRM01', interestPaid: 'IPD02', termEnded: 'TRE02' };
     public message = '';
     public account: any[] = [];
 

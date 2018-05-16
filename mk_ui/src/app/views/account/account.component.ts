@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountProvider } from '../../providers/account';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
     selector: 'app-account',
@@ -15,6 +16,7 @@ export class AccountComponent implements OnInit {
     public lstTmp = [];
     public keyword: string = '';
     public vm: any = {};
+    public searchText = '';
 
     constructor(private pro: AccountProvider,
         private rou: Router) { }

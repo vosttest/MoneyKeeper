@@ -4,8 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap';
 import { AccountProvider, CommonProvider } from '../../providers/provider';
 
-
-
 @Component({
     selector: 'app-account-edit',
     templateUrl: './account-edit.component.html',
