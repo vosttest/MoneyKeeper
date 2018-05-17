@@ -1,4 +1,4 @@
-<section>
+<section class="format-layout">
     <div class="row">
         <div class="col-md-4"></div>
         <div class="col-md-4">
@@ -15,11 +15,11 @@
                     </div>
                     <div class="col-md-8">
                         <select name="type" #type="ngModel" [(ngModel)]="vm.type" class="form-control" (click)="abc(vm.type)">
-                                    <option value='Expense' selected>Expense</option>
-                                    <option value='Income'>Income</option>
-                                    <option value='Transfer'>Transfer</option>
-                                    <option value='Adjustment'>Adjustment</option>
-                                </select>
+                            <option value='Expense' selected>Expense</option>
+                            <option value='Income'>Income</option>
+                            <option value='Transfer'>Transfer</option>
+                            <option value='Adjustment'>Adjustment</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
         <div class="form-group col-md-6">
             <div class="row">
                 <div class='input-group mb-3'>
-                    <input type='number' class='form-control' placeholder='Amount'>
+                    <input type='number' #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='Amount'>
                     <span class='input-group-text' id='basic-addon2'>VND</span>
                 </div>
             </div>
@@ -47,15 +47,15 @@
             </div>
             <hr>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-6" (click)='accountModal.show()'>
             <div class="row">
                 <div class="col-md-4">
                     <p>{{ labelAccountId }}</p>
                 </div>
-                <div class="col-md-8">
-                    <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                                <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                            </select>
+                <div class="col-md-8">{{ selectedAccount.text }}
+                    <!-- <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                    </select> -->
                 </div>
             </div>
             <hr>
@@ -74,9 +74,9 @@
                     <p>To Account</p>
                 </div>
                 <div class="col-md-8">
-                    <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="cm.accountId">
-                                <option *ngFor="let i2 of toAccount" value="{{i2.id}}">{{i2.text}}</option>
-                            </select>
+                    <select name="accountId" #object="ngModel" [(ngModel)]="vm.object" class="form-control" #accountId="ngModel" [(ngModel)]="cm.accountId">
+                        <option *ngFor="let i2 of toAccount" value="{{i2.id}}">{{i2.text}}</option>
+                    </select>
                 </div>
             </div>
             <hr>
@@ -104,13 +104,13 @@
     </div>
     <hr>
     <div class="row">
-        <div class="form-group col-md-6" *ngIf="!isTransfer ">
+        <div class="form-group col-md-12" *ngIf="!isTransfer ">
             <div class="row">
                 <div class="col-md-2">
                     <p>{{ labelObj }}</p>
                 </div>
                 <div class="col-md-10">
-                    <input class="form-control none-border" name="Payee" #payee="ngModel" [(ngModel)]="vm.payee" />
+                    <input class="form-control none-border" name="Payee" #object="ngModel" [(ngModel)]="vm.object" />
                 </div>
             </div>
             <hr>
@@ -146,17 +146,16 @@
         </div>
         <hr>
     </div> -->
-    <button class="btn btn-primary btnSave" type="submit">Save</button>
+    <button class="btn btn-primary btnSave" type="button" (click)='save()'>Save</button>
 </section>
-
 <div bsModal #categoryModal='bs-modal' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog modal-lg' role='document'>
         <div class='modal-content'>
             <div class='modal-header'>
                 Choose Category
                 <button type='button' class='text-right' (click)='categoryModal.hide()' aria-label='Close'>
-                    <i class='fa fa-window-close'></i>
-                </button>
+                        <i class='fa fa-window-close'></i>
+                    </button>
             </div>
             <div class='modal-body height-modal'>
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
@@ -184,6 +183,25 @@
                 </div>
             </div>
             <div class='modal-footer'></div>
+        </div>
+    </div>
+</div>
+<div bsModal #accountModal='bs-modal' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog modal-lg' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                Choose Account
+                <button type='button' class='text-right' (click)='accountModal.hide()' aria-label='Close'>
+                        <i class='fa fa-window-close'></i>
+                    </button>
+            </div>
+            <div class='modal-body height-modal'>
+                <li class="list-group-item padding-left" *ngFor="let item of account">
+                    <div class="left"> {{ item.text }}</div>
+                    <div class="right"> Balance: {{ item.balance }} Vnd
+                    </div>
+                </li>
+            </div>
         </div>
     </div>
 </div>

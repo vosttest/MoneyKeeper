@@ -34,3 +34,16 @@ input[type=number] {
     width: 100%;
     text-align: left;
 }
+
+li .left {
+    display: inline;
+}
+
+li .right {
+    float: right;
+}
+
+button.btn.btn-primary.btnSave {
+    float: right;
+    width: 10%;
+}
