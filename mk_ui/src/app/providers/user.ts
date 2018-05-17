@@ -56,8 +56,8 @@ export class UserProvider {
     * Info User
     * @param info
     */
-    public infoUser(info: any) {
-        return this.api.post('user/info-user', info);
+    public profileUser(info: any) {
+        return this.api.post('user/profile-user', info);
     }
     /**
     * Update User

@@ -212,7 +212,7 @@ public class UserController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@PostMapping("/info-user")
+	@PostMapping("/profile-user")
 	public ResponseEntity<?> inforUser(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
 

@@ -9,6 +9,7 @@ const routes: Routes = [
     { path: 'sign-in', loadChildren: './views/sign-in/sign-in.module#SignInModule' },
     { path: 'sign-up', loadChildren: './views/sign-up/sign-up.module#SignUpModule' },
     { path: 'forgot-password', loadChildren: './views/forgot-password/forgot-password.module#ForgotPasswordModule' },
+    { path: 'profile-user', loadChildren: './views/profile-user/profile-user.module#ProfileUserModule' },
     {
         path: '',
         component: LayoutComponent,
