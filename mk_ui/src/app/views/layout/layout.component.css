@@ -21,3 +21,8 @@
     float: right;
     display: block !important;
 }
+
+.my-dropdown-left {
+    left: auto;
+    right: 0;
+}
