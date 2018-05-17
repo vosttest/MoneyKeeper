@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TimepickerModule } from 'ngx-bootstrap';
-import { BsDatepickerModule } from 'ngx-bootstrap';
-// import { EqualValidator } from '../../utilities/equal-validator.directive';
+import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { ReportRoutingModule } from './report-routing.module';
 import { ReportComponent } from './report.component';

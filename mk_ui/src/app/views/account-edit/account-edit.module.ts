@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TimepickerModule } from 'ngx-bootstrap';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { AccountEditRoutingModule } from './account-edit-routing.module';
 import { AccountEditComponent } from './account-edit.component';

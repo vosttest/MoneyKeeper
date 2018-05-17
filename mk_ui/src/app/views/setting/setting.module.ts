@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TimepickerModule } from 'ngx-bootstrap';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { SettingRoutingModule } from './setting-routing.module';
 import { SettingComponent } from './setting.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { FilterPipeSetting } from '../../utilities/filter.pipe';
 
 @NgModule({
     imports: [
@@ -19,7 +19,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         SettingRoutingModule
     ],
     declarations: [
-        SettingComponent
+        SettingComponent,
+        FilterPipeSetting
     ]
 })
 

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SettingProvider, CommonProvider } from '../../providers/provider';
-import { ModalDirective } from 'ngx-bootstrap';
-import { TimepickerModule } from 'ngx-bootstrap';
+import { ModalDirective, TimepickerModule } from 'ngx-bootstrap';
 import { element } from 'protractor';
 
 @Component({
@@ -12,16 +11,17 @@ import { element } from 'protractor';
 
 export class SettingComponent implements OnInit {
     public data = [];
+    public dataCurrency = [];
     public reminder: any = {};
     public ismeridian = false;
     public isTime = false;
-    public loginAuthen: any = {};
-    public tranAuthen: any = {};
+    public apiURL: string = "../../../../assets/img/currency/";
+    public searchCurrency = '';
+	public loginAuthen: any = {};
 
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
     @ViewChild('loginAuthenPopup') public loginAuthenPopup: ModalDirective;
-    @ViewChild('tranAuthenPopup') public tranAuthenPopup: ModalDirective;
 
     constructor(private pro: SettingProvider, private proCommon: CommonProvider) { }
 
@@ -47,13 +47,15 @@ export class SettingComponent implements OnInit {
                         this.loginAuthen.status = element.status == 'ACT' ? true : false;
                         this.loginAuthen.id = element.id;
                     }
-
-                    if (+t[1] === 4) {
-                        this.tranAuthen.type = element.value;
-                        this.tranAuthen.status = element.status == 'ACT' ? true : false;
-                        this.tranAuthen.id = element.id;
-                    }
                 });
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+        this.proCommon.search('Currency').subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.dataCurrency = rsp.result.data;
             }
             else {
                 console.log(rsp.message);
@@ -72,9 +74,6 @@ export class SettingComponent implements OnInit {
                 break;
             case 3:
                 this.loginAuthenPopup.show();
-                break;
-            case 4:
-                this.tranAuthenPopup.show();
                 break;
         }
     }
@@ -124,23 +123,6 @@ export class SettingComponent implements OnInit {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
                 this.loginAuthenPopup.hide();
-            }
-        }, err => console.log(err));
-    }
-
-    public saveTranAuthen() {
-        this.tranAuthen.status = this.tranAuthen.status ? 'ACT' : 'INA';
-
-        let x = {
-            "id": this.tranAuthen.id,
-            "value": this.tranAuthen.type,
-            "status": this.tranAuthen.status
-        }
-
-        this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success" && rsp.message == "") {
-                this.search();
-                this.tranAuthenPopup.hide();
             }
         }, err => console.log(err));
     }

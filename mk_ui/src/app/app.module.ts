@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { TimepickerModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { EqualValidator } from './utilities/equal-validator.directive';
 
 // Import providers
@@ -24,7 +24,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
 
 import { FormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { LayoutComponent } from './views/layout/layout.component';
 
