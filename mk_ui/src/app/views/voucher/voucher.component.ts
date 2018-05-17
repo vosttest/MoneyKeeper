@@ -14,19 +14,39 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 
 export class VoucherComponent implements OnInit {
+    public vm: any = {type:'Expense'};
+    public cm: any={};
     public lstParent = [];
     public lstChild = [];
     public lstParentTmp = [];
     public lstChildTmp = [];
     public lstAccount = [];
+    public account = [];
+    public toAccount = [];
+    public apiURL: string = "../../../../assets/img/";
 
     public selectedType = 'Expense';
-    public selectedCategory = { code: '', text: '-- Select Category --' };
+    public selectedCategory = { code: '', text: '-- Select Category --', icon: '' };
     public selectedAccount = { code: '', text: '-- Select Account --' };
     public message = '';
+    public isCheck: boolean;
+    public isExpense: boolean = false;
+    public isIncome: boolean = false;
+    public isTransfer: boolean = false;
+    public isAdjustment: boolean = false;
+    public labelObj: string = "";
+
+    public labelAccountId = 'Account';
 
     @ViewChild('categoryModal') public categoryModal: ModalDirective;
     @ViewChild('accountModal') public accountModal: ModalDirective;
+
+    // Datepicker
+
+    minDate = new Date(2018, 1, 1);
+    maxDate = new Date(2050, 12, 12);
+
+    bsValue: Date = new Date();
 
     constructor(private proExpense: ExpenseProvider,
         private proIncome: IncomeProvider,
@@ -36,6 +56,9 @@ export class VoucherComponent implements OnInit {
     ngOnInit() {
         this.getExpense();
         this.getAccount();
+        this.abc('Expense');
+        this.searchAccount();
+        this.searchToAccount();
     }
 
     public getExpense() {
@@ -82,9 +105,10 @@ export class VoucherComponent implements OnInit {
         }
     }
 
-    public chooseCategory(code: string, text: string) {
+    public chooseCategory(code: string, text: string, icon: string) {
         this.selectedCategory.code = code;
         this.selectedCategory.text = text;
+        this.selectedCategory.icon = icon;
         this.categoryModal.hide();
     }
 
@@ -116,5 +140,63 @@ export class VoucherComponent implements OnInit {
                 }
             });
         }
+    }
+
+    public abc(a: any) {
+        if (a == "Expense") {
+            this.isExpense = true;
+            this.isIncome = false;
+            this.isTransfer = false;
+            this.isAdjustment = false;
+            this.labelAccountId = "Account";
+            this.labelObj = "Payee";
+        }
+        else if (a == "Income") {
+            this.isIncome = true;
+            this.isExpense = false;
+            this.isTransfer = false;
+            this.isAdjustment = false;
+            this.labelAccountId = "To Account";
+            this.labelObj = "Payer";
+        }
+        else if (a == "Transfer") {
+            this.isTransfer = true;
+            this.isIncome = false;
+            this.isExpense = false;
+            this.isAdjustment = false;
+            this.labelAccountId = "Account";
+        }
+        else if (a == "Adjustment") {
+            this.isAdjustment = true;
+            this.isIncome = false;
+            this.isExpense = false;
+            this.isTransfer = false;
+            this.labelAccountId = "Account";
+            this.labelObj = "Payee";
+        }
+
+        console.log(a);
+    }
+    private searchAccount() {
+        let info = { keyword: '' };
+        this.proAccount.search(info).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.account = rsp.result.data;
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+    }
+    private searchToAccount() {
+        let info = { keyword: '' };
+        this.proAccount.search(info).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.toAccount=rsp.result.data;
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
     }
 }
