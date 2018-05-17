@@ -78,8 +78,6 @@ export class CategoryComponent implements OnInit {
                 this.lstParentTmp = this.lstParent;
                 this.lstChild = rsp.result.child;
                 this.lstChildTmp = this.lstChild;
-
-                console.log(this.lstParentTmp);
             }
             else {
                 console.log(rsp.message);
@@ -112,7 +110,6 @@ export class CategoryComponent implements OnInit {
                 if (rsp.status === 'success') {
                     this.vm = rsp.result;
                     this.selEdit = rsp.result.parentId;
-
                 }
                 else {
                     console.log(rsp.message);
@@ -232,12 +229,10 @@ export class CategoryComponent implements OnInit {
         this.proCommon.getImages(this.vmImage).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.lstImages = rsp.result.data;
-
             }
             else {
                 console.log(rsp.message);
             }
-            console.log(rsp);
         })
     }
 
