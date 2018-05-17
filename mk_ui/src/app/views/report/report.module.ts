@@ -6,8 +6,8 @@ import { TimepickerModule } from 'ngx-bootstrap';
 import { BsDatepickerModule } from 'ngx-bootstrap';
 // import { EqualValidator } from '../../utilities/equal-validator.directive';
 
-import { ChangePasswordRoutingModule } from './change-password-routing.module';
-import { ChangePasswordComponent } from './change-password.component';
+import { ReportRoutingModule } from './report-routing.module';
+import { ReportComponent } from './report.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
@@ -17,11 +17,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        ChangePasswordRoutingModule
+        ReportRoutingModule
     ],
     declarations: [
-        ChangePasswordComponent
+        ReportComponent
     ]
 })
 
-export class ChangePasswordModule { }
+export class ReportModule { }

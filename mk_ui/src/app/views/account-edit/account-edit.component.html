@@ -1,223 +1,221 @@
-<section class="format-layout">
-    <div class="row">
-        <div class="col-md-4">
-            <h2><i class="fa fa-arrow-left pointer" routerLink="/account"></i></h2>
-        </div>
-        <div class="col-md-4">
-            <h2 class="text-center"> Edit Account: {{vm.text}} </h2>
-        </div>
-        <div class="col-md-4"></div>
+<div class="row">
+    <div class="col-md-4">
+        <h2><i class="fa fa-arrow-left pointer" routerLink="/account"></i></h2>
     </div>
-    <div class="row">
-        <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" class="full-width">
-            <div class="row">
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p>Name</p>
-                        </div>
-                        <div class="col-md-10">
-                            <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" placeholder="Account Name" required>
-                        </div>
+    <div class="col-md-4">
+        <h2 class="text-center"> Edit Account: {{vm.text}} </h2>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<div class="row">
+    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" class="full-width">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Name</p>
                     </div>
-                    <hr>
-                    <span [hidden]="text.valid || (text.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    <div class="col-md-10">
+                        <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" placeholder="Account Name" required>
+                    </div>
+                </div>
+                <hr>
+                <span [hidden]="text.valid || (text.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <i class="fa fa-exclamation-triangle"></i> Please choose a Account name!
                 </span>
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p>Type</p>
-                        </div>
-                        <div class="col-md-10">
-                            <select name="type" (change)="checkType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Type</p>
+                    </div>
+                    <div class="col-md-10">
+                        <select name="type" (change)="checkType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
                             <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
                         </select>
-                        </div>
                     </div>
-                    <hr>
                 </div>
+                <hr>
             </div>
-            <div class="row" [hidden]="pickSaveAcc">
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p>Currency</p>
-                        </div>
-                        <div class="col-md-10">
-                            <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="vm.currency">
-                            <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
-                        </select>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p>Bank</p>
-                        </div>
-                        <div class="col-md-10">
-                            <input name="bank" #bank="ngModel" [(ngModel)]="vm.bank" type="text" class="form-control" placeholder="Bank name">
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-            <div [hidden]="pickOther">
+        </div>
+        <div class="row" [hidden]="pickSaveAcc">
+            <div class="form-group col-md-6">
                 <div class="row">
                     <div class="col-md-2">
                         <p>Currency</p>
                     </div>
                     <div class="col-md-10">
                         <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="vm.currency">
+                            <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>Bank</p>
+                    </div>
+                    <div class="col-md-10">
+                        <input name="bank" #bank="ngModel" [(ngModel)]="vm.bank" type="text" class="form-control" placeholder="Bank name">
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div [hidden]="pickOther">
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Currency</p>
+                </div>
+                <div class="col-md-10">
+                    <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="vm.currency">
                         <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
                     </select>
-                    </div>
                 </div>
-                <hr>
             </div>
-            <div [hidden]="pickOther">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p>Initial Balance</p>
-                    </div>
-                    <div class="col-md-10">
-                        <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
-                    </div>
+            <hr>
+        </div>
+        <div [hidden]="pickOther">
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Initial Balance</p>
                 </div>
-                <hr>
-                <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                <div class="col-md-10">
+                    <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
+                </div>
+            </div>
+            <hr>
+            <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                 <i class="fa fa-exclamation-triangle"></i> Please input balance account!
             </span>
-            </div>
-            <div [hidden]="pickSaveAcc">
-                <div class="row">
-                    <div class="col-md">
-                        <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
-                    </div>
+        </div>
+        <div [hidden]="pickSaveAcc">
+            <div class="row">
+                <div class="col-md">
+                    <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
                 </div>
-                <hr>
-                <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+            </div>
+            <hr>
+            <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                 <i class="fa fa-exclamation-triangle"></i> Please input balance account!
             </span>
-            </div>
-            <div [hidden]="pickSaveAcc">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p>Start Date</p>
-                    </div>
-                    <div class="col-md-10">
-                        <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="vm.startDate" type="text" class="form-control" placeholder="Start Date">
-                    </div>
+        </div>
+        <div [hidden]="pickSaveAcc">
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Start Date</p>
                 </div>
-                <hr>
+                <div class="col-md-10">
+                    <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="vm.startDate" type="text" class="form-control" placeholder="Start Date">
+                </div>
             </div>
-            <div [hidden]="pickSaveAcc">
-                <div class="row">
-                    <div class="col-md-2">
-                        <p>Term</p>
-                    </div>
-                    <div class="col-md-10">
-                        <select name="term" class="form-control" #term="ngModel" [(ngModel)]="vm.term">
+            <hr>
+        </div>
+        <div [hidden]="pickSaveAcc">
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Term</p>
+                </div>
+                <div class="col-md-10">
+                    <select name="term" class="form-control" #term="ngModel" [(ngModel)]="vm.term">
                         <option *ngFor="let i of lstTerm" value="{{i.value}}">{{i.text}}</option>
                     </select>
-                    </div>
-                </div>
-                <hr>
-            </div>
-            <div class="row" [hidden]="pickSaveAcc">
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p>Interest rate</p>
-                        </div>
-                        <div class="col-md-8">
-                            <input name="interestRate" #interestRate="ngModel" [(ngModel)]="vm.interestRate" type="text" class="form-control" placeholder="%/year">
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p>Interest rate free</p>
-                        </div>
-                        <div class="col-md-8">
-                            <input name="interestRateFree" #interestRateFree="ngModel" [(ngModel)]="vm.interestRateFree" type="text" class="form-control" placeholder="%/year">
-                        </div>
-                    </div>
-                    <hr>
                 </div>
             </div>
-            <div class="row" [hidden]="pickSaveAcc">
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p>Interest Paid</p>
-                        </div>
-                        <div class="col-md-8">
-                            <select name="interestPaid" class="form-control" #interestPaid="ngModel" [(ngModel)]="vm.interestPaid">
-                            <option *ngFor="let i of lstInterestPaid" value="{{i.value}}">{{i.text}}</option>
-                        </select>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-                <div class="form-group col-md-6">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p>Term End</p>
-                        </div>
-                        <div class="col-md-8">
-                            <select name="termEnded" class="form-control" #termEnded="ngModel" [(ngModel)]="vm.termEnded">
-                            <option *ngFor="let i of lstTermEnd" value="{{i.value}}">{{i.text}}</option>
-                        </select>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
-            </div>
-            <div class="form-group" [hidden]="pickSaveAcc">
+            <hr>
+        </div>
+        <div class="row" [hidden]="pickSaveAcc">
+            <div class="form-group col-md-6">
                 <div class="row">
                     <div class="col-md-4">
-                        <p>Transfer money from account</p>
+                        <p>Interest rate</p>
                     </div>
                     <div class="col-md-8">
-                        <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                    </select>
+                        <input name="interestRate" #interestRate="ngModel" [(ngModel)]="vm.interestRate" type="text" class="form-control" placeholder="%/year">
                     </div>
                 </div>
                 <hr>
             </div>
-            <div class="form-group">
-                <textarea name="description" #description="ngModel" [(ngModel)]="vm.description" class="form-control" rows="2" placeholder="Description"></textarea>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Interest rate free</p>
+                    </div>
+                    <div class="col-md-8">
+                        <input name="interestRateFree" #interestRateFree="ngModel" [(ngModel)]="vm.interestRateFree" type="text" class="form-control" placeholder="%/year">
+                    </div>
+                </div>
                 <hr>
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-            <button type="button" class="btn btn-danger" (click)="confirmModal.show()">Delete</button>
-        </form>
-    </div>
-    <!-- Modal -->
-    <div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
-                    <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
+        </div>
+        <div class="row" [hidden]="pickSaveAcc">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Interest Paid</p>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="interestPaid" class="form-control" #interestPaid="ngModel" [(ngModel)]="vm.interestPaid">
+                            <option *ngFor="let i of lstInterestPaid" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Term End</p>
+                    </div>
+                    <div class="col-md-8">
+                        <select name="termEnded" class="form-control" #termEnded="ngModel" [(ngModel)]="vm.termEnded">
+                            <option *ngFor="let i of lstTermEnd" value="{{i.value}}">{{i.text}}</option>
+                        </select>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="form-group" [hidden]="pickSaveAcc">
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Transfer money from account</p>
+                </div>
+                <div class="col-md-8">
+                    <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <div class="form-group">
+            <textarea name="description" #description="ngModel" [(ngModel)]="vm.description" class="form-control" rows="2" placeholder="Description"></textarea>
+            <hr>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-danger" (click)="confirmModal.show()">Delete</button>
+    </form>
+</div>
+<!-- Modal -->
+<div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure delete this Account ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="confirmModal.hide()">No</button>
-                    <button type="button" class="btn btn-primary" (click)="delete()">Yes</button>
-                </div>
+            </div>
+            <div class="modal-body">
+                Are you sure delete this Account ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="confirmModal.hide()">No</button>
+                <button type="button" class="btn btn-primary" (click)="delete()">Yes</button>
             </div>
         </div>
     </div>
-</section>
+</div>

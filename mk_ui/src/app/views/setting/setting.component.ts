@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SettingProvider } from '../../providers/provider';
+import { SettingProvider, CommonProvider } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
 import { TimepickerModule } from 'ngx-bootstrap';
 import { element } from 'protractor';
@@ -19,19 +19,20 @@ export class SettingComponent implements OnInit {
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
 
-    constructor(private pro: SettingProvider) { }
+    constructor(private proSetting: SettingProvider, private proCommon: CommonProvider) { }
 
     ngOnInit() {
         this.search();
     }
 
     private search() {
-        this.pro.search().subscribe((rsp: any) => {
+        this.proSetting.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.data = rsp.result.data;
 
                 this.data.forEach(element => {
-                    if (element.code == 'SET01') {
+                    let t =  element.code.split('SET');
+                    if (+t[1] === 1) {
                         //this.reminder.time = element.value;
                         this.reminder.time = new Date(element.value);
                         this.reminder.status = element.status == 'ACT' ? true : false;
@@ -47,23 +48,14 @@ export class SettingComponent implements OnInit {
     }
 
     public showDetailSetting(code: string) {
-        switch (code) {
-            case 'SET01':
+        let t = code.split("SET");
+        switch (+t[1]) {
+            case 1:
                 this.reminderPopup.show();
                 break;
-            case 'SET02':
+            case 2:
                 this.currencyPopup.show();
                 break;
-        }
-    }
-
-    public closeModal(type: string) {
-        switch (type) {
-            case 'reminder':
-                this.reminderPopup.hide();
-                break;
-            case 'currency':
-                this.currencyPopup.hide();
         }
     }
 
@@ -91,10 +83,10 @@ export class SettingComponent implements OnInit {
             "status": this.reminder.status
         }
 
-        this.pro.save(x).subscribe((rsp: any) => {
+        this.proSetting.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
-                this.closeModal('reminder');
+                this.reminderPopup.hide();
             }
         }, err => console.log(err));
     }

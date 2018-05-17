@@ -2,18 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AccountComponent } from './views/account/account.component';
-import { AccountAddComponent } from './views/account-add/account-add.component';
-import { AccountEditComponent } from './views/account-edit/account-edit.component';
-import { CategoryComponent } from './views/category/category.component';
-import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { SettingComponent } from './views/setting/setting.component';
-import { SignInComponent } from './views/sign-in/sign-in.component';
-import { SignUpComponent } from './views/sign-up/sign-up.component';
-import { VoucherComponent } from './views/voucher/voucher.component';
-import { ReportComponent } from './views/report/report.component';
-import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
-import { ChangePasswordComponent } from './views/change-password/change-password.component';
 import { LayoutComponent } from './views/layout/layout.component';
 
 const routes: Routes = [
@@ -50,10 +38,12 @@ const routes: Routes = [
                 }, {
                     path: 'change-password',
                     loadChildren: './views/change-password/change-password.module#ChangePasswordModule'
+                }, {
+                    path: 'report',
+                    loadChildren: './views/report/report.module#ReportModule'
                 }
             ]
     },
-    { path: 'report', component: ReportComponent },
     { path: '**', redirectTo: 'sign-in', pathMatch: 'full' },
 ];
 

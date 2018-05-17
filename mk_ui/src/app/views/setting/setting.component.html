@@ -14,7 +14,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Reminder</h4>
-                <button type="button" class="close" (click)="closeModal('reminder')">&times;</button>
+                <button type="button" class="close" (click)="reminderPopup.hide()">&times;</button>
             </div>
             <div class="modal-body text-center">
                 <div class="form-group">
@@ -60,7 +60,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Currency</h4>
-                <button type="button" class="close" (click)="closeModal('currency')">&times;</button>
+                <button type="button" class="close" (click)="currencyPopup.hide()">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="form-group">
@@ -70,7 +70,7 @@
                     <div class="row">
                         <div class="col-md-3"> </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-primary btn-block" (click)="closeModal('currency')">OK</button>
+                            <button type="button" class="btn btn-primary btn-block" (click)="currencyPopup.hide()">OK</button>
                         </div>
                         <div class="col-md-3"> </div>
                     </div>

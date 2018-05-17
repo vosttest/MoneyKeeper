@@ -8,7 +8,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './account.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FilterPipe } from '../../filter.pipe';
+import { FilterPipe } from '../../utilities/filter.pipe';
 
 @NgModule({
     imports: [
