@@ -24,6 +24,7 @@ CREATE TABLE PUBLIC."setting"
 	"text"					VARCHAR(128),
 	"description"			VARCHAR(256),
 	"status"				CHARACTER(3) NOT NULL DEFAULT 'INA',
+	"sequence"				INT4,
 	"user_id"				INT4,
 	"create_by"				INT4,
 	"create_on"				TIMESTAMP,

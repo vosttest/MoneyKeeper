@@ -27,7 +27,6 @@ export class CategoryComponent implements OnInit {
     public parent_id: any;
     public selEdit: any = "";
     public vm: any = { text: "", description: "", parentId: null, icon: "question.png" };
-    public vmImage: any = { type: "", value: "" };
     public count: any;
     public apiURL: string = "../../../../assets/img/";
 
@@ -224,9 +223,13 @@ export class CategoryComponent implements OnInit {
         }
     }
 
-    public getImages() {
-        this.vmImage = { type: "Image", value: this.tab };
-        this.proCommon.getImages(this.vmImage).subscribe((rsp: any) => {
+    public selectIcon(iconName: string) {
+        this.vm.icon = iconName;
+        this.iconModal.hide();
+    }
+
+    private getImages() {
+        this.proCommon.getImages(this.tab).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.lstImages = rsp.result.data;
             }
@@ -234,10 +237,5 @@ export class CategoryComponent implements OnInit {
                 console.log(rsp.message);
             }
         })
-    }
-
-    public selectIcon(iconName: string) {
-        this.vm.icon = iconName;
-        this.iconModal.hide();
     }
 }

@@ -21,13 +21,26 @@ public class CommonService {
 
 	// region -- Methods --
 
-	public List<Common> getByType(String type) {
-		List<Common> res = commonDao.getByType(type);
+	/**
+	 * Get by type
+	 * 
+	 * @param type
+	 * @return Data
+	 */
+	public List<Common> getBy(String type) {
+		List<Common> res = commonDao.getBy(type);
 		return res;
 	}
 
-	public List<Common> getImages(String type, String value) {
-		List<Common> res = commonDao.getImages(type, value);
+	/**
+	 * Get by type and parent value
+	 * 
+	 * @param type
+	 * @param value
+	 * @return Children data
+	 */
+	public List<Common> getBy(String type, String value) {
+		List<Common> res = commonDao.getBy(type, value);
 		return res;
 	}
 

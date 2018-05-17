@@ -39,7 +39,7 @@ public class CommonController {
 			String keyword = req.getKeyword();
 
 			// Handle
-			List<Common> tmp = commonService.getByType(keyword);
+			List<Common> tmp = commonService.getBy(keyword);
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();
@@ -53,8 +53,8 @@ public class CommonController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@PostMapping("/getImages")
-	public ResponseEntity<?> getImages(@RequestBody CommonReq req) {
+	@PostMapping("/search-image")
+	public ResponseEntity<?> search(@RequestBody CommonReq req) {
 		MultipleRsp res = new MultipleRsp();
 
 		try {
@@ -63,7 +63,7 @@ public class CommonController {
 			String value = req.getValue();
 
 			// Handle
-			List<Common> tmp = commonService.getImages(type, value);
+			List<Common> tmp = commonService.getBy(type, value);
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();

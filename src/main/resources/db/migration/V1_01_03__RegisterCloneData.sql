@@ -32,17 +32,17 @@ BEGIN
 	INSERT INTO expense(code, text, user_id, description, sequence, icon)
 	SELECT value, text, uid, description, sequence,
 			CASE WHEN sequence < 10 THEN
-					concat('expense/IMG00', sequence, '.png')
+					CONCAT('expense/IMG00', sequence, '.png')
 				ELSE
-					concat('expense/IMG0', sequence, '.png')
+					CONCAT('expense/IMG0', sequence, '.png')
 			END
 	FROM common
 	WHERE type LIKE 'Expense' AND parent_id IS NULL;
 	-- Step 2
 	OPEN curr_expense;
 		LOOP
-			FETCH curr_expense INTO rec;			
-			EXIT WHEN NOT FOUND;			
+			FETCH curr_expense INTO rec;
+			EXIT WHEN NOT FOUND;
 
 			SELECT value into parent_code
 			FROM common  
@@ -53,9 +53,9 @@ BEGIN
 			WHERE expense.code = parent_code AND expense.user_id = uid;
 			
 			IF rec.sequence < 10 THEN
-				img = concat('expense/IMG00', rec.sequence, '.png');
+				img = CONCAT('expense/IMG00', rec.sequence, '.png');
 			ELSE
-				img = concat('expense/IMG0', rec.sequence, '.png');
+				img = CONCAT('expense/IMG0', rec.sequence, '.png');
 			END IF;
 
 			INSERT INTO expense(code, text, user_id, parent_id, sequence, icon) 
@@ -69,17 +69,17 @@ BEGIN
 	INSERT INTO income(code, text, user_id, description, sequence, icon)
 	SELECT value, text, uid, description, sequence,
 			CASE WHEN sequence < 10 THEN
-					concat('income/IMG00', sequence, '.png')
+					CONCAT('income/IMG00', sequence, '.png')
 				ELSE
-					concat('income/IMG0', sequence, '.png')
+					CONCAT('income/IMG0', sequence, '.png')
 			END
 	FROM common
 	WHERE type LIKE 'Income' AND parent_id IS NULL;
 	-- Step 2
 	OPEN curr_income;
 		LOOP
-			FETCH curr_income INTO rec;			
-			EXIT WHEN NOT FOUND;			
+			FETCH curr_income INTO rec;
+			EXIT WHEN NOT FOUND;
 
 			SELECT value into parent_code
 			FROM common  
@@ -90,9 +90,9 @@ BEGIN
 			WHERE income.code = parent_code AND income.user_id = uid;
 			
 			IF  rec.sequence < 10 THEN
-				img = concat('income/IMG00', rec.sequence, '.png');
+				img = CONCAT('income/IMG00', rec.sequence, '.png');
 			ELSE
-				img = concat('income/IMG0', rec.sequence, '.png');
+				img = CONCAT('income/IMG0', rec.sequence, '.png');
 			END IF;
 
 			INSERT INTO income(code, text, user_id, parent_id, sequence, icon)
@@ -102,8 +102,8 @@ BEGIN
 	---------------------------------------
 	
 	-- Setting ----------------------------
-	INSERT INTO setting(code, text, user_id, description)
-	SELECT value, text, uid, description
+	INSERT INTO setting(code, text, user_id, description, sequence)
+	SELECT value, text, uid, description, sequence
 	FROM common
 	WHERE type LIKE 'Setting';
 	---------------------------------------

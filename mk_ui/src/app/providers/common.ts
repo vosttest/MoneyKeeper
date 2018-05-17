@@ -19,10 +19,14 @@ export class CommonProvider {
     }
 
     /**
-     * Search by
+     * Get images by
      * @param type
      */
-    public getImages(info: any) {
-        return this.api.post('common/getImages', info);
+    public getImages(type: string) {
+        let x = {
+            'type': 'Image',
+            'value': type
+        };
+        return this.api.post('common/search-image', x);
     }
 }
