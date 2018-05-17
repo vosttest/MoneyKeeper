@@ -2,7 +2,7 @@
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
         <ul *ngFor="let item of data">
-            <li value="{{item.code}}" (click)="showDetailSetting(item.code)">{{item.text}}</li>
+            <li class="pointer" value="{{item.code}}" (click)="showDetailSetting(item.code)">{{item.text}}</li>
         </ul>
     </div>
     <div class="col-md-4"></div>
