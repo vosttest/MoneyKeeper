@@ -15,29 +15,35 @@ export class SettingComponent implements OnInit {
     public reminder: any = {};
     public ismeridian = false;
     public isTime = false;
+    public loginAuthen: any = {};
 
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
+    @ViewChild('loginAuthenPopup') public loginAuthenPopup: ModalDirective;
 
-    constructor(private proSetting: SettingProvider, private proCommon: CommonProvider) { }
+    constructor(private pro: SettingProvider, private proCommon: CommonProvider) { }
 
     ngOnInit() {
         this.search();
     }
 
     private search() {
-        this.proSetting.search().subscribe((rsp: any) => {
+        this.pro.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.data = rsp.result.data;
 
                 this.data.forEach(element => {
-                    let t =  element.code.split('SET');
+                    let t = element.code.split('SET');
                     if (+t[1] === 1) {
-                        //this.reminder.time = element.value;
                         this.reminder.time = new Date(element.value);
                         this.reminder.status = element.status == 'ACT' ? true : false;
                         this.reminder.id = element.id;
-                        return;
+                    }
+
+                    if (+t[1] === 3) {
+                        this.loginAuthen.type = element.value == null ? '' : element.value;
+                        this.loginAuthen.status = element.status == 'ACT' ? true : false;
+                        this.loginAuthen.id = element.id;
                     }
                 });
             }
@@ -55,6 +61,9 @@ export class SettingComponent implements OnInit {
                 break;
             case 2:
                 this.currencyPopup.show();
+                break;
+            case 3:
+                this.loginAuthenPopup.show();
                 break;
         }
     }
@@ -83,10 +92,27 @@ export class SettingComponent implements OnInit {
             "status": this.reminder.status
         }
 
-        this.proSetting.save(x).subscribe((rsp: any) => {
+        this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
                 this.reminderPopup.hide();
+            }
+        }, err => console.log(err));
+    }
+
+    public saveLoginAuthen() {
+        this.loginAuthen.status = this.loginAuthen.status ? 'ACT' : 'INA';
+
+        let x = {
+            "id": this.loginAuthen.id,
+            "value": this.loginAuthen.type,
+            "status": this.loginAuthen.status
+        }
+
+        this.pro.save(x).subscribe((rsp: any) => {
+            if (rsp.status == "success" && rsp.message == "") {
+                this.search();
+                this.loginAuthenPopup.hide();
             }
         }, err => console.log(err));
     }
