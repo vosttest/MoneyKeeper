@@ -1,101 +1,105 @@
-.button {
-    width: 100%;
-    text-align: left;
-}
-
-h2 {
-    margin-bottom: 7%;
-    margin-top: 50px;
-    color: #017DE3;
-    font-weight: 700;
-}
-
-a {
-    text-decoration-line: none;
-}
-
-.format-layout {
-    margin-left: 50px !important;
-    margin-right: 50px !important;
-}
-
-.row-margin {
-    margin-left: 0px;
-    margin-right: 0px;
-}
-
-.none-border {
-    border: none;
-}
-
-.col-form-label {
-    font-size: x-large;
-    font-weight: 700
-}
-
-.format-image {
-    height: 70px;
-    width: 75%;
-    position: absolute;
-    left: 11px;
-    bottom: -15px;
-}
-
-.margin-top {
-    margin-top: 1%;
-}
-
-.btnSave {
-    margin-top: 2%;
-    float: right;
-}
-
-.scroll {
-    overflow-x: auto;
-}
-
-#inputState {
-    position: absolute;
-    bottom: 0px
-}
-
-.padding-left {
-    padding-left: 5%;
-}
-
-.padding-right {
-    padding-right: 2%;
-}
-
-.format-iconUp {
-    margin: auto;
-    font-size: large;
-    cursor: pointer;
-    color: #017DE3;
-}
-
-.col-md-1 {
-    width: auto !important;
-    padding: unset !important;
-    max-width: 4%;
-}
-
-.col-md-10 {
-    width: auto !important;
-    padding: unset !important;
-    margin: auto !important;
-}
-
-.btn-group {
-    display: unset;
-}
-
-.btn-light {
-    background-color: white;
-    border-color: white;
-}
-
-.list-icon {
-    overflow-x: auto;
-    max-height: 5in;
-}
+    .button {
+        width: 100%;
+        text-align: left;
+    }
+    
+    h2 {
+        margin-top: 20px;
+        color: #017DE3;
+        font-weight: 700;
+    }
+    
+    a {
+        text-decoration-line: none;
+    }
+    
+    .format-layout {
+        margin-left: 50px !important;
+        margin-right: 50px !important;
+    }
+    
+    .row-margin {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+    
+    .none-border {
+        border: none;
+    }
+    
+    .col-form-label {
+        font-size: x-large;
+        font-weight: 700
+    }
+    
+    .format-image {
+        height: 70px;
+        width: 75%;
+        position: absolute;
+        left: 11px;
+        bottom: -15px;
+    }
+    
+    .margin-top {
+        margin-top: 1%;
+    }
+    
+    .btnSave {
+        margin-top: 2%;
+        float: right;
+    }
+    
+    .scroll {
+        overflow-x: auto;
+    }
+    
+    #inputState {
+        position: relative;
+        bottom: 0px
+    }
+    
+    .padding-left {
+        padding-left: 10%;
+    }
+    
+    .padding-right {
+        padding-right: 2%;
+    }
+    
+    .format-iconUp {
+        margin: auto;
+        font-size: large;
+        cursor: pointer;
+        color: #017DE3;
+    }
+    
+    .col-md-1 {
+        width: auto !important;
+        padding: unset !important;
+        max-width: 4%;
+    }
+    
+    .col-md-10 {
+        width: auto !important;
+        padding: unset !important;
+        margin: auto !important;
+    }
+    
+    .btn-group {
+        display: unset;
+    }
+    
+    .btn-light {
+        background-color: white;
+        border-color: white;
+    }
+    
+    .list-icon {
+        overflow-x: auto;
+        max-height: 5in;
+    }
+    
+    #expense.tab-pane {
+        overflow-x: auto;
+        max-height: 5in;
+    }

@@ -24,7 +24,6 @@ export class CategoryComponent implements OnInit {
     public isShow: boolean = true;
     public tab: string = "";
     public isCollapsed: boolean = true;
-    public isNull: boolean = true;
     public parent_id: any;
     public selEdit: any = "";
     public vm: any = { text: "", description: "", parentId: null, icon: "question.png" };
@@ -53,7 +52,7 @@ export class CategoryComponent implements OnInit {
 
         this.proIncome.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.isShow = false;
+                this.isShow = true;
                 this.lstParent = rsp.result.parent;
                 this.lstParentTmp = this.lstParent;
                 this.lstChild = rsp.result.child;
@@ -79,6 +78,8 @@ export class CategoryComponent implements OnInit {
                 this.lstParentTmp = this.lstParent;
                 this.lstChild = rsp.result.child;
                 this.lstChildTmp = this.lstChild;
+
+                console.log(this.lstParentTmp);
             }
             else {
                 console.log(rsp.message);
@@ -87,9 +88,7 @@ export class CategoryComponent implements OnInit {
     }
 
     public redirectAdd() {
-        this.vm.text = '';
-        this.vm.parentId = '';
-        this.vm.description = '';
+        this.vm = {};
         this.vm.icon = 'question.png';
 
         document.getElementById("divAdd").style.display = "block";
@@ -99,8 +98,7 @@ export class CategoryComponent implements OnInit {
         this.getImages();
     }
 
-    public redirectEdit(parentId: any, id: any, count: any) {
-        parentId == null ? this.isNull = true : this.isNull = false;
+    public redirectEdit(id: any, count: any) {
         this.count = count;
 
         document.getElementById("divEdit").style.display = "block";

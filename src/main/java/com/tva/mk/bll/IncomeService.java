@@ -96,6 +96,7 @@ public class IncomeService {
 
 				m1.setText(m.getText());
 				m1.setDescription(m.getDescription());
+				m1.setIcon(m.getIcon());
 				m1.setParentId(m.getParentId());
 				m1.setIsDeleted(false);
 

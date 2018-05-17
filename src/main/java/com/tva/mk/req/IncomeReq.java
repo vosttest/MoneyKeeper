@@ -16,6 +16,9 @@ public class IncomeReq {
 	@JsonProperty(value = "parentId")
 	private int parentId;
 
+	@JsonProperty(value = "icon")
+	private String icon;
+
 	// end
 
 	// region -- Get set --
@@ -51,6 +54,15 @@ public class IncomeReq {
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+
 	// end
 
 	// region -- Methods --

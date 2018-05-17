@@ -74,12 +74,14 @@ public class IncomeController {
 			Integer id = req.getId();
 			String text = req.getText();
 			String description = req.getDescription();
+			String icon = req.getIcon();
 			int parentId = req.getParentId();
 
 			Income m = new Income();
 			m.setId(id);
 			m.setText(text);
 			m.setDescription(description);
+			m.setIcon(icon);
 			m.setUserId(userId);
 			if (parentId != 0) {
 				m.setParentId(parentId);
