@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.CommonService;
 import com.tva.mk.model.Common;
 import com.tva.mk.req.BaseReq;
+import com.tva.mk.req.CommonReq;
 import com.tva.mk.rsp.MultipleRsp;
 
 @RestController
@@ -53,7 +54,7 @@ public class CommonController {
 	}
 
 	@PostMapping("/getImages")
-	public ResponseEntity<?> getImages(@RequestBody BaseReq req) {
+	public ResponseEntity<?> getImages(@RequestBody CommonReq req) {
 		MultipleRsp res = new MultipleRsp();
 
 		try {

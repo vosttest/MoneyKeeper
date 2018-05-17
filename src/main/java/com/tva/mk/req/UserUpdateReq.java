@@ -34,6 +34,7 @@ public class UserUpdateReq {
 	// end
 
 	// region -- Get set --
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -97,14 +98,11 @@ public class UserUpdateReq {
 	public void setCreateOn(Date createOn) {
 		this.createOn = createOn;
 	}
-	
 
 	// region -- Methods --
 
 	public UserUpdateReq() {
 	}
-
-	
 
 	// end
 }

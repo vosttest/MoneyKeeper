@@ -3,8 +3,8 @@ package com.tva.mk.req;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class UserChangePwdReq {
-
 	// region -- Fields --
+
 	@JsonProperty(value = "newPassword")
 	private String newPassword;
 
@@ -14,6 +14,7 @@ public class UserChangePwdReq {
 	// end
 
 	// region -- Get set --
+
 	public String getNewPassword() {
 		return newPassword;
 	}
@@ -38,5 +39,4 @@ public class UserChangePwdReq {
 	}
 
 	// end
-
 }

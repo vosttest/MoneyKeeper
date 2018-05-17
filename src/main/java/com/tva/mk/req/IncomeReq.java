@@ -3,6 +3,7 @@ package com.tva.mk.req;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class IncomeReq {
+	// region -- Fields --
 
 	@JsonProperty(value = "id")
 	private Integer id;
@@ -71,5 +72,4 @@ public class IncomeReq {
 	}
 
 	// end
-
 }
