@@ -1,4 +1,4 @@
-<section class="format-layout">
+<section>
     <div id="divCategory">
         <div class="row">
             <div class="col-md-4"></div>
@@ -19,8 +19,8 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <input *ngIf="isShow" class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="keyword" (keyup)="search(keyword)">
                 <div id="expense" class="tab-pane">
+                    <input *ngIf="isShow" class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="keyword" (keyup)="search(keyword)">
                     <div class="accordion" id="accordionExample">
                         <div *ngFor="let i of lstParentTmp" class="card">
                             <div class="card-header row row-margin" id="headingOne">
@@ -51,7 +51,7 @@
                 <h2><i class="fa fa-arrow-left pointer" (click)="redirectCategory()"></i></h2>
             </div>
             <div class="col-md-8">
-                <h2 class="text-center">Add {{tab}} Category </h2>
+                <h2>Add {{tab}} Category </h2>
             </div>
             <div class="col-md-2">
             </div>
@@ -104,7 +104,7 @@
                 <h2><i class="fa fa-arrow-left" (click)="redirectCategory()"></i></h2>
             </div>
             <div class="col-md-8">
-                <h2 class="text-center">Edit {{tab}} Category </h2>
+                <h2>Edit {{tab}} Category </h2>
             </div>
             <div class="col-md-2">
             </div>
@@ -161,9 +161,13 @@
                 <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
                 <hr />
             </div>
-            <div class="button-action">
-                <button class="btn btn-danger float-right" type="button" (click)="confirmModal.show()">Delete</button>
-                <button class="btn btn-primary float-right" type="submit">Save</button>
+            <div class="row">
+                <div class="col-11">
+                    <button class="btn btn-danger float-right" type="button" (click)="confirmModal.show()">Delete</button>
+                </div>
+                <div class="col-1">
+                    <button class="btn btn-primary float-right" type="submit">Save</button>
+                </div>
             </div>
         </form>
     </div>

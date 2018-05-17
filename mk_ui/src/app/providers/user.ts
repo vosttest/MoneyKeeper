@@ -52,7 +52,20 @@ export class UserProvider {
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
         return this.api.post('user/change-password', info);
     }
-
+    /**
+    * Info User
+    * @param info
+    */
+    public infoUser(info: any) {
+        return this.api.post('user/info-user', info);
+    }
+    /**
+    * Update User
+    * @param info
+    */
+    public updateUser(info: any) {
+        return this.api.post('user/update-user', info);
+    }
     /**
      * Reset password
      * @param info

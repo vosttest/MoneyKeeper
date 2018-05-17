@@ -1,6 +1,9 @@
 package com.tva.mk.controller;
 
+import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +32,7 @@ import com.tva.mk.req.UserChangePwdReq;
 import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
+import com.tva.mk.req.UserUpdateReq;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.SingleRsp;
 
@@ -208,5 +212,73 @@ public class UserController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
+	@PostMapping("/info-user")
+	public ResponseEntity<?> inforUser(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+			// Get data
+			// TO DO
+
+			// Handle
+
+			Users m = userService.getBy(id);
+			Map<String, Object> data = new LinkedHashMap<>();
+
+			// Set data
+			data.put("info", m);
+			res.setResult(data);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@PostMapping("/update-user")
+	public ResponseEntity<?> updateUser(@RequestBody UserUpdateReq req, @RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+			// Get data
+			// TO DO
+
+			Users m = userService.getBy(id);
+
+			String firstName = req.getFirstName();
+			String lastName = req.getLastName();
+			String email = req.getEmail();
+			String contactNo = req.getContactNo();
+			String remarks = req.getRemarks();
+			Date createOn=req.getCreateOn();
+			int createBy=req.getCreateBy();
+			String status=req.getStatus();
+
+			// Set Data
+
+			m.setContactNo(contactNo);
+			m.setEmail(email);
+			m.setFirstName(firstName);
+			m.setLastName(lastName);
+			m.setRemarks(remarks);
+			m.setCreateOn(createOn);
+			m.setCreateBy(createBy);
+			m.setStatus(status);
+			// Handle
+			String tmp = userService.save(m);
+			if (!tmp.isEmpty()) {
+				res.setError("Can Not Update User");
+			}
+
+		} catch (
+
+		Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 	// end
 }
