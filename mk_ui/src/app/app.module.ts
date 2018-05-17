@@ -21,16 +21,36 @@ import { RsaService } from './utilities/utility';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './/app-routing.module';
+import { AccountComponent } from './views/account/account.component';
+import { AccountAddComponent } from './views/account-add/account-add.component';
+import { AccountEditComponent } from './views/account-edit/account-edit.component';
+import { SettingComponent } from './views/setting/setting.component';
+import { VoucherComponent } from './views/voucher/voucher.component';
 
 import { FormsModule } from '@angular/forms';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import { ForgotPasswordComponent } from './views/forgot-password/forgot-password.component';
+import { ChangePasswordComponent } from './views/change-password/change-password.component';
+import { EqualValidator } from './views/change-password/equal-validator.directive';
 import { LayoutComponent } from './views/layout/layout.component';
+import { FilterPipe } from './filter.pipe';
+import { ReportComponent } from './views/report/report.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LayoutComponent
+        AccountComponent,
+        AccountAddComponent,
+        AccountEditComponent,
+        SettingComponent,
+        VoucherComponent,
+        ForgotPasswordComponent,
+        ChangePasswordComponent,
+        LayoutComponent,
+        EqualValidator,
+        FilterPipe,
+        ReportComponent,
     ],
     imports: [
         BrowserModule,

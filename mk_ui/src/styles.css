@@ -8,6 +8,11 @@
     border-style: hidden !important;
 }
 
+.format-layout {
+    margin-left: 50px !important;
+    margin-right: 50px !important;
+}
+
 
 /* Kendo validate */
 

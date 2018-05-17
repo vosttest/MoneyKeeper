@@ -1,0 +1,50 @@
+<section class="format-layout">
+    <div class="row">
+        <div class="col-md-4">
+            <h2><i class="fa fa-arrow-left pointer" routerLink="/account"></i></h2>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-center">Expense vs Income</h2>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <p>Account</p>
+        </div>
+        <div class="col-md-10">
+            <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                <!-- <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option> -->
+                <option><input type="checkbox" value="10"/></option>
+            </select>
+
+            <div class="multiselect">
+                <div class="selectBox" (click)="showCheckboxes()">
+                    <select>
+                        <option>Select an option</option>
+                      </select>
+                    <div class="overSelect"></div>
+                </div>
+                <div id="checkboxes">
+                    <label for="one">
+                        <input type="checkbox" id="one" />First checkbox</label>
+                    <label for="two">
+                        <input type="checkbox" id="two" />Second checkbox</label>
+                    <label for="three">
+                        <input type="checkbox" id="three" />Third checkbox</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-2">
+            <p>Viewed By</p>
+        </div>
+        <div class="col-md-10">
+            <input type="text" placeholder="From date To date" class="form-control" bsDaterangepicker>
+        </div>
+        <hr>
+    </div>
+    <hr>
+</section>
