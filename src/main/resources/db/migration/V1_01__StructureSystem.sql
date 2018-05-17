@@ -74,12 +74,14 @@ CREATE TABLE PUBLIC."user"
 	"eoth"					UUID,
 	"eoth_expiry_on"		TIMESTAMP,
 	"is_email_verified"		BOOLEAN NOT NULL DEFAULT FALSE,
-	"password_hash"			varchar(256),
-	"password_salt"			varchar(256),
-	"poth"					varchar(256),
+	"password_hash"			VARCHAR(256),
+	"password_salt"			VARCHAR(256),
+	"poth"					VARCHAR(256),
 	"poth_expiry_on"		TIMESTAMP,
-	"pass_reminder_token"	varchar(256),
+	"pass_reminder_token"	VARCHAR(256),
 	"pass_reminder_expire"	TIMESTAMP,
+	"activation_code"		VARCHAR(6),
+	"activation_expire"		TIMESTAMP,
 	"lock_expiry_on"		TIMESTAMP,
 	"last_declaration_on"	TIMESTAMP,
 	"last_login_on"			TIMESTAMP,
@@ -116,4 +118,18 @@ CREATE TABLE PUBLIC."role_function"
 	"create_on"				TIMESTAMP,
 	"modify_by"				INT4,
 	"modify_on"				TIMESTAMP
+);
+
+DROP TABLE IF EXISTS PUBLIC."authentication";
+CREATE TABLE PUBLIC."authentication"
+(
+	"id"					SERIAL PRIMARY KEY,
+	"client_key"			VARCHAR(8),
+	"module"				VARCHAR(32),
+	"auth_key"				VARCHAR(8),
+	"expire_on"				TIMESTAMP,
+	"is_verified"			BOOLEAN NOT NULL DEFAULT FALSE,
+	"user_id"				INT4,
+	"create_by"				INT4,
+	"create_on"				TIMESTAMP
 );
