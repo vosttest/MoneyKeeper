@@ -1,22 +1,19 @@
-.my-menu>.row>button {
+.my-nav>.row>button {
     width: 100%;
     text-align: left;
-    border-color: none;
-    box-shadow: none;
+    border-color: solid 0px #f8f9fa00;
     color: #000;
     background-color: #f8f9fa;
     border-radius: 6px;
     padding: 10px 20px;
 }
 
-.my-menu>.row>button:hover {
+.my-nav>.row>button:hover {
     background-color: #e1e6ea;
 }
 
 .my-container {
     width: 100%;
-    padding: 0px 10px;
-    margin-top: 4%;
 }
 
 .my-top-menu {
@@ -29,17 +26,55 @@
     right: 0;
 }
 
-.format-layout {
-    margin-left: 20px;
-    margin-right: 20px;
+.card {
+    background-color: #1B1E25;
 }
 
-.navbar-fixed-top {
+.card-header:hover {
+    background-color: #1CB09A;
+}
+
+.card-header {
+    padding: 0;
+}
+
+.format-icon {
+    width: 30%;
+    margin-right: 10%
+}
+
+.bg-black {
+    background-color: #1B1E25;
+}
+
+.bg-green {
+    background-color: #1CB09A;
+}
+
+.color-white {
+    color: white;
+    text-decoration: none;
+}
+
+.scrollspy {
     position: fixed;
-    right: 0;
-    left: 0;
     top: 0;
     z-index: 1;
-    border: none;
-    box-shadow: none;
+}
+
+.resize-none {
+    padding: 0;
+    margin: 0;
+}
+
+.my-dropdown-left {
+    position: absolute;
+}
+
+.accordion {
+    height: -webkit-fill-available;
+}
+
+.mr-4 {
+    margin-top: 4%;
 }

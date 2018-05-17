@@ -59,3 +59,7 @@ span.k-tooltip {
 .pointer {
     cursor: pointer;
 }
+
+section {
+    padding: 20px 15px 20px 15px;
+}
