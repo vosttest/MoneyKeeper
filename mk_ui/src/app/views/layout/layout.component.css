@@ -39,7 +39,7 @@
 }
 
 .format-icon {
-    width: 30%;
+    width: 35px;
     margin-right: 10%
 }
 
@@ -56,9 +56,15 @@
     text-decoration: none;
 }
 
-.scrollspy {
+.scrollspy-top {
     position: fixed;
     top: 0;
+    z-index: 1;
+}
+
+.scrollspy-bot {
+    position: fixed;
+    bottom: 0;
     z-index: 1;
 }
 
@@ -77,4 +83,8 @@
 
 .mr-4 {
     margin-top: 4%;
+}
+
+.pad-top {
+    padding-top: 10%;
 }

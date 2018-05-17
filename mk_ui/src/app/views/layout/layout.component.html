@@ -1,79 +1,92 @@
-<div class="row my-container scrollspy resize-none">
-    <div class="col-md-2 my-nav text-center bg-green">
-        <span class="navbar-brand mb-0 h1 color-white">Money Keeper</span>
-    </div>
-    <div class="col-md-10 resize-none">
-        <nav class="navbar navbar-inverse navbar-fixed-top bg-black">
-            <div class="collapse navbar-collapse my-top-menu" id="navbarNavDropdown">
-                <ul class="navbar-nav my-top-menu">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="far fa-user color-white"></i>
-                        </a>
-                        <div class="dropdown-menu dropleft my-dropdown-left" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" routerLink="/profile"><i class="fas fa-search"></i> Profile</a>
-                            <a class="dropdown-item" routerLink="/setting"><i class="fas fa-cogs"></i> Setting</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" (click)='signOut()'><i class="fas fa-sign-out-alt"></i> Sign Out</a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+<div class="header">
+    <div class="row my-container scrollspy-top resize-none">
+        <div class="col-md-2 my-nav text-center bg-green">
+            <span class="navbar-brand mb-0 h1 color-white">Money Keeper</span>
+        </div>
+        <div class="col-md-10 resize-none">
+            <nav class="navbar navbar-inverse navbar-fixed-top bg-black">
+                <div class="collapse navbar-collapse my-top-menu" id="navbarNavDropdown">
+                    <ul class="navbar-nav my-top-menu">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="far fa-user color-white"></i>
+                            </a>
+                            <div class="dropdown-menu dropleft my-dropdown-left" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" routerLink="/profile"><i class="fas fa-search"></i> Profile</a>
+                                <a class="dropdown-item" routerLink="/setting"><i class="fas fa-cogs"></i> Setting</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" (click)='signOut()'><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
     </div>
 </div>
-<div class="row my-container resize-none mr-4">
-    <div class="col-md-2 my-nav bg-black resize-none">
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h5 class="mb-0" (click)="this.rou.navigate(['/dashboard']);">
-                        <button class="btn btn-link color-white" type="button">
-                                <img src="../../../../assets/img/dashboard.png" class="format-icon"> Dashboard
-                            </button>
-                    </h5>
+
+<div class="body">
+    <div class="row my-container resize-none mr-4">
+        <div class="col-md-2 my-nav bg-black resize-none">
+            <div class="accordion pad-top" id="accordionExample">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0" (click)="this.rou.navigate(['/dashboard']);">
+                            <button class="btn btn-link color-white" type="button">
+                                    <img src="../../../../assets/img/dashboard.png" class="format-icon"> Dashboard
+                                </button>
+                        </h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header " id="headingTwo ">
-                    <h5 class="mb-0" (click)="this.rou.navigate(['/category']);">
-                        <button class="btn btn-link collapsed color-white" type="button">
-                                <img src="../../../../assets/img/category.png" class="format-icon"> Category 
-                            </button>
-                    </h5>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0" (click)="this.rou.navigate(['/category']);">
+                            <button class="btn btn-link color-white" type="button">
+                                    <img src="../../../../assets/img/category.png" class="format-icon"> Category
+                                </button>
+                        </h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header " id="headingThree ">
-                    <h5 class="mb-0" (click)="this.rou.navigate(['/voucher']);">
-                        <button class="btn btn-link collapsed color-white" type="button">
-                                <img src="../../../../assets/img/voucher.png" class="format-icon"> Voucher 
-                            </button>
-                    </h5>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0" (click)="this.rou.navigate(['/account']);">
+                            <button class="btn btn-link color-white" type="button">
+                                    <img src="../../../../assets/img/account.png" class="format-icon"> Account
+                                </button>
+                        </h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header " id="headingThree ">
-                    <h5 class="mb-0" (click)="this.rou.navigate(['/account']);">
-                        <button class="btn btn-link collapsed color-white" type="button ">
-                                <img src="../../../../assets/img/account.png" class="format-icon"> Account 
-                            </button>
-                    </h5>
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0" (click)="this.rou.navigate(['/voucher']);">
+                            <button class="btn btn-link color-white" type="button">
+                                    <img src="../../../../assets/img/voucher.png" class="format-icon"> Voucher
+                                </button>
+                        </h5>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header " id="headingThree ">
-                    <h5 class="mb-0" (click)="this.rou.navigate(['/account']);">
-                        <button class="btn btn-link collapsed color-white" type="button ">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0" (click)="this.rou.navigate(['/report']);">
+                            <button class="btn btn-link collapsed color-white" type="button ">
                                 <img src="../../../../assets/img/report.png" class="format-icon"> Report 
                             </button>
-                    </h5>
+                        </h5>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-10 ">
-        <router-outlet></router-outlet>
+        <div class="col-md-10 ">
+            <router-outlet></router-outlet>
 
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="row my-container scrollspy-bot resize-none">
+        <div class="col-md-12 my-nav text-center bg-black">
+            <span class="navbar-brand mb-0 h1 color-white">DEVELOPMENT BY THE INTERN GROUP</span>
+        </div>
     </div>
 </div>
