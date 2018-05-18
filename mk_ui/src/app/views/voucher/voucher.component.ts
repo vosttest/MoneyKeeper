@@ -14,7 +14,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 
 export class VoucherComponent implements OnInit {
-    public vm: any = { type: 'Expense' , total: null, accountId: null, description:" ", object: " "};
+    public vm: any = { type: 'Expense', total: null, accountId: null, description: " ", object: " " };
     public cm: any = {};
     public lstParent = [];
     public lstChild = [];
@@ -26,7 +26,8 @@ export class VoucherComponent implements OnInit {
     public apiURL: string = "../../../../assets/img/";
 
     public selectedCategory = { code: '', text: '-- Select Category --', icon: '' };
-    public selectedAccount = { code: '', text: '-- Select Account --' };
+    public selectedAccount = { accountId: 0, text: '-- Select Account --' };
+    public selectedToAccount = { accountId: 0, text: '-- Select To Account --' };
     public message = '';
     public isCheck: boolean;
     public isExpense: boolean = false;
@@ -39,6 +40,8 @@ export class VoucherComponent implements OnInit {
 
     @ViewChild('categoryModal') public categoryModal: ModalDirective;
     @ViewChild('accountModal') public accountModal: ModalDirective;
+    @ViewChild('toAccountModal') public toAccountModal: ModalDirective;
+    @ViewChild('confirmModal') public confirmModal: ModalDirective;
 
     // Datepicker
 
@@ -109,6 +112,18 @@ export class VoucherComponent implements OnInit {
         this.selectedCategory.text = text;
         this.selectedCategory.icon = icon;
         this.categoryModal.hide();
+    }
+
+    public chooseAccount(accountId: any, text: string) {
+        this.selectedAccount.accountId = accountId;
+        this.selectedAccount.text = text;
+        this.accountModal.hide();
+    }
+
+    public chooseToAccount(accountId: any, text: string) {
+        this.selectedToAccount.accountId = accountId;
+        this.selectedToAccount.text = text;
+        this.toAccountModal.hide();
     }
 
     public changeType(typeVoucher: string) {
@@ -206,9 +221,29 @@ export class VoucherComponent implements OnInit {
     }
 
     public save() {
-        this.proVoucher.save(this.vm).subscribe((rsp: any) => {
+        if (this.vm.type == 'Transfer') {
+            if (this.selectedCategory.code === '' || this.selectedAccount.accountId === 0 || this.selectedToAccount.accountId === 0) {
+                return;
+            }
+        }
+        else {
+            if (this.selectedCategory.code === '' || this.selectedAccount.accountId === 0) {
+                return;
+            }
+        }
+        let t = this.vm.type === "Transfer" ? this.selectedToAccount.accountId : this.vm.object;
+        let obj = {
+            id: 0, description: this.vm.description,
+            accountId: this.selectedAccount.accountId,
+            object: t,
+            total: this.vm.total,
+            type: this.vm.type,
+            category: this.selectedCategory.code
+        };
+
+        this.proVoucher.save(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                alert('ok');
+                this.confirmModal.show();
             } else {
                 this.message = rsp.message;
             }

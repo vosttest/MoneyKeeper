@@ -6,116 +6,114 @@
         </div>
         <div class="col-md-4"></div>
     </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <div class="row">
-                <div class='input-group mb-3'>
-                    <div class="col-md-4">
-                        <p>Type</p>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="type" #type="ngModel" [(ngModel)]="vm.type" class="form-control" (click)="abc(vm.type)">
+    <form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Type</p>
+                        </div>
+                        <div class="col-md-8">
+                            <select name="type" #type="ngModel" [(ngModel)]="vm.type" class="form-control" (click)="abc(vm.type)">
                             <option value='Expense' selected>Expense</option>
                             <option value='Income'>Income</option>
                             <option value='Transfer'>Transfer</option>
                             <option value='Adjustment'>Adjustment</option>
                         </select>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <input type='number' #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='Amount'>
+                        <span class='input-group-text' id='basic-addon2'>VND</span>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Category</p>
+                    </div>
+                    <div class="col-md-8" (click)='categoryModal.show()'>
+                        <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{apiURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6" (click)='accountModal.show()'>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>{{ labelAccountId }}</p>
+                    </div>
+                    <div class="col-md-8">{{ selectedAccount.text }}
+                        <!-- <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                    </select> -->
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6" *ngIf="isTransfer">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <input type='number' class='form-control' placeholder='Transfer fee'>
+                        <span class='input-group-text' id='basic-addon2'>VND</span>
                     </div>
                 </div>
             </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6">
-            <div class="row">
-                <div class='input-group mb-3'>
-                    <input type='number' #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='Amount'>
-                    <span class='input-group-text' id='basic-addon2'>VND</span>
+            <div class="form-group col-md-6" *ngIf="isTransfer" (click)='toAccountModal.show()'>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>To Account</p>
+                    </div>
+                    <div class="col-md-8">{{ selectedToAccount.text }}
+                    </div>
                 </div>
-            </div>
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <div class="row">
-                <div class="col-md-4">
-                    <p>Category</p>
-                </div>
-                <div class="col-md-8" (click)='categoryModal.show()'>
-                    <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{apiURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6" (click)='accountModal.show()'>
-            <div class="row">
-                <div class="col-md-4">
-                    <p>{{ labelAccountId }}</p>
-                </div>
-                <div class="col-md-8">{{ selectedAccount.text }}
-                    <!-- <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                    </select> -->
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6" *ngIf="isTransfer">
-            <div class="row">
-                <div class='input-group mb-3'>
-                    <input type='number' class='form-control' placeholder='Transfer fee'>
-                    <span class='input-group-text' id='basic-addon2'>VND</span>
-                </div>
+                <hr>
             </div>
         </div>
-        <div class="form-group col-md-6" *ngIf="isTransfer">
-            <div class="row">
-                <div class="col-md-4">
-                    <p>To Account</p>
-                </div>
-                <div class="col-md-8">
-                    <select name="accountId" #object="ngModel" [(ngModel)]="vm.object" class="form-control" #accountId="ngModel" [(ngModel)]="cm.accountId">
-                        <option *ngFor="let i2 of toAccount" value="{{i2.id}}">{{i2.text}}</option>
-                    </select>
-                </div>
+        <div class="row">
+            <div class="col-md-2">
+                <p>Description</p>
             </div>
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <p>Description</p>
-        </div>
-        <div class="col-md-10">
-            <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-2">
-            <p>Date</p>
-        </div>
-        <div class="col-md-8">
-            <input type="text" placeholder="Date" class="form-control" bsDatepicker>
-        </div>
-        <div class="col-md-2">
-            <!-- TODO -->
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="form-group col-md-12" *ngIf="!isTransfer ">
-            <div class="row">
-                <div class="col-md-2">
-                    <p>{{ labelObj }}</p>
-                </div>
-                <div class="col-md-10">
-                    <input class="form-control none-border" name="Payee" #object="ngModel" [(ngModel)]="vm.object" />
-                </div>
+            <div class="col-md-10">
+                <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
             </div>
-            <hr>
         </div>
-        <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
+        <hr>
+        <div class="row">
+            <div class="col-md-2">
+                <p>Date</p>
+            </div>
+            <div class="col-md-8">
+                <input type="text" placeholder="Date" class="form-control" bsDatepicker>
+            </div>
+            <div class="col-md-2">
+                <!-- TODO -->
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="form-group col-md-12" *ngIf="!isTransfer ">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>{{ labelObj }}</p>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control none-border" name="Payee" #object="ngModel" [(ngModel)]="vm.object" />
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
             <div class="row">
                 <div class="col-md-2">
                     <p>Event</p>
@@ -126,8 +124,8 @@
             </div>
             <hr>
         </div> -->
-    </div>
-    <!-- <div class="form-group" *ngIf="isExpense">
+        </div>
+        <!-- <div class="form-group" *ngIf="isExpense">
         <div class="row">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="isCheck">
@@ -146,8 +144,11 @@
         </div>
         <hr>
     </div> -->
-    <button class="btn btn-primary btnSave" type="button" (click)='save()'>Save</button>
+        <button class="btn btn-primary btnSave" type="button" (click)='save() && confirmModal.show()'>Save</button>
+    </form>
 </section>
+
+<!-- Modal -->
 <div bsModal #categoryModal='bs-modal' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog modal-lg' role='document'>
         <div class='modal-content'>
@@ -160,25 +161,23 @@
             <div class='modal-body height-modal'>
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
                 <div *ngFor="let i of lstParentTmp" class="card">
-                    <div class="card-header row row-margin" id="headingOne">
-                        <div class="col-md-1">
-                            <img src="{{apiURL + i.icon}}" />
+                    <div *ngFor="let i of lstParentTmp" class="card">
+                        <div class="card-header row row-margin pointer" id="headingOne">
+                            <div class="col-md-11" (click)="chooseCategory(i.id, i.text, i.icon)">
+                                <img src="{{apiURL + i.icon}}" style="margin-right: 2%">
+                                <span>{{ i.text }}</span>
+                            </div>
+                            <div class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                <i id="arrow{{i.id}}" class="pull-right fa fa-chevron-up"></i>
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            <h5 class="mb-0" (click)="chooseCategory(i.id, i.text, i.icon)">
-                                <button class="btn btn-link button" type="button">{{ i.text }}</button>
-                            </h5>
+                        <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
+                            <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
+                                <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="chooseCategory(i2.id, i2.text, i2.icon)">
+                                    <img src="{{apiURL + i2.icon}}" class="padding-right" /> {{i2.text}}
+                                </li>
+                            </ul>
                         </div>
-                        <div class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
-                            <i id="arrow{{i.id}}" class="pull-right fa fa-chevron-up"></i>
-                        </div>
-                    </div>
-                    <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
-                        <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
-                            <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)='chooseCategory(i2.id, i2.text, i2.icon)'>
-                                <img src="{{apiURL + i2.icon}}" class="padding-right" /> {{i2.text}}
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </div>
@@ -186,6 +185,8 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
 <div bsModal #accountModal='bs-modal' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
     <div class='modal-dialog modal-lg' role='document'>
         <div class='modal-content'>
@@ -196,11 +197,64 @@
                     </button>
             </div>
             <div class='modal-body height-modal'>
-                <li class="list-group-item padding-left" *ngFor="let item of account">
-                    <div class="left"> {{ item.text }}</div>
-                    <div class="right"> Balance: {{ item.balance }} Vnd
+                <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
+                <div *ngFor="let i of account" class="card">
+                    <div class="card-header row row-margin pointer" id="headingOne">
+                        <div class="col-md-11" (click)="chooseAccount(i.accountId, i.text)">
+                            <span>
+                                <div class="left"> {{ i.text }}</div>
+                                <div class="right"> Balance: {{ i.balance }} Vnd</div>
+                            </span>
+                        </div>
                     </div>
-                </li>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div bsModal #toAccountModal='bs-modal' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+    <div class='modal-dialog modal-lg' role='document'>
+        <div class='modal-content'>
+            <div class='modal-header'>
+                Choose To Account
+                <button type='button' class='text-right' (click)='toAccountModal.hide()' aria-label='Close'>
+                            <i class='fa fa-window-close'></i>
+                        </button>
+            </div>
+            <div class='modal-body height-modal'>
+                <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
+                <div *ngFor="let i of account" class="card">
+                    <div class="card-header row row-margin pointer" id="headingOne">
+                        <div class="col-md-11" (click)="chooseToAccount(i.accountId, i.text)">
+                            <span>
+                                    <div class="left"> {{ i.text }}</div>
+                                    <div class="right"> Balance: {{ i.balance }} Vnd</div>
+                                </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
+                <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+            <div class="modal-body">
+                Save successfully!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="confirmModal.hide()">Close</button>
             </div>
         </div>
     </div>

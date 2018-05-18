@@ -23,6 +23,9 @@ public class VoucherReq {
 	@JsonProperty(value = "object")
 	private String object;
 
+	@JsonProperty(value = "category")
+	private String category;
+
 	// end
 
 	// region -- Get set --
@@ -73,6 +76,14 @@ public class VoucherReq {
 
 	public void setObject(String object) {
 		this.object = object;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	// end

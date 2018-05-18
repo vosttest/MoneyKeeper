@@ -35,11 +35,11 @@ input[type=number] {
     text-align: left;
 }
 
-li .left {
+.left {
     display: inline;
 }
 
-li .right {
+.right {
     float: right;
 }
 

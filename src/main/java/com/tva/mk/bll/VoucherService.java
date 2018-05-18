@@ -1,14 +1,15 @@
 package com.tva.mk.bll;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.VoucherDao;
+import com.tva.mk.dal.VoucherDetailDao;
 import com.tva.mk.model.Voucher;
+import com.tva.mk.model.VoucherDetail;
 
 @Service(value = "voucherService")
 @Transactional
@@ -17,6 +18,9 @@ public class VoucherService {
 
 	@Autowired
 	private VoucherDao voucherDao;
+
+	@Autowired
+	private VoucherDetailDao voucherDetailDao;
 
 	// end
 
@@ -27,12 +31,7 @@ public class VoucherService {
 		return res;
 	}
 
-	public List<Object[]> getByExpense(int[] accountId) {
-		List<Object[]> res = voucherDao.getExpense(accountId);
-		return res;
-	}
-
-	public String save(Voucher m) {
+	public String save(Voucher m, String category) {
 		String res = "";
 
 		Integer id = m.getId();
@@ -46,6 +45,11 @@ public class VoucherService {
 
 			m1 = voucherDao.save(m);
 
+			VoucherDetail m2 = new VoucherDetail();
+			m2.setVoucherId(m1.getId());
+			m2.setAmount(m.getTotal());
+			m2.setCategory(category);
+			voucherDetailDao.save(m2);
 		} else {
 			m1 = voucherDao.getBy(id);
 			if (m1 == null) {
@@ -63,6 +67,13 @@ public class VoucherService {
 				// m1.setStartDate(m.getStartDate());
 
 				voucherDao.save(m1);
+
+				VoucherDetail m2 = new VoucherDetail();
+				m2.setVoucherId(m1.getId());
+				m2.setAmount(m.getTotal());
+				m2.setCategory(category);
+
+				voucherDetailDao.save(m2);
 			}
 		}
 

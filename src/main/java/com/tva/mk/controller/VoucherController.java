@@ -45,6 +45,7 @@ public class VoucherController {
 			Float total = req.getTotal();
 			String description = req.getDescription();
 			String object = req.getObject();
+			String category = req.getCategory();
 
 			Voucher m = new Voucher();
 			m.setId(id);
@@ -55,7 +56,7 @@ public class VoucherController {
 			m.setObject(object);
 			m.setUserId(userId);
 
-			voucherService.save(m);
+			voucherService.save(m, category);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
