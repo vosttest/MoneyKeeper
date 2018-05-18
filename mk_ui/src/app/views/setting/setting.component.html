@@ -133,3 +133,48 @@
         </div>
     </div>
 </div>
+<div bsModal #tranAuthenPopup="bs-modal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Login Authentication</h4>
+                <button type="button" class="close" (click)="tranAuthenPopup.hide()">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="form-group">
+                    <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
+                </div>
+                <hr/>
+                <div class="form-group row">
+                    <div class="col-md-6">
+                        On / Off
+                    </div>
+                    <div class="col-md-6">
+                        <label class="switch">
+                            <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenstatus" #tranAuthenstatus="ngModel" [(ngModel)]="tranAuthen.status">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group row" *ngIf="tranAuthen.status">
+                    <div class="col-md-6">
+                        Authentication type
+                    </div>
+                    <div class="col-md-6">
+                        <select id="tranAuthenType" name="tranAuthenType" #tranAuthenType="ngModel" [(ngModel)]="tranAuthen.type" class="form-control">
+                            <option value="OTP">OTP</option>
+                            <option value="TOKEN">TOKEN</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3"> </div>
+                    <div class="col-md-6">
+                        <button type="button" class="btn btn-primary btn-block" (click)="saveTranAuthen()">OK</button>
+                    </div>
+                    <div class="col-md-3"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
