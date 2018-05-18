@@ -9,10 +9,7 @@ input[type=number] {
 }
 
 button.btn.btn-primary.btnSave {
-    margin: -20px -50px; 
-    position:relative;
-    top:50%; 
-    left:50%;
+    float: right;
     width: 10%;
 }
 .form-control {

@@ -6,122 +6,121 @@
         </div>
         <div class="col-md-4"></div>
     </div>
-    <!-- <div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-        <form class="info-user" name="form" #f="ngForm" (ngSubmit)="save()">
-            <div class="form-group">
-                <label for="exampleInputEmail1">User Name</label>
-                <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" value="{{vm.username}}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Email</label>
-                <input id="email" name="email" #email="ngModel" [(ngModel)]="vm.email" value="{{vm.email}}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Contact No</label>
-                <input id="contactNo" name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" value="{{vm.contactNo}}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">AccountNo</label>
-                <input id="accountNo" name="accountNo" #accountNo="ngModel" [(ngModel)]="vm.accountNo" value="{{vm.accountNo}}" class="form-control">
-            </div>
-            <button texttype="submit" class="btn btn-primary">Submit</button>
-        </form>
-    </div>
-    <div class="col-md-4">
-        <form>
-            <div class="form-group">
-                <label for="exampleInputEmail1">First Name</label>
-                <input id="firstName" name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" value="{{vm.firstName}}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Last Name</label>
-                <input id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" value="{{vm.lastName}}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Remarks</label>
-                <input id="remarks" name="remarks" #remarks="ngModel" [(ngModel)]="vm.remarks" value="{{vm.remarks}}" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Create On</label>
-                <input id="createOn" name="createOn" #userName="ngModel" [(ngModel)]="vm.createOn" value="{{vm.createOn}}" class="form-control">
-            </div>
-        </form>
-    </div>
-</div> -->
-    <div class="form-group col-md-12" >
+    <div class="form-group col-md-12">
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <p>User Name</p>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>User Name</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="hidden"
+                            />
+                            <label class="form-control none-border" for="userName">{{vm.userName}}</label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
-            <div class="col-md-3">
-                <input class="form-control none-border" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" disabled="enable" />
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Email</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" name="email" #email="ngModel" [(ngModel)]="vm.email" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <p>Email</p>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Contact No</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
-            <div class="col-md-3">
-                <input class="form-control none-border" name="email" #email="ngModel" [(ngModel)]="vm.email" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <p>Contact No</p>
-            </div>
-            <div class="col-md-8">
-                <input class="form-control none-border" name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"> </div>
-            <div class="col-md-2">
-                <p>First Name</p>
-            </div>
-            <div class="col-md-3">
-                <input class="form-control none-border" name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <p>Last Name</p>
-            </div>
-            <div class="col-md-3">
-                <input class="form-control none-border" name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" />
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>First Name</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <p>Remarks</p>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Last Name</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
-            <div class="col-md-3">
-                <input class="form-control none-border" name="remarks" #remarks="ngModel" [(ngModel)]="vm.remarks" />
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Remarks</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" name="remarks" #remarks="ngModel" [(ngModel)]="vm.remarks" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <p>Account No</p>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Account No</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" name="accountNo" #accountNo="ngModel" [(ngModel)]="vm.accountNo" />
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
-            <div class="col-md-3">
-                <input class="form-control none-border" name="accountNo" #accountNo="ngModel" [(ngModel)]="vm.accountNo" />
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-2">
-                <p>Create On</p>
-            </div>
-            <div class="col-md-3">
-                <input class="form-control none-border" name="createOn" #createOn="ngModel" [(ngModel)]="vm.createOn" />
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Create On</p>
+                        </div>
+                        <div class="col-md-8">
+                            <input class="form-control none-border" id="createOn" name="createOn" #createOn="ngModel" [(ngModel)]="vm.createOn" type="hidden"
+                            />
+                            <label class="form-control none-border" for="createOn">{{vm.createOn | date:'dd-MMM-yyyy'}}</label>
+                        </div>
+                    </div>
+                </div>
+                <hr>
             </div>
         </div>
     </div>

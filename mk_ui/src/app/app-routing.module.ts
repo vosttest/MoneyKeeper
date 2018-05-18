@@ -9,7 +9,7 @@ const routes: Routes = [
     { path: 'sign-in', loadChildren: './views/sign-in/sign-in.module#SignInModule' },
     { path: 'sign-up', loadChildren: './views/sign-up/sign-up.module#SignUpModule' },
     { path: 'forgot-password', loadChildren: './views/forgot-password/forgot-password.module#ForgotPasswordModule' },
-    { path: 'profile', loadChildren: './views/profile/profile.module#ProfileModule' },
+    
     {
         path: '',
         component: LayoutComponent,
@@ -42,7 +42,8 @@ const routes: Routes = [
                 }, {
                     path: 'report',
                     loadChildren: './views/report/report.module#ReportModule'
-                }
+                },
+                { path: 'profile', loadChildren: './views/profile/profile.module#ProfileModule' },
             ]
     },
     { path: '**', redirectTo: 'sign-in', pathMatch: 'full' },
