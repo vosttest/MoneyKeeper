@@ -1,41 +1,41 @@
-.my-nav>.row>button {
-    width: 100%;
-    text-align: left;
-    border-color: solid 0px #f8f9fa00;
-    color: #000;
-    background-color: #f8f9fa;
-    border-radius: 6px;
-    padding: 10px 20px;
-}
-
-.my-nav>.row>button:hover {
-    background-color: #e1e6ea;
-}
-
-.my-container {
-    width: 100%;
-}
-
-.my-top-menu {
-    float: right;
-    display: block !important;
-}
-
-.my-dropdown-left {
-    left: auto;
-    right: 0;
-}
-
-.card {
-    background-color: #1B1E25;
-}
-
-.card-header:hover {
-    background-color: #1CB09A;
-}
-
-.card-header {
-    padding: 0;
+@media (min-width: 992px) {
+    #mainNav .navbar-collapse .navbar-sidenav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 40px;
+    }
+    #mainNav .navbar-collapse .navbar-sidenav>.nav-item {
+        width: 214px;
+        padding: 0;
+    }
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav {
+        background: #343a40;
+    }
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a {
+        color: white !important;
+        background-color: #495057;
+    }
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a:focus,
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav li.active a:hover {
+        color: white;
+    }
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav>.nav-item .sidenav-second-level,
+    #mainNav.navbar-dark .navbar-collapse .navbar-sidenav>.nav-item .sidenav-third-level {
+        background: #343a40;
+    }
+    #mainNav.fixed-top .navbar-sidenav {
+        height: calc(100vh - 40px);
+    }
+    .content-wrapper {
+        margin-left: 18%;
+        margin-top: 4%;
+        margin-right: 2%;
+        margin-bottom: 2%;
+    }
 }
 
 .format-icon {
@@ -43,48 +43,21 @@
     margin-right: 10%
 }
 
-.bg-black {
-    background-color: #1B1E25;
+.color-white {
+    color: white;
+    text-decoration: none;
+}
+
+.my-dropdown-left {
+    position: absolute;
+    left: auto;
+    right: 0;
 }
 
 .bg-green {
     background-color: #1CB09A;
 }
 
-.color-white {
-    color: white;
-    text-decoration: none;
-}
-
-.scrollspy-top {
-    position: fixed;
-    top: 0;
-    z-index: 1;
-}
-
-.scrollspy-bot {
-    position: fixed;
-    bottom: 0;
-    z-index: 1;
-}
-
-.resize-none {
-    padding: 0;
-    margin: 0;
-}
-
-.my-dropdown-left {
-    position: absolute;
-}
-
-.accordion {
-    height: -webkit-fill-available;
-}
-
-.mr-4 {
-    margin-top: 4%;
-}
-
-.pad-top {
-    padding-top: 10%;
+.nav-item:hover {
+    background-color: #1CB09A;
 }
