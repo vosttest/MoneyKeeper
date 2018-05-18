@@ -19,11 +19,13 @@ export class SettingComponent implements OnInit {
     public searchCurrency = '';
     public loginAuthen: any = {};
     public tranAuthen: any = {};
+    public lock: any = {};
 
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
     @ViewChild('loginAuthenPopup') public loginAuthenPopup: ModalDirective;
     @ViewChild('tranAuthenPopup') public tranAuthenPopup: ModalDirective;
+    @ViewChild('lockPopup') public lockPopup: ModalDirective;
 
     constructor(private pro: SettingProvider, private proCommon: CommonProvider) { }
 
@@ -54,6 +56,11 @@ export class SettingComponent implements OnInit {
                         this.tranAuthen.type = element.value;
                         this.tranAuthen.status = element.status == 'ACT' ? true : false;
                         this.tranAuthen.id = element.id;
+                    }
+
+                    if (+t[1] === 5) {
+                        this.lock.status = element.status == 'ACT' ? true : false;
+                        this.lock.id = element.id;
                     }
                 });
             }
@@ -86,6 +93,9 @@ export class SettingComponent implements OnInit {
                 break;
             case 4:
                 this.tranAuthenPopup.show();
+                break;
+            case 5:
+                this.lockPopup.show();
                 break;
         }
     }
@@ -152,6 +162,22 @@ export class SettingComponent implements OnInit {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
                 this.tranAuthenPopup.hide();
+            }
+        }, err => console.log(err));
+    }
+
+    public saveLock() {
+        this.lock.status = this.lock.status ? 'ACT' : 'INA';
+
+        let x = {
+            "id": this.lock.id,
+            "status": this.lock.status
+        }
+
+        this.pro.save(x).subscribe((rsp: any) => {
+            if (rsp.status == "success" && rsp.message == "") {
+                this.search();
+                this.lockPopup.hide();
             }
         }, err => console.log(err));
     }
