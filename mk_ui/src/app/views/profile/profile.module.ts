@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TimepickerModule } from 'ngx-bootstrap';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 
-
-import { InfoUserRoutingModule } from './info-user-routing.module';
-import { InfoUserComponent } from './info-user.component';
+import { ProfileRoutingModule } from './profile-routing.module';
+import { ProfileComponent } from './profile.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
@@ -17,12 +15,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        InfoUserRoutingModule
+        ProfileRoutingModule
     ],
     declarations: [
-        InfoUserComponent,
-        
+        ProfileComponent
     ]
 })
 
-export class InfoUserModule { }
+export class ProfileModule { }

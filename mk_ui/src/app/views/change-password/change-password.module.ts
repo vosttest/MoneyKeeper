@@ -7,6 +7,7 @@ import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { ChangePasswordRoutingModule } from './change-password-routing.module';
 import { ChangePasswordComponent } from './change-password.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EqualValidator } from '../../utilities/equal-validator.directive';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         ChangePasswordRoutingModule
     ],
     declarations: [
-        ChangePasswordComponent
+        ChangePasswordComponent,
+        EqualValidator
     ]
 })
 
