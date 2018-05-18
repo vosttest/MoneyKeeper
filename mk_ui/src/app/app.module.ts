@@ -31,7 +31,7 @@ import { LayoutComponent } from './views/layout/layout.component';
     declarations: [
         AppComponent,
         LayoutComponent,
-        
+        EqualValidator
     ],
     imports: [
         BrowserModule,
