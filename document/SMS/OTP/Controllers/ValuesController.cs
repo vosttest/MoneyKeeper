@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.IO.Ports;
+using UTL;
 
 namespace OTP.Controllers
 {
@@ -8,11 +10,39 @@ namespace OTP.Controllers
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        SerialPort port = new SerialPort();
+        SMS objclsSMS = new SMS();
+        ShortMessageCollection objShortMessageCollection = new ShortMessageCollection();
+
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            string[] ports = SerialPort.GetPortNames();
+            var res = "";
+            string cboPortName = "COM8";
+            int baudRate = 9600;
+            int dataBits = 8;
+            int readTimeOut = 300;
+            int writeTimeOut = 300;
+
+            try
+            {
+                this.port = objclsSMS.OpenPort(cboPortName, baudRate, dataBits, readTimeOut, writeTimeOut);
+                if (this.port != null)
+                {
+                    res = "Modem is connected at PORT " + cboPortName;
+                }
+                else
+                {
+                    res = "Invalid port settings";
+                }
+            }
+            catch //(Exception ex)
+            {
+            }
+
+            return ports;
         }
 
         // GET api/values/5
