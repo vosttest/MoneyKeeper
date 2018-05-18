@@ -68,11 +68,11 @@ export class AccountEditComponent implements OnInit {
     }
 
     public checkType(va: string) {
-        if (va === 'ACC05') {
+        if (va === 'ACC005') {
             this.pickSaveAcc = false;
             this.pickOther = true;
         }
-        else if (va === 'ACC03') {
+        else if (va === 'ACC003') {
             this.pickSaveAcc = true;
             this.pickAtm = false;
         } else {

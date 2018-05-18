@@ -39,3 +39,9 @@ input[type=text] {
 #checkboxes label:hover {
     background-color: #1e90ff;
 }
+
+h2 {
+    margin-top: 20px;
+    color: #017DE3;
+    font-weight: 700;
+}

@@ -31,3 +31,23 @@ li .right {
     padding-left: 20px;
     margin-top: 29px;
 }
+
+h2 {
+    margin-right: 15px;
+}
+
+.icon-right {
+    display: inline-flex;
+    float: right;
+}
+
+.card-list {
+    max-height: 410px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.list-group-item-action:focus,
+.list-group-item-action:hover {
+    color: blue;
+}

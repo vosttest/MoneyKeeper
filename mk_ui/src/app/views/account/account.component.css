@@ -31,8 +31,13 @@ li .right {
     float: right;
 }
 
-h2 {
-    margin-top: 20px;
-    color: #017DE3;
-    font-weight: 700;
+.card-list {
+    max-height: 410px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.list-group-item-action:focus,
+.list-group-item-action:hover {
+    color: blue;
 }

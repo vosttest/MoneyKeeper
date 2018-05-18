@@ -27,9 +27,9 @@ export class AccountComponent implements OnInit {
 
     public changeType(info: string) {
         if (info === 'other') {
-            this.lstTmp = this.account.filter(a => a.type != 'ACC05');
+            this.lstTmp = this.account.filter(a => a.type != 'ACC005');
         } else {
-            this.lstTmp = this.account.filter(a => a.type === 'ACC05');
+            this.lstTmp = this.account.filter(a => a.type === 'ACC005');
         }
     }
 
@@ -38,7 +38,7 @@ export class AccountComponent implements OnInit {
         this.pro.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
-                this.lstTmp = this.account.filter(a => a.type != 'ACC05');
+                this.lstTmp = this.account.filter(a => a.type != 'ACC005');
             }
             else {
                 console.log(rsp.message);

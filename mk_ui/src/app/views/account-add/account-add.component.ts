@@ -17,7 +17,7 @@ export class AccountAddComponent implements OnInit {
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
-    public vm: any = { id: '', type: 'ACC01', currency: 'USD', term: 'TRM01', interestPaid: 'IPD02', termEnded: 'TRE02' };
+    public vm: any = { id: '', type: 'ACC001', currency: 'USD', term: 'TRM001', interestPaid: 'IPD002', termEnded: 'TRE002' };
     public message = '';
     public account: any[] = [];
 
@@ -61,12 +61,12 @@ export class AccountAddComponent implements OnInit {
     }
 
     public checkType(va: string) {
-        if (va === 'ACC05') {
+        if (va === 'ACC005') {
             this.pickSaveAcc = false;
             this.pickOther = true;
             this.pickAtm = true;
         }
-        else if (va === 'ACC03') {
+        else if (va === 'ACC003') {
             this.pickSaveAcc = true;
             this.pickAtm = false;
             this.pickOther = false;

@@ -9,8 +9,18 @@
 }
 
 .format-layout {
-    margin-left: 50px !important;
-    margin-right: 50px !important;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+h2 {
+    margin-top: 20px;
+    color: #017DE3;
+    font-weight: 700;
+}
+
+p {
+    font-weight: bold;
 }
 
 

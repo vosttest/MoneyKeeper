@@ -8,6 +8,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { FilterPipeDashBoard } from '../../utilities/filter.pipe';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         DashboardRoutingModule
     ],
     declarations: [
-        DashboardComponent
+        DashboardComponent,
+        FilterPipeDashBoard
     ]
 })
 

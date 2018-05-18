@@ -10,6 +10,7 @@ import { AccountProvider } from '../../providers/provider';
 export class DashboardComponent implements OnInit {
     public account = [];
     public vm: any = {};
+    public searchText = '';
 
     constructor(private proAcc: AccountProvider) { }
 
