@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
-import { EqualValidator } from './utilities/equal-validator.directive';
 
 // Import providers
 import {
@@ -31,7 +30,7 @@ import { LayoutComponent } from './views/layout/layout.component';
     declarations: [
         AppComponent,
         LayoutComponent,
-        EqualValidator
+        
     ],
     imports: [
         BrowserModule,

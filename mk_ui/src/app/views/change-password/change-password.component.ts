@@ -37,8 +37,7 @@ export class ChangePasswordComponent implements OnInit {
                 this.messageModal.show();
                 this.confirmModal.hide();
             }
-        })
-
+        }, err => console.log(err));
     }
 
     public showConfirm1() {

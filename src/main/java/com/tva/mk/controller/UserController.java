@@ -1,6 +1,5 @@
 package com.tva.mk.controller;
 
-import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +31,6 @@ import com.tva.mk.req.UserChangePwdReq;
 import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
-import com.tva.mk.req.UserUpdateReq;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.SingleRsp;
 
@@ -212,7 +210,7 @@ public class UserController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@PostMapping("/profile-user")
+	@PostMapping("/profile")
 	public ResponseEntity<?> inforUser(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
 
@@ -237,7 +235,7 @@ public class UserController {
 	}
 
 	@PostMapping("/update-user")
-	public ResponseEntity<?> updateUser(@RequestBody UserUpdateReq req, @RequestHeader HttpHeaders header) {
+	public ResponseEntity<?> updateUser(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
@@ -252,9 +250,7 @@ public class UserController {
 			String email = req.getEmail();
 			String contactNo = req.getContactNo();
 			String remarks = req.getRemarks();
-			Date createOn=req.getCreateOn();
-			int createBy=req.getCreateBy();
-			String status=req.getStatus();
+			String accountNo = req.getAccountNo();
 
 			// Set Data
 
@@ -263,9 +259,8 @@ public class UserController {
 			m.setFirstName(firstName);
 			m.setLastName(lastName);
 			m.setRemarks(remarks);
-			m.setCreateOn(createOn);
-			m.setCreateBy(createBy);
-			m.setStatus(status);
+			m.setAccountNo(accountNo);
+
 			// Handle
 			String tmp = userService.save(m);
 			if (!tmp.isEmpty()) {

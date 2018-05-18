@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { FormsModule } from '@angular/forms';
 import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
-
-import { ProfileUserRoutingModule } from './profile-user-routing.module';
-import { ProfileUserComponent } from './profile-user.component';
+import { ProfileRoutingModule } from './profile-routing.module';
+import { ProfileComponent } from './profile.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
@@ -15,11 +13,11 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        ProfileUserRoutingModule
+        ProfileRoutingModule
     ],
     declarations: [
-        ProfileUserComponent
+        ProfileComponent
     ]
 })
 
-export class ProfileUserModule { }
+export class ProfileModule { }
