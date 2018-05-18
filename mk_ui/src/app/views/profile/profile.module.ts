@@ -6,7 +6,7 @@ import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 
 import { ProfileRoutingModule } from './profile-routing.module';
 import { ProfileComponent } from './profile.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
+import { ModalModule } from 'ngx-bootstrap/modal'; 
 
 @NgModule({
     imports: [

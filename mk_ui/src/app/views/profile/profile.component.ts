@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
     public infoUser() {
         this.pro.profile(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.vm = rsp.result.info;
+                this.vm = rsp.result.info; 
             } else {
             }
         })

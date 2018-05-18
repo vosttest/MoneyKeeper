@@ -41,7 +41,7 @@ const routes: Routes = [
                     loadChildren: './views/change-password/change-password.module#ChangePasswordModule'
                 }, {
                     path: 'report',
-                    loadChildren: './views/report/report.module#ReportModule'
+                    loadChildren: './views/report/report.module#ReportModule' 
                 }
             ]
     },
