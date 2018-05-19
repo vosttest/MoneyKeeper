@@ -1,32 +1,30 @@
-<section class="format-layout">
-    <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <h2 class="text-center">Accounts</h2>
-        </div>
-        <div class="col-md-1">
-            <h2 class="text-right"><i class="fa fa-plus" routerLink="/account-add"></i></h2>
+<div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <h2 class="text-center">Accounts</h2>
+    </div>
+    <div class="col-md-1">
+        <h2 class="text-right"><i class="fa fa-plus" routerLink="/account-add"></i></h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <div class="row btn-left">
+            <button class="btn btn-outline-success full-width" type="button" (click)="changeType('other')">Account<i class="fa fa-chevron-circle-right"></i></button>
+            <button class="btn btn-outline-success full-width" type="button" (click)="changeType('saveAccount')">Savings Deposit<i class="fa fa-chevron-circle-right"></i></button>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="row btn-left">
-                <button class="btn btn-outline-primary full-width" type="button" (click)="changeType('other')">Account<i class="fa fa-chevron-circle-right"></i></button>
-                <button class="btn btn-outline-primary full-width" type="button" (click)="changeType('saveAccount')">Savings Deposit<i class="fa fa-chevron-circle-right"></i></button>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="card">
-                <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
-                <ul class="card-list list-group list-group-flush">
-                    <li class="list-group-item list-group-item-action" *ngFor="let i of lstTmp | filter : searchText">
-                        <div class="acc left"> {{ i.text }}</div>
-                        <div class="acc right"> Balance: {{ i.balance | currency:'CAD':'symbol-narrow':'4.2-2'}} {{ i.currency }}
-                            <i class="fa fa-edit" routerLink="/account-edit/{{i.id}}"></i>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <div class="col-md-9">
+        <div class="card">
+            <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
+            <ul class="card-list list-group list-group-flush">
+                <li class="list-group-item list-group-item-action" *ngFor="let i of lstTmp | filter : searchText">
+                    <div class="acc left"> {{ i.text }}</div>
+                    <div class="acc right"> Balance: {{ i.balance | currency:'CAD':'symbol-narrow':'4.2-2'}} {{ i.currency }}
+                        <i class="fa fa-edit" routerLink="/account-edit/{{i.id}}"></i>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
-</section>
+</div>

@@ -1,172 +1,170 @@
-<section class="format-layout">
-    <div id="divCategory">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <h2 class="text-center">Categories</h2>
-            </div>
-            <div class="col-md-4 text-right">
-                <h2><i class="fa fa-plus-square pointer" (click)="redirectAdd()"></i></h2>
-            </div>
+<div id="divCategory">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h2 class="text-center">Categories</h2>
         </div>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="text-center col-md-4 input-group mb-3 nav">
-                <a id="tabExpense" class="form-control" (click)="loadExpense()" data-toggle="pill" href="#expense">Expense</a>
-                <a id="tabIncome" class="form-control format-input" (click)="loadIncome()" data-toggle="pill" href="#expense">Income</a>
-            </div>
-            <div class="col-md-4"></div>
+        <div class="col-md-4 text-right">
+            <h2><i class="fa fa-plus-square pointer" (click)="redirectAdd()"></i></h2>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <input *ngIf="isShow" class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="keyword" (keyup)="search(keyword)">
-                <div id="expense" class="tab-pane">
-                    <div class="accordion" id="accordionExample">
-                        <div *ngFor="let i of lstParentTmp" class="card">
-                            <div class="card-header row row-margin pointer" id="headingOne">
-                                <div class="col-md-11" (click)="redirectEdit(i.id, i.count)">
-                                    <img src="{{apiURL + i.icon}}" style="margin-right: 2%">
-                                    <span>{{ i.text }}</span>
-                                </div>
-                                <div class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
-                                    <i id="arrow{{i.id}}" class="pull-right fa fa-chevron-up"></i>
-                                </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="text-center col-md-4 input-group mb-3 nav">
+            <a id="tabExpense" class="form-control" (click)="loadExpense()" data-toggle="pill" href="#expense">Expense</a>
+            <a id="tabIncome" class="form-control format-input" (click)="loadIncome()" data-toggle="pill" href="#expense">Income</a>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <input *ngIf="isShow" class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="keyword" (keyup)="search(keyword)">
+            <div id="expense" class="tab-pane">
+                <div class="accordion" id="accordionExample">
+                    <div *ngFor="let i of lstParentTmp" class="card">
+                        <div class="card-header row row-margin pointer" id="headingOne">
+                            <div class="col-md-11" (click)="redirectEdit(i.id, i.count)">
+                                <img src="{{apiURL + i.icon}}" style="margin-right: 2%">
+                                <span>{{ i.text }}</span>
                             </div>
-                            <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
-                                <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
-                                    <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="redirectEdit(i2.id, i2.count)">
-                                        <img src="{{apiURL + i2.icon}}" class="padding-right" /> {{i2.text}}
-                                    </li>
-                                </ul>
+                            <div class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                <i id="arrow{{i.id}}" class="pull-right fa fa-chevron-up"></i>
                             </div>
+                        </div>
+                        <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
+                            <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
+                                <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="redirectEdit(i2.id, i2.count)">
+                                    <img src="{{apiURL + i2.icon}}" class="padding-right" /> {{i2.text}}
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="divAdd" style="display: none">
+</div>
+<div id="divAdd" style="display: none">
+    <div class="row">
+        <div class="col-md-2">
+            <h2><i class="fa fa-arrow-left pointer" (click)="redirectCategory()"></i></h2>
+        </div>
+        <div class="col-md-8">
+            <h2 class="text-center">Add {{tab}} Category </h2>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <form #f="ngForm" (ngSubmit)="saveCategory(f.form.valid)">
         <div class="row">
-            <div class="col-md-2">
-                <h2><i class="fa fa-arrow-left pointer" (click)="redirectCategory()"></i></h2>
+            <div class="col-md-2 text-center pointer">
+                <img [src]="apiURL + vm.icon" name="icon" (click)="iconModal.show()" />
             </div>
-            <div class="col-md-8">
-                <h2 class="text-center">Add {{tab}} Category </h2>
+            <div class="col-md-4 margin-top">
+                <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
+                <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    <span *ngIf="subCategoryName.errors?.required">
+                        <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
+                    </span>
+                </span>
             </div>
             <div class="col-md-2">
+                <label class="col-form-label">Category</label>
+            </div>
+            <div class="col-md-4">
+                <select id="inputState" class="form-control none-border" name="categoryName" #categoryName="ngModel" [(ngModel)]="vm.parentId">
+                    <option *ngFor="let i of lstParentTmp" value="{{i.id}}">{{i.text}}</option>
+                </select>
             </div>
         </div>
-        <form #f="ngForm" (ngSubmit)="saveCategory(f.form.valid)">
-            <div class="row">
-                <div class="col-md-2 text-center pointer">
-                    <img [src]="apiURL + vm.icon" name="icon" (click)="iconModal.show()" />
-                </div>
-                <div class="col-md-4 margin-top">
-                    <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
-                    <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                        <span *ngIf="subCategoryName.errors?.required">
-                            <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
-                        </span>
-                    </span>
-                </div>
-                <div class="col-md-2">
-                    <label class="col-form-label">Category</label>
-                </div>
-                <div class="col-md-4">
-                    <select id="inputState" class="form-control none-border" name="categoryName" #categoryName="ngModel" [(ngModel)]="vm.parentId">
-                        <option *ngFor="let i of lstParentTmp" value="{{i.id}}">{{i.text}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <hr/>
-                </div>
-                <div class="col-md-4">
-                    <hr/>
-                </div>
-                <div class="col-md-6">
-                    <hr/>
-                </div>
-            </div>
-            <div class="form-control none-border">
-                <label class="col-form-label">Note</label>
-                <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
-                <hr />
-                <button class="btn btn-primary btnSave" type="submit">Save</button>
-            </div>
-        </form>
-    </div>
-    <div id="divEdit" style="display: none">
         <div class="row">
             <div class="col-md-2">
-                <h2><i class="fa fa-arrow-left pointer" (click)="redirectCategory()"></i></h2>
+                <hr/>
             </div>
-            <div class="col-md-8">
-                <h2 class="text-center">Edit {{tab}} Category </h2>
+            <div class="col-md-4">
+                <hr/>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
+                <hr/>
             </div>
         </div>
-        <form #f1="ngForm" (ngSubmit)="saveCategory(f.form.valid)">
-            <div class="row">
-                <div class="col-md-2 text-center pointer">
-                    <img [src]="apiURL + vm.icon" name="icon" (click)="iconModal.show()" />
-                </div>
-                <div class="col-md-4 margin-top" *ngIf="count == 0">
-                    <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
-                    <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                        <span *ngIf="subCategoryName.errors?.required">
-                            <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
-                        </span>
-                    </span>
-                </div>
-                <div class="col-md-2" *ngIf="count == 0">
-                    <label class="col-form-label">Category</label>
-                </div>
-                <div class="col-md-4 margin-top" *ngIf="count == 0">
-                    <select id="inputState" class="form-control none-border" name="categoryName" #categoryName="ngModel" [(ngModel)]="vm.parentId">
-                        <option value="0" class="form-group" >
-                                No item selected
-                        </option>
-                        <option *ngFor="let i of lstParentTmp" value="{{i.id}}"  [selected]="selEdit">{{i.text}}</option>
-                    </select>
-                </div>
-                <div class="col-md-10" *ngIf="count != 0">
-                    <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
-                    <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                        <span *ngIf="subCategoryName.errors?.required">
-                            <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
-                        </span>
-                    </span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2">
-                    <hr/>
-                </div>
-                <div class="col-md-4" *ngIf="count == 0">
-                    <hr/>
-                </div>
-                <div class="col-md-6" *ngIf="count == 0">
-                    <hr/>
-                </div>
-                <div class="col-md-10" *ngIf="count != 0">
-                    <hr/>
-                </div>
-            </div>
-            <div class="form-control none-border">
-                <label class="col-form-label">Note</label>
-                <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
-                <hr />
-            </div>
-            <div class="button-action">
-                <button class="btn btn-danger float-right" type="button" (click)="confirmModal.show()">Delete</button>
-                <button class="btn btn-primary float-right" type="submit">Save</button>
-            </div>
-        </form>
+        <div class="form-control none-border">
+            <label class="col-form-label">Note</label>
+            <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
+            <hr />
+            <button class="btn btn-success btnSave" type="submit">Save</button>
+        </div>
+    </form>
+</div>
+<div id="divEdit" style="display: none">
+    <div class="row">
+        <div class="col-md-2">
+            <h2><i class="fa fa-arrow-left pointer" (click)="redirectCategory()"></i></h2>
+        </div>
+        <div class="col-md-8">
+            <h2 class="text-center">Edit {{tab}} Category </h2>
+        </div>
+        <div class="col-md-2">
+        </div>
     </div>
-</section>
+    <form #f1="ngForm" (ngSubmit)="saveCategory(f.form.valid)">
+        <div class="row">
+            <div class="col-md-2 text-center pointer">
+                <img [src]="apiURL + vm.icon" name="icon" (click)="iconModal.show()" />
+            </div>
+            <div class="col-md-4 margin-top" *ngIf="count == 0">
+                <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
+                <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    <span *ngIf="subCategoryName.errors?.required">
+                        <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
+                    </span>
+                </span>
+            </div>
+            <div class="col-md-2" *ngIf="count == 0">
+                <label class="col-form-label">Category</label>
+            </div>
+            <div class="col-md-4 margin-top" *ngIf="count == 0">
+                <select id="inputState" class="form-control none-border" name="categoryName" #categoryName="ngModel" [(ngModel)]="vm.parentId">
+                    <option value="0" class="form-group" >
+                            No item selected
+                    </option>
+                    <option *ngFor="let i of lstParentTmp" value="{{i.id}}"  [selected]="selEdit">{{i.text}}</option>
+                </select>
+            </div>
+            <div class="col-md-10" *ngIf="count != 0">
+                <input class="form-control none-border" name="subCategoryName" placeholder="Sub-Category Name" #subCategoryName="ngModel" [(ngModel)]="vm.text" required/>
+                <span [hidden]="subCategoryName.valid || (subCategoryName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    <span *ngIf="subCategoryName.errors?.required">
+                        <i class="fa fa-exclamation-triangle"></i>Please enter Sub-Category Name
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <hr/>
+            </div>
+            <div class="col-md-4" *ngIf="count == 0">
+                <hr/>
+            </div>
+            <div class="col-md-6" *ngIf="count == 0">
+                <hr/>
+            </div>
+            <div class="col-md-10" *ngIf="count != 0">
+                <hr/>
+            </div>
+        </div>
+        <div class="form-control none-border">
+            <label class="col-form-label">Note</label>
+            <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
+            <hr />
+        </div>
+        <div class="button-action">
+            <button class="btn btn-danger float-right" type="button" (click)="confirmModal.show()">Delete</button>
+            <button class="btn btn-success float-right" type="submit">Save</button>
+        </div>
+    </form>
+</div>
 
 <!-- Modal -->
 <div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -183,7 +181,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="confirmModal.hide()">No</button>
-                <button type="button" class="btn btn-primary" (click)="delete(vm.id)">Yes</button>
+                <button type="button" class="btn btn-success" (click)="delete(vm.id)">Yes</button>
             </div>
         </div>
     </div>

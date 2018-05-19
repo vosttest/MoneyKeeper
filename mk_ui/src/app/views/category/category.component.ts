@@ -46,7 +46,7 @@ export class CategoryComponent implements OnInit {
         this.tab = "Income";
         document.getElementById("tabExpense").style.backgroundColor = "white";
         document.getElementById("tabExpense").style.color = "black";
-        document.getElementById("tabIncome").style.backgroundColor = "#017DE3";
+        document.getElementById("tabIncome").style.backgroundColor = "#1CB09A";
         document.getElementById("tabIncome").style.color = "white";
 
         this.proIncome.search().subscribe((rsp: any) => {
@@ -65,7 +65,7 @@ export class CategoryComponent implements OnInit {
 
     public loadExpense() {
         this.tab = "Expense";
-        document.getElementById("tabExpense").style.backgroundColor = "#017DE3";
+        document.getElementById("tabExpense").style.backgroundColor = "#1CB09A";
         document.getElementById("tabExpense").style.color = "white";
         document.getElementById("tabIncome").style.backgroundColor = "white";
         document.getElementById("tabIncome").style.color = "black";

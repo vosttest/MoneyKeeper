@@ -43,7 +43,7 @@ input[type=number] {
     float: right;
 }
 
-button.btn.btn-primary.btnSave {
+button.btn.btn-success.btnSave {
     float: right;
     width: 10%;
 }

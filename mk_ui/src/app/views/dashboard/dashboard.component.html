@@ -1,55 +1,53 @@
-<section class="format-layout">
-    <div class="row">
-        <div class="col-md-6">
-            <h2>Expense vs Income</h2>
-            <div class="content-left">
-                <div class="row">
-                    <div class="col-md-4">
-                        <p>Account</p>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                            <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                        </select>
-                    </div>
+<div class="row">
+    <div class="col-md-6">
+        <h2>Expense vs Income</h2>
+        <div class="content-left">
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Account</p>
+                </div>
+                <div class="col-md-8">
+                    <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>Viewed By</p>
+                </div>
+                <div class="col-md-8">
+                    <input type="text" placeholder="From date To date" class="form-control" bsDaterangepicker>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-md-4">
-                        <p>Viewed By</p>
-                    </div>
-                    <div class="col-md-8">
-                        <input type="text" placeholder="From date To date" class="form-control" bsDaterangepicker>
-                    </div>
-                    <hr>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>Accounts</h2>
+            </div>
+            <div class="col-md-4">
+                <div class="icon-right">
+                    <h2><i class="fa fa-plus" routerLink="/account-add"></i></h2>
                 </div>
-                <hr>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="row">
-                <div class="col-md-8">
-                    <h2>Accounts</h2>
-                </div>
-                <div class="col-md-4">
-                    <div class="icon-right">
-                        <h2><i class="fa fa-plus" routerLink="/account-add"></i></h2>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card">
-                    <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
-                    <ul class="card-list list-group list-group-flush">
-                        <li class="list-group-item list-group-item-action" *ngFor="let item of account | filterDashBoard : searchText">
-                            <div class="acc left"> {{ item.text }}</div>
-                            <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
-                                <i class="fa fa-edit" routerLink="/account-edit/{{item.id}}"></i>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+        <div class="row">
+            <div class="card">
+                <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
+                <ul class="card-list list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action" *ngFor="let item of account | filterDashBoard : searchText">
+                        <div class="acc left"> {{ item.text }}</div>
+                        <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
+                            <i class="fa fa-edit" routerLink="/account-edit/{{item.id}}"></i>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-</section>
+</div>

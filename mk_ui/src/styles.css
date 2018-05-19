@@ -15,7 +15,7 @@
 
 h2 {
     margin-top: 20px;
-    color: #017DE3;
+    color: #1CB09A;
     font-weight: 700;
 }
 
@@ -77,4 +77,37 @@ section {
 .resize-none {
     padding: 0;
     margin: 0;
+}
+
+.bg-green {
+    background-color: #1CB09A;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem #79D6C9;
+}
+
+li:hover,
+.card:hover {
+    background-color: #1CB09A !important;
+    color: white !important;
+    font-weight: 700;
+}
+
+
+/* .btn-success {
+    background-color: #1CB09A !important;
+} */
+
+.btn-outline-success {
+    /* background-color: #1CB09A; */
+    border-color: #1CB09A !important;
+    color: #1CB09A !important;
+}
+
+.btn-outline-success:hover,
+.btn-success {
+    border-color: #1CB09A !important;
+    background-color: #1CB09A !important;
+    color: white !important;
 }

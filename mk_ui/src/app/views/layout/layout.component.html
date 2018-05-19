@@ -23,54 +23,52 @@
             <span class="navbar-toggler-icon"></span>
         </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion" style="width: 16.7%">
-            <li class="nav-item pointer" routerLink="/dashboard" data-toggle="tooltip" data-placement="right" title="Dashboard">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item pointer" id="dashboard" (click)="active('dashboard')" data-toggle="tooltip" title="Dashboard">
                 <a class="nav-link">
-                    <span class="nav-link-text">
-                            <img src="../../../../assets/img/dashboard.png" class="format-icon"> Dashboard
-                        </span>
+                    <img src="../../../../assets/img/dashboard.png" class="format-icon">
+                    <span class="nav-link-text"> Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item pointer" routerLink="/account" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item pointer" id="account" (click)="active('account')" data-toggle="tooltip" title="Account">
                 <a class="nav-link">
-                    <span class="nav-link-text">
-                            <img src="../../../../assets/img/account.png" class="format-icon"> Account
-                        </span>
+                    <img src="../../../../assets/img/account.png" class="format-icon">
+                    <span class="nav-link-text"> Account</span>
                 </a>
             </li>
-            <li class="nav-item pointer" routerLink="/voucher" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item pointer" id="voucher" (click)="active('voucher')" data-toggle="tooltip" title="Voucher">
                 <a class="nav-link">
-                    <span class="nav-link-text">
-                            <img src="../../../../assets/img/voucher.png" class="format-icon"> Voucher
-                        </span>
+                    <img src="../../../../assets/img/voucher.png" class="format-icon">
+                    <span class="nav-link-text"> Voucher</span>
                 </a>
             </li>
-            <li class="nav-item pointer" routerLink="/report" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item pointer" id="report" (click)="active('report')" data-toggle="tooltip" title="Report">
                 <a class="nav-link">
-                    <span class="nav-link-text">
-                            <img src="../../../../assets/img/report.png" class="format-icon"> Report
-                        </span>
+                    <img src="../../../../assets/img/report.png" class="format-icon">
+                    <span class="nav-link-text"> Report</span>
                 </a>
             </li>
-            <li class="nav-item pointer" routerLink="/category" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <li class="nav-item pointer" id="category" (click)="active('category')" data-toggle="tooltip" title="Category">
                 <a class="nav-link">
-                    <span class="nav-link-text">
-                            <img src="../../../../assets/img/category.png" class="format-icon"> Category
-                        </span>
+                    <img src="../../../../assets/img/category.png" class="format-icon">
+                    <span class="nav-link-text"> Category</span>
                 </a>
             </li>
+
+        </ul>
+        <ul class="navbar-nav navbar-sidenav" id="resize" (click)="resize()">
         </ul>
     </div>
 </nav>
 
-<div class="content-wrapper">
+<div id="content-wrapper">
     <div class="container-fluid">
         <router-outlet></router-outlet>
     </div>
     <!-- <footer class="sticky-footer">
             <div class="container">
                 <div class="text-center">
-                    <small>Copyright © Your Website 2018</small>
+                    <small>Copyright � Your Website 2018</small>
                 </div>
             </div>
         </footer> -->

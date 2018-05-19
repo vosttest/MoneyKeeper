@@ -15,8 +15,7 @@
                             <p>User Name</p>
                         </div>
                         <div class="col-md-8">
-                            <input class="form-control none-border" id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="hidden"
-                            />
+                            <input class="form-control none-border" id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="hidden" />
                             <label class="form-control none-border" for="userName">{{vm.userName}}</label>
                         </div>
                     </div>
@@ -114,8 +113,7 @@
                             <p>Create On</p>
                         </div>
                         <div class="col-md-8">
-                            <input class="form-control none-border" id="createOn" name="createOn" #createOn="ngModel" [(ngModel)]="vm.createOn" type="hidden"
-                            />
+                            <input class="form-control none-border" id="createOn" name="createOn" #createOn="ngModel" [(ngModel)]="vm.createOn" type="hidden" />
                             <label class="form-control none-border" for="createOn">{{vm.createOn | date:'dd-MMM-yyyy'}}</label>
                         </div>
                     </div>
@@ -124,5 +122,5 @@
             </div>
         </div>
     </div>
-    <button class="btn btn-primary btnSave" type="button" (click)='save()'>Save</button>
+    <button class="btn btn-success btnSave" type="button" (click)='save()'>Save</button>
 </section>

@@ -8,10 +8,11 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-button.btn.btn-primary.btnSave {
+button.btn.btn-success.btnSave {
     float: right;
     width: 10%;
 }
+
 .form-control {
     border: none;
 }

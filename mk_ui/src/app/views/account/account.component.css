@@ -37,7 +37,13 @@ li .right {
     overflow-x: visible;
 }
 
-.list-group-item-action:focus,
-.list-group-item-action:hover {
-    color: blue;
+.btn-outline-success {
+    /* background-color: #1CB09A; */
+    border-color: #1CB09A !important;
+    color: #1CB09A !important;
+}
+
+.btn-outline-success:hover {
+    background-color: #1CB09A !important;
+    color: white !important;
 }
