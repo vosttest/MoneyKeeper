@@ -46,12 +46,9 @@
                             <p>Currency</p>
                         </div>
                         <div class="col-md-10">
-                            <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="vm.currency" required>
+                            <select name="currency" #currency="ngModel" [(ngModel)]="vm.currency" class="form-control">
                             <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.text}}</option>
                         </select>
-                            <span [hidden]="currency.valid || (currency.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Required!
-                        </span>
                         </div>
                     </div>
                     <hr>
@@ -74,7 +71,7 @@
                         <p>Currency</p>
                     </div>
                     <div class="col-md-10">
-                        <select name="currency" class="form-control" #currency="ngModel" [(ngModel)]="vm.currency">
+                        <select name="currency" #currency="ngModel" [(ngModel)]="vm.currency" class="form-control">
                         <option *ngFor="let i of lstCurrency"  value="{{i.value}}">{{i.text}}</option>
                     </select>
                     </div>
@@ -87,7 +84,7 @@
                         <p>Initial Balance</p>
                     </div>
                     <div class="col-md-10">
-                        <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
+                        <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                     </div>
                 </div>
                 <hr>
@@ -98,7 +95,7 @@
             <div [hidden]="pickSaveAcc">
                 <div class="row">
                     <div class="col-md">
-                        <input name="balance" #balance="ngModel" [(ngModel)]="vm.balance" type="number" class="form-control" placeholder="0" min="0" required>
+                        <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                         <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                             <i class="fa fa-exclamation-triangle"></i> Please input balance account!
                     </span>

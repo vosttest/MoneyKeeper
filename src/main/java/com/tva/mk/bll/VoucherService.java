@@ -1,6 +1,7 @@
 package com.tva.mk.bll;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,11 @@ public class VoucherService {
 
 	public Voucher getById(int id) {
 		Voucher res = voucherDao.getBy(id);
+		return res;
+	}
+
+	public List<Object[]> getByExpense(int[] accountId) {
+		List<Object[]> res = voucherDao.getExpense(accountId);
 		return res;
 	}
 

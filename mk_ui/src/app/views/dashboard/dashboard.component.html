@@ -34,7 +34,6 @@
                 <div class="col-md-4">
                     <div class="icon-right">
                         <h2><i class="fa fa-plus" routerLink="/account-add"></i></h2>
-                        <h2><i class="fa fa-bars" routerLink="/account"></i></h2>
                     </div>
                 </div>
             </div>
@@ -45,7 +44,7 @@
                         <li class="list-group-item list-group-item-action" *ngFor="let item of account | filterDashBoard : searchText">
                             <div class="acc left"> {{ item.text }}</div>
                             <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
-                                <button id="edit " routerLink="/account-edit/{{item.id}}"><i class="fa fa-edit"></i></button>
+                                <i class="fa fa-edit" routerLink="/account-edit/{{item.id}}"></i>
                             </div>
                         </li>
                     </ul>
