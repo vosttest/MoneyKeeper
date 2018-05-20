@@ -11,7 +11,7 @@ import { element } from 'protractor';
 
 export class SettingComponent implements OnInit {
     public data = [];
-    public dataCurrency = [];
+    public dataCurrency: any = {};
     public reminder: any = {};
     public ismeridian = false;
     public isTime = false;
@@ -44,21 +44,19 @@ export class SettingComponent implements OnInit {
                         this.reminder.time = new Date(element.value);
                         this.reminder.status = element.status == 'ACT' ? true : false;
                         this.reminder.id = element.id;
-                    }
-
-                    if (+t[1] === 3) {
+                    } else if (+t[1] === 2) {
+                        this.dataCurrency.id = element.id;
+                        this.dataCurrency.status = element.status;
+                        this.dataCurrency.value = element.value === '' || element.value == null ? 'VND' : element.value;
+                    } else if (+t[1] === 3) {
                         this.loginAuthen.type = element.value == null ? '' : element.value;
                         this.loginAuthen.status = element.status == 'ACT' ? true : false;
                         this.loginAuthen.id = element.id;
-                    }
-
-                    if (+t[1] === 4) {
+                    } else if (+t[1] === 4) {
                         this.tranAuthen.type = element.value;
                         this.tranAuthen.status = element.status == 'ACT' ? true : false;
                         this.tranAuthen.id = element.id;
-                    }
-
-                    if (+t[1] === 5) {
+                    } else if (+t[1] === 5) {
                         this.lock.status = element.status == 'ACT' ? true : false;
                         this.lock.id = element.id;
                     }
@@ -128,6 +126,23 @@ export class SettingComponent implements OnInit {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
                 this.reminderPopup.hide();
+            }
+        }, err => console.log(err));
+    }
+
+    public saveCurrency(){
+        let x = {
+            id: this.dataCurrency.id,
+            value: this.dataCurrency.value,
+            status: this.dataCurrency.status
+        }
+
+        this.pro.save(x).subscribe((rsp: any) => {
+            if (rsp.status == "success") {
+                this.search();
+                this.currencyPopup.hide();
+            }else{
+                alert(rsp.message);
             }
         }, err => console.log(err));
     }

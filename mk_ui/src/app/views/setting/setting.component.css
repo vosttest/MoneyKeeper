@@ -86,3 +86,15 @@ input:checked+.slider:before {
 .top-time-picker {
     margin-top: -6%;
 }
+
+.my-contains {
+    margin-top: 5px;
+}
+
+.each-row {
+    align-items: center;
+    padding: 8px 0px;
+    border-top: solid 1px #DEDEDE;
+    border-bottom: solid 1px #DEDEDE;
+    box-shadow: none;
+}

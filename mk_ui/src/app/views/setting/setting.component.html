@@ -67,10 +67,16 @@
                 <div class="form-group">
                     <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search.." />
                     <div class="my-contains">
-                        <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row">
+                        <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row">
                             <div class="col-md-2"><img height='40px' src="{{ apiURL + i.value + '.png' }}" /></div>
                             <div class="col-md-8">{{ i.text }}</div>
-                            <div class="col-md-1">{{ i.value }}</div>
+                            <div class="col-md-2">
+                                <input type="radio" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" name="currency" checked value="{{ i.value }}" />
+                                <ng-template #elseCurrency>
+                                    <input type="radio" name="currency" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
+                                </ng-template>
+                                {{ i.value }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -78,7 +84,7 @@
                     <div class="row">
                         <div class="col-md-3"> </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-success btn-block" (click)="currencyPopup.hide()">OK</button>
+                            <button type="button" class="btn btn-success btn-block" (click)="saveCurrency()">OK</button>
                         </div>
                         <div class="col-md-3"> </div>
                     </div>

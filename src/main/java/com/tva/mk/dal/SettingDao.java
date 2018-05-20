@@ -12,6 +12,6 @@ public interface SettingDao extends CrudRepository<Setting, Integer> {
 	@Query("FROM Setting a WHERE a.id = :id")
 	public Setting getBy(@Param("id") int id);
 
-	@Query("FROM Setting a WHERE a.userId = :userId")
+	@Query("FROM Setting a WHERE a.userId = :userId ORDER BY code ASC")
 	public List<Setting> search(@Param("userId") int userId);
 }
