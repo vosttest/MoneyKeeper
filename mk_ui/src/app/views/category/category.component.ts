@@ -29,7 +29,7 @@ export class CategoryComponent implements OnInit {
     public vm: any = { text: "", description: "", parentId: null, icon: "question.png" };
     public count: any;
     public apiURL: string = "../../../../assets/img/";
-    public loader: boolean = false;
+    public loading: boolean;
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
     @ViewChild('iconModal') public iconModal: ModalDirective;
@@ -169,6 +169,7 @@ export class CategoryComponent implements OnInit {
     }
 
     public saveCategory(valid: boolean) {
+        this.loading = true;
         if (!valid) {
             return;
         }
@@ -182,6 +183,7 @@ export class CategoryComponent implements OnInit {
                 else {
                     console.log(rsp.message);
                 }
+                this.loading = false;
             })
         }
         else {
@@ -193,11 +195,13 @@ export class CategoryComponent implements OnInit {
                 else {
                     console.log(rsp.message);
                 }
+                this.loading = false;
             })
         }
     }
 
     public delete(id: any) {
+        this.loading = true;
         if (this.tab == "Expense") {
             this.proExpense.delete(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
@@ -208,6 +212,7 @@ export class CategoryComponent implements OnInit {
                 else {
                     console.log(rsp.message);
                 }
+            this.loading = false;
             })
         }
         else {
@@ -220,6 +225,7 @@ export class CategoryComponent implements OnInit {
                 else {
                     console.log(rsp.message);
                 }
+                this.loading = false;
             })
         }
     }

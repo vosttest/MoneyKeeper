@@ -1,3 +1,11 @@
+<div *ngIf="loading" class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+</div>
+
 <div id="divCategory">
     <div class="row">
         <div class="col-md-4"></div>
@@ -27,8 +35,8 @@
                                 <img src="{{apiURL + i.icon}}" style="margin-right: 2%">
                                 <span>{{ i.text }}</span>
                             </div>
-                            <div id="icon" class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
-                                <i id="arrow{{i.id}}" class="pull-right fa fa-chevron-up"></i>
+                            <div class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                <i *ngIf="i.count!=0" id="arrow{{i.id}}" class="pull-right fa fa-chevron-up"></i>
                             </div>
                         </div>
                         <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
