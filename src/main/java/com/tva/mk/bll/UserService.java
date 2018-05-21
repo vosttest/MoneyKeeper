@@ -1,7 +1,9 @@
 package com.tva.mk.bll;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.common.Utils;
 import com.tva.mk.dal.RoleDao;
+import com.tva.mk.dal.TokenAuthenticationDao;
 import com.tva.mk.dal.UserDao;
 import com.tva.mk.model.Users;
 
@@ -29,6 +32,12 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	/**
+	 * Use for renew token authentication
+	 */
+	@Autowired
+	private TokenAuthenticationDao tokenAuthenticationDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -93,17 +102,32 @@ public class UserService implements UserDetailsService {
 				m.setCreateBy(1);
 				m.setCreateOn(new Date());
 
-				m1 = userDao.save(m);
+				try {
+					Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
+					m.setExpireActiveCode(t);
+					m.setActiveCode(generateToken());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				userDao.save(m);
 			}
 		} else {
 			m1 = userDao.getBy(id);
 			if (m1 == null) {
 				res = "Id does not exist";
 			} else {
-				m.setModifyBy(1);
-				m.setModifyOn(new Date());
+				m1.setModifyBy(1);
+				m1.setModifyOn(new Date());
 
-				m1 = entityManager.merge(m);
+				m1.setFirstName(m.getFirstName());
+				m1.setLastName(m.getLastName());
+				m1.setAccountNo(m.getAccountNo());
+				m1.setContactNo(m.getContactNo());
+				m1.setEmail(m.getEmail());
+				m1.setRemarks(m.getRemarks());
+
+				userDao.save(m1);
 			}
 		}
 
@@ -162,7 +186,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		// Get password reminder token expire time
-		Date expire = Utils.getPwdTokenExpiryTimeInUTC();
+		Date expire = Utils.getExpiryTimeInUTC(Calendar.MINUTE, 5);
 		if (expire == null) {
 			throw new Exception("Failed to generate Password Reminder Token Expiry Time");
 		}
@@ -173,6 +197,56 @@ public class UserService implements UserDetailsService {
 		userDao.save(m);
 
 		Utils.sendMail(email, token, m.getFirstName());
+	}
+	
+	public String tokenAuthentication(int id) throws Exception {
+		String res = "";
+
+		try {
+			
+			// TODO
+			
+		} catch (Exception e) {
+			throw new Exception("");
+		}
+
+		return res;
+	}
+
+	public String resendActiveCode(int id) throws Exception {
+		String res = "";
+
+		try {
+			Users m = userDao.getBy(id);
+
+			m.setModifyBy(id);
+			m.setModifyOn(new Date());
+
+			Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
+			m.setExpireActiveCode(t);
+			m.setActiveCode(generateToken());
+
+			userDao.save(m);
+		} catch (Exception e) {
+			throw new Exception("User not found!");
+		}
+
+		return res;
+	}
+
+	/**
+	 * Get token with 5 digits
+	 * 
+	 * @return
+	 */
+	private String generateToken() {
+		String res = "00000";
+
+		Random t = new Random();
+		String t1 = (t.nextInt(99999) + 1) + "";
+		res = res.substring(0, 5 - t1.length()) + t1;
+
+		return res;
 	}
 
 	// end

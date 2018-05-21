@@ -29,6 +29,7 @@ export class CategoryComponent implements OnInit {
     public vm: any = { text: "", description: "", parentId: null, icon: "question.png" };
     public count: any;
     public apiURL: string = "../../../../assets/img/";
+    public loader: boolean = false;
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
     @ViewChild('iconModal') public iconModal: ModalDirective;

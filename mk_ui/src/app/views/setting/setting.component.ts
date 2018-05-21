@@ -20,6 +20,7 @@ export class SettingComponent implements OnInit {
     public loginAuthen: any = {};
     public tranAuthen: any = {};
     public lock: any = {};
+    public loader: boolean = false;
 
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;

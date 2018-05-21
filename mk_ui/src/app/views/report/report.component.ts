@@ -10,6 +10,7 @@ export class ReportComponent implements OnInit {
     public account = [];
     public vm: any = {};
     public expanded = false;
+    public loader: boolean = false;
 
     constructor(private proAcc: AccountProvider) { }
 

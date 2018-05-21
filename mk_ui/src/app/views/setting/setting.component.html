@@ -1,3 +1,11 @@
+<div *ngIf="loader" class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+</div>
+
 <div class="row setting-body">
     <div class="col-md-4"></div>
     <div class="col-md-4 text-center">
@@ -68,14 +76,20 @@
                     <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search.." />
                     <div class="my-contains">
                         <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row">
-                            <div class="col-md-2"><img height='40px' src="{{ apiURL + i.value + '.png' }}" /></div>
-                            <div class="col-md-8">{{ i.text }}</div>
                             <div class="col-md-2">
-                                <input type="radio" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" name="currency" checked value="{{ i.value }}" />
+                                <label for="{{ i.value }}">
+                                    <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
+                                </label>
+                            </div>
+                            <div class="col-md-8">
+                                <label style="width: 100%" for="{{ i.value }}">{{ i.text }}</label>
+                            </div>
+                            <div class="col-md-2">
+                                <input id="{{ i.value }}" name="{{ i.value }}" type="radio" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" checked value="{{ i.value }}" />
                                 <ng-template #elseCurrency>
-                                    <input type="radio" name="currency" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
+                                    <input id="{{ i.value }}" name="{{ i.value }}" type="radio" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
                                 </ng-template>
-                                {{ i.value }}
+                                <label for="{{ i.value }}">{{ i.value }}</label>
                             </div>
                         </div>
                     </div>
@@ -84,7 +98,7 @@
                     <div class="row">
                         <div class="col-md-3"> </div>
                         <div class="col-md-6">
-                            <button type="button" class="btn btn-success btn-block" (click)="saveCurrency()">OK</button>
+                            <button type="button" class="btn btn-success btn-block" (click)="saveCurrency()">DONE</button>
                         </div>
                         <div class="col-md-3"> </div>
                     </div>

@@ -20,6 +20,7 @@ export class AccountAddComponent implements OnInit {
     public vm: any = { id: '', type: 'ACC001', currency: 'USD', term: 'TRM001', interestPaid: 'IPD002', termEnded: 'TRE002' };
     public message = '';
     public account: any[] = [];
+    public loader: boolean = false;
 
     // Datepicker
 

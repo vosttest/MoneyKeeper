@@ -11,7 +11,7 @@ export class DashboardComponent implements OnInit {
     public account = [];
     public vm: any = {};
     public searchText = '';
-    public loading: boolean;
+    public loader: boolean = false;
 
     constructor(private proAcc: AccountProvider) { }
 
@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private search() {
-        this.loading = true;
+        this.loader = true;
         let info = { keyword: '' };
         this.proAcc.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
-            this.loading = false;
+            this.loader = false;
         }, err => console.log(err));
     }
 }

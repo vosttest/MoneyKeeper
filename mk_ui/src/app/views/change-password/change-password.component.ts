@@ -11,6 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 export class ChangePasswordComponent implements OnInit {
     public vm: any = { newPassword: '', confirmPassword: '', oldPassword: '' };
+    public loader: boolean = false;
     public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
     public type = "password";
     public typeConfirm = "password";

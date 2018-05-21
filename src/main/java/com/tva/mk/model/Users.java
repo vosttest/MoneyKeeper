@@ -120,6 +120,13 @@ public class Users {
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
+	@Column(columnDefinition = "varchar(8)")
+	private String activeCode;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Date expireActiveCode;
+
 	// end
 
 	// region -- Get set --
@@ -354,6 +361,22 @@ public class Users {
 
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
+	}
+
+	public String getActiveCode() {
+		return activeCode;
+	}
+
+	public void setActiveCode(String activeCode) {
+		this.activeCode = activeCode;
+	}
+
+	public Date getExpireActiveCode() {
+		return expireActiveCode;
+	}
+
+	public void setExpireActiveCode(Date expireActiveCode) {
+		this.expireActiveCode = expireActiveCode;
 	}
 
 	// end

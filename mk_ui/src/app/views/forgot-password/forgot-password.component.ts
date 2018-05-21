@@ -10,6 +10,7 @@ import { UserProvider } from '../../providers/provider';
 
 export class ForgotPasswordComponent implements OnInit {
     public vm: any = { newPassword: '', confirmPassword: '' };
+    public loader: boolean = false;
     public token: string = '';
     public message: string = '';
 

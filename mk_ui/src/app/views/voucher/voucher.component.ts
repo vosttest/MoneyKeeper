@@ -24,6 +24,7 @@ export class VoucherComponent implements OnInit {
     public account = [];
     public toAccount = [];
     public apiURL: string = "../../../../assets/img/";
+    public loader: boolean = false;
 
     public selectedCategory = { code: '', text: '-- Select Category --', icon: '' };
     public selectedAccount = { accountId: 0, text: '-- Select Account --' };

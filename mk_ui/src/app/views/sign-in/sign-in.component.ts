@@ -37,14 +37,15 @@ export class SignInComponent implements OnInit {
     }
 
     public sendEmailVerificationLink(valid: boolean) {
+        this.loader = true;
         let obj = { keyword: this.vm1.email };
         this.pro.verifyMail(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 alert("Please check mail box to change your password!");
             } else {
                 let msg = rsp.message;
-                alert(msg);
             }
+            this.loader = false;
             this.forgotPassModal.hide();
         });
     }

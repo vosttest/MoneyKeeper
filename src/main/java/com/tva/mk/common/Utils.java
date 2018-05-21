@@ -65,17 +65,20 @@ public class Utils {
 	}
 
 	/**
-	 * Get password token expire time (current time + 5 minutes)
 	 * 
+	 * @param calendarType
+	 *            choose attribute to add (Calendar.MINUTE, Calendar.HOUR, ...)
+	 * @param number
+	 *            number want to add
 	 * @return
+	 * @throws Exception
 	 */
-	public static Date getPwdTokenExpiryTimeInUTC() throws Exception {
+	public static Date getExpiryTimeInUTC(int calendarType, int number) throws Exception {
 		Date res = null;
-
 		try {
 			TimeZone t = TimeZone.getTimeZone("UTC");
 			Calendar t1 = Calendar.getInstance(t);
-			t1.add(Calendar.MINUTE, 5);
+			t1.add(calendarType, number);
 			res = t1.getTime();
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());

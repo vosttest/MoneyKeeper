@@ -22,6 +22,7 @@ export class AccountEditComponent implements OnInit {
     public vm: any = { id: '', type: '' };
     public message = '';
     public account: any[] = [];
+    public loader: boolean = false;
 
     datePipe = new DatePipe("en");
 

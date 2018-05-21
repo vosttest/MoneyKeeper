@@ -10,6 +10,7 @@ import { UserProvider } from '../../providers/provider';
 })
 export class ProfileComponent implements OnInit {
     public vm: any = {};
+    public loader: boolean = false;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 

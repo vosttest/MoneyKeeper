@@ -15,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -184,6 +185,7 @@ public class UserController {
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
 			int id = pl.getId();
+
 			// Get data
 			String oldPassword = req.getOldPassword();
 			String password = req.getNewPassword();
@@ -217,11 +219,8 @@ public class UserController {
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
 			int id = pl.getId();
-			// Get data
-			// TO DO
 
 			// Handle
-
 			Users m = userService.getBy(id);
 			Map<String, Object> data = new LinkedHashMap<>();
 
@@ -231,20 +230,19 @@ public class UserController {
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
+
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
 	@PostMapping("/update-user")
 	public ResponseEntity<?> updateUser(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
+
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
 			int id = pl.getId();
+
 			// Get data
-			// TO DO
-
-			Users m = userService.getBy(id);
-
 			String firstName = req.getFirstName();
 			String lastName = req.getLastName();
 			String email = req.getEmail();
@@ -253,7 +251,7 @@ public class UserController {
 			String accountNo = req.getAccountNo();
 
 			// Set Data
-
+			Users m = userService.getBy(id);
 			m.setContactNo(contactNo);
 			m.setEmail(email);
 			m.setFirstName(firstName);
@@ -266,14 +264,35 @@ public class UserController {
 			if (!tmp.isEmpty()) {
 				res.setError("Can Not Update User");
 			}
-
-		} catch (
-
-		Exception ex) {
+		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+
+	/**
+	 * Use for receive new active code to access mobile app
+	 * 
+	 * @param header
+	 * @return
+	 */
+	@GetMapping("/resend-active-code")
+	public ResponseEntity<?> resendActiveCode(@RequestHeader HttpHeaders header) {
+		BaseRsp res = new BaseRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			// Handle
+			userService.resendActiveCode(id);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
 	// end
 }

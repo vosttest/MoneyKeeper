@@ -87,6 +87,9 @@ input:checked+.slider:before {
     margin-top: -6%;
 }
 
+
+/* Currency */
+
 .my-contains {
     margin-top: 5px;
 }
@@ -97,4 +100,11 @@ input:checked+.slider:before {
     border-top: solid 1px #DEDEDE;
     border-bottom: solid 1px #DEDEDE;
     box-shadow: none;
+}
+
+.each-row:focus,
+.each-row:hover {
+    border-top: solid 1px #C6C6C6;
+    border-bottom: solid 1px #C6C6C6;
+    background-color: #F6F6F6;
 }
