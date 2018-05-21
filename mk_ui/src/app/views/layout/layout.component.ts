@@ -10,7 +10,7 @@ import { UserProvider } from '../../providers/provider';
 export class LayoutComponent implements OnInit {
     constructor(public rou: Router, private pro: UserProvider) { }
     public count: any = 0;
-    public cssNav : any;
+    public cssNav: any;
 
     ngOnInit() {
         this.cssNav = document.getElementsByClassName("nav-item");
@@ -34,14 +34,16 @@ export class LayoutComponent implements OnInit {
         if (this.count == 0) {
             this.count++;
             document.getElementById("exampleAccordion").style.width = "4%";
-                //document.getElementById("resize").style.setProperty("left", "5%", "important");
+            //document.getElementById("resize").style.setProperty("left", "5%", "important");
             for (var i = 0; i < css.length; i++) {
                 css[i].style.display = "none";
             }
             document.getElementById("content-wrapper").style.animationName = "content-left";
             document.getElementById("content-wrapper").style.animationDuration = "1s";
             document.getElementById("content-wrapper").style.animationFillMode = "forwards";
-            document.getElementById("rotateIcon").style.transform = "rotate(180deg)";
+            document.getElementById("resize").style.animationName = "resize-left";
+            document.getElementById("resize").style.animationDuration = "1s";
+            document.getElementById("resize").style.animationFillMode = "forwards";
         }
         else {
             this.count = 0;
@@ -55,7 +57,9 @@ export class LayoutComponent implements OnInit {
             document.getElementById("content-wrapper").style.animationName = "content-right";
             document.getElementById("content-wrapper").style.animationDuration = "1s";
             document.getElementById("content-wrapper").style.animationFillMode = "forwards";
-            document.getElementById("rotateIcon").style.transform = "rotate(0)";
+            document.getElementById("resize").style.animationName = "resize-right";
+            document.getElementById("resize").style.animationDuration = "1s";
+            document.getElementById("resize").style.animationFillMode = "forwards";
         }
     }
 
@@ -65,7 +69,7 @@ export class LayoutComponent implements OnInit {
         }
 
         document.getElementById(str).style.backgroundColor = "#1CB09A";
-        this.rou.navigate(['/'+str]);
+        this.rou.navigate(['/' + str]);
     }
 }
 

@@ -13,6 +13,21 @@ button.btn.btn-success.btnSave {
     width: 10%;
 }
 
+button.btn.btn-success.btnChange {
+    float: right;
+    margin-right: 10px
+    
+}
+
 .form-control {
     border: none;
+}
+
+p{
+    margin-top: 5px;
+}
+
+.form-group{
+    margin-top: 40px;
+
 }

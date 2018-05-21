@@ -11,24 +11,23 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 export class ChangePasswordComponent implements OnInit {
     public vm: any = { newPassword: '', confirmPassword: '', oldPassword: '' };
-    public loader: boolean = false;
     public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
     public type = "password";
     public typeConfirm = "password";
     public typeOld = "password";
     public show = false;
     public showConfirm = false;
+    public loading: boolean;
 
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
 
     @ViewChild('messageModal') public messageModal: ModalDirective;
 
-    @ViewChild('messageModal1') public messageModal1: ModalDirective;
-
     constructor(private pro: UserProvider, private rou: Router) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     public changePassword() {
         this.pro.changePassword(this.vm).subscribe((rsp: any) => {

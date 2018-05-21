@@ -5,23 +5,29 @@
     <div class="col-md-10">
         <ul class="navbar-nav my-top-menu float-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
                     <i class="far fa-user color-white"></i>
                 </a>
                 <div class="dropdown-menu dropleft my-dropdown-left" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" routerLink="/profile"><i class="fas fa-search"></i> Profile</a>
-                    <a class="dropdown-item" routerLink="/change-password"><i class="fa fa-lock"></i> Change Password</a>
-                    <a class="dropdown-item" routerLink="/setting"><i class="fas fa-cogs"></i> Setting</a>
+                    <a class="dropdown-item" routerLink="/profile">
+                        <i class="fas fa-search"></i> Profile</a>
+                    <a class="dropdown-item" routerLink="/change-password">
+                        <i class="fa fa-lock"></i> Change Password</a>
+                    <a class="dropdown-item" routerLink="/setting">
+                        <i class="fas fa-cogs"></i> Setting</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" (click)='signOut()'><i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    <a class="dropdown-item" (click)='signOut()'>
+                        <i class="fas fa-sign-out-alt"></i> Sign Out</a>
                 </div>
             </li>
         </ul>
     </div>
 
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
             <li class="nav-item pointer" id="dashboard" (click)="active('dashboard')" data-toggle="tooltip" title="Dashboard">
@@ -54,9 +60,9 @@
                     <span class="nav-link-text"> Category</span>
                 </a>
             </li>
-            <li class="pointer resize" (click)="resize()" data-toggle="tooltip" title="Category">
-                <i class="fas fa-angle-double-left" id="rotateIcon"></i>
-            </li>
+
+        </ul>
+        <ul class="navbar-nav navbar-sidenav" id="resize" (click)="resize()">
         </ul>
     </div>
 </nav>
@@ -66,10 +72,10 @@
         <router-outlet></router-outlet>
     </div>
     <!-- <footer class="sticky-footer">
-            <div class="container">
-                <div class="text-center">
-                    <small>Copyright � Your Website 2018</small>
+                <div class="container">
+                    <div class="text-center">
+                        <small>Copyright � Your Website 2018</small>
+                    </div>
                 </div>
-            </div>
-        </footer> -->
+            </footer> -->
 </div>

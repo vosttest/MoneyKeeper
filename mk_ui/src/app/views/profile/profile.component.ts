@@ -10,20 +10,22 @@ import { UserProvider } from '../../providers/provider';
 })
 export class ProfileComponent implements OnInit {
     public vm: any = {};
-    public loader: boolean = false;
+    public loading: boolean;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
     ngOnInit() {
         this.infoUser();
     }
-    
+
     public infoUser() {
+        this.loading = true;
         this.pro.profileUser(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.vm = rsp.result.info;
             } else {
             }
+            this.loading = false;
         }, err => console.log(err));
     }
 

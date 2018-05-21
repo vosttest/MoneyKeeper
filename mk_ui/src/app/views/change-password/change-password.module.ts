@@ -14,11 +14,13 @@ import { EqualValidator } from '../../utilities/equal-validator.directive';
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        ChangePasswordRoutingModule
+        ChangePasswordRoutingModule,
+        
     ],
     declarations: [
         ChangePasswordComponent,
         EqualValidator
+        
     ]
 })
 
