@@ -58,7 +58,7 @@ export class VoucherComponent implements OnInit {
     ngOnInit() {
         this.getExpense();
         this.getAccount();
-        this.abc('Expense');
+        this.hideShow('Expense');
         this.searchAccount();
         this.searchToAccount();
     }
@@ -134,6 +134,24 @@ export class VoucherComponent implements OnInit {
         }
     }
 
+    public redirectVoucher() {
+        document.getElementById("divVoucher").style.display = "block";
+        document.getElementById("divList").style.display = "none";
+        document.getElementById("divSearch").style.display = "none";
+    }
+
+    public redirectList() {
+        document.getElementById("divList").style.display = "block";
+        document.getElementById("divVoucher").style.display = "none";
+        document.getElementById("divSearch").style.display = "none";
+    }
+
+    public redirectSearch() {
+        document.getElementById("divSearch").style.display = "block";
+        document.getElementById("divList").style.display = "none";
+        document.getElementById("divVoucher").style.display = "none";
+    }
+
     public search(keyword: string) {
         keyword = keyword.toLowerCase();
         this.lstParentTmp = this.lstParent;
@@ -156,7 +174,7 @@ export class VoucherComponent implements OnInit {
         }
     }
 
-    public abc(a: any) {
+    public hideShow(a: any) {
         if (a == "Expense") {
             this.getExpense();
             this.isExpense = true;
@@ -247,6 +265,7 @@ export class VoucherComponent implements OnInit {
             } else {
                 this.message = rsp.message;
             }
-        }, err => console.log(err))
+        }, err => console.log(err));
+        // (click)='save() && confirmModal.show()'
     }
 }

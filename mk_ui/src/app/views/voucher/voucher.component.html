@@ -1,118 +1,135 @@
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <h2 class="text-center">Voucher</h2>
-    </div>
-    <div class="col-md-4"></div>
-</div>
-<form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
+<div id="divVoucher">
     <div class="row">
-        <div class="form-group col-md-6">
-            <div class="row">
-                <div class='input-group mb-3'>
-                    <div class="col-md-4">
-                        <p>Type</p>
-                    </div>
-                    <div class="col-md-8">
-                        <select name="type" #type="ngModel" [(ngModel)]="vm.type" class="form-control" (click)="abc(vm.type)">
+        <div class="col-md-4">
+            <h2><i class="fa fa-arrow-left pointer" (click)="redirectList()"></i></h2>
+        </div>
+        <div class="col-md-4">
+            <h2 class="text-center">Voucher</h2>
+        </div>
+        <div class="col-md-4 text-right">
+            <h2><i class="far fa-file-alt" (click)="redirectList()"> Recorded</i></h2>
+        </div>
+    </div>
+    <form class="voucher" name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()">
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <div class="col-md-4">
+                            <p>Type</p>
+                        </div>
+                        <div class="col-md-8">
+                            <select name="type" #type="ngModel" [(ngModel)]="vm.type" class="form-control" (click)="hideShow(vm.type)">
                             <option value='Expense' selected>Expense</option>
                             <option value='Income'>Income</option>
                             <option value='Transfer'>Transfer</option>
                             <option value='Adjustment'>Adjustment</option>
                         </select>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <input type='number' name="total" id="total" #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='Amount(*)' required>
+                        <span class='input-group-text' id='basic-addon2'>VND</span>
+                    </div>
+                </div>
+                <hr>
+                <span [hidden]="total.valid || (total.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                <i class="fa fa-exclamation-triangle"></i> Enter your Total!
+            </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>Category(*)</p>
+                    </div>
+                    <div class="col-md-8" (click)='categoryModal.show()'>
+                        <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{apiURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
+                    </div>
+                </div>
+                <hr>
+                <span [hidden]="selectedCategory.code != '' || (selectedCategory.code === '' && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                <i class="fa fa-exclamation-triangle"></i> Choose your Categorry!
+            </span>
+            </div>
+            <div class="form-group col-md-6" (click)='accountModal.show()'>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>{{ labelAccountId }}(*)</p>
+                    </div>
+                    <div class="col-md-8">{{ selectedAccount.text }}
+                        <!-- <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                    </select> -->
+                    </div>
+                </div>
+                <hr>
+                <span [hidden]="selectedAccount.accountId != 0 || (selectedAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                <i class="fa fa-exclamation-triangle"></i> Choose your {{ labelAccountId }}!
+            </span>
+            </div>
+            <div class="form-group col-md-6" *ngIf="isTransfer">
+                <div class="row">
+                    <div class='input-group mb-3'>
+                        <input type='number' class='form-control' placeholder='Transfer fee'>
+                        <span class='input-group-text' id='basic-addon2'>VND</span>
                     </div>
                 </div>
             </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6">
-            <div class="row">
-                <div class='input-group mb-3'>
-                    <input type='number' #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='Amount'>
-                    <span class='input-group-text' id='basic-addon2'>VND</span>
+            <div class="form-group col-md-6" *ngIf="isTransfer" (click)='toAccountModal.show()'>
+                <div class="row">
+                    <div class="col-md-4">
+                        <p>To Account(*)</p>
+                    </div>
+                    <div class="col-md-8">{{ selectedToAccount.text }}
+                    </div>
                 </div>
-            </div>
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="form-group col-md-6">
-            <div class="row">
-                <div class="col-md-4">
-                    <p>Category</p>
-                </div>
-                <div class="col-md-8" (click)='categoryModal.show()'>
-                    <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{apiURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6" (click)='accountModal.show()'>
-            <div class="row">
-                <div class="col-md-4">
-                    <p>{{ labelAccountId }}</p>
-                </div>
-                <div class="col-md-8">{{ selectedAccount.text }}
-                    <!-- <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                    </select> -->
-                </div>
-            </div>
-            <hr>
-        </div>
-        <div class="form-group col-md-6" *ngIf="isTransfer">
-            <div class="row">
-                <div class='input-group mb-3'>
-                    <input type='number' class='form-control' placeholder='Transfer fee'>
-                    <span class='input-group-text' id='basic-addon2'>VND</span>
-                </div>
+                <hr>
+                <span [hidden]="selectedToAccount.accountId != 0 || (selectedToAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                <i class="fa fa-exclamation-triangle"></i> Choose your To Account!
+            </span>
             </div>
         </div>
-        <div class="form-group col-md-6" *ngIf="isTransfer" (click)='toAccountModal.show()'>
-            <div class="row">
-                <div class="col-md-4">
-                    <p>To Account</p>
-                </div>
-                <div class="col-md-8">{{ selectedToAccount.text }}
-                </div>
+        <div class="row">
+            <div class="col-md-2">
+                <p>Description</p>
             </div>
-            <hr>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            <p>Description</p>
-        </div>
-        <div class="col-md-10">
-            <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-md-2">
-            <p>Date</p>
-        </div>
-        <div class="col-md-8">
-            <input type="text" placeholder="Date" class="form-control" bsDatepicker>
-        </div>
-        <div class="col-md-2">
-            <!-- TODO -->
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="form-group col-md-12" *ngIf="!isTransfer ">
-            <div class="row">
-                <div class="col-md-2">
-                    <p>{{ labelObj }}</p>
-                </div>
-                <div class="col-md-10">
-                    <input class="form-control none-border" name="Payee" #object="ngModel" [(ngModel)]="vm.object" />
-                </div>
+            <div class="col-md-10">
+                <input class="form-control none-border" name="description" #description="ngModel" [(ngModel)]="vm.description" />
             </div>
-            <hr>
         </div>
-        <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
+        <hr>
+        <div class="row">
+            <div class="col-md-2">
+                <p>Date</p>
+            </div>
+            <div class="col-md-8">
+                <input type="text" placeholder="Date" class="form-control" bsDatepicker>
+            </div>
+            <div class="col-md-2">
+                <!-- TODO -->
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="form-group col-md-12" *ngIf="!isTransfer ">
+                <div class="row">
+                    <div class="col-md-2">
+                        <p>{{ labelObj }}</p>
+                    </div>
+                    <div class="col-md-10">
+                        <input class="form-control none-border" name="Payee" #object="ngModel" [(ngModel)]="vm.object" />
+                    </div>
+                </div>
+                <hr>
+            </div>
+            <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
             <div class="row">
                 <div class="col-md-2">
                     <p>Event</p>
@@ -123,8 +140,8 @@
             </div>
             <hr>
         </div> -->
-    </div>
-    <!-- <div class="form-group" *ngIf="isExpense">
+        </div>
+        <!-- <div class="form-group" *ngIf="isExpense">
         <div class="row">
             <div class="form-check">
                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="isCheck">
@@ -143,8 +160,9 @@
         </div>
         <hr>
     </div> -->
-    <button class="btn btn-success btnSave" type="button" (click)='save() && confirmModal.show()'>Save</button>
-</form>
+        <button class="btn btn-success btnSave" type="submit">Save</button>
+    </form>
+</div>
 
 <!-- Modal -->
 <div bsModal #categoryModal='bs-modal' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -256,4 +274,24 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="divList" style="display: none">
+    <div class="row">
+        <div class="col-md-2">
+            <h2><i class="fa fa-arrow-left pointer" (click)="redirectVoucher()"></i></h2>
+        </div>
+        <div class="col-md-9">
+        </div>
+        <div class="col-md-1 text-left">
+            <h2><i class="fa fa-plus-square pointer" (click)="redirectVoucher()"></i></h2>
+        </div>
+        <div class="col-md-1 text-left">
+            <h2><i class="fa fa-search" (click)="redirectSearch()"></i></h2>
+        </div>
+    </div>
+</div>
+
+<div id="divSearch" style="display: none">
+
 </div>
