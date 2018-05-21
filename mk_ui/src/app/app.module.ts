@@ -13,7 +13,8 @@ import {
     SettingProvider,
     UserProvider,
     VoucherProvider,
-    AccountProvider
+    AccountProvider,
+    ReportProvider
 } from './providers/provider';
 
 // Import utilities
@@ -49,7 +50,8 @@ import { LayoutComponent } from './views/layout/layout.component';
         UserProvider,
         VoucherProvider,
         RsaService,
-        AccountProvider
+        AccountProvider,
+        ReportProvider
     ],
     bootstrap: [AppComponent]
 })

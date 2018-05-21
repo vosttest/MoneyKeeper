@@ -1,9 +1,11 @@
 package com.tva.mk.controller;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +37,17 @@ public class ReportController {
 		try {
 			// Get data
 			int[] accountId = req.getAccountId();
+			Date fromDate = req.getFromDate();
+			Date toDate = req.getToDate();
 
 			// Handle
-			List<Object[]> tmp = voucherService.getByExpense(accountId);
+			List<Object[]> tmp = voucherService.getByExpense(accountId, fromDate, toDate);
+			List<Object[]> tmp2 = voucherService.getByIncome(accountId, fromDate, toDate);
 
 			// Set data
 			Map<String, Object> t = new LinkedHashMap<>();
 			t.put("data", tmp);
+			t.put("data2", tmp2);
 			res.setResult(t);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());

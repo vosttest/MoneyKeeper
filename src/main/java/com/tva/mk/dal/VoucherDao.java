@@ -1,5 +1,6 @@
 package com.tva.mk.dal;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +16,14 @@ public interface VoucherDao extends CrudRepository<Voucher, Integer> {
 	@Query(nativeQuery = true, value = "SELECT c.code, c.text, b.amount FROM voucher a\r\n"
 			+ "JOIN voucher_detail b ON a.id = b.voucher_id\r\n" + "JOIN expense c ON b.category = c.code\r\n"
 			+ "WHERE a.type = 'Expense'\r\n" + "	AND a.account_id in (:accountId)\r\n"
-			+ "	AND a.create_on BETWEEN '2018-05-01' AND '2018-05-30';")
-	public List<Object[]> getExpense(@Param("accountId") int[] accountId);
+			+ "	AND a.create_on BETWEEN :fromDate AND :toDate")
+	public List<Object[]> getExpense(@Param("accountId") int[] accountId, @Param("fromDate") Date fromDate,
+			@Param("toDate") Date toDate);
+	
+	@Query(nativeQuery = true, value = "SELECT c.code, c.text, b.amount FROM voucher a\r\n"
+			+ "JOIN voucher_detail b ON a.id = b.voucher_id\r\n" + "JOIN income c ON b.category = c.code\r\n"
+			+ "WHERE a.type = 'Income'\r\n" + "	AND a.account_id in (:accountId)\r\n"
+			+ "	AND a.create_on BETWEEN :fromDate AND :toDate")
+	public List<Object[]> getIncome(@Param("accountId") int[] accountId, @Param("fromDate") Date fromDate,
+			@Param("toDate") Date toDate);
 }

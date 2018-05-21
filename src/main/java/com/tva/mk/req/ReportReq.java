@@ -1,5 +1,7 @@
 package com.tva.mk.req;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ReportReq {
@@ -7,6 +9,12 @@ public class ReportReq {
 
 	@JsonProperty(value = "accountId")
 	private int[] accountId;
+
+	@JsonProperty(value = "fromDate")
+	private Date fromDate;
+
+	@JsonProperty(value = "toDate")
+	private Date toDate;
 
 	// end
 
@@ -20,6 +28,21 @@ public class ReportReq {
 		this.accountId = accountId;
 	}
 
+	public Date getFromDate() {
+		return fromDate;
+	}
+
+	public void setFromDate(Date fromDate) {
+		this.fromDate = fromDate;
+	}
+
+	public Date getToDate() {
+		return toDate;
+	}
+
+	public void setToDate(Date toDate) {
+		this.toDate = toDate;
+	}
 	// end
 
 	// region -- Methods --

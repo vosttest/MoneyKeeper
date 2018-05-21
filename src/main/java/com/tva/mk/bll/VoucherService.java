@@ -2,6 +2,7 @@ package com.tva.mk.bll;
 
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,11 +31,16 @@ public class VoucherService {
 		Voucher res = voucherDao.getBy(id);
 		return res;
 	}
-	
-	 public List<Object[]> getByExpense(int[] accountId) {
-		 List<Object[]> res = voucherDao.getExpense(accountId);
-		 return res;
-	 }
+
+	public List<Object[]> getByExpense(int[] accountId, Date fromDate, Date toDate) {
+		List<Object[]> res = voucherDao.getExpense(accountId, fromDate, toDate);
+		return res;
+	}
+
+	public List<Object[]> getByIncome(int[] accountId, Date fromDate, Date toDate) {
+		List<Object[]> res = voucherDao.getIncome(accountId, fromDate, toDate);
+		return res;
+	}
 
 	public String save(Voucher m, String category) {
 		String res = "";

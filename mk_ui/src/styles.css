@@ -87,7 +87,8 @@ section {
     box-shadow: 0 0 0 0.2rem #79D6C9;
 }
 
-li:hover {
+li:hover,
+.card:hover {
     background-color: #1CB09A !important;
     color: white !important;
     font-weight: 700;
@@ -110,6 +111,7 @@ li:hover {
     background-color: #1CB09A !important;
     color: white !important;
 }
+
 
 /* ------ Spiner ------ */
 
@@ -137,12 +139,13 @@ li:hover {
     height: 100%;
     color: black;
     background-color: rgba(0, 0, 0, 0.3);
+    margin: auto;
 }
 
 .spinner>div {
     background-color: #333;
     height: 100%;
-    width: 6px;
+    width: 15px;
     display: inline-block;
     animation: sk-stretchdelay 1.2s infinite ease-in-out;
 }

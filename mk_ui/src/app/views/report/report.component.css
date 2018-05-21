@@ -39,3 +39,20 @@ input[type=text] {
 #checkboxes label:hover {
     background-color: #1e90ff;
 }
+
+button {
+    float: right;
+    width: 10%;
+}
+
+.left {
+    display: inline;
+}
+
+.right {
+    float: right;
+}
+
+.title {
+    background-color: gainsboro;
+}

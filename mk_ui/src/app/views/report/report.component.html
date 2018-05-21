@@ -1,36 +1,79 @@
-<div *ngIf="loader" class="spinner">
+<div *ngIf="loading" class="spinner">
     <div class="rect1"></div>
     <div class="rect2"></div>
     <div class="rect3"></div>
     <div class="rect4"></div>
     <div class="rect5"></div>
 </div>
-
-<div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-        <h2 class="text-center">Expense vs Income</h2>
+<section class="format-layout">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h2 class="text-center">Expense vs Income</h2>
+        </div>
+        <div class="col-md-4"></div>
     </div>
-    <div class="col-md-4"></div>
-</div>
-<div class="row">
-    <div class="col-md-2">
-        <p>Account</p>
+    <div class="row">
+        <form class="form-control">
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Account</p>
+                </div>
+                <div class="col-md-10">
+                    <ngx-select-dropdown (change)="changeValue($event)" [multiple]="true" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Viewed By</p>
+                </div>
+                <div class="col-md-10">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
+                            <hr>
+                        </div>
+                        <div class="col-md-6">
+                            <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-success" (click)="report()">Report</button>
+        </form>
     </div>
-    <div class="col-md-10">
-        <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-            </select>
+    <div class="row">
+        <div class="card full-width">
+            <div class="title">
+                <div class="left">
+                    <h3>Expense</h3>
+                </div>
+                <div class="right"></div>
+            </div>
+            <ul class="card-list list-group list-group-flush">
+                <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
+                    <div class="left"> {{ item[1] }} </div>
+                    <div class="right"> {{ item[2] }} </div>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>
-<hr>
-<div class="row">
-    <div class="col-md-2">
-        <p>Viewed By</p>
+    <div class="row">
+        <div class="card full-width">
+            <div class="title">
+                <div class="left">
+                    <h3>Income</h3>
+                </div>
+                <div class="right"> </div>
+            </div>
+            <ul class="card-list list-group list-group-flush">
+                <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
+                    <div class="left"> {{ item[1] }} </div>
+                    <div class="right"> {{ item[2] }} </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="col-md-10">
-        <input type="text" placeholder="From date To date" class="form-control" bsDaterangepicker>
-    </div>
-    <hr>
-</div>
-<hr>
+</section>
