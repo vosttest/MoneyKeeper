@@ -87,8 +87,7 @@ section {
     box-shadow: 0 0 0 0.2rem #79D6C9;
 }
 
-li:hover,
-.card:hover {
+li:hover {
     background-color: #1CB09A !important;
     color: white !important;
     font-weight: 700;
