@@ -18,7 +18,7 @@ public class TokenAuthentication {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_authentication_seq_generator")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_authentication_id_seq_generator")
 	@SequenceGenerator(name = "token_authentication_id_seq_generator", sequenceName = "public.token_authentication_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;

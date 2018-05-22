@@ -32,7 +32,7 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	/**
 	 * Use for renew token authentication
 	 */
@@ -198,14 +198,14 @@ public class UserService implements UserDetailsService {
 
 		Utils.sendMail(email, token, m.getFirstName());
 	}
-	
+
 	public String tokenAuthentication(int id) throws Exception {
 		String res = "";
 
 		try {
-			
+
 			// TODO
-			
+
 		} catch (Exception e) {
 			throw new Exception("");
 		}
