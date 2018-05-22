@@ -23,7 +23,7 @@ public class TokenAuthentication {
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
-	@Column(columnDefinition = "varchar(8)")
+	@Column(columnDefinition = "varchar(64)")
 	private String clientKey;
 
 	@Column(columnDefinition = "varchar(32)")
@@ -41,6 +41,20 @@ public class TokenAuthentication {
 
 	@Column(columnDefinition = "bool")
 	private boolean isVerified;
+
+	@Column(columnDefinition = "integer")
+	private Integer createBy;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Date createOn;
+
+	@Column(columnDefinition = "integer")
+	private Integer modifyBy;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Date modifyOn;
 
 	// end
 
@@ -100,6 +114,38 @@ public class TokenAuthentication {
 
 	public void setVerified(boolean isVerified) {
 		this.isVerified = isVerified;
+	}
+
+	public Integer getCreateBy() {
+		return createBy;
+	}
+
+	public void setCreateBy(Integer createBy) {
+		this.createBy = createBy;
+	}
+
+	public Date getCreateOn() {
+		return createOn;
+	}
+
+	public void setCreateOn(Date createOn) {
+		this.createOn = createOn;
+	}
+
+	public Integer getModifyBy() {
+		return modifyBy;
+	}
+
+	public void setModifyBy(Integer modifyBy) {
+		this.modifyBy = modifyBy;
+	}
+
+	public Date getModifyOn() {
+		return modifyOn;
+	}
+
+	public void setModifyOn(Date modifyOn) {
+		this.modifyOn = modifyOn;
 	}
 
 	// end

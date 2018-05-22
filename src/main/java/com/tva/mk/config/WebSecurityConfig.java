@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		}
 
 		http.authorizeRequests()
-				.antMatchers("/", "/user/sign-in", "/user/sign-up", "/user/refresh-token", "/user/verify-mail",
+				.antMatchers("/", "/user/sign-in", "/user/sign-in1", "/user/sign-in2", "/user/sign-up", "/user/refresh-token", "/user/verify-mail",
 						"/user/forgot-password", "/common/search")
 				.permitAll().antMatchers("/user/reset-password").hasAuthority(Const.Authentication.ROLE_ADMIN)
 				.anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(unauthorizedHandler)

@@ -7,3 +7,18 @@
     width: 50%;
     margin: auto;
 }
+
+.border-iput {
+    border-bottom: 1px solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    width: 15%;
+}
+
+.margin-right {
+    margin-right: 5%
+}

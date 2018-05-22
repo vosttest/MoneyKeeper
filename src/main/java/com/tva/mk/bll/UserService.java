@@ -23,6 +23,7 @@ import com.tva.mk.common.Utils;
 import com.tva.mk.dal.RoleDao;
 import com.tva.mk.dal.TokenAuthenticationDao;
 import com.tva.mk.dal.UserDao;
+import com.tva.mk.model.TokenAuthentication;
 import com.tva.mk.model.Users;
 
 @Service(value = "userService")
@@ -105,7 +106,7 @@ public class UserService implements UserDetailsService {
 				try {
 					Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
 					m.setExpireActiveCode(t);
-					m.setActiveCode(generateToken());
+					m.setActiveCode(getToken());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -199,18 +200,70 @@ public class UserService implements UserDetailsService {
 		Utils.sendMail(email, token, m.getFirstName());
 	}
 
-	public String tokenAuthentication(int id) throws Exception {
+	/**
+	 * Get exactly token authentication belong to client key
+	 * 
+	 * @param clientKey
+	 *            unique of table token_authentication
+	 * @return
+	 */
+	public TokenAuthentication authenticationToken(String clientKey, int userId) {
+		TokenAuthentication res = tokenAuthenticationDao.getBy(clientKey, userId);
+		return res;
+	}
+
+	public String generateToken(String clientKey, int userId) throws Exception {
 		String res = "";
 
-		try {
+		TokenAuthentication m = authenticationToken(clientKey, userId);
+		if (m == null) {
+			m = new TokenAuthentication();
 
-			// TODO
+			m.setCreateBy(userId);
+			m.setCreateOn(new Date());
 
-		} catch (Exception e) {
-			throw new Exception("");
+			m.setClientKey(bCryptPasswordEncoder.encode(new Date().toString()));
+			m.setToken(getToken());
+			m.setUserId(userId);
+			m.setModule("sign-in");
+			m.setTokenExpireOn(Utils.getExpiryTimeInUTC(Calendar.SECOND, 15));
+
+			tokenAuthenticationDao.save(m);
+		} else {
+			m.setModifyBy(userId);
+			m.setModifyOn(new Date());
+
+			m.setClientKey(bCryptPasswordEncoder.encode(new Date().toString()));
+			m.setToken(getToken());
+			m.setUserId(userId);
+			m.setModule("sign-in");
+			m.setTokenExpireOn(Utils.getExpiryTimeInUTC(Calendar.SECOND, 15));
+
+			tokenAuthenticationDao.save(m);
 		}
+		res = m.getClientKey();
 
 		return res;
+	}
+
+	public TokenAuthentication tokenAuthenticationValid(String clientKey, int userId, String token) throws Exception {
+		TokenAuthentication m = authenticationToken(clientKey, userId);
+		if (m == null) {
+			throw new Exception("Invalid client key!");
+		}
+
+		Date t = m.getTokenExpireOn();
+		if (!Utils.validateVerificationLinkToken(t)) {
+			throw new Exception("Token has expired");
+		}
+
+		m.setVerified(true);
+		m.setModifyOn(new Date());
+		m.setModifyBy(userId);
+
+		tokenAuthenticationDao.save(m);
+
+		return m;
 	}
 
 	public String resendActiveCode(int id) throws Exception {
@@ -224,7 +277,7 @@ public class UserService implements UserDetailsService {
 
 			Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
 			m.setExpireActiveCode(t);
-			m.setActiveCode(generateToken());
+			m.setActiveCode(getToken());
 
 			userDao.save(m);
 		} catch (Exception e) {
@@ -239,7 +292,7 @@ public class UserService implements UserDetailsService {
 	 * 
 	 * @return
 	 */
-	private String generateToken() {
+	private String getToken() {
 		String res = "00000";
 
 		Random t = new Random();

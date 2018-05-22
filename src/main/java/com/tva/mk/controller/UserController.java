@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tva.mk.bll.SettingService;
 import com.tva.mk.bll.UserService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
+import com.tva.mk.model.Setting;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.BaseReq;
 import com.tva.mk.req.UserChangePwdReq;
@@ -33,6 +35,7 @@ import com.tva.mk.req.UserForgotPwdReq;
 import com.tva.mk.req.UserSignInReq;
 import com.tva.mk.req.UserSignUpReq;
 import com.tva.mk.rsp.BaseRsp;
+import com.tva.mk.rsp.MultipleRsp;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -42,6 +45,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private SettingService settingService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -287,6 +293,109 @@ public class UserController {
 
 			// Handle
 			userService.resendActiveCode(id);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	/**
+	 * Request new token to log in (just and only when enable login authentication)
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/sign-in1")
+	public ResponseEntity<?> sendToken(@RequestBody UserSignInReq req) {
+		MultipleRsp res = new MultipleRsp();
+
+		try {
+			// Get data
+			String userName = req.getUserName();
+			String password = req.getPassword();
+			String clientKey = req.getClienKey(); // empty -> create
+
+			// Handle
+			Users m = userService.getBy(userName, userName);
+			if (m == null) {
+				res.setError("User name doenn't exist!");
+			} else {
+				userName = m.getUserName();
+				UsernamePasswordAuthenticationToken x;
+				x = new UsernamePasswordAuthenticationToken(userName, password);
+				Authentication y = authenticationManager.authenticate(x);
+				SecurityContextHolder.getContext().setAuthentication(y);
+
+				int userId = m.getId();
+				List<Setting> t = settingService.search(userId);
+				String t1 = t.get(2).getValue();
+				Map<String, Object> t3 = new LinkedHashMap<>();
+
+				switch (t1) {
+				case "OTP":
+				case "TOKEN":
+					String t2 = userService.generateToken(clientKey, userId); // create new token and return client key
+					t3.put("authen", "T");
+					t3.put("key", t2);
+					res.setResult(t3);
+					break;
+				default:
+					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+					t2 = jwtTokenUtil.doGenerateToken(m, z);
+					t3.put("authen", "F");
+					t3.put("key", t2);
+					res.setResult(t3);
+					break;
+				}
+
+			}
+		} catch (AuthenticationException e) {
+			res.setError("Unauthorized/Invalid user name/email or password!");
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	/**
+	 * Use for user had turn on login authentication
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/sign-in2")
+	public ResponseEntity<?> signIn2(@RequestBody UserSignInReq req) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Get data
+			String userName = req.getUserName();
+			String password = req.getPassword();
+			String clientKey = req.getClienKey();
+			String token = req.getToken();
+
+			// Handle
+			Users m = userService.getBy(userName, userName);
+			if (m == null) {
+				res.setError("User name doenn't exist!");
+			} else {
+				userName = m.getUserName();
+				UsernamePasswordAuthenticationToken x;
+				x = new UsernamePasswordAuthenticationToken(userName, password);
+				Authentication y = authenticationManager.authenticate(x);
+				SecurityContextHolder.getContext().setAuthentication(y);
+
+				int userId = m.getId();
+
+				userService.tokenAuthenticationValid(clientKey, userId, token);
+
+				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+				String t2 = jwtTokenUtil.doGenerateToken(m, z);
+
+				res.setResult(t2);
+			}
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

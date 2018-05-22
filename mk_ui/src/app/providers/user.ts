@@ -30,7 +30,16 @@ export class UserProvider {
      */
     public signIn(info: any) {
         //info.password = this.rsa.encrypt(info.password); // encrypt password
-        return this.api.post('user/sign-in', info);
+        return this.api.post('user/sign-in1', info);
+    }
+
+    /**
+     * Sign in with login authentication
+     * @param info
+     */
+    public signInWithToken(info: any) {
+        //info.password = this.rsa.encrypt(info.password); // encrypt password
+        return this.api.post('user/sign-in2', info);
     }
 
     /**

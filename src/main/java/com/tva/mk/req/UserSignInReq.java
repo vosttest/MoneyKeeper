@@ -10,6 +10,12 @@ public class UserSignInReq {
 
 	@JsonProperty(value = "password")
 	private String password;
+	
+	@JsonProperty(value = "clientKey")
+	private String clienKey;
+	
+	@JsonProperty(value = "token")
+	private String token;
 
 	// end
 
@@ -29,6 +35,22 @@ public class UserSignInReq {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getClienKey() {
+		return clienKey;
+	}
+
+	public void setClienKey(String clienKey) {
+		this.clienKey = clienKey;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	// end
