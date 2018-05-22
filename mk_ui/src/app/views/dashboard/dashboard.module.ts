@@ -9,6 +9,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FilterPipeDashBoard } from '../../utilities/filter.pipe';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 @NgModule({
     imports: [
@@ -17,7 +18,8 @@ import { FilterPipeDashBoard } from '../../utilities/filter.pipe';
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        DashboardRoutingModule
+        DashboardRoutingModule,
+        SelectDropDownModule
     ],
     declarations: [
         DashboardComponent,

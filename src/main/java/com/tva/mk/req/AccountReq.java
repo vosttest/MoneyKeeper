@@ -52,6 +52,9 @@ public class AccountReq {
 	@JsonProperty(value = "sequence")
 	private int sequence;
 
+	@JsonProperty(value = "createOn")
+	private Date createOn;
+
 	// end
 
 	// region -- Get set --
@@ -174,6 +177,14 @@ public class AccountReq {
 
 	public void setSequence(int sequence) {
 		this.sequence = sequence;
+	}
+
+	public Date getCreateOn() {
+		return createOn;
+	}
+
+	public void setCreateOn(Date createOn) {
+		this.createOn = createOn;
 	}
 
 	// end

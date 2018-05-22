@@ -23,6 +23,10 @@ li .right {
     width: 100%;
 }
 
+.title {
+    background-color: gainsboro;
+}
+
 .form-control {
     border: none;
 }
@@ -47,7 +51,9 @@ h2 {
     overflow-x: visible;
 }
 
-.list-group-item-action:focus,
-.list-group-item-action:hover {
-    color: blue;
+.full-width {
+    margin-left: 15px;
+    width: 94%;
+    overflow-x: hidden;
+    max-height: 265px;
 }

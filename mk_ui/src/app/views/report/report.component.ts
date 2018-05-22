@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { AccountProvider } from '../../providers/provider';
-import { ReportProvider } from '../../providers/report';
+import { AccountProvider, ReportProvider } from '../../providers/provider';
 
 @Component({
     selector: 'app-report',
     templateUrl: './report.component.html',
     styleUrls: ['./report.component.css']
 })
+
 export class ReportComponent implements OnInit {
-    //public account = {name: ""};
     public reportExpense = [];
     public reportIncome = [];
     public multiSelect = [];
     public vm: any = {};
     public options: any = [];
     public loader: boolean;
+    public isShow: boolean = false;
 
     config = {
         displayKey: "text",
@@ -60,7 +60,6 @@ export class ReportComponent implements OnInit {
 
     public report() {
         let t = [];
-
         this.multiSelect.forEach(obj => {
             t.push(obj.id);
         });
@@ -73,6 +72,7 @@ export class ReportComponent implements OnInit {
 
         this.proReport.report(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
+                this.isShow = true;
                 this.reportExpense = rsp.result.data;
                 this.reportIncome = rsp.result.data2;
             }

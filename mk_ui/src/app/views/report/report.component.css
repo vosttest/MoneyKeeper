@@ -45,14 +45,15 @@ button {
     width: 10%;
 }
 
-.left {
-    display: inline;
-}
-
 .right {
     float: right;
 }
 
 .title {
     background-color: gainsboro;
+}
+
+.card {
+    margin-top: 20px;
+    width: 100%;
 }

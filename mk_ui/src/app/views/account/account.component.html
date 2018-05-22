@@ -18,8 +18,12 @@
     <div class="row">
         <div class="col-md-3">
             <div class="row btn-left">
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('other')">Account<i class="fa fa-chevron-circle-right"></i></button>
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('saveAccount')">Savings Deposit<i class="fa fa-chevron-circle-right"></i></button>
+                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('cash')">Account<i class="fa fa-chevron-circle-right"></i></button>
+                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('bankAccount')">Bank Account<i class="fa fa-chevron-circle-right"></i></button>
+                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('atm')">ATM<i class="fa fa-chevron-circle-right"></i></button>
+                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('deposit')">Deposit Account <i class="fa fa-chevron-circle-right"></i></button>
+                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('saveAccount')">Save Account<i class="fa fa-chevron-circle-right"></i></button>
+                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('other')">Other<i class="fa fa-chevron-circle-right"></i></button>
             </div>
         </div>
         <div class="col-md-9">
@@ -27,10 +31,14 @@
                 <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
                 <ul class="card-list list-group list-group-flush">
                     <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" *ngFor="let i of lstTmp | filter : searchText">
-                        <div class="acc left"> {{ i.text }}</div>
-                        <div class="acc right"> Balance: {{ i.balance | currency:'CAD':'symbol-narrow':'4.2-2'}} {{ i.currency }}
-                            <i class="fa fa-edit"></i>
-                        </div>
+                        <table border="0" class="full-width">
+                            <tr>
+                                <th>{{ i.text }}</th>
+                                <td>Balance: {{ i.balance | currency:'USD':'symbol-narrow':'4.0-0'}} {{ i.currency }}</td>
+                                <td>{{ i.createOn| date:'dd-MM-yyyy' }}</td>
+                                <td><i class="fa fa-edit"></i></td>
+                            </tr>
+                        </table>
                     </li>
                 </ul>
             </div>

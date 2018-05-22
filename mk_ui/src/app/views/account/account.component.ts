@@ -27,10 +27,18 @@ export class AccountComponent implements OnInit {
     }
 
     public changeType(info: string) {
-        if (info === 'other') {
-            this.lstTmp = this.account.filter(a => a.type != 'ACC005');
-        } else {
+        if (info === 'cash') {
+            this.lstTmp = this.account.filter(a => a.type === 'ACC001');
+        } else if (info === 'bankAccount') {
+            this.lstTmp = this.account.filter(a => a.type === 'ACC002');
+        } else if (info === 'atm') {
+            this.lstTmp = this.account.filter(a => a.type === 'ACC003');
+        } else if (info === 'deposit') {
+            this.lstTmp = this.account.filter(a => a.type === 'ACC004');
+        } else if (info === 'saveAccount') {
             this.lstTmp = this.account.filter(a => a.type === 'ACC005');
+        } else {
+            this.lstTmp = this.account.filter(a => a.type === 'ACC006');
         }
     }
 
@@ -40,7 +48,7 @@ export class AccountComponent implements OnInit {
         this.pro.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
-                this.lstTmp = this.account.filter(a => a.type != 'ACC005');
+                this.lstTmp = this.account.filter(a => a.type === 'ACC001');
             }
             else {
                 console.log(rsp.message);

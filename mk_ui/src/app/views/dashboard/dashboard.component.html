@@ -15,9 +15,7 @@
                         <p>Account</p>
                     </div>
                     <div class="col-md-8">
-                        <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                    </select>
+                        <ngx-select-dropdown (change)="changeValue($event)" [multiple]="true" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
                     </div>
                 </div>
                 <hr>
@@ -25,12 +23,68 @@
                     <div class="col-md-4">
                         <p>Viewed By</p>
                     </div>
-                    <div class="col-md-8">
-                        <input type="text" placeholder="From date To date" class="form-control" bsDaterangepicker>
+                    <div class="col-md-4">
+                        <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
+                    </div>
+                    <div class="col-md-4">
+                        <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
                     </div>
                     <hr>
                 </div>
                 <hr>
+                <button type="button" class="btn btn-success" (click)="report()">View</button>
+                <div class="row">
+                    <div class="content-report full-width" *ngIf="isShow">
+                        <div class="row">
+                            <div class="card full-width">
+                                <div class="title">
+                                    <div class="left">
+                                        <h3>Expense</h3>
+                                    </div>
+                                    <div class="right"></div>
+                                </div>
+                                <ul class="card-list list-group list-group-flush">
+                                    <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
+                                        <table border="0" class="full-width">
+                                            <tr>
+                                                <th>{{ item[1] }}</th>
+                                                <td class="text-right">{{ item[2] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ item[3] | date:'dd-MM-yyyy' }}</td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="card full-width">
+                                <div class="title">
+                                    <div class="left">
+                                        <h3>Income</h3>
+                                    </div>
+                                    <div class="right"> </div>
+                                </div>
+                                <ul class="card-list list-group list-group-flush">
+                                    <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
+                                        <table border="0" class="full-width">
+                                            <tr>
+                                                <th>{{ item[1] }}</th>
+                                                <td class="text-right">{{ item[2] }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>{{ item[3] | date:'dd-MM-yyyy' }}</td>
+                                                <td></td>
+                                            </tr>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -48,9 +102,9 @@
                 <div class="card">
                     <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
                     <ul class="card-list list-group list-group-flush">
-                        <li routerLink="/account-edit/{{item.id}}" class="list-group-item list-group-item-action pointer" *ngFor="let item of account | filterDashBoard : searchText">
-                            <div class="acc left"> {{ item.text }}</div>
-                            <div class="acc right"> Balance: {{ item.balance }} {{ item.currency }}
+                        <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" *ngFor="let i of account | filterDashBoard : searchText">
+                            <div class="acc left"> {{ i.text }}</div>
+                            <div class="acc right"> Balance: {{ i.balance | currency:'USD':'symbol-narrow':'4.0-0'}} {{ i.currency }}
                                 <i class="fa fa-edit"></i>
                             </div>
                         </li>

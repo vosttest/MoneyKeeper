@@ -44,36 +44,54 @@
             <button type="button" class="btn btn-success" (click)="report()">Report</button>
         </form>
     </div>
-    <div class="row">
-        <div class="card full-width">
-            <div class="title">
-                <div class="left">
-                    <h3>Expense</h3>
+    <div class="content-report" *ngIf="isShow">
+        <div class="row">
+            <div class="card full-width">
+                <div class="title">
+                    <div class="left">
+                        <h3>Expense</h3>
+                    </div>
+                    <div class="right"></div>
                 </div>
-                <div class="right"></div>
+                <ul class="card-list list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
+                        <table border="0" class="full-width">
+                            <tr>
+                                <th>{{ item[1] }}</th>
+                                <td class="text-right">{{ item[2] }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ item[3] | date:'dd-MM-yyyy' }}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
             </div>
-            <ul class="card-list list-group list-group-flush">
-                <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
-                    <div class="left"> {{ item[1] }} </div>
-                    <div class="right"> {{ item[2] }} </div>
-                </li>
-            </ul>
         </div>
-    </div>
-    <div class="row">
-        <div class="card full-width">
-            <div class="title">
-                <div class="left">
-                    <h3>Income</h3>
+        <div class="row">
+            <div class="card full-width">
+                <div class="title">
+                    <div class="left">
+                        <h3>Income</h3>
+                    </div>
+                    <div class="right"> </div>
                 </div>
-                <div class="right"> </div>
+                <ul class="card-list list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
+                        <table border="0" class="full-width">
+                            <tr>
+                                <th>{{ item[1] }}</th>
+                                <td class="text-right">{{ item[2] }}</td>
+                            </tr>
+                            <tr>
+                                <td>{{ item[3] | date:'dd-MM-yyyy' }}</td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </li>
+                </ul>
             </div>
-            <ul class="card-list list-group list-group-flush">
-                <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
-                    <div class="left"> {{ item[1] }} </div>
-                    <div class="right"> {{ item[2] }} </div>
-                </li>
-            </ul>
         </div>
     </div>
 </section>

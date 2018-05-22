@@ -42,12 +42,11 @@ public class ReportController {
 			// Handle
 			List<Object[]> tmp = voucherService.getByExpense(accountId, fromDate, toDate);
 			List<Object[]> tmp2 = voucherService.getByIncome(accountId, fromDate, toDate);
-
 			// Set data
-			Map<String, Object> t = new LinkedHashMap<>();
-			t.put("data", tmp);
-			t.put("data2", tmp2);
-			res.setResult(t);
+			Map<String, Object> data = new LinkedHashMap<>();
+			data.put("data", tmp);
+			data.put("data2", tmp2);
+			res.setResult(data);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
