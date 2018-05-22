@@ -17,7 +17,7 @@ export class ChangePasswordComponent implements OnInit {
     public typeOld = "password";
     public show = false;
     public showConfirm = false;
-    public loading: boolean;
+    public loader: boolean;
 
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;

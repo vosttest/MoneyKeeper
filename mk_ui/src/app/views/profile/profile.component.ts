@@ -10,7 +10,7 @@ import { UserProvider } from '../../providers/provider';
 })
 export class ProfileComponent implements OnInit {
     public vm: any = {};
-    public loading: boolean;
+    public loader: boolean;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
@@ -19,13 +19,13 @@ export class ProfileComponent implements OnInit {
     }
 
     public infoUser() {
-        this.loading = true;
+        this.loader = true;
         this.pro.profileUser(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.vm = rsp.result.info;
             } else {
             }
-            this.loading = false;
+            this.loader = false;
         }, err => console.log(err));
     }
 

@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
     public keyword: string = '';
     public vm: any = {};
     public searchText = '';
-    public loading: boolean;
+    public loader: boolean;
 
     constructor(private pro: AccountProvider,
         private rou: Router) { }
@@ -35,7 +35,7 @@ export class AccountComponent implements OnInit {
     }
 
     private search() {
-        this.loading = true;
+        this.loader = true;
         let info = { keyword: '' };
         this.pro.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -45,7 +45,7 @@ export class AccountComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
-            this.loading = false;
+            this.loader = false;
         }, err => console.log(err));
     }
 }
