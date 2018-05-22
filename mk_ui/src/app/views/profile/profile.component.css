@@ -16,18 +16,16 @@ button.btn.btn-success.btnSave {
 button.btn.btn-success.btnChange {
     float: right;
     margin-right: 10px
-    
 }
 
 .form-control {
     border: none;
 }
 
-p{
+p {
     margin-top: 5px;
 }
 
-.form-group{
-    margin-top: 40px;
-
+h2 {
+    margin-bottom: 40px;
 }

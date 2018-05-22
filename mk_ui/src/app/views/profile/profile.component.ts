@@ -30,11 +30,13 @@ export class ProfileComponent implements OnInit {
     }
 
     public save() {
+        this.loader = true;
         this.pro.updateUser(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.rou.navigate(['/dashboard']);
             } else {
             }
+            this.loader = false;
         }, err => console.log(err));
     }
 

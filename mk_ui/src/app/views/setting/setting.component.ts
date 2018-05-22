@@ -35,6 +35,7 @@ export class SettingComponent implements OnInit {
     }
 
     private search() {
+        this.loader = true;
         this.pro.search().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.data = rsp.result.data;
@@ -66,6 +67,7 @@ export class SettingComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+            this.loader = false;
         }, err => console.log(err));
 
         this.proCommon.search('Currency').subscribe((rsp: any) => {
@@ -131,7 +133,7 @@ export class SettingComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public saveCurrency(){
+    public saveCurrency() {
         let x = {
             id: this.dataCurrency.id,
             value: this.dataCurrency.value,
@@ -142,7 +144,7 @@ export class SettingComponent implements OnInit {
             if (rsp.status == "success") {
                 this.search();
                 this.currencyPopup.hide();
-            }else{
+            } else {
                 alert(rsp.message);
             }
         }, err => console.log(err));

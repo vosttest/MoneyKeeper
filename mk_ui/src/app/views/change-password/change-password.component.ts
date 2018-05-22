@@ -21,27 +21,33 @@ export class ChangePasswordComponent implements OnInit {
 
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
-
     @ViewChild('messageModal') public messageModal: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     public changePassword() {
+        this.confirmModal.hide();
+        this.loader = true;
         this.pro.changePassword(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.rou.navigate(['/sign-in']);
             } else {
-                this.messageModal.show();
                 this.confirmModal.hide();
+                this.loader = true;
+                this.messageModal.show();
             }
+            this.loader = false;
         }, err => console.log(err));
     }
 
     public showConfirm1() {
-        this.confirmModal.show();
+        if (this.vm.oldPassword == '' || this.vm.newPassword == '' || this.vm.confirmPassword == '') {
+            this.confirmModal.hide();
+        } else {
+            this.confirmModal.show();
+        }
     }
 
     public toggleShow(para?: string) {
