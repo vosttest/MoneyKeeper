@@ -23,6 +23,7 @@ namespace MoneyKeeper.OTP.Controllers
             {
                 _port = _sms.OpenPort(Program._port);
                 _sms.SendSMS(_port, req.Phone, req.Message);
+                _port.Close();
 
             }
             catch (Exception ex)
