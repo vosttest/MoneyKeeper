@@ -1,5 +1,7 @@
 package com.tva.mk.req;
 
+import java.sql.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class VoucherReq {
@@ -25,6 +27,9 @@ public class VoucherReq {
 
 	@JsonProperty(value = "category")
 	private String category;
+
+	@JsonProperty(value = "startDate")
+	private Date startDate;
 
 	// end
 
@@ -84,6 +89,14 @@ public class VoucherReq {
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	// end

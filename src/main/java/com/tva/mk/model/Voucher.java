@@ -61,6 +61,10 @@ public class Voucher {
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
 
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Date startDate;
+
 	// end
 
 	// region -- Get set --
@@ -167,6 +171,14 @@ public class Voucher {
 
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	// end

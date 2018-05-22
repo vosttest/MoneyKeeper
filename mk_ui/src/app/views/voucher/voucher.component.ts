@@ -14,7 +14,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 
 export class VoucherComponent implements OnInit {
-    public vm: any = { type: 'Expense', total: null, accountId: null, description: " ", object: " " };
+    public vm: any = { type: 'Expense', total: null, accountId: null, description: " ", object: " ", startDate: new Date() };
     public cm: any = {};
     public lstParent = [];
     public lstChild = [];
@@ -36,6 +36,7 @@ export class VoucherComponent implements OnInit {
     public isTransfer: boolean = false;
     public isAdjustment: boolean = false;
     public labelObj: string = "";
+    // public isShow: boolean = true;
 
     public labelAccountId = 'Account';
 
@@ -57,6 +58,7 @@ export class VoucherComponent implements OnInit {
         private proVoucher: VoucherProvider) { }
 
     ngOnInit() {
+        this.redirectList();
         this.getExpense();
         this.getAccount();
         this.hideShow('Expense');
@@ -135,22 +137,20 @@ export class VoucherComponent implements OnInit {
         }
     }
 
-    public redirectVoucher() {
-        document.getElementById("divVoucher").style.display = "block";
-        document.getElementById("divList").style.display = "none";
-        document.getElementById("divSearch").style.display = "none";
-    }
-
     public redirectList() {
         document.getElementById("divList").style.display = "block";
         document.getElementById("divVoucher").style.display = "none";
-        document.getElementById("divSearch").style.display = "none";
     }
 
-    public redirectSearch() {
-        document.getElementById("divSearch").style.display = "block";
+    public redirectVoucher() {
+        document.getElementById("divVoucher").style.display = "block";
         document.getElementById("divList").style.display = "none";
-        document.getElementById("divVoucher").style.display = "none";
+        // if (valid) {
+        //     this.isShow = true;
+        // }
+        // else {
+        //     this.isShow = false;
+        // }
     }
 
     public search(keyword: string) {
@@ -257,7 +257,8 @@ export class VoucherComponent implements OnInit {
             object: t,
             total: this.vm.total,
             type: this.vm.type,
-            category: this.selectedCategory.code
+            category: this.selectedCategory.code,
+            startDate: this.vm.startDate
         };
 
         this.proVoucher.save(obj).subscribe((rsp: any) => {
@@ -267,6 +268,5 @@ export class VoucherComponent implements OnInit {
                 this.message = rsp.message;
             }
         }, err => console.log(err));
-        // (click)='save() && confirmModal.show()'
     }
 }

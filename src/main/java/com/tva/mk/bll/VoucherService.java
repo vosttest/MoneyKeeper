@@ -75,7 +75,7 @@ public class VoucherService {
 				m1.setDescription(m.getDescription());
 				m1.setObject(m.getObject());
 				m1.setUserId(userId);
-				// m1.setStartDate(m.getStartDate());
+				m1.setStartDate(m.getStartDate());
 
 				voucherDao.save(m1);
 
