@@ -6,44 +6,60 @@ using System.Threading;
 
 namespace UTL
 {
+    /// <summary>
+    /// SMS
+    /// </summary>
     public class SMS
     {
-        #region Open and Close Ports
-        //Open Port
-        public SerialPort OpenPort(string p_strPortName, int p_uBaudRate, int p_uDataBits, int p_uReadTimeout, int p_uWriteTimeout)
+        #region -- Port --
+
+        /// <summary>
+        /// Open port
+        /// </summary>
+        /// <param name="portName">Port name</param>
+        /// <param name="baudRate">Baud rate</param>
+        /// <param name="dataBits">Data bits</param>
+        /// <param name="rTimeout">Read timeout</param>
+        /// <param name="wTimeout">Write timeout</param>
+        /// <returns>Return the SerialPort</returns>
+        public SerialPort OpenPort(string portName, int baudRate, int dataBits, int rTimeout, int wTimeout)
         {
-            receiveNow = new AutoResetEvent(false);
-            SerialPort port = new SerialPort();
+            _receiveNow = new AutoResetEvent(false);
+            var res = new SerialPort();
 
             try
             {
-                port.PortName = p_strPortName;                 //COM1
-                port.BaudRate = p_uBaudRate;                   //9600
-                port.DataBits = p_uDataBits;                   //8
-                port.StopBits = StopBits.One;                  //1
-                port.Parity = Parity.None;                     //None
-                port.ReadTimeout = p_uReadTimeout;             //300
-                port.WriteTimeout = p_uWriteTimeout;           //300
-                port.Encoding = Encoding.GetEncoding("iso-8859-1");
-                port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
-                port.Open();
-                port.DtrEnable = true;
-                port.RtsEnable = true;
+                res.PortName = portName;                 // COM1
+                res.BaudRate = baudRate;                 // 9600
+                res.DataBits = dataBits;                 // 8
+                res.StopBits = StopBits.One;             // 1
+                res.Parity = Parity.None;                // None
+                res.ReadTimeout = rTimeout;           // 300
+                res.WriteTimeout = wTimeout;         // 300
+                res.Encoding = Encoding.GetEncoding("iso-8859-1");
+                res.DataReceived += new SerialDataReceivedEventHandler(Port_DataReceived);
+                res.Open();
+                res.DtrEnable = true;
+                res.RtsEnable = true;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-            return port;
+
+            return res;
         }
 
-        //Close Port
+        /// <summary>
+        /// Close port
+        /// </summary>
+        /// <param name="port">The SerialPort</param>
         public void ClosePort(SerialPort port)
         {
             try
             {
                 port.Close();
-                port.DataReceived -= new SerialDataReceivedEventHandler(port_DataReceived);
+                port.DataReceived -= new SerialDataReceivedEventHandler(Port_DataReceived);
                 port = null;
             }
             catch (Exception ex)
@@ -52,23 +68,30 @@ namespace UTL
             }
         }
 
-        #endregion
-
-        //Execute AT Command
-        public string ExecCommand(SerialPort port, string command, int responseTimeout, string errorMessage)
+        /// <summary>
+        /// Execute AT command
+        /// </summary>
+        /// <param name="port">The SerialPort</param>
+        /// <param name="command">AT command</param>
+        /// <param name="timeout">Response timeout</param>
+        /// <param name="error">Error message</param>
+        /// <returns>Return the result</returns>
+        public string ExecCommand(SerialPort port, string command, int timeout, string error)
         {
             try
             {
-
                 port.DiscardOutBuffer();
                 port.DiscardInBuffer();
-                receiveNow.Reset();
+                _receiveNow.Reset();
                 port.Write(command + "\r");
 
-                string input = ReadResponse(port, responseTimeout);
-                if ((input.Length == 0) || ((!input.EndsWith("\r\n> ")) && (!input.EndsWith("\r\nOK\r\n"))))
+                var res = ReadResponse(port, timeout);
+                if ((res.Length == 0) || ((!res.EndsWith("\r\n> ")) && (!res.EndsWith("\r\nOK\r\n"))))
+                {
                     throw new ApplicationException("No success message was received.");
-                return input;
+                }
+
+                return res;
             }
             catch (Exception ex)
             {
@@ -76,121 +99,109 @@ namespace UTL
             }
         }
 
-        //Receive data from port
-        public void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                if (e.EventType == SerialData.Chars)
-                {
-                    receiveNow.Set();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
+        /// <summary>
+        /// Read response
+        /// </summary>
+        /// <param name="port">The SerialPort</param>
+        /// <param name="timeout">Timeout</param>
+        /// <returns>Return the result</returns>
         public string ReadResponse(SerialPort port, int timeout)
         {
-            string buffer = string.Empty;
+            var res = string.Empty;
+
             try
             {
                 do
                 {
-                    if (receiveNow.WaitOne(timeout, false))
+                    if (_receiveNow.WaitOne(timeout, false))
                     {
                         string t = port.ReadExisting();
-                        buffer += t;
+                        res += t;
                     }
                     else
                     {
-                        if (buffer.Length > 0)
+                        if (res.Length > 0)
+                        {
                             throw new ApplicationException("Response received is incomplete.");
+                        }
                         else
+                        {
                             throw new ApplicationException("No data received from phone.");
+                        }
                     }
                 }
-                while (!buffer.EndsWith("\r\nOK\r\n") && !buffer.EndsWith("\r\n> ") && !buffer.EndsWith("\r\nERROR\r\n"));
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return buffer;
-        }
-
-        #region Count SMS
-        public int CountSMSmessages(SerialPort port)
-        {
-            int CountTotalMessages = 0;
-            try
-            {
-
-                #region Execute Command
-
-                string recievedData = ExecCommand(port, "AT", 300, "No phone connected at ");
-                recievedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
-                String command = "AT+CPMS?";
-                recievedData = ExecCommand(port, command, 1000, "Failed to count SMS message");
-                int uReceivedDataLength = recievedData.Length;
-
-                #endregion
-
-                #region If command is executed successfully
-                if ((recievedData.Length >= 45) && (recievedData.StartsWith("AT+CPMS?")))
-                {
-
-                    #region Parsing SMS
-                    string[] strSplit = recievedData.Split(',');
-                    string strMessageStorageArea1 = strSplit[0];     //SM
-                    string strMessageExist1 = strSplit[1];           //Msgs exist in SM
-                    #endregion
-
-                    #region Count Total Number of SMS In SIM
-                    CountTotalMessages = Convert.ToInt32(strMessageExist1);
-                    #endregion
-
-                }
-                #endregion
-
-                #region If command is not executed successfully
-                else if (recievedData.Contains("ERROR"))
-                {
-
-                    #region Error in Counting total number of SMS
-                    string recievedError = recievedData;
-                    recievedError = recievedError.Trim();
-                    recievedData = "Following error occured while counting the message" + recievedError;
-                    #endregion
-
-                }
-                #endregion
-
-                return CountTotalMessages;
-
+                while (!res.EndsWith("\r\nOK\r\n") && !res.EndsWith("\r\n> ") && !res.EndsWith("\r\nERROR\r\n"));
             }
             catch (Exception ex)
             {
                 throw ex;
             }
 
+            return res;
         }
+
         #endregion
 
-        #region Read SMS
+        #region -- SMS --
 
-        public AutoResetEvent receiveNow;
-
-        public ShortMessageCollection ReadSMS(SerialPort port, string p_strCommand)
+        /// <summary>
+        /// Count SMS messages
+        /// </summary>
+        /// <param name="port">The SerialPort</param>
+        /// <returns>Return the result</returns>
+        public int CountSMS(SerialPort port)
         {
+            var res = 0;
 
-            // Set up the phone and read the messages
-            ShortMessageCollection messages = null;
             try
             {
+                #region -- Execute command --
+                var recievedData = ExecCommand(port, "AT", 300, "No phone connected at ");
+                recievedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
+                var command = "AT+CPMS?";
+                recievedData = ExecCommand(port, command, 1000, "Failed to count SMS message");
+                #endregion
 
-                #region Execute Command
+                if ((recievedData.Length >= 45) && (recievedData.StartsWith("AT+CPMS?")))
+                {
+                    #region -- Parsing SMS --
+                    var arr = recievedData.Split(',');
+                    var t1 = arr[0];
+                    var t2 = arr[1];
+                    #endregion
+
+                    // Count total number of SMS in SIM
+                    res = Convert.ToInt32(t2);
+                }
+                else if (recievedData.Contains("ERROR"))
+                {
+                    var recievedError = recievedData;
+                    recievedError = recievedError.Trim();
+                    recievedData = "Following error occured while counting the message" + recievedError;
+                }
+
+                return res;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Read SMS messages
+        /// </summary>
+        /// <param name="port">The SerialPort</param>
+        /// <param name="command">AT command</param>
+        /// <returns>Return the result</returns>
+        public ShortMessageCollection ReadSMS(SerialPort port, string command)
+        {
+            // Set up the phone and read the messages
+            ShortMessageCollection messages = null;
+
+            try
+            {
+                #region -- Execute command --
                 // Check connection
                 ExecCommand(port, "AT", 300, "No phone connected");
                 // Use message format "Text mode"
@@ -200,13 +211,10 @@ namespace UTL
                 // Select SIM storage
                 ExecCommand(port, "AT+CPMS=\"SM\"", 300, "Failed to select message storage.");
                 // Read the messages
-                string input = ExecCommand(port, p_strCommand, 5000, "Failed to read the messages.");
+                var input = ExecCommand(port, command, 5000, "Failed to read the messages.");
                 #endregion
 
-                #region Parse messages
                 messages = ParseMessages(input);
-                #endregion
-
             }
             catch (Exception ex)
             {
@@ -214,82 +222,46 @@ namespace UTL
             }
 
             if (messages != null)
+            {
                 return messages;
+            }
             else
+            {
                 return null;
-
-        }
-        public ShortMessageCollection ParseMessages(string input)
-        {
-            ShortMessageCollection messages = new ShortMessageCollection();
-            try
-            {
-                Regex r = new Regex(@"\+CMGL: (\d+),""(.+)"",""(.+)"",(.*),""(.+)""\r\n(.+)\r\n");
-                Match m = r.Match(input);
-                while (m.Success)
-                {
-                    ShortMessage msg = new ShortMessage();
-                    //msg.Index = int.Parse(m.Groups[1].Value);
-                    msg.Index = m.Groups[1].Value;
-                    msg.Status = m.Groups[2].Value;
-                    msg.Sender = m.Groups[3].Value;
-                    msg.Alphabet = m.Groups[4].Value;
-                    msg.Sent = m.Groups[5].Value;
-                    msg.Message = m.Groups[6].Value;
-                    messages.Add(msg);
-
-                    m = m.NextMatch();
-                }
-
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return messages;
         }
 
-        #endregion
-
-        #region Send SMS
-
-        static AutoResetEvent readNow = new AutoResetEvent(false);
-
-        public bool sendMsg(SerialPort port, string PhoneNo, string Message)
+        /// <summary>
+        /// Send SMS messages
+        /// </summary>
+        /// <param name="port">The SerialPort</param>
+        /// <param name="phone">Phone no</param>
+        /// <param name="message">Message</param>
+        /// <returns>Return the result</returns>
+        public bool SendSMS(SerialPort port, string phone, string message)
         {
-            bool isSend = false;
+            bool res = false;
 
             try
             {
 
-                string recievedData = ExecCommand(port, "AT", 300, "No phone connected");
+                var recievedData = ExecCommand(port, "AT", 300, "No phone connected");
                 recievedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
-                String command = "AT+CMGS=\"" + PhoneNo + "\"";
+                var command = "AT+CMGS=\"" + phone + "\"";
                 recievedData = ExecCommand(port, command, 300, "Failed to accept phoneNo");
-                command = Message + char.ConvertFromUtf32(26) + "\r";
+                command = message + char.ConvertFromUtf32(26) + "\r";
+
                 recievedData = ExecCommand(port, command, 3000, "Failed to send message"); //3 seconds
                 if (recievedData.EndsWith("\r\nOK\r\n"))
                 {
-                    isSend = true;
+                    res = true;
                 }
                 else if (recievedData.Contains("ERROR"))
                 {
-                    isSend = false;
+                    res = false;
                 }
-                return isSend;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
 
-        }
-        static void DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-            try
-            {
-                if (e.EventType == SerialData.Chars)
-                    readNow.Set();
+                return res;
             }
             catch (Exception ex)
             {
@@ -297,19 +269,21 @@ namespace UTL
             }
         }
 
-        #endregion
-
-        #region Delete SMS
-        public bool DeleteMsg(SerialPort port, string p_strCommand)
+        /// <summary>
+        /// Delete SMS messages
+        /// </summary>
+        /// <param name="port">The SerialPort</param>
+        /// <param name="command"></param>
+        /// <returns>Return the result</returns>
+        public bool DeleteSMS(SerialPort port, string command)
         {
             bool isDeleted = false;
             try
             {
 
-                #region Execute Command
-                string recievedData = ExecCommand(port, "AT", 300, "No phone connected");
+                #region -- Execute command --
+                var recievedData = ExecCommand(port, "AT", 300, "No phone connected");
                 recievedData = ExecCommand(port, "AT+CMGF=1", 300, "Failed to set message format.");
-                String command = p_strCommand;
                 recievedData = ExecCommand(port, command, 300, "Failed to delete message");
                 #endregion
 
@@ -327,9 +301,103 @@ namespace UTL
             {
                 throw ex;
             }
-
         }
+
         #endregion
 
+        #region -- Event --
+
+        /// <summary>
+        /// Auto reset event
+        /// </summary>
+        private AutoResetEvent _receiveNow;
+
+        /// <summary>
+        /// Auto reset event
+        /// </summary>
+        private static AutoResetEvent _readNow = new AutoResetEvent(false);
+
+        /// <summary>
+        /// Receive data from port
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
+        private void Port_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                if (e.EventType == SerialData.Chars)
+                {
+                    _receiveNow.Set();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Data received
+        /// </summary>
+        /// <param name="sender">sender</param>
+        /// <param name="e">Event</param>
+        private static void DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                if (e.EventType == SerialData.Chars)
+                {
+                    _readNow.Set();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        #endregion
+
+        #region -- Helper --
+
+        /// <summary>
+        /// Parse messages
+        /// </summary>
+        /// <param name="input">Input message</param>
+        /// <returns>Return the result</returns>
+        private ShortMessageCollection ParseMessages(string input)
+        {
+            var res = new ShortMessageCollection();
+
+            try
+            {
+                var r = new Regex(@"\+CMGL: (\d+),""(.+)"",""(.+)"",(.*),""(.+)""\r\n(.+)\r\n");
+                var m = r.Match(input);
+                while (m.Success)
+                {
+                    var msg = new ShortMessage
+                    {
+                        Index = m.Groups[1].Value,
+                        Status = m.Groups[2].Value,
+                        Sender = m.Groups[3].Value,
+                        Alphabet = m.Groups[4].Value,
+                        Sent = m.Groups[5].Value,
+                        Message = m.Groups[6].Value
+                    };
+                    res.Add(msg);
+
+                    m = m.NextMatch();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return res;
+        }
+
+        #endregion
     }
 }
