@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{C2EE1D3B-3EDA-4866-A31A-8932CC2BD23A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyKeeper.OTP", "MoneyKeeper.OTP\MoneyKeeper.OTP.csproj", "{E84269F0-91BB-4A8A-B78A-9F66D5B7E8DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyKeeper.UTL", "MoneyKeeper.UTL\MoneyKeeper.UTL.csproj", "{A66846E9-B44A-41CC-855E-4F2D44AAFABC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E84269F0-91BB-4A8A-B78A-9F66D5B7E8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E84269F0-91BB-4A8A-B78A-9F66D5B7E8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E84269F0-91BB-4A8A-B78A-9F66D5B7E8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E84269F0-91BB-4A8A-B78A-9F66D5B7E8DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A66846E9-B44A-41CC-855E-4F2D44AAFABC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A66846E9-B44A-41CC-855E-4F2D44AAFABC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A66846E9-B44A-41CC-855E-4F2D44AAFABC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A66846E9-B44A-41CC-855E-4F2D44AAFABC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E84269F0-91BB-4A8A-B78A-9F66D5B7E8DC} = {C2EE1D3B-3EDA-4866-A31A-8932CC2BD23A}
+		{A66846E9-B44A-41CC-855E-4F2D44AAFABC} = {C2EE1D3B-3EDA-4866-A31A-8932CC2BD23A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		VisualSVNWorkingCopyRoot = .
+		SolutionGuid = {0279A749-C453-498D-8137-4A497675B1E3}
+	EndGlobalSection
+EndGlobal
