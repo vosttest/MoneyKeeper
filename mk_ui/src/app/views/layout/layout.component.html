@@ -5,8 +5,7 @@
     <div class="col-md-10">
         <ul class="navbar-nav my-top-menu float-right">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="false">
+                <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="far fa-user color-white"></i>
                 </a>
                 <div class="dropdown-menu dropleft my-dropdown-left" aria-labelledby="navbarDropdownMenuLink">
@@ -24,8 +23,7 @@
         </ul>
     </div>
 
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -60,9 +58,9 @@
                     <span class="nav-link-text"> Category</span>
                 </a>
             </li>
-
-        </ul>
-        <ul class="navbar-nav navbar-sidenav" id="resize" (click)="resize()">
+            <li class="pointer resize" (click)="resize()" data-toggle="tooltip" title="Category">
+                <i class="fas fa-angle-double-left" id="rotateIcon"></i>
+            </li>
         </ul>
     </div>
 </nav>

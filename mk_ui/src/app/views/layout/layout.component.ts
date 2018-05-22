@@ -41,9 +41,7 @@ export class LayoutComponent implements OnInit {
             document.getElementById("content-wrapper").style.animationName = "content-left";
             document.getElementById("content-wrapper").style.animationDuration = "1s";
             document.getElementById("content-wrapper").style.animationFillMode = "forwards";
-            document.getElementById("resize").style.animationName = "resize-left";
-            document.getElementById("resize").style.animationDuration = "1s";
-            document.getElementById("resize").style.animationFillMode = "forwards";
+            document.getElementById("rotateIcon").style.transform = "rotate(180deg)";
         }
         else {
             this.count = 0;
@@ -57,9 +55,7 @@ export class LayoutComponent implements OnInit {
             document.getElementById("content-wrapper").style.animationName = "content-right";
             document.getElementById("content-wrapper").style.animationDuration = "1s";
             document.getElementById("content-wrapper").style.animationFillMode = "forwards";
-            document.getElementById("resize").style.animationName = "resize-right";
-            document.getElementById("resize").style.animationDuration = "1s";
-            document.getElementById("resize").style.animationFillMode = "forwards";
+            document.getElementById("rotateIcon").style.transform = "rotate(0)";
         }
     }
 
