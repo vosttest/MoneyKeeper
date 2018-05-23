@@ -15,7 +15,7 @@ export class LayoutComponent implements OnInit {
     constructor(public rou: Router, private pro: UserProvider) { }
     public count: any = 0;
     public cssNav: any;
-    public isMenuLeft: boolean = true;
+    public isMenuLeft: boolean = false;
 
     ngOnInit() {
         this.cssNav = document.getElementsByClassName("nav-item");
