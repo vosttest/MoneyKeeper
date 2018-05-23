@@ -211,7 +211,7 @@ public class UserService implements UserDetailsService {
 		m.setAuthKey(token);
 
 		m.setModule(module);
-		m.setExpireOn(Utils.getTime(Calendar.SECOND, 25));
+		m.setExpireOn(Utils.getTime(Calendar.MINUTE, 2));
 
 		authenticationDao.save(m);
 

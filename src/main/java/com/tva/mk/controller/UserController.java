@@ -130,7 +130,6 @@ public class UserController {
 					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
 					String t1 = jwtTokenUtil.doGenerateToken(m, z);
 					data.put("key", t1);
-
 				}
 				res.setResult(data);
 			}
