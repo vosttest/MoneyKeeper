@@ -257,22 +257,44 @@ public class UserService implements UserDetailsService {
 		return m;
 	}
 
-	public String resendActiveCode(int id) throws Exception {
+	public String getActivationCode(int id) {
 		String res = "";
 
 		try {
 			Users m = userDao.getBy(id);
+			if (m != null) {
+				m.setModifyBy(id);
+				m.setModifyOn(new Date());
 
-			m.setModifyBy(id);
-			m.setModifyOn(new Date());
+				Date t = Utils.getTime(Calendar.HOUR, 1);
+				m.setActivationExpire(t);
+				String c = Utils.getToken(6);
+				m.setActivationCode(c);
 
-			Date t = Utils.getTime(Calendar.HOUR, 1);
-			m.setActivationExpire(t);
-			m.setActivationCode(getToken());
-
-			userDao.save(m);
+				userDao.save(m);
+				res = c;
+			}
 		} catch (Exception e) {
-			throw new Exception("User not found!");
+			e.printStackTrace();
+		}
+
+		return res;
+	}
+
+	public Users verifyActivation(String code) {
+		Users res = null;
+
+		try {
+			 res = userDao.getByActivationCode(code);
+			if (res != null) {
+				res.setModifyOn(new Date());
+				res.setActivationExpire(null);
+				res.setActivationCode(null);
+
+				userDao.save(res);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return res;

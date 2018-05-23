@@ -15,7 +15,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -332,21 +331,56 @@ public class UserController {
 	}
 
 	/**
-	 * Use for receive new active code to access mobile app
+	 * Get activation code to access token application
 	 * 
 	 * @param header
 	 * @return
 	 */
-	@GetMapping("/resend-active-code")
-	public ResponseEntity<?> resendActiveCode(@RequestHeader HttpHeaders header) {
-		BaseRsp res = new BaseRsp();
+	@PostMapping("/activation-code")
+	public ResponseEntity<?> getActivationCode(@RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
 
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
 			int id = pl.getId();
 
 			// Handle
-			userService.resendActiveCode(id);
+			String data = userService.getActivationCode(id);
+
+			// Set data
+			res.setResult(data);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	/**
+	 * Verify activation code to access token application
+	 * 
+	 * @param req
+	 * @return
+	 */
+	@PostMapping("/verify-activation")
+	public ResponseEntity<?> verifyActivation(@RequestBody BaseReq req) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Get data
+			String keyword = req.getKeyword();
+
+			// Handle
+			Users m = userService.verifyActivation(keyword);
+
+			String token = "";
+			if (m != null) {
+				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+				token = jwtTokenUtil.doGenerateToken(m, z);
+			}
+
+			// Set data
+			res.setResult(token);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

@@ -18,4 +18,7 @@ public interface UserDao extends CrudRepository<Users, Integer> {
 
 	@Query("FROM Users a WHERE a.passReminderToken = :token AND a.status = 'ACT' AND a.isDeleted = FALSE")
 	public Users getByToken(@Param("token") String token);
+
+	@Query("FROM Users a WHERE a.activationCode = :code AND a.status = 'ACT' AND a.isDeleted = FALSE")
+	public Users getByActivationCode(@Param("code") String code);
 }
