@@ -8,14 +8,8 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-button.btn.btn-success.btnSave {
-    float: right;
-    width: 10%;
-}
-
-button.btn.btn-success.btnChange {
-    float: right;
-    margin-right: 10px
+.text-right {
+    margin-bottom: 2%;
 }
 
 .form-control {
@@ -27,5 +21,22 @@ p {
 }
 
 h2 {
-    margin-bottom: 40px;
+    margin-bottom: 5%;
+}
+
+form {
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.form-control {
+    border: 0;
+    background-image: linear-gradient(to top, #d2d2d2 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+    background-size: 0 100%, 100% 100%;
+    transition: border-color 0s ease-in-out, box-shadow 0s ease-in-out;
+}
+
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
