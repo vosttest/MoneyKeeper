@@ -1,48 +1,65 @@
-.height-modal {
-    height: 5in;
-}
-
-.modal-header>button {
-    border-color: #00000000;
-    background-color: #00000000;
-}
-
-.modal-body {
-    overflow-x: auto;
-}
-
-.mb-0>.btn-icon {
-    text-align: left;
-    width: 100%;
-}
-
-.form-control {
-    border: none;
-}
-
-.button {
-    width: 100%;
-    text-align: left;
-}
-
-.left {
-    display: inline;
-}
-
-.right {
-    float: right;
-}
-
-button.btn.btn-success.btnSave {
-    float: right;
-    width: 10%;
-}
-
-.list {
-    border-bottom: 1px solid
-}
-
-.border {
-    border: 1px;
-    margin-bottom: 3%;
-}
+    .height-modal {
+        height: 5in;
+    }
+    
+    .modal-header>button {
+        border-color: #00000000;
+        background-color: #00000000;
+    }
+    
+    .modal-body {
+        overflow-x: auto;
+    }
+    
+    .mb-0>.btn-icon {
+        text-align: left;
+        width: 100%;
+    }
+    
+    .button {
+        width: 100%;
+        text-align: left;
+    }
+    
+    .left {
+        display: inline;
+    }
+    
+    .right {
+        float: right;
+    }
+    
+    button.btn.btn-success.btnSave {
+        float: right;
+        width: 10%;
+    }
+    
+    .list {
+        border-bottom: 1px solid
+    }
+    
+    .border {
+        border: 1px;
+        margin-bottom: 3%;
+    }
+    
+    .form-control {
+        border: 0;
+        background-image: linear-gradient(to top, #d2d2d2 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+        background-size: 0 100%, 100% 100%;
+        transition: border-color 0s ease-in-out, box-shadow 0s ease-in-out;
+    }
+    
+    .card-2 {
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    }
+    
+    form {
+        margin: 0 auto;
+        width: 90%;
+        margin-top: 20px;
+    }
+    
+    select.form-control.ng-untouched.ng-pristine.ng-valid {
+        height: 36px;
+    }
