@@ -5,7 +5,14 @@ form {
 }
 
 .form-control {
-    border: none;
+    border: 0;
+    background-image: linear-gradient(to top, #d2d2d2 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+    background-size: 0 100%, 100% 100%;
+    transition: border-color 0s ease-in-out, box-shadow 0s ease-in-out;
+}
+
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 input[type=number]::-webkit-inner-spin-button {
@@ -16,15 +23,10 @@ input[type=number] {
     text-align: right;
 }
 
-select {
-    text-align-last: right;
-}
-
-input[type=text] {
-    text-align: right;
+select.form-control.ng-untouched.ng-pristine.ng-valid {
+    height: 36px;
 }
 
 button {
-    float: right;
     width: 10%;
 }
