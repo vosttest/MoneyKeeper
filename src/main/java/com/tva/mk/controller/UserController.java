@@ -85,7 +85,7 @@ public class UserController {
 			// Handle
 			Users m = userService.getBy(userName, userName);
 			if (m == null) {
-				res.setError("User name doenn't exist!");
+				res.setError("User name doesn't exist!");
 			} else {
 				userName = m.getUserName();
 				UsernamePasswordAuthenticationToken x;
@@ -94,53 +94,45 @@ public class UserController {
 				SecurityContextHolder.getContext().setAuthentication(y);
 				int userId = m.getId();
 
-				Map<String, Object> t = new LinkedHashMap<>();
+				// Set data
+				Map<String, Object> data = new LinkedHashMap<>();
 				if (sendToken) {
-					List<Setting> t1 = settingService.search(userId);
-					String t2 = t1.get(2).getValue() == null ? "" : t1.get(2).getValue();
+					Setting t1 = settingService.getBy(userId, Const.Setting.CODE_LOGIN);
+					String t2 = "";
+					if (t1 != null) {
+						t2 = t1.getValue() + "";
+					}
 
 					switch (t2) {
-					case "OTP":
-						// Create new token and return Token Authentication
-						com.tva.mk.model.Authentication m1 = userService.generateToken("sign-in", userId);
-						String t3 = m1.getClientKey();
-						t.put("authen", "T");
-						t.put("key", t3);
-						res.setResult(t);
-
-						/*
-						 * // Get require data of SMS server String smsUrl =
-						 * System.getenv(Const.SMS.SMS_URL); String smsUserName =
-						 * System.getenv(Const.SMS.SMS_USERNAME); String smsPassword =
-						 * System.getenv(Const.SMS.SMS_PASSWORD); String smsMessage = t3; String
-						 * smsPhone = m.getContactNo();
-						 * 
-						 * // Send SMS RestTemplate restTemplate = new RestTemplate(); HttpHeaders
-						 * headers = new HttpHeaders();
-						 * headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-						 */
-						break;
-
 					case "TOKEN":
+						// TODO - Add code
+						// break;
+
+					case "OTP":
+						com.tva.mk.model.Authentication m1;
+						m1 = userService.generateToken("sign-in", userId);
+
+						String t3 = m1.getClientKey();
+						data.put("authen", true);
+						data.put("key", t3);
 						break;
 
 					default:
 						List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
 						t3 = jwtTokenUtil.doGenerateToken(m, z);
-						t.put("authen", "F");
-						t.put("key", t3);
-						res.setResult(t);
+						data.put("authen", false);
+						data.put("key", t3);
 						break;
 					}
-				} else { // Generate token
-					userService.tokenAuthenticationValid(clientKey, userId, token);
+				} else {
+					userService.verifyToken(clientKey, userId, token);
 
 					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
 					String t1 = jwtTokenUtil.doGenerateToken(m, z);
-					t.put("key", t1);
+					data.put("key", t1);
 
-					res.setResult(t);
 				}
+				res.setResult(data);
 			}
 		} catch (AuthenticationException e) {
 			res.setError("Unauthorized/Invalid user name/email or password!");

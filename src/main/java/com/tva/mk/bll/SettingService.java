@@ -29,6 +29,19 @@ public class SettingService {
 	// region -- Methods --
 
 	/**
+	 * Get by user id and code
+	 * 
+	 * @param id
+	 *            User id
+	 * @param code
+	 * @return
+	 */
+	public Setting getBy(int id, String code) {
+		Setting res = settingDao.getBy(id, code);
+		return res;
+	}
+
+	/**
 	 * Search by user id
 	 * 
 	 * @param id

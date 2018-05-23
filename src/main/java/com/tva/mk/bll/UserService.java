@@ -3,7 +3,6 @@ package com.tva.mk.bll;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -19,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tva.mk.common.Enums;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dal.AuthenticationDao;
 import com.tva.mk.dal.RoleDao;
@@ -34,11 +34,8 @@ public class UserService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 
-	/**
-	 * Use for renew token authentication
-	 */
 	@Autowired
-	private AuthenticationDao tokenAuthenticationDao;
+	private AuthenticationDao authenticationDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -102,14 +99,6 @@ public class UserService implements UserDetailsService {
 			} else {
 				m.setCreateBy(1);
 				m.setCreateOn(new Date());
-
-				try {
-					Date t = Utils.getTime(Calendar.HOUR, 1);
-					m.setActivationExpire(t);
-					m.setActivationCode(getToken());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 
 				userDao.save(m);
 			}
@@ -201,24 +190,11 @@ public class UserService implements UserDetailsService {
 	}
 
 	/**
-	 * Get exactly token authentication belong to client key
-	 * 
-	 * @param clientKey
-	 *            unique of table token_authentication
-	 * @return
-	 */
-	public Authentication authenticationToken(String clientKey, int userId) {
-		Authentication res = tokenAuthenticationDao.getBy(clientKey, userId);
-		return res;
-	}
-
-	/**
-	 * Always create new token/otp
+	 * Generate token/OTP
 	 * 
 	 * @param module
-	 *            token/otp of action (sign-in, transaction,... )
+	 *            Token/OTP of action (sign-in, transaction, ...)
 	 * @param userId
-	 *            belong to user
 	 * @return
 	 * @throws Exception
 	 */
@@ -228,33 +204,41 @@ public class UserService implements UserDetailsService {
 		m.setCreateBy(userId);
 		m.setCreateOn(new Date());
 
-		m.setClientKey(bCryptPasswordEncoder.encode(new Date().toString()));
-		m.setAuthKey(getToken());
+		String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
+		m.setClientKey(clientKey);
+
+		String token = Utils.getToken();
+		m.setAuthKey(token);
+
 		m.setModule(module);
 		m.setExpireOn(Utils.getTime(Calendar.SECOND, 25));
-		tokenAuthenticationDao.save(m);
+
+		authenticationDao.save(m);
 
 		return m;
 	}
 
-	public Authentication tokenAuthenticationValid(String clientKey, int userId, String token) throws Exception {
-		Authentication m = authenticationToken(clientKey, userId);
+	public void verifyToken(String clientKey, int userId, String token) throws Exception {
+		Authentication m = authenticationDao.getBy(clientKey, userId);
 		if (m == null) {
-			throw new Exception("Invalid client key!");
+			throw new Exception(Enums.Error.E201.toString());
 		}
 
 		Date t = m.getExpireOn();
 		if (!Utils.verify(t)) {
-			throw new Exception("Token has expired");
+			throw new Exception(Enums.Error.E202.toString());
+		}
+
+		String authKey = m.getAuthKey();
+		if (!authKey.equals(token)) {
+			throw new Exception(Enums.Error.E203.toString());
 		}
 
 		m.setVerified(true);
 		m.setModifyOn(new Date());
 		m.setModifyBy(userId);
 
-		tokenAuthenticationDao.save(m);
-
-		return m;
+		authenticationDao.save(m);
 	}
 
 	public Users getActivationCode(int id) {
@@ -295,21 +279,6 @@ public class UserService implements UserDetailsService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
-		return res;
-	}
-
-	/**
-	 * Get token with 5 digits
-	 * 
-	 * @return
-	 */
-	private String getToken() {
-		String res = "00000";
-
-		Random t = new Random();
-		String t1 = (t.nextInt(99999) + 1) + "";
-		res = res.substring(0, 5 - t1.length()) + t1;
 
 		return res;
 	}

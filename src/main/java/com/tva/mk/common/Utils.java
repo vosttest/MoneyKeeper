@@ -27,6 +27,12 @@ public class Utils {
 
 	// region -- Methods --
 
+	/**
+	 * Date format
+	 * 
+	 * @param date
+	 * @return
+	 */
 	public static Date dateFormat(String date) {
 		Date res = null;
 		SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
@@ -129,7 +135,7 @@ public class Utils {
 	 * @return
 	 */
 	public static String getToken(int l) {
-		String chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!@#$";
+		String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		Random random = new Random();
 		StringBuilder token = new StringBuilder(l);
 
@@ -138,6 +144,21 @@ public class Utils {
 		}
 
 		return token.toString();
+	}
+
+	/**
+	 * Get token with 5 digits
+	 * 
+	 * @return
+	 */
+	public static String getToken() {
+		String res = "00000";
+
+		Random t = new Random();
+		String s = (t.nextInt(99999) + 1) + "";
+		res = res.substring(0, 5 - s.length()) + s;
+
+		return res;
 	}
 
 	// end

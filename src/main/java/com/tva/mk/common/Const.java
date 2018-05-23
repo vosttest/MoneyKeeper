@@ -54,9 +54,11 @@ public class Const {
 	}
 
 	public class Setting {
-		public static final String CODE_REMINDER = "SET01";
+		public static final String CODE_REMINDER = "SET001";
 
-		public static final String CODE_CURRENCY = "SET02";
+		public static final String CODE_CURRENCY = "SET002";
+
+		public static final String CODE_LOGIN = "SET003";
 
 		public static final String DEFAULT_REMINDER = "20:00";
 
