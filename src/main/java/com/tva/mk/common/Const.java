@@ -95,4 +95,10 @@ public class Const {
 	public class DateTime {
 		public static final String FULL = "yyyy-MM-dd HH:mm:ss";
 	}
+
+	public class Activation {
+		public static final String MAIL = "MAIL";
+
+		public static final String SMS = "SMS";
+	}
 }

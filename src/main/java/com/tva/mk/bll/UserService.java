@@ -257,22 +257,21 @@ public class UserService implements UserDetailsService {
 		return m;
 	}
 
-	public String getActivationCode(int id) {
-		String res = "";
+	public Users getActivationCode(int id) {
+		Users res = null;
 
 		try {
-			Users m = userDao.getBy(id);
-			if (m != null) {
-				m.setModifyBy(id);
-				m.setModifyOn(new Date());
+			res = userDao.getBy(id);
+			if (res != null) {
+				res.setModifyBy(id);
+				res.setModifyOn(new Date());
 
 				Date t = Utils.getTime(Calendar.HOUR, 1);
-				m.setActivationExpire(t);
+				res.setActivationExpire(t);
 				String c = Utils.getToken(6);
-				m.setActivationCode(c);
+				res.setActivationCode(c);
 
-				userDao.save(m);
-				res = c;
+				userDao.save(res);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -285,7 +284,7 @@ public class UserService implements UserDetailsService {
 		Users res = null;
 
 		try {
-			 res = userDao.getByActivationCode(code);
+			res = userDao.getByActivationCode(code);
 			if (res != null) {
 				res.setModifyOn(new Date());
 				res.setActivationExpire(null);

@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.SettingService;
 import com.tva.mk.bll.UserService;
+import com.tva.mk.common.Const;
 import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
@@ -334,18 +335,32 @@ public class UserController {
 	 * Get activation code to access token application
 	 * 
 	 * @param header
+	 * @param req
 	 * @return
 	 */
 	@PostMapping("/activation-code")
-	public ResponseEntity<?> getActivationCode(@RequestHeader HttpHeaders header) {
+	public ResponseEntity<?> getActivationCode(@RequestHeader HttpHeaders header, @RequestBody BaseReq req) {
 		SingleRsp res = new SingleRsp();
 
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
 			int id = pl.getId();
 
+			// Get data
+			String keyword = req.getKeyword();
+
 			// Handle
-			String data = userService.getActivationCode(id);
+			Users m = userService.getActivationCode(id);
+			String data = "";
+			if (Const.Activation.SMS.equals(keyword)) {
+				// TODO - Send SMS
+				data = "Sent to your phone";
+			} else if (Const.Activation.MAIL.equals(keyword)) {
+				Utils.sendMail(m.getEmail(), m.getActivationCode(), m.getFirstName());
+				data = "Sent to your email";
+			} else {
+				res.setError("Cannot send activation code");
+			}
 
 			// Set data
 			res.setResult(data);
@@ -377,6 +392,8 @@ public class UserController {
 			if (m != null) {
 				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
 				token = jwtTokenUtil.doGenerateToken(m, z);
+			} else {
+				res.setError("Activation code wrong");
 			}
 
 			// Set data
