@@ -41,6 +41,12 @@ public class Voucher {
 	@Column(columnDefinition = "varchar(64)")
 	private String payee;
 
+	@Column(columnDefinition = "varchar(64)")
+	private String payer;
+
+	@Column(columnDefinition = "integer")
+	private Integer toAccount;
+
 	@Column(columnDefinition = "integer")
 	private Integer userId;
 
@@ -125,6 +131,30 @@ public class Voucher {
 		this.payee = payee;
 	}
 
+	public String getPayer() {
+		return payer;
+	}
+
+	public void setPayer(String payer) {
+		this.payer = payer;
+	}
+
+	public Integer getToAccount() {
+		return toAccount;
+	}
+
+	public void setToAccount(Integer toAccount) {
+		this.toAccount = toAccount;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
 	public Integer getUserId() {
 		return userId;
 	}
@@ -172,15 +202,6 @@ public class Voucher {
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
 	}
-
-	public Date getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-
 	// end
 
 	// region -- Methods --

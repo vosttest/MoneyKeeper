@@ -70,6 +70,7 @@ CREATE TABLE PUBLIC."voucher"
 	"account_id"			INT4,
 	"type"					VARCHAR(16),
 	"total"					FLOAT8,
+	"transfer_fee"			FLOAT8,
 	"description"			VARCHAR(256),
 	"payee"					VARCHAR(64),
 	"payer"					VARCHAR(64),

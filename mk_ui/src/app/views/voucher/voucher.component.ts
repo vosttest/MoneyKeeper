@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 import {
     ExpenseProvider,
     VoucherProvider,
@@ -23,6 +25,7 @@ export class VoucherComponent implements OnInit {
     public lstAccount = [];
     public account = [];
     public toAccount = [];
+    public voucher = [];
     public apiURL: string = "../../../../assets/img/";
     public loader: boolean = false;
 
@@ -36,6 +39,7 @@ export class VoucherComponent implements OnInit {
     public isTransfer: boolean = false;
     public isAdjustment: boolean = false;
     public labelObj: string = "";
+    public function = "overview";
     // public isShow: boolean = true;
 
     public labelAccountId = 'Account';
@@ -47,23 +51,29 @@ export class VoucherComponent implements OnInit {
 
     // Datepicker
 
-    minDate = new Date(2018, 1, 1);
-    maxDate = new Date(2050, 12, 12);
+    maxDate = new Date();
 
     bsValue: Date = new Date();
 
     constructor(private proExpense: ExpenseProvider,
         private proIncome: IncomeProvider,
         private proAccount: AccountProvider,
-        private proVoucher: VoucherProvider) { }
+        private proVoucher: VoucherProvider,
+        private act: ActivatedRoute) { }
 
     ngOnInit() {
-        this.redirectList();
+        this.getVoucher();
         this.getExpense();
         this.getAccount();
         this.hideShow('Expense');
         this.searchAccount();
         this.searchToAccount();
+
+        this.act.params.subscribe((params: Params) => {
+            document.getElementById(this.function).style.display="none";
+            this.function = params["function"];
+            document.getElementById(this.function).style.display="block";
+        });
     }
 
     public getExpense() {
@@ -93,6 +103,18 @@ export class VoucherComponent implements OnInit {
             if (rsp.status === 'success') {
                 this.lstParent = this.lstParentTmp = rsp.result.parent;
                 this.lstChild = this.lstChildTmp = rsp.result.child;
+            } else {
+                this.message = rsp.message;
+            }
+        }, err => console.log(err));
+    }
+
+    public getVoucher() {
+        this.proVoucher.search(this.vm).subscribe((rsp: any) =>{
+            if (rsp.status === 'success') {
+                this.voucher = rsp.result.data;
+                console.log((this.voucher));
+                
             } else {
                 this.message = rsp.message;
             }
@@ -135,22 +157,6 @@ export class VoucherComponent implements OnInit {
         } else if (typeVoucher === 'Income') {
             this.getIncome();
         }
-    }
-
-    public redirectList() {
-        document.getElementById("divList").style.display = "block";
-        document.getElementById("divVoucher").style.display = "none";
-    }
-
-    public redirectVoucher() {
-        document.getElementById("divVoucher").style.display = "block";
-        document.getElementById("divList").style.display = "none";
-        // if (valid) {
-        //     this.isShow = true;
-        // }
-        // else {
-        //     this.isShow = false;
-        // }
     }
 
     public search(keyword: string) {

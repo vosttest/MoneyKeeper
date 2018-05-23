@@ -1,6 +1,9 @@
 package com.tva.mk.controller;
 
 import java.sql.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -12,16 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.VoucherService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
+import com.tva.mk.dto.VoucherDto;
 import com.tva.mk.model.Voucher;
 import com.tva.mk.req.VoucherReq;
 import com.tva.mk.rsp.BaseRsp;
-import com.tva.mk.rsp.SingleRsp;
+import com.tva.mk.rsp.MultipleRsp;
 
 @RestController
 @RequestMapping("/voucher")
@@ -35,16 +38,24 @@ public class VoucherController {
 
 	// region -- Methods --
 
-	@RequestMapping(value = "/getById/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getAccount(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
-		SingleRsp res = new SingleRsp();
+	@PostMapping("/search")
+	public ResponseEntity<?> search(@RequestHeader HttpHeaders header, @RequestBody VoucherReq req) {
+		MultipleRsp res = new MultipleRsp();
 
 		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			// Get data
+			Date date = req.getStartDate();
+
 			// Handle
-			Voucher m = voucherService.getById(id);
+			List<VoucherDto> tmp = voucherService.getVoucher(id, date);
 
 			// Set data
-			res.setResult(m);
+			Map<String, Object> t = new LinkedHashMap<>();
+			t.put("data", tmp);
+			res.setResult(t);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
@@ -65,7 +76,9 @@ public class VoucherController {
 			String type = req.getType();
 			Float total = req.getTotal();
 			String description = req.getDescription();
-			String object = req.getObject();
+			String payee = req.getPayee();
+			String payer = req.getPayer();
+			Integer toAccount = req.getToAccount();
 			String category = req.getCategory();
 			Date startDate = req.getStartDate();
 
@@ -75,7 +88,9 @@ public class VoucherController {
 			m.setType(type);
 			m.setTotal(total);
 			m.setDescription(description);
-			m.setPayee(object);
+			m.setPayee(payee);
+			m.setPayer(payer);
+			m.setToAccount(toAccount);
 			m.setUserId(userId);
 			m.setStartDate(startDate);
 

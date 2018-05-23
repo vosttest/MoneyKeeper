@@ -7,7 +7,7 @@ export class VoucherProvider {
     constructor(private api: ApiProvider) { }
 
     /**
-     * Search
+     * Save
      */
     public save(vm) {
         return this.api.post('voucher/save', vm);
@@ -15,5 +15,12 @@ export class VoucherProvider {
 
     public delete(id: number) {
         return this.api.delete('voucher/delete?id=' + id);
+    }
+
+    /**
+     * Search
+     */
+    public search(info: any) {
+        return this.api.post('voucher/search', info);
     }
 }

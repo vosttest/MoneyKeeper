@@ -34,7 +34,7 @@ const routes: Routes = [
                     path: 'setting/:function',
                     loadChildren: './views/setting/setting.module#SettingModule'
                 }, {
-                    path: 'voucher',
+                    path: 'voucher/:function',
                     loadChildren: './views/voucher/voucher.module#VoucherModule'
                 }, {
                     path: 'change-password',

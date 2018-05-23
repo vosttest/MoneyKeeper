@@ -1,5 +1,6 @@
 package com.tva.mk.bll;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.VoucherDao;
 import com.tva.mk.dal.VoucherDetailDao;
+import com.tva.mk.dto.VoucherDto;
 import com.tva.mk.model.Voucher;
 import com.tva.mk.model.VoucherDetail;
 
@@ -39,6 +41,28 @@ public class VoucherService {
 
 	public List<Object[]> getByIncome(int[] accountId, Date fromDate, Date toDate) {
 		List<Object[]> res = voucherDao.getIncome(accountId, fromDate, toDate);
+		return res;
+	}
+
+	public List<VoucherDto> getVoucher(int userId, Date date) {
+		List<Object[]> t = voucherDao.getVoucher(userId, date);
+		List<VoucherDto> res = new ArrayList<>();
+		for (Object[] item : t) {
+			VoucherDto t1 = new VoucherDto();
+			t1.setId(Integer.parseInt(item[0].toString()));
+			t1.setAccountId(Integer.parseInt(item[1].toString()));
+			t1.setType(item[2].toString());
+			t1.setTotal(Double.parseDouble(item[3] != null ? item[3].toString() : "0"));
+			t1.setDescription(item[4] != null ? item[4].toString() : "");
+			t1.setPayee(item[5] != null ? item[5].toString() : "");
+			t1.setPayer(item[6] != null ? item[6].toString() : "");
+			t1.setToAccount(Integer.parseInt(item[7] != null ? item[7].toString() : "0"));
+			t1.setUserId(Integer.parseInt(item[8].toString()));
+			t1.setStartDate((Date) item[9]);
+
+			res.add(t1);
+		}
+
 		return res;
 	}
 

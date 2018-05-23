@@ -1,10 +1,10 @@
-package com.tva.mk.req;
+package com.tva.mk.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class VoucherReq {
+public class VoucherDto {
 	// region -- Fields --
 
 	@JsonProperty(value = "id")
@@ -17,7 +17,7 @@ public class VoucherReq {
 	private String type;
 
 	@JsonProperty(value = "total")
-	private Float total;
+	private Double total;
 
 	@JsonProperty(value = "description")
 	private String description;
@@ -31,8 +31,8 @@ public class VoucherReq {
 	@JsonProperty(value = "toAccount")
 	private Integer toAccount;
 
-	@JsonProperty(value = "category")
-	private String category;
+	@JsonProperty(value = "userId")
+	private Integer userId;
 
 	@JsonProperty(value = "startDate")
 	private Date startDate;
@@ -65,11 +65,11 @@ public class VoucherReq {
 		this.type = type;
 	}
 
-	public Float getTotal() {
+	public Double getTotal() {
 		return total;
 	}
 
-	public void setTotal(Float total) {
+	public void setTotal(Double total) {
 		this.total = total;
 	}
 
@@ -105,6 +105,14 @@ public class VoucherReq {
 		this.toAccount = toAccount;
 	}
 
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
+
 	public Date getStartDate() {
 		return startDate;
 	}
@@ -113,19 +121,12 @@ public class VoucherReq {
 		this.startDate = startDate;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	// end
 
 	// region -- Methods --
 
-	public VoucherReq() {
+	public VoucherDto() {
+
 	}
 
 	// end
