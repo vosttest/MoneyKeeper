@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SettingProvider, CommonProvider } from '../../providers/provider';
 import { ModalDirective, TimepickerModule } from 'ngx-bootstrap';
 import { element } from 'protractor';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
     selector: 'app-setting',
@@ -21,6 +22,7 @@ export class SettingComponent implements OnInit {
     public tranAuthen: any = {};
     public lock: any = {};
     public loader: boolean = false;
+    public function: string = "reminder";
 
     @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
     @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
@@ -28,10 +30,20 @@ export class SettingComponent implements OnInit {
     @ViewChild('tranAuthenPopup') public tranAuthenPopup: ModalDirective;
     @ViewChild('lockPopup') public lockPopup: ModalDirective;
 
-    constructor(private pro: SettingProvider, private proCommon: CommonProvider) { }
+    constructor(private pro: SettingProvider,
+        private act: ActivatedRoute,
+        private proCommon: CommonProvider) { }
 
     ngOnInit() {
         this.search();
+
+
+        this.act.params.subscribe((params: Params) => {
+            document.getElementById(this.function).style.display = "none";
+            this.function = params["function"];
+            console.log(this.function);
+            document.getElementById(this.function).style.display = "block";
+        });
     }
 
     private search() {
@@ -198,5 +210,10 @@ export class SettingComponent implements OnInit {
                 this.lockPopup.hide();
             }
         }, err => console.log(err));
+    }
+
+    public show() {
+        document.getElementById("currency").style.display = "block";
+        document.getElementById("reminder").style.display = "none";
     }
 }

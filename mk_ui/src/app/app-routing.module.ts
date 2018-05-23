@@ -31,7 +31,7 @@ const routes: Routes = [
                     path: 'category',
                     loadChildren: './views/category/category.module#CategoryModule'
                 }, {
-                    path: 'setting',
+                    path: 'setting/:function',
                     loadChildren: './views/setting/setting.module#SettingModule'
                 }, {
                     path: 'voucher',
