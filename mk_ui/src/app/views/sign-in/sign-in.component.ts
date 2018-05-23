@@ -27,9 +27,18 @@ export class SignInComponent implements OnInit {
     public signIn() {
         this.loader = true;
 
-        this.pro.signIn(this.vm).subscribe((rsp: any) => {
+        let obj = {
+            userName: this.vm.userName,
+            password: this.vm.password,
+            clientKey: this.vm.clientKey,
+            token: this.vm.token,
+            sendToken: true
+        };
+
+        this.pro.signIn(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.message = '';
+                // authen: F: without login authen, T: with login authen
                 if (rsp.result.authen === 'F') {// When login authentication inactive
                     this.pro.saveAuth(rsp.result.key); // Response JWT -> log in success
                 } else {
@@ -61,11 +70,17 @@ export class SignInComponent implements OnInit {
     public proceedClick() {
         this.loader = true;
 
-        this.vm.token = this.token;
-        this.pro.signInWithToken(this.vm).subscribe((rsp: any) => {
+        let obj = {
+            userName: this.vm.userName,
+            password: this.vm.password,
+            clientKey: this.vm.clientKey,
+            token: this.token,
+            sendToken: false
+        };
+        this.pro.signIn(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.message = '';
-                this.pro.saveAuth(rsp.result);
+                this.pro.saveAuth(rsp.result.key);
             } else {
                 this.message = rsp.message;
             }

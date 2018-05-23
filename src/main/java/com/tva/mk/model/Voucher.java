@@ -39,7 +39,7 @@ public class Voucher {
 	private String description;
 
 	@Column(columnDefinition = "varchar(64)")
-	private String object;
+	private String payee;
 
 	@Column(columnDefinition = "integer")
 	private Integer userId;
@@ -117,12 +117,12 @@ public class Voucher {
 		this.description = description;
 	}
 
-	public String getObject() {
-		return object;
+	public String getPayee() {
+		return payee;
 	}
 
-	public void setObject(String object) {
-		this.object = object;
+	public void setPayee(String payee) {
+		this.payee = payee;
 	}
 
 	public Integer getUserId() {

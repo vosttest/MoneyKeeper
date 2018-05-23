@@ -73,7 +73,7 @@ public class VoucherService {
 				m1.setTotal(m.getTotal());
 				m1.setAccountId(m.getAccountId());
 				m1.setDescription(m.getDescription());
-				m1.setObject(m.getObject());
+				m1.setPayee(m.getPayee());
 				m1.setUserId(userId);
 				m1.setStartDate(m.getStartDate());
 

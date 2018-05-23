@@ -83,4 +83,12 @@ public class Const {
 
 		public static final String SENDGRID_PASSWORD = "SENDGRID_PASSWORD";
 	}
+
+	public class SMS {
+		public static final String SMS_URL = "SMS_URL";
+
+		public static final String SMS_USERNAME = "SMS_USERNAME";
+
+		public static final String SMS_PASSWORD = "SMS_PASSWORD";
+	}
 }

@@ -125,12 +125,13 @@ DROP TABLE IF EXISTS PUBLIC."authentication";
 CREATE TABLE PUBLIC."authentication"
 (
 	"id"					SERIAL PRIMARY KEY,
-	"client_key"			VARCHAR(8),
+	"client_key"			VARCHAR(64),
 	"module"				VARCHAR(32),
 	"auth_key"				VARCHAR(8),
 	"expire_on"				TIMESTAMP,
 	"is_verified"			BOOLEAN NOT NULL DEFAULT FALSE,
-	"user_id"				INT4,
 	"create_by"				INT4,
-	"create_on"				TIMESTAMP
+	"create_on"				TIMESTAMP,
+	"modify_by"				INT4,
+	"modify_on"				TIMESTAMP
 );

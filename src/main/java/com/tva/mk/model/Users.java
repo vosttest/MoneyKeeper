@@ -85,6 +85,13 @@ public class Users {
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date passReminderExpire;
 
+	@Column(columnDefinition = "varchar(8)")
+	private String activationCode;
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
+	private Date activationExpire;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date lockExpiryOn;
@@ -119,13 +126,6 @@ public class Users {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
 	private Date modifyOn;
-
-	@Column(columnDefinition = "varchar(8)")
-	private String activeCode;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
-	private Date expireActiveCode;
 
 	// end
 
@@ -227,11 +227,11 @@ public class Users {
 		this.eothExpiryOn = eothExpiryOn;
 	}
 
-	public Boolean getIsEmailVerified() {
+	public Boolean isEmailVerified() {
 		return isEmailVerified;
 	}
 
-	public void setIsEmailVerified(Boolean isEmailVerified) {
+	public void setEmailVerified(Boolean isEmailVerified) {
 		this.isEmailVerified = isEmailVerified;
 	}
 
@@ -283,6 +283,22 @@ public class Users {
 		this.passReminderExpire = passReminderExpire;
 	}
 
+	public String getActivationCode() {
+		return activationCode;
+	}
+
+	public void setActivationCode(String activationCode) {
+		this.activationCode = activationCode;
+	}
+
+	public Date getActivationExpire() {
+		return activationExpire;
+	}
+
+	public void setActivationExpire(Date activationExpire) {
+		this.activationExpire = activationExpire;
+	}
+
 	public Date getLockExpiryOn() {
 		return lockExpiryOn;
 	}
@@ -291,11 +307,11 @@ public class Users {
 		this.lockExpiryOn = lockExpiryOn;
 	}
 
-	public Boolean getIsLocked() {
+	public boolean isLocked() {
 		return isLocked;
 	}
 
-	public void setIsLocked(Boolean isLocked) {
+	public void setLocked(boolean isLocked) {
 		this.isLocked = isLocked;
 	}
 
@@ -315,19 +331,19 @@ public class Users {
 		this.lastLoginOn = lastLoginOn;
 	}
 
-	public Integer getFailedAuthAttempts() {
+	public int getFailedAuthAttempts() {
 		return failedAuthAttempts;
 	}
 
-	public void setFailedAuthAttempts(Integer failedAuthAttempts) {
+	public void setFailedAuthAttempts(int failedAuthAttempts) {
 		this.failedAuthAttempts = failedAuthAttempts;
 	}
 
-	public boolean getIsDeleted() {
+	public boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(boolean isDeleted) {
+	public void setDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 
@@ -361,22 +377,6 @@ public class Users {
 
 	public void setModifyOn(Date modifyOn) {
 		this.modifyOn = modifyOn;
-	}
-
-	public String getActiveCode() {
-		return activeCode;
-	}
-
-	public void setActiveCode(String activeCode) {
-		this.activeCode = activeCode;
-	}
-
-	public Date getExpireActiveCode() {
-		return expireActiveCode;
-	}
-
-	public void setExpireActiveCode(Date expireActiveCode) {
-		this.expireActiveCode = expireActiveCode;
 	}
 
 	// end

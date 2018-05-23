@@ -13,13 +13,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "token_authentication", schema = "public")
-public class TokenAuthentication {
+@Table(name = "authentication", schema = "public")
+public class Authentication {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "token_authentication_id_seq_generator")
-	@SequenceGenerator(name = "token_authentication_id_seq_generator", sequenceName = "public.token_authentication_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authentication_id_seq_generator")
+	@SequenceGenerator(name = "authentication_id_seq_generator", sequenceName = "public.authentication_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
@@ -30,14 +30,11 @@ public class TokenAuthentication {
 	private String module;
 
 	@Column(columnDefinition = "varchar(8)")
-	private String token;
+	private String authKey;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
-	private Date tokenExpireOn;
-
-	@Column(columnDefinition = "integer")
-	private Integer userId;
+	private Date expireOn;
 
 	@Column(columnDefinition = "bool")
 	private boolean isVerified;
@@ -84,28 +81,20 @@ public class TokenAuthentication {
 		this.module = module;
 	}
 
-	public String getToken() {
-		return token;
+	public String getAuthKey() {
+		return authKey;
 	}
 
-	public void setToken(String token) {
-		this.token = token;
+	public void setAuthKey(String authKey) {
+		this.authKey = authKey;
 	}
 
-	public Date getTokenExpireOn() {
-		return tokenExpireOn;
+	public Date getExpireOn() {
+		return expireOn;
 	}
 
-	public void setTokenExpireOn(Date tokenExpireOn) {
-		this.tokenExpireOn = tokenExpireOn;
-	}
-
-	public Integer getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setExpireOn(Date expireOn) {
+		this.expireOn = expireOn;
 	}
 
 	public boolean isVerified() {
@@ -152,7 +141,7 @@ public class TokenAuthentication {
 
 	// region -- Methods --
 
-	public TokenAuthentication() {
+	public Authentication() {
 	}
 
 	// end

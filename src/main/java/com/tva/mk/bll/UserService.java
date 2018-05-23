@@ -20,10 +20,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.common.Utils;
+import com.tva.mk.dal.AuthenticationDao;
 import com.tva.mk.dal.RoleDao;
-import com.tva.mk.dal.TokenAuthenticationDao;
 import com.tva.mk.dal.UserDao;
-import com.tva.mk.model.TokenAuthentication;
+import com.tva.mk.model.Authentication;
 import com.tva.mk.model.Users;
 
 @Service(value = "userService")
@@ -38,7 +38,7 @@ public class UserService implements UserDetailsService {
 	 * Use for renew token authentication
 	 */
 	@Autowired
-	private TokenAuthenticationDao tokenAuthenticationDao;
+	private AuthenticationDao tokenAuthenticationDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -105,8 +105,8 @@ public class UserService implements UserDetailsService {
 
 				try {
 					Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
-					m.setExpireActiveCode(t);
-					m.setActiveCode(getToken());
+					m.setActivationExpire(t);
+					m.setActivationCode(getToken());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -140,7 +140,7 @@ public class UserService implements UserDetailsService {
 
 		Users m = userDao.getBy(id);
 		if (m != null) {
-			m.setIsDeleted(true);
+			m.setDeleted(true);
 			userDao.save(m);
 		}
 
@@ -207,52 +207,43 @@ public class UserService implements UserDetailsService {
 	 *            unique of table token_authentication
 	 * @return
 	 */
-	public TokenAuthentication authenticationToken(String clientKey, int userId) {
-		TokenAuthentication res = tokenAuthenticationDao.getBy(clientKey, userId);
+	public Authentication authenticationToken(String clientKey, int userId) {
+		Authentication res = tokenAuthenticationDao.getBy(clientKey, userId);
 		return res;
 	}
 
-	public String generateToken(String clientKey, int userId) throws Exception {
-		String res = "";
+	/**
+	 * Always create new token/otp
+	 * 
+	 * @param module
+	 *            token/otp of action (sign-in, transaction,... )
+	 * @param userId
+	 *            belong to user
+	 * @return
+	 * @throws Exception
+	 */
+	public Authentication generateToken(String module, int userId) throws Exception {
+		Authentication m = new Authentication();
 
-		TokenAuthentication m = authenticationToken(clientKey, userId);
-		if (m == null) {
-			m = new TokenAuthentication();
+		m.setCreateBy(userId);
+		m.setCreateOn(new Date());
 
-			m.setCreateBy(userId);
-			m.setCreateOn(new Date());
+		m.setClientKey(bCryptPasswordEncoder.encode(new Date().toString()));
+		m.setAuthKey(getToken());
+		m.setModule(module);
+		m.setExpireOn(Utils.getExpiryTimeInUTC(Calendar.SECOND, 25));
+		tokenAuthenticationDao.save(m);
 
-			m.setClientKey(bCryptPasswordEncoder.encode(new Date().toString()));
-			m.setToken(getToken());
-			m.setUserId(userId);
-			m.setModule("sign-in");
-			m.setTokenExpireOn(Utils.getExpiryTimeInUTC(Calendar.SECOND, 15));
-
-			tokenAuthenticationDao.save(m);
-		} else {
-			m.setModifyBy(userId);
-			m.setModifyOn(new Date());
-
-			m.setClientKey(bCryptPasswordEncoder.encode(new Date().toString()));
-			m.setToken(getToken());
-			m.setUserId(userId);
-			m.setModule("sign-in");
-			m.setTokenExpireOn(Utils.getExpiryTimeInUTC(Calendar.SECOND, 15));
-
-			tokenAuthenticationDao.save(m);
-		}
-		res = m.getClientKey();
-
-		return res;
+		return m;
 	}
 
-	public TokenAuthentication tokenAuthenticationValid(String clientKey, int userId, String token) throws Exception {
-		TokenAuthentication m = authenticationToken(clientKey, userId);
+	public Authentication tokenAuthenticationValid(String clientKey, int userId, String token) throws Exception {
+		Authentication m = authenticationToken(clientKey, userId);
 		if (m == null) {
 			throw new Exception("Invalid client key!");
 		}
 
-		Date t = m.getTokenExpireOn();
+		Date t = m.getExpireOn();
 		if (!Utils.validateVerificationLinkToken(t)) {
 			throw new Exception("Token has expired");
 		}
@@ -276,8 +267,8 @@ public class UserService implements UserDetailsService {
 			m.setModifyOn(new Date());
 
 			Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
-			m.setExpireActiveCode(t);
-			m.setActiveCode(getToken());
+			m.setActivationExpire(t);
+			m.setActivationCode(getToken());
 
 			userDao.save(m);
 		} catch (Exception e) {

@@ -75,7 +75,7 @@ public class VoucherController {
 			m.setType(type);
 			m.setTotal(total);
 			m.setDescription(description);
-			m.setObject(object);
+			m.setPayee(object);
 			m.setUserId(userId);
 			m.setStartDate(startDate);
 

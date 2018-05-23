@@ -62,31 +62,85 @@ public class UserController {
 
 	// region -- Methods --
 
+	/**
+	 * Request new token to log in (just and only when enable login authentication,
+	 * user name & password have existed in db)
+	 * 
+	 * @param req
+	 *            include (user name, password, client key, token)
+	 * @return
+	 */
 	@PostMapping("/sign-in")
 	public ResponseEntity<?> signIn(@RequestBody UserSignInReq req) {
-		SingleRsp res = new SingleRsp();
+		MultipleRsp res = new MultipleRsp();
 
 		try {
 			// Get data
 			String userName = req.getUserName();
 			String password = req.getPassword();
+			String clientKey = req.getClienKey();
+			String token = req.getToken();
+			boolean sendToken = req.isSendToken();
 
 			// Handle
 			Users m = userService.getBy(userName, userName);
 			if (m == null) {
-				res.setError("Wrong user name or password!");
+				res.setError("User name doenn't exist!");
 			} else {
 				userName = m.getUserName();
 				UsernamePasswordAuthenticationToken x;
 				x = new UsernamePasswordAuthenticationToken(userName, password);
 				Authentication y = authenticationManager.authenticate(x);
 				SecurityContextHolder.getContext().setAuthentication(y);
+				int userId = m.getId();
 
-				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
-				String token = jwtTokenUtil.doGenerateToken(m, z);
+				Map<String, Object> t = new LinkedHashMap<>();
+				if (sendToken) {
+					List<Setting> t1 = settingService.search(userId);
+					String t2 = t1.get(2).getValue() == null ? "" : t1.get(2).getValue();
 
-				// Set data
-				res.setResult(token);
+					switch (t2) {
+					case "OTP":
+						// Create new token and return Token Authentication
+						com.tva.mk.model.Authentication m1 = userService.generateToken("sign-in", userId);
+						String t3 = m1.getClientKey();
+						t.put("authen", "T");
+						t.put("key", t3);
+						res.setResult(t);
+
+						/*
+						 * // Get require data of SMS server String smsUrl =
+						 * System.getenv(Const.SMS.SMS_URL); String smsUserName =
+						 * System.getenv(Const.SMS.SMS_USERNAME); String smsPassword =
+						 * System.getenv(Const.SMS.SMS_PASSWORD); String smsMessage = t3; String
+						 * smsPhone = m.getContactNo();
+						 * 
+						 * // Send SMS RestTemplate restTemplate = new RestTemplate(); HttpHeaders
+						 * headers = new HttpHeaders();
+						 * headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+						 */
+						break;
+
+					case "TOKEN":
+						break;
+
+					default:
+						List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+						t3 = jwtTokenUtil.doGenerateToken(m, z);
+						t.put("authen", "F");
+						t.put("key", t3);
+						res.setResult(t);
+						break;
+					}
+				} else { // Generate token
+					userService.tokenAuthenticationValid(clientKey, userId, token);
+
+					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+					String t1 = jwtTokenUtil.doGenerateToken(m, z);
+					t.put("key", t1);
+
+					res.setResult(t);
+				}
 			}
 		} catch (AuthenticationException e) {
 			res.setError("Unauthorized/Invalid user name/email or password!");
@@ -293,109 +347,6 @@ public class UserController {
 
 			// Handle
 			userService.resendActiveCode(id);
-		} catch (Exception ex) {
-			res.setError(ex.getMessage());
-		}
-
-		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
-
-	/**
-	 * Request new token to log in (just and only when enable login authentication)
-	 * 
-	 * @param req
-	 * @return
-	 */
-	@PostMapping("/sign-in1")
-	public ResponseEntity<?> sendToken(@RequestBody UserSignInReq req) {
-		MultipleRsp res = new MultipleRsp();
-
-		try {
-			// Get data
-			String userName = req.getUserName();
-			String password = req.getPassword();
-			String clientKey = req.getClienKey(); // empty -> create
-
-			// Handle
-			Users m = userService.getBy(userName, userName);
-			if (m == null) {
-				res.setError("User name doenn't exist!");
-			} else {
-				userName = m.getUserName();
-				UsernamePasswordAuthenticationToken x;
-				x = new UsernamePasswordAuthenticationToken(userName, password);
-				Authentication y = authenticationManager.authenticate(x);
-				SecurityContextHolder.getContext().setAuthentication(y);
-
-				int userId = m.getId();
-				List<Setting> t = settingService.search(userId);
-				String t1 = t.get(2).getValue();
-				Map<String, Object> t3 = new LinkedHashMap<>();
-
-				switch (t1) {
-				case "OTP":
-				case "TOKEN":
-					String t2 = userService.generateToken(clientKey, userId); // create new token and return client key
-					t3.put("authen", "T");
-					t3.put("key", t2);
-					res.setResult(t3);
-					break;
-				default:
-					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
-					t2 = jwtTokenUtil.doGenerateToken(m, z);
-					t3.put("authen", "F");
-					t3.put("key", t2);
-					res.setResult(t3);
-					break;
-				}
-
-			}
-		} catch (AuthenticationException e) {
-			res.setError("Unauthorized/Invalid user name/email or password!");
-		} catch (Exception ex) {
-			res.setError(ex.getMessage());
-		}
-
-		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
-
-	/**
-	 * Use for user had turn on login authentication
-	 * 
-	 * @param req
-	 * @return
-	 */
-	@PostMapping("/sign-in2")
-	public ResponseEntity<?> signIn2(@RequestBody UserSignInReq req) {
-		SingleRsp res = new SingleRsp();
-
-		try {
-			// Get data
-			String userName = req.getUserName();
-			String password = req.getPassword();
-			String clientKey = req.getClienKey();
-			String token = req.getToken();
-
-			// Handle
-			Users m = userService.getBy(userName, userName);
-			if (m == null) {
-				res.setError("User name doenn't exist!");
-			} else {
-				userName = m.getUserName();
-				UsernamePasswordAuthenticationToken x;
-				x = new UsernamePasswordAuthenticationToken(userName, password);
-				Authentication y = authenticationManager.authenticate(x);
-				SecurityContextHolder.getContext().setAuthentication(y);
-
-				int userId = m.getId();
-
-				userService.tokenAuthenticationValid(clientKey, userId, token);
-
-				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
-				String t2 = jwtTokenUtil.doGenerateToken(m, z);
-
-				res.setResult(t2);
-			}
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

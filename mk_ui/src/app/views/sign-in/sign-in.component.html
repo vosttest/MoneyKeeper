@@ -112,7 +112,7 @@
                         </div>
                         <div class="form-group">
                             <div class="row" style="margin-left: 1%">
-                                <input type="number" class="form-control border-iput margin-right" name="codeNumber1" id="codeNumber1" #codeNumber1="ngModel" [(ngModel)]="vm.codeNumber1" (change)="checkMaxlength('input1', $event)" (keyup)="checkMaxlength('input1', $event)" />
+                                <input type="number" class="form-control border-iput margin-right" name="codeNumber1" id="codeNumber1" #codeNumber1="ngModel" [(ngModel)]="vm.codeNumber1" (keyup)="checkMaxlength('input1', $event)" />
                                 <input type="number" class="form-control border-iput margin-right" name="codeNumber2" #codeNumber2="ngModel" [(ngModel)]="vm.codeNumber2" (change)="checkMaxlength('input2', $event)" (keyup)="checkMaxlength('input2', $event)" />
                                 <input type="number" class="form-control border-iput margin-right" name="codeNumber3" #codeNumber3="ngModel" [(ngModel)]="vm.codeNumber3" (change)="checkMaxlength('input3', $event)" (keyup)="checkMaxlength('input3', $event)" />
                                 <input type="number" class="form-control border-iput margin-right" name="codeNumber4" #codeNumber4="ngModel" [(ngModel)]="vm.codeNumber4" (change)="checkMaxlength('input4', $event)" (keyup)="checkMaxlength('input4', $event)" />
