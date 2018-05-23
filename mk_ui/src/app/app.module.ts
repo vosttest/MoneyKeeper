@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 // Import providers
 import {
@@ -39,7 +40,8 @@ import { LayoutComponent } from './views/layout/layout.component';
         FormsModule,
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        TimepickerModule.forRoot()
+        TimepickerModule.forRoot(),
+        BsDropdownModule.forRoot()
     ],
     providers: [
         ApiProvider,

@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener,ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProvider } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
@@ -11,10 +11,11 @@ import { ModalDirective } from 'ngx-bootstrap';
 export class LayoutComponent implements OnInit {
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
-    
+
     constructor(public rou: Router, private pro: UserProvider) { }
     public count: any = 0;
     public cssNav: any;
+    public isMenuLeft: boolean = true;
 
     ngOnInit() {
         this.cssNav = document.getElementsByClassName("nav-item");
@@ -22,8 +23,13 @@ export class LayoutComponent implements OnInit {
             this.cssNav[i].removeAttribute("tabindex");
         }
 
-        document.getElementById("dashboard").style.backgroundColor = "#1CB09A";
         this.rou.navigate(['/dashboard']);
+    }
+
+    ngAfterViewChecked() {
+        if (this.isMenuLeft) {
+            document.getElementById("dashboard").style.backgroundColor = "#1CB09A";
+        }
     }
 
     public showConfirm() {

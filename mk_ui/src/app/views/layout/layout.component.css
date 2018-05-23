@@ -1,3 +1,5 @@
+/* MENU LEFT */
+
 @media (min-width: 992px) {
     #mainNav .navbar-collapse .navbar-sidenav {
         position: absolute;
@@ -107,4 +109,28 @@
 
 #rotateIcon {
     transition: transform 1s;
+}
+
+
+/* END MENU LEFT */
+
+.nav-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.margin-top {
+    margin-top: 2%;
+}
+
+.nav-link {
+    color: white !important;
+}
+
+li,
+i {
+    padding-right: 15px
 }
