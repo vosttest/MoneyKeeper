@@ -72,6 +72,7 @@ CREATE TABLE PUBLIC."voucher"
 	"total"					FLOAT8,
 	"description"			VARCHAR(256),
 	"object"				VARCHAR(64),
+	"start_date"			TIMESTAMP,
 	"user_id"				INT4,
 	"is_deleted"			BOOLEAN NOT NULL DEFAULT FALSE,
 	"create_by"				INT4,

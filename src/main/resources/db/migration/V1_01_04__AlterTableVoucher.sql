@@ -1,2 +1,0 @@
-ALTER TABLE PUBLIC."voucher"
-	ADD COLUMN "start_date" TIMESTAMP;
