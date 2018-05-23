@@ -34,7 +34,7 @@ namespace MoneyKeeper.Token.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var res = await UserService.VerifyMail(Email);
+                var res = await UserService.VerifyActivation(Email);
 
                 if (res)
                 {

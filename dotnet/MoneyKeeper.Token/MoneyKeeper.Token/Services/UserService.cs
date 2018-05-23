@@ -18,11 +18,11 @@ namespace MoneyKeeper.Token.Services
         public UserService() { }
 
         /// <summary>
-        /// Verify mail
+        /// Verify activation code
         /// </summary>
         /// <param name="email">Email</param>
         /// <returns>Return the result</returns>
-        public async Task<bool> VerifyMail(string email)
+        public async Task<bool> VerifyActivation(string email)
         {
             var m = new
             {
@@ -31,7 +31,7 @@ namespace MoneyKeeper.Token.Services
             var data = CreateData(m);
 
             var client = new HttpClient();
-            var rsp = await client.PostAsync(Host + "user/verify-mail", data);
+            var rsp = await client.PostAsync(Host + "user/verify-activation", data);
             if (rsp.IsSuccessStatusCode)
             {
                 return true;
