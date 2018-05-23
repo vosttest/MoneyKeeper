@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace MoneyKeeper.Token
 {
-	public partial class MainPage : ContentPage
-	{
-		public MainPage()
-		{
-			InitializeComponent();
-		}
-	}
+    /// <summary>
+    /// Main page
+    /// </summary>
+    public partial class MainPage : ContentPage
+    {
+        #region -- Methods --
+
+        /// <summary>
+        /// Initialize
+        /// </summary>
+        public MainPage()
+        {
+            InitializeComponent();
+        }
+
+        #endregion
+    }
 }

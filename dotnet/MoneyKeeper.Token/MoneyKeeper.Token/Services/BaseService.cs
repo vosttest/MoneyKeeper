@@ -106,16 +106,6 @@ namespace MoneyKeeper.Token.Services
         /// </summary>
         protected const string Host = "https://mk-dev.herokuapp.com/";
 
-        /// <summary>
-        /// Host authorized
-        /// </summary>
-        protected const string HostAuthorized = Host + "user/";
-
-        /// <summary>
-        /// Host resource
-        /// </summary>
-        protected const string HostResource = Host + "resx/";
-
         #endregion
     }
 }

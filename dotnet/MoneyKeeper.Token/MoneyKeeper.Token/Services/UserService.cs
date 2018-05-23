@@ -31,7 +31,7 @@ namespace MoneyKeeper.Token.Services
             var data = CreateData(m);
 
             var client = new HttpClient();
-            var rsp = await client.PostAsync(Host + "verify-mail", data);
+            var rsp = await client.PostAsync(Host + "user/verify-mail", data);
             if (rsp.IsSuccessStatusCode)
             {
                 return true;
