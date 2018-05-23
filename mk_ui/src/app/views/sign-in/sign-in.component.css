@@ -22,3 +22,7 @@
 .margin-right {
     margin-right: 5%
 }
+
+.input>label {
+    font-size: 12px;
+}

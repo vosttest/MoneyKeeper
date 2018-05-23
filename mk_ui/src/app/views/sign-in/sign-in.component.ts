@@ -39,7 +39,7 @@ export class SignInComponent implements OnInit {
             if (rsp.status === 'success') {
                 this.message = '';
                 // authen: F: without login authen, T: with login authen
-                if (rsp.result.authen === 'F') {// When login authentication inactive
+                if (!rsp.result.authen) {// When login authentication inactive
                     this.pro.saveAuth(rsp.result.key); // Response JWT -> log in success
                 } else {
                     this.vm.clientKey = rsp.result.key; // Response client key
