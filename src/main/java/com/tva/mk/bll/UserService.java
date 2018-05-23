@@ -104,7 +104,7 @@ public class UserService implements UserDetailsService {
 				m.setCreateOn(new Date());
 
 				try {
-					Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
+					Date t = Utils.getTime(Calendar.HOUR, 1);
 					m.setActivationExpire(t);
 					m.setActivationCode(getToken());
 				} catch (Exception e) {
@@ -154,7 +154,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		Date t = m.getPassReminderExpire();
-		if (!Utils.validateVerificationLinkToken(t)) {
+		if (!Utils.verify(t)) {
 			throw new Exception("Invalid token , token has expired");
 		}
 
@@ -187,7 +187,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		// Get password reminder token expire time
-		Date expire = Utils.getExpiryTimeInUTC(Calendar.MINUTE, 5);
+		Date expire = Utils.getTime(Calendar.MINUTE, 5);
 		if (expire == null) {
 			throw new Exception("Failed to generate Password Reminder Token Expiry Time");
 		}
@@ -231,7 +231,7 @@ public class UserService implements UserDetailsService {
 		m.setClientKey(bCryptPasswordEncoder.encode(new Date().toString()));
 		m.setAuthKey(getToken());
 		m.setModule(module);
-		m.setExpireOn(Utils.getExpiryTimeInUTC(Calendar.SECOND, 25));
+		m.setExpireOn(Utils.getTime(Calendar.SECOND, 25));
 		tokenAuthenticationDao.save(m);
 
 		return m;
@@ -244,7 +244,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		Date t = m.getExpireOn();
-		if (!Utils.validateVerificationLinkToken(t)) {
+		if (!Utils.verify(t)) {
 			throw new Exception("Token has expired");
 		}
 
@@ -266,7 +266,7 @@ public class UserService implements UserDetailsService {
 			m.setModifyBy(id);
 			m.setModifyOn(new Date());
 
-			Date t = Utils.getExpiryTimeInUTC(Calendar.HOUR, 1);
+			Date t = Utils.getTime(Calendar.HOUR, 1);
 			m.setActivationExpire(t);
 			m.setActivationCode(getToken());
 

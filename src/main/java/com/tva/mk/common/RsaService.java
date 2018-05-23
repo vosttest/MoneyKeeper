@@ -19,7 +19,7 @@ import java.security.spec.X509EncodedKeySpec;
 
 import javax.crypto.Cipher;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.commons.codec.binary.Base64;
 
 /**
  * RSA service
@@ -182,7 +182,7 @@ public class RsaService {
 	 * @throws GeneralSecurityException
 	 */
 	public static String encrypt(String s, PublicKey k) throws IOException, GeneralSecurityException {
-		Cipher cipher = Cipher.getInstance("RSA");
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		cipher.init(Cipher.ENCRYPT_MODE, k);
 
 		return Base64.encodeBase64String(cipher.doFinal(s.getBytes("UTF-8")));
@@ -200,7 +200,7 @@ public class RsaService {
 	 * @throws GeneralSecurityException
 	 */
 	public static String decrypt(String s, PrivateKey k) throws IOException, GeneralSecurityException {
-		Cipher cipher = Cipher.getInstance("RSA");
+		Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
 		cipher.init(Cipher.DECRYPT_MODE, k);
 
 		return new String(cipher.doFinal(Base64.decodeBase64(s)), "UTF-8");

@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
@@ -22,23 +23,30 @@ import io.jsonwebtoken.Jwts;
 public class Utils {
 	// region -- Fields --
 
-	private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
 	// end
 
 	// region -- Methods --
 
-	public static Date dateFormatFromString(String stringDate) {
-		Date d;
+	public static Date dateFormat(String date) {
+		Date res = null;
+		SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
+
 		try {
-			d = FORMATTER.parse(stringDate);
-			return d;
+			res = f.parse(date);
+
 		} catch (ParseException e) {
 			e.printStackTrace();
-			return null;
 		}
+
+		return res;
 	}
 
+	/**
+	 * Get authorities
+	 * 
+	 * @param roles
+	 * @return
+	 */
 	public static List<SimpleGrantedAuthority> getAuthorities(List<String> roles) {
 		if (roles != null) {
 			return roles.stream().map(r -> new SimpleGrantedAuthority(r)).collect(Collectors.toList());
@@ -47,6 +55,12 @@ public class Utils {
 		return Collections.emptyList();
 	}
 
+	/**
+	 * Get token information
+	 * 
+	 * @param header
+	 * @return
+	 */
 	public static PayloadDto getTokenInfor(HttpHeaders header) {
 		String token = header.get(Const.Authentication.HEADER_STRING).get(0);
 		token = token.replace(Const.Authentication.TOKEN_PREFIX, "");
@@ -65,21 +79,23 @@ public class Utils {
 	}
 
 	/**
+	 * Get UTC date time
 	 * 
-	 * @param calendarType
-	 *            choose attribute to add (Calendar.MINUTE, Calendar.HOUR, ...)
-	 * @param number
-	 *            number want to add
+	 * @param type
+	 *            Choose attribute to add (Calendar.MINUTE, Calendar.HOUR, ...)
+	 * @param n
+	 *            Number want to add
 	 * @return
 	 * @throws Exception
 	 */
-	public static Date getExpiryTimeInUTC(int calendarType, int number) throws Exception {
+	public static Date getTime(int type, int n) throws Exception {
 		Date res = null;
+
 		try {
 			TimeZone t = TimeZone.getTimeZone("UTC");
-			Calendar t1 = Calendar.getInstance(t);
-			t1.add(calendarType, number);
-			res = t1.getTime();
+			Calendar c = Calendar.getInstance(t);
+			c.add(type, n);
+			res = c.getTime();
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -87,15 +103,41 @@ public class Utils {
 		return res;
 	}
 
-	public static boolean validateVerificationLinkToken(Date tokenExpiry) {
+	/**
+	 * Verify with current date
+	 * 
+	 * @param d
+	 *            Date
+	 * @return
+	 */
+	public static boolean verify(Date d) {
 		TimeZone t = TimeZone.getTimeZone("UTC");
-		Calendar t1 = Calendar.getInstance(t);
+		Calendar c = Calendar.getInstance(t);
 
-		if (tokenExpiry.compareTo(t1.getTime()) < 0) {
+		if (d.compareTo(c.getTime()) < 0) {
 			return false;
 		}
 
 		return true;
+	}
+
+	/**
+	 * Get token
+	 * 
+	 * @param l
+	 *            length
+	 * @return
+	 */
+	public static String getToken(int l) {
+		String chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!@#$";
+		Random random = new Random();
+		StringBuilder token = new StringBuilder(l);
+
+		for (int i = 0; i < l; i++) {
+			token.append(chars.charAt(random.nextInt(chars.length())));
+		}
+
+		return token.toString();
 	}
 
 	// end

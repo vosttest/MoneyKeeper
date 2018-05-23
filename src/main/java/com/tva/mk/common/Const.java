@@ -91,4 +91,8 @@ public class Const {
 
 		public static final String SMS_PASSWORD = "SMS_PASSWORD";
 	}
+
+	public class DateTime {
+		public static final String FULL = "yyyy-MM-dd HH:mm:ss";
+	}
 }
