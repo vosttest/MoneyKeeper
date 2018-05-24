@@ -15,16 +15,16 @@
     </div>
 
     <!-- Modal -->
+
     <div class="text-center" id="reminder" style="display: none;">
         <div class="form-group">
             <img class="img-reminder" src="../../../assets/img/reminder.png" />
         </div>
         <div class="form-group">
-            Hệ thống sẽ gửi thông báo nhắc bạn nhập dữ liệu thu chi mỗi ngày.
+            System will send a message prompt you input the data details per day.
         </div>
         <div class="form-group row">
             <div class="col-md-6">
-                Reminder
             </div>
             <div class="col-md-6">
                 <label class="switch">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="form-group row" *ngIf="reminder.status">
-            <div class="col-md-6">Time</div>
+            <div class="col-md-6"></div>
             <div class="col-md-6 top-time-picker">
                 <timepicker [(ngModel)]="reminder.time" [showMeridian]="ismeridian" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
                 <span *ngIf="isTime" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
@@ -54,21 +54,23 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-3"> </div>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search currency" />
+                <div class="col-md-6" style="margin-bottom: 5%;">
+                    <input type="text" class="form-control text-center" [(ngModel)]="searchCurrency" placeholder="Search currency" />
                 </div>
                 <div class="col-md-3"> </div>
             </div>
             <div class="my-contains">
                 <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
                     </div>
-                    <div class="col-md-8">{{ i.text }}</div>
-                    <div class="col-md-2">
-                        <input type="radio" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" name="currency" checked value="{{ i.value }}" />
+                    <div class="col-md-4">
+                        {{ i.text }}
+                    </div>
+                    <div class="col-md-4 ">
+                        <input type="radio" name="currency" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" checked value="{{ i.value }}" />
                         <ng-template #elseCurrency>
-                            <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
+                            <input type="radio" name="currency" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
                         </ng-template>
                         {{ i.value }}
                     </div>
@@ -85,11 +87,10 @@
             </div>
         </div>
     </div>
-    <div class="text-center" id="login-authen" style="display: none;">
+    <div class="text-center" id="loginAuthen" style="display: none;">
         <div class="form-group">
             <img class="img-login-authen" src="../../../assets/img/login_authen.png" />
         </div>
-
         <div class="form-group row">
             <div class="col-md-1"></div>
             <div class="col-md-5">
@@ -125,32 +126,36 @@
             <div class="col-md-3"> </div>
         </div>
     </div>
-    <div class="text-center" id="tran-authen" style="display: none;">
+    <div class="text-center" id="tranAuthen" style="display: none;">
         <div class="form-group">
             <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
         </div>
-
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
                 On / Off
             </div>
-            <div class="col-md-6">
-                <label class="switch">
+            <div class="col-md-4">
+                <label class="switch" style="float: right;">
                     <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenStatus" #tranAuthenStatus="ngModel" [(ngModel)]="tranAuthen.status">
                     <span class="slider round"></span>
                 </label>
             </div>
+            <div class="col-md-2"></div>
         </div>
         <div class="form-group row" *ngIf="tranAuthen.status">
-            <div class="col-md-6">
+            <div class="col-md-1"></div>
+            <div class="col-md-5">
                 Authentication type
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <select id="tranAuthenType" name="tranAuthenType" #tranAuthenType="ngModel" [(ngModel)]="tranAuthen.type" class="form-control">
+                    <option value="">-- Please Select --</option>
                     <option value="OTP">OTP</option>
                     <option value="TOKEN">TOKEN</option>
                 </select>
             </div>
+            <div class="col-md-2"></div>
         </div>
         <div class="form-group row">
             <div class="col-md-3"> </div>
@@ -164,7 +169,6 @@
         <div class="form-group">
             <img class="img-login-authen" src="../../../assets/img/lock.png" />
         </div>
-
         <div class="form-group row">
             <div class="col-md-6">
                 Lock

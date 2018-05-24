@@ -3,7 +3,6 @@ import { SettingProvider, CommonProvider } from '../../providers/provider';
 import { ModalDirective, TimepickerModule } from 'ngx-bootstrap';
 import { element } from 'protractor';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-setting',
@@ -14,7 +13,6 @@ import { Setting } from '../../utilities/utility';
 export class SettingComponent implements OnInit {
     public data = [];
     public dataCurrency: any = [];
-    public selectedCurrency: any = {};
     public reminder: any = {};
     public ismeridian = false;
     public isTime = false;
@@ -108,16 +106,13 @@ export class SettingComponent implements OnInit {
             this.isTime = true;
             return;
         }
-
         this.reminder.status = this.reminder.status ? 'ACT' : 'INA';
         this.reminder.time = this.reminder.time.toISOString();
-
         let x = {
             "id": this.reminder.id,
             "value": this.reminder.time,
             "status": this.reminder.status
         }
-
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
