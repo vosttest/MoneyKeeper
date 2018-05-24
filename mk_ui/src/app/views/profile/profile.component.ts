@@ -14,42 +14,50 @@ export class ProfileComponent implements OnInit {
     public loader: boolean;
     public type = 'MAIL';
 
-    @ViewChild('SendActiveModal') public sendActiveModal: ModalDirective;
+    @ViewChild('activeCodePopup') public activeCodePopup: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
     ngOnInit() {
-        this.infoUser();
-    }
-
-    public infoUser() {
-        this.loader = true;
-        this.pro.profileUser(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.vm = rsp.result.info;
-            } else {
-            }
-            this.loader = false;
-        }, err => console.log(err));
+        this.view();
     }
 
     public save() {
         this.loader = true;
-        this.pro.updateUser(this.vm).subscribe((rsp: any) => {
+
+        this.pro.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.rou.navigate(['/dashboard']);
             } else {
+                //TODO - Show popup
+                console.log(rsp.message);
             }
+
             this.loader = false;
         }, err => console.log(err));
     }
 
-    public changeSend() {
+    public getActivationCode() {
         this.pro.getActivationCode(this.type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.sendActiveModal.hide();
+                this.activeCodePopup.hide();
             } else {
+                //TODO - Show popup
+                console.log(rsp.message);
             }
+        }, err => console.log(err));
+    }
+
+    private view() {
+        this.loader = true;
+        this.pro.view().subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.vm = rsp.result;
+            } else {
+                //TODO - Show popup
+                console.log(rsp.message);
+            }
+            this.loader = false;
         }, err => console.log(err));
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -149,13 +150,14 @@ public class UserController {
 		try {
 			// Get data
 			String userName = req.getUserName();
-			String password = req.getPassword();
-			password = bCryptPasswordEncoder.encode(password);
 			String firstName = req.getFirstName();
 			String lastName = req.getLastName();
 			String email = req.getEmail();
 			String contactNo = req.getContactNo();
 			String remarks = req.getRemarks();
+			
+			String password = req.getPassword();
+			password = bCryptPasswordEncoder.encode(password);
 
 			// Convert data
 			Users m = new Users();
@@ -179,6 +181,65 @@ public class UserController {
 			} else {
 				res.setError("User name or email have already registed!");
 			}
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@PostMapping("/save")
+	public ResponseEntity<?> save(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			// Get data
+			String userName = req.getUserName();
+			String firstName = req.getFirstName();
+			String lastName = req.getLastName();
+			String email = req.getEmail();
+			String contactNo = req.getContactNo();
+			String remarks = req.getRemarks();
+
+			// Convert data
+			Users m = new Users();
+			m.setId(id);
+			m.setContactNo(contactNo);
+			m.setEmail(email);
+			m.setFirstName(firstName);
+			m.setLastName(lastName);
+			m.setUserName(userName);
+			m.setRemarks(remarks);
+
+			// Handle
+			String tmp = userService.save(m);
+			
+			if (!tmp.isEmpty()) {
+				res.setError("Can not update user");
+			}
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@GetMapping("/view")
+	public ResponseEntity<?> view(@RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			// Handle
+			Users m = userService.getBy(id);
+
+			// Set data
+			res.setResult(m);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
@@ -255,65 +316,6 @@ public class UserController {
 			String tmp = userService.save(m);
 			if (!tmp.isEmpty()) {
 				res.setError("Can Not Update Password ...");
-			}
-		} catch (Exception ex) {
-			res.setError(ex.getMessage());
-		}
-
-		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
-
-	@PostMapping("/profile")
-	public ResponseEntity<?> inforUser(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
-		SingleRsp res = new SingleRsp();
-
-		try {
-			PayloadDto pl = Utils.getTokenInfor(header);
-			int id = pl.getId();
-
-			// Handle
-			Users m = userService.getBy(id);
-			Map<String, Object> data = new LinkedHashMap<>();
-
-			// Set data
-			data.put("info", m);
-			res.setResult(data);
-		} catch (Exception ex) {
-			res.setError(ex.getMessage());
-		}
-
-		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
-
-	@PostMapping("/update-user")
-	public ResponseEntity<?> updateUser(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
-		SingleRsp res = new SingleRsp();
-
-		try {
-			PayloadDto pl = Utils.getTokenInfor(header);
-			int id = pl.getId();
-
-			// Get data
-			String firstName = req.getFirstName();
-			String lastName = req.getLastName();
-			String email = req.getEmail();
-			String contactNo = req.getContactNo();
-			String remarks = req.getRemarks();
-			String accountNo = req.getAccountNo();
-
-			// Set Data
-			Users m = userService.getBy(id);
-			m.setContactNo(contactNo);
-			m.setEmail(email);
-			m.setFirstName(firstName);
-			m.setLastName(lastName);
-			m.setRemarks(remarks);
-			m.setAccountNo(accountNo);
-
-			// Handle
-			String tmp = userService.save(m);
-			if (!tmp.isEmpty()) {
-				res.setError("Can Not Update User");
 			}
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());

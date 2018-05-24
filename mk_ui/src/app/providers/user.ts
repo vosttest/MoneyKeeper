@@ -16,6 +16,15 @@ export class UserProvider {
         private rsa: RsaService) { }
 
     /**
+     * Sign in
+     * @param info
+     */
+    public signIn(info: any) {
+        //info.password = this.rsa.encrypt(info.password); // encrypt password
+        return this.api.post('user/sign-in', info);
+    }
+
+    /**
      * Sign up
      * @param info
      */
@@ -25,12 +34,18 @@ export class UserProvider {
     }
 
     /**
-     * Sign in
+     * Save user
      * @param info
      */
-    public signIn(info: any) {
-        //info.password = this.rsa.encrypt(info.password); // encrypt password
-        return this.api.post('user/sign-in', info);
+    public save(info: any) {
+        return this.api.post('user/save', info);
+    }
+
+    /**
+     * View user
+     */
+    public view() {
+        return this.api.get('user/view');
     }
 
     /**
@@ -44,29 +59,13 @@ export class UserProvider {
     }
 
     /**
-    * Change password
-    * @param info
-    */
+     * Change password
+     * @param info
+     */
     public changePassword(info: any) {
         //info.oldpassword = this.rsa.encrypt(info.oldpassword); // encrypt password
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
         return this.api.post('user/change-password', info);
-    }
-
-    /**
-    * Info User
-    * @param info
-    */
-    public profileUser(info: any) {
-        return this.api.post('user/profile', info);
-    }
-
-    /**
-    * Update User
-    * @param info
-    */
-    public updateUser(info: any) {
-        return this.api.post('user/update-user', info);
     }
 
     /**
@@ -94,22 +93,6 @@ export class UserProvider {
     public forgotPassword(info: any) {
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
         return this.api.post('user/forgot-password', info);
-    }
-
-    /**
-     * Save user
-     * @param info
-     */
-    public saveUser(info: any) {
-        return this.api.post('user/save', info);
-    }
-
-    /**
-     * View user
-     * @param id
-     */
-    public viewUser(id: String) {
-        return this.api.get('user/view?id=' + id);
     }
 
     /**
