@@ -28,7 +28,7 @@ const routes: Routes = [
                     path: 'dashboard',
                     loadChildren: './views/dashboard/dashboard.module#DashboardModule'
                 }, {
-                    path: 'category',
+                    path: 'category/:function',
                     loadChildren: './views/category/category.module#CategoryModule'
                 }, {
                     path: 'setting/:function',

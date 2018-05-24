@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import {
     UserProvider,
     IncomeProvider,
@@ -30,6 +30,7 @@ export class CategoryComponent implements OnInit {
     public count: any;
     public apiURL: string = "../../../../assets/img/";
     public loader: boolean;
+    public function = "overview";
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
     @ViewChild('iconModal') public iconModal: ModalDirective;
@@ -37,9 +38,19 @@ export class CategoryComponent implements OnInit {
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider,
         private proCommon: CommonProvider,
-        private rou: Router, ) { }
+        private rou: Router,
+        private act: ActivatedRoute) { }
 
     ngOnInit() {
+        this.act.params.subscribe((params: Params) => {
+            document.getElementById(this.function).style.display = "none";
+            this.function = params["function"];
+            document.getElementById(this.function).style.display = "block";
+            this.vm = {};
+            this.vm.icon = 'question.png';
+            this.getImages();
+        });
+
         this.loadExpense();
     }
 
@@ -85,24 +96,9 @@ export class CategoryComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public redirectAdd() {
-        this.vm = {};
-        this.vm.icon = 'question.png';
-
-        document.getElementById("divAdd").style.display = "block";
-        document.getElementById("divEdit").style.display = "none";
-        document.getElementById("divCategory").style.display = "none";
-
-        this.getImages();
-    }
-
     public redirectEdit(id: any, count: any) {
         this.count = count;
-
-        document.getElementById("divEdit").style.display = "block";
-        document.getElementById("divAdd").style.display = "none";
-        document.getElementById("divCategory").style.display = "none";
-
+        this.rou.navigate(['/category/edit']);
         this.getImages();
 
         if (this.tab == "Expense") {
@@ -127,12 +123,6 @@ export class CategoryComponent implements OnInit {
                 }
             })
         }
-    }
-
-    public redirectCategory() {
-        document.getElementById("divAdd").style.display = "none";
-        document.getElementById("divEdit").style.display = "none";
-        document.getElementById("divCategory").style.display = "block";
     }
 
     public search() {
@@ -177,7 +167,7 @@ export class CategoryComponent implements OnInit {
         if (this.tab == "Expense") {
             this.proExpense.save(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.redirectCategory();
+                    this.rou.navigate(['/category/overview']);
                     this.loadExpense();
                 }
                 else {
@@ -189,7 +179,7 @@ export class CategoryComponent implements OnInit {
         else {
             this.proIncome.save(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.redirectCategory();
+                    this.rou.navigate(['/category/overview']);
                     this.loadIncome();
                 }
                 else {
@@ -205,20 +195,20 @@ export class CategoryComponent implements OnInit {
         if (this.tab == "Expense") {
             this.proExpense.delete(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.redirectCategory();
+                    this.rou.navigate(['/category/overview']);
                     this.loadExpense();
                     this.confirmModal.hide();
                 }
                 else {
                     console.log(rsp.message);
                 }
-            this.loader = false;
+                this.loader = false;
             })
         }
         else {
             this.proIncome.delete(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.redirectCategory();
+                    this.rou.navigate(['/category/overview']);
                     this.loadIncome();
                     this.confirmModal.hide();
                 }
