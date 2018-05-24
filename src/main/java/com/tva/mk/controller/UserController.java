@@ -418,6 +418,34 @@ public class UserController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+		@PostMapping("/verify-activation")
+	public ResponseEntity<?> toan(@RequestBody BaseReq req) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Get data
+			String keyword = req.getKeyword();
+
+			// Handle
+			Users m = userService.verifyActivation(keyword);
+
+			String token = "";
+			if (m != null) {
+				List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
+				token = jwtTokenUtil.doGenerateToken(m, z);
+			} else {
+				res.setError("Activation code wrong");
+			}
+
+			// Set data
+			res.setResult(token);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 
 	// end
 }
