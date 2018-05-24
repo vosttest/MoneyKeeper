@@ -23,6 +23,7 @@ import com.tva.mk.common.Utils;
 import com.tva.mk.dal.AuthenticationDao;
 import com.tva.mk.dal.RoleDao;
 import com.tva.mk.dal.UserDao;
+import com.tva.mk.dto.ProfileDto;
 import com.tva.mk.model.Authentication;
 import com.tva.mk.model.Users;
 
@@ -120,6 +121,20 @@ public class UserService implements UserDetailsService {
 				userDao.save(m1);
 			}
 		}
+
+		return res;
+	}
+
+	public ProfileDto getProfile(int id) {
+		ProfileDto res = new ProfileDto();
+
+		Users m = userDao.getBy(id);
+		res.setContactNo(m.getContactNo());
+		res.setEmail(m.getEmail());
+		res.setFirstName(m.getFirstName());
+		res.setLastName(m.getLastName());
+		res.setRemarks(m.getRemarks());
+		res.setUserName(m.getUserName());
 
 		return res;
 	}

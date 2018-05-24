@@ -28,6 +28,7 @@ import com.tva.mk.common.Const;
 import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
+import com.tva.mk.dto.ProfileDto;
 import com.tva.mk.model.Setting;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.BaseReq;
@@ -236,7 +237,7 @@ public class UserController {
 			int id = pl.getId();
 
 			// Handle
-			Users m = userService.getBy(id);
+			ProfileDto m = userService.getProfile(id);
 
 			// Set data
 			res.setResult(m);
