@@ -1,5 +1,7 @@
 import { RsaService } from './rsa';
+import { Setting } from './const';
 
 export {
-    RsaService
+    RsaService,
+    Setting
 };
