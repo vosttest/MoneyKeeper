@@ -155,7 +155,7 @@ public class UserController {
 			String email = req.getEmail();
 			String contactNo = req.getContactNo();
 			String remarks = req.getRemarks();
-			
+
 			String password = req.getPassword();
 			password = bCryptPasswordEncoder.encode(password);
 
@@ -190,7 +190,7 @@ public class UserController {
 
 	@PostMapping("/save")
 	public ResponseEntity<?> save(@RequestBody UserSignUpReq req, @RequestHeader HttpHeaders header) {
-		SingleRsp res = new SingleRsp();
+		BaseRsp res = new BaseRsp();
 
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
@@ -216,7 +216,7 @@ public class UserController {
 
 			// Handle
 			String tmp = userService.save(m);
-			
+
 			if (!tmp.isEmpty()) {
 				res.setError("Can not update user");
 			}
