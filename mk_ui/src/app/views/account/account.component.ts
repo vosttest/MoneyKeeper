@@ -10,7 +10,7 @@ import { Observable, Subject } from 'rxjs';
 })
 
 export class AccountComponent implements OnInit {
-    public account = [];
+    public data = [];
     public keyword: string = '';
     public vm: any = {};
     public searchText = '';
@@ -28,7 +28,7 @@ export class AccountComponent implements OnInit {
         let info = { keyword: '' };
         this.pro.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.account = rsp.result.data;
+                this.data = rsp.result.data;
             }
             else {
                 console.log(rsp.message);

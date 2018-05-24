@@ -333,7 +333,7 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("/activation-code")
-	public ResponseEntity<?> getActivationCode(@RequestHeader HttpHeaders header, @RequestBody BaseReq req) {
+	public ResponseEntity<?> getActiveCode(@RequestHeader HttpHeaders header, @RequestBody BaseReq req) {
 		SingleRsp res = new SingleRsp();
 
 		try {

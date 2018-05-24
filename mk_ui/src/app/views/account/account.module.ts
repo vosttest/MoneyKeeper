@@ -8,6 +8,7 @@ import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './account.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FilterPipe } from '../../utilities/filter.pipe';
+import { DataTableModule } from "angular2-datatable";
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import { FilterPipe } from '../../utilities/filter.pipe';
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        AccountRoutingModule
+        AccountRoutingModule,
+        DataTableModule
     ],
     declarations: [
         AccountComponent,

@@ -64,46 +64,32 @@
     <div class="modal-dialog modal-xs" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color:#dddddd ">
-                <h4 class="modal-title">Change Send Active Code</h4>
+                <h4 class="modal-title">Send Active Code</h4>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div>
-                            <strong>Please choose active</strong>
-                        </div>
-                        <div class="form-group">
-                            <div class="container">
-                                <ul>
-                                    <li>
-                                        <input name="selector" value="MAIL" [(ngModel)]="vm.value" type="radio" id="email">
-                                        <label for="email">Email</label>
-                                        <div class="check"></div>
-                                    </li>
-                                    <li>
-                                        <input name="selector" value="SMS" [(ngModel)]="vm.value" type="radio" id="sms">
-                                        <label for="sms">SMS</label>
-                                        <div class="check">
-                                            <div class="inside"></div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div class="text-center full-width">
+                        <p>Please choose type</p>
                     </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-6">
-                        <label><input [(ngModel)]="type" type="radio" value="MAIL">Email</label>
+                        <label>
+                            <input [(ngModel)]="type" type="radio" value="MAIL">
+                            <strong>Email</strong>
+                        </label>
                     </div>
                     <div class="col-md-6">
-                        <label><input [(ngModel)]="type" type="radio" value="SMS">SMS</label>
+                        <label>
+                            <input [(ngModel)]="type" type="radio" value="SMS">
+                            <strong>SMS</strong>
+                        </label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="text-center full-width">
                         <button type="button" (click)="activeCodePopup.hide()" class="btn btn-secondary btn-lg" aria-pressed="true">Cancel</button>
-                        <button type="button" (click)="getActivationCode()" class="btn btn-primary btn-lg active" aria-pressed="true">OK</button>
+                        <button type="button" (click)="getActiveCode()" class="btn btn-primary btn-lg active" aria-pressed="true">OK</button>
                     </div>
                 </div>
             </div>

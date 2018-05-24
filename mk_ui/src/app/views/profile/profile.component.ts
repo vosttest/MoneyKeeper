@@ -37,8 +37,8 @@ export class ProfileComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public getActivationCode() {
-        this.pro.getActivationCode(this.type).subscribe((rsp: any) => {
+    public getActiveCode() {
+        this.pro.getActiveCode(this.type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.activeCodePopup.hide();
             } else {
