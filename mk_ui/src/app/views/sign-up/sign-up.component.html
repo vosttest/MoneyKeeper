@@ -9,90 +9,89 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <h1 class="text-center">SIGN UP <i class="far fa-money-bill-alt"></i></h1>
-        <form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signUp()">
-            <div class="form-group">
-                <label for="userName">Username<span class="text-danger">*</span></label>
-                <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="text" class="form-control" placeholder="User name" maxlength="32" minlength="6" required>
-                <span [hidden]="userName.valid || (userName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+        <div class="my-box">
+            <h2>SIGN UP <i class="far fa-money-bill-alt"></i></h2>
+            <form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signUp()">
+                <div class="form-group input">
+                    <label for="userName">Username<span class="text-danger">*</span></label>
+                    <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="text" class="form-control" maxlength="32" minlength="6" required>
+                    <span [hidden]="userName.valid || (userName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <span *ngIf="userName.errors?.required">
                         <i class="fa fa-exclamation-triangle"></i> Required!
                     </span>
-                <span *ngIf="userName.errors?.minlength">
+                    <span *ngIf="userName.errors?.minlength">
                         <i class="fa fa-exclamation-triangle"></i> At least 6 characters!
                     </span>
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="password">Password<span class="text-danger">*</span></label>
-                <input id="password" name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" placeholder="Password" maxlength="32" minlength="6" required>
-                <span [hidden]="password.valid || (password.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    </span>
+                </div>
+                <div class="form-group input">
+                    <label for="password">Password<span class="text-danger">*</span></label>
+                    <input id="password" name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" maxlength="32" minlength="6" required>
+                    <span [hidden]="password.valid || (password.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <span *ngIf="password.errors?.required">
                         <i class="fa fa-exclamation-triangle"></i> Required!
                     </span>
-                <span *ngIf="password.errors?.minlength">
+                    <span *ngIf="password.errors?.minlength">
                         <i class="fa fa-exclamation-triangle"></i> At least 6 characters!
                     </span>
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="firstName">First Name<span class="text-danger">*</span></label>
-                <input id="firstName" name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" type="text" class="form-control" placeholder="First name" maxlength="32" minlength="2" required>
-                <span [hidden]="firstName.valid || (firstName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    </span>
+                </div>
+                <div class="form-group input">
+                    <label for="firstName">First Name<span class="text-danger">*</span></label>
+                    <input id="firstName" name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" type="text" class="form-control" maxlength="32" minlength="2" required>
+                    <span [hidden]="firstName.valid || (firstName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <span *ngIf="firstName.errors?.required">
                         <i class="fa fa-exclamation-triangle"></i> Required!
                     </span>
-                <span *ngIf="firstName.errors?.minlength">
+                    <span *ngIf="firstName.errors?.minlength">
                         <i class="fa fa-exclamation-triangle"></i> At least 2 characters!
                     </span>
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name<span class="text-danger">*</span></label>
-                <input id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" type="text" class="form-control" placeholder="Last name" maxlength="32" minlength="2" required>
-                <span [hidden]="lastName.valid || (lastName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    </span>
+                </div>
+                <div class="form-group input">
+                    <label for="lastName">Last Name<span class="text-danger">*</span></label>
+                    <input id="lastName" name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" type="text" class="form-control" maxlength="32" minlength="2" required>
+                    <span [hidden]="lastName.valid || (lastName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <span *ngIf="lastName.errors?.required">
                         <i class="fa fa-exclamation-triangle"></i> Required!
                     </span>
-                <span *ngIf="lastName.errors?.minlength">
+                    <span *ngIf="lastName.errors?.minlength">
                         <i class="fa fa-exclamation-triangle"></i> At least 2 characters!
                     </span>
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="email">Email<span class="text-danger">*</span></label>
-                <input id="email" name="email" #email="ngModel" [(ngModel)]="vm.email" type="email" class="form-control" placeholder="Enter email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" maxlength="64" minlength="6">
-                <span [hidden]="email.valid || (email.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    </span>
+                </div>
+                <div class="form-group input">
+                    <label for="email">Email<span class="text-danger">*</span></label>
+                    <input id="email" name="email" #email="ngModel" [(ngModel)]="vm.email" type="email" class="form-control" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" maxlength="64" minlength="6">
+                    <span [hidden]="email.valid || (email.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                 <span *ngIf="email.errors?.required">
                         <i class="fa fa-exclamation-triangle"></i> Required!
                     </span>
-                <span *ngIf="email.errors?.pattern || email.errors?.minlength">
+                    <span *ngIf="email.errors?.pattern || email.errors?.minlength">
                         <i class="fa fa-exclamation-triangle"></i> Invalid email (at least 6 characters)!
                     </span>
-                </span>
-            </div>
-            <div class="form-group">
-                <label for="contactNo">Contact Number<span class="text-danger">*</span></label>
-                <input id="contactNo" name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" type="text" class="form-control" placeholder="Contact number" pattern="^0[0-9]{9,10}$" maxlength="16" required>
-                <span [hidden]="contactNo.valid || (contactNo.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    </span>
+                </div>
+                <div class="form-group input">
+                    <label for="contactNo">Phone Number<span class="text-danger">*</span></label>
+                    <input id="contactNo" name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" type="text" class="form-control" pattern="^0[0-9]{9,10}$" maxlength="16" required>
+                    <span [hidden]="contactNo.valid || (contactNo.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <span *ngIf="contactNo.errors?.required">
                         <i class="fa fa-exclamation-triangle"></i>Required.
                     </span>
-                <span *ngIf="contactNo.errors?.pattern">
+                    <span *ngIf="contactNo.errors?.pattern">
                         <i class="fa fa-exclamation-triangle"></i>Contact number invalid.
                     </span>
-                </span>
-            </div>
-            <div *ngIf="message != ''" class="form-group">
-                <label>{{message}}</label>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success full-width">SIGN UP</button>
-            </div>
-            <div class="form-group">
-                <button type="button" class="btn btn-success full-width" routerLink="/sign-in">ALREADY HAVE ACCOUNT</button>
-            </div>
-        </form>
+                    </span>
+                </div>
+                <div *ngIf="message != ''" class="form-group">
+                    <label>{{message}}</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success full-width">SIGN UP</button>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="col-md-4"></div>
 </div>

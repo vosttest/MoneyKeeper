@@ -7,7 +7,7 @@ import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { SettingRoutingModule } from './setting-routing.module';
 import { SettingComponent } from './setting.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FilterPipeSetting } from '../../utilities/filter.pipe';
+import { FilterPipeSetting } from '../../utilities/utility';
 
 @NgModule({
     imports: [

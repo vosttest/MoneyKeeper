@@ -66,9 +66,9 @@
                     </div>
                     <div class="col-md-8">{{ i.text }}</div>
                     <div class="col-md-2">
-                        <input type="radio" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" name="currency" checked value="{{ i.value }}" />
+                        <input type="radio" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" name="currency" checked value="{{ i.value }}" />
                         <ng-template #elseCurrency>
-                            <input type="radio" name="currency" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
+                            <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
                         </ng-template>
                         {{ i.value }}
                     </div>
@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-    <div class="text-center" id="loginAuthen" style="display: none;">
+    <div class="text-center" id="login-authen" style="display: none;">
         <div class="form-group">
             <img class="img-login-authen" src="../../../assets/img/login_authen.png" />
         </div>
@@ -125,7 +125,7 @@
             <div class="col-md-3"> </div>
         </div>
     </div>
-    <div class="text-center" id="tranAuthen" style="display: none;">
+    <div class="text-center" id="tran-authen" style="display: none;">
         <div class="form-group">
             <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
         </div>

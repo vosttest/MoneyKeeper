@@ -3,6 +3,7 @@ import { SettingProvider, CommonProvider } from '../../providers/provider';
 import { ModalDirective, TimepickerModule } from 'ngx-bootstrap';
 import { element } from 'protractor';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-setting',
@@ -12,7 +13,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 export class SettingComponent implements OnInit {
     public data = [];
-    public dataCurrency: any = {};
+    public dataCurrency: any = [];
+    public selectedCurrency: any = {};
     public reminder: any = {};
     public ismeridian = false;
     public isTime = false;
@@ -23,12 +25,6 @@ export class SettingComponent implements OnInit {
     public lock: any = {};
     public loader: boolean = false;
     public function: string = "reminder";
-
-    @ViewChild('reminderPopup') public reminderPopup: ModalDirective;
-    @ViewChild('currencyPopup') public currencyPopup: ModalDirective;
-    @ViewChild('loginAuthenPopup') public loginAuthenPopup: ModalDirective;
-    @ViewChild('tranAuthenPopup') public tranAuthenPopup: ModalDirective;
-    @ViewChild('lockPopup') public lockPopup: ModalDirective;
 
     constructor(private pro: SettingProvider,
         private act: ActivatedRoute,
@@ -41,7 +37,6 @@ export class SettingComponent implements OnInit {
         this.act.params.subscribe((params: Params) => {
             document.getElementById(this.function).style.display = "none";
             this.function = params["function"];
-            console.log(this.function);
             document.getElementById(this.function).style.display = "block";
         });
     }
@@ -54,25 +49,32 @@ export class SettingComponent implements OnInit {
 
                 this.data.forEach(element => {
                     let t = element.code.split('SET');
-                    if (+t[1] === 1) {
-                        this.reminder.time = new Date(element.value);
-                        this.reminder.status = element.status == 'ACT' ? true : false;
-                        this.reminder.id = element.id;
-                    } else if (+t[1] === 2) {
-                        this.dataCurrency.id = element.id;
-                        this.dataCurrency.status = element.status;
-                        this.dataCurrency.value = element.value === '' || element.value == null ? 'VND' : element.value;
-                    } else if (+t[1] === 3) {
-                        this.loginAuthen.type = element.value == null ? '' : element.value;
-                        this.loginAuthen.status = element.status == 'ACT' ? true : false;
-                        this.loginAuthen.id = element.id;
-                    } else if (+t[1] === 4) {
-                        this.tranAuthen.type = element.value;
-                        this.tranAuthen.status = element.status == 'ACT' ? true : false;
-                        this.tranAuthen.id = element.id;
-                    } else if (+t[1] === 5) {
-                        this.lock.status = element.status == 'ACT' ? true : false;
-                        this.lock.id = element.id;
+
+                    switch (element.code) {
+                        case Setting.CODE_REMINDER:
+                            this.reminder.time = new Date(element.value);
+                            this.reminder.status = element.status == 'ACT' ? true : false;
+                            this.reminder.id = element.id;
+                            break;
+                        case Setting.CODE_CURRENCY:
+                            this.selectedCurrency.id = element.id;
+                            this.selectedCurrency.status = element.status;
+                            this.selectedCurrency.value = element.value === '' || element.value == null ? 'VND' : element.value;
+                            break;
+                        case Setting.CODE_LOGIN:
+                            this.loginAuthen.type = element.value == null ? '' : element.value;
+                            this.loginAuthen.status = element.status == 'ACT' ? true : false;
+                            this.loginAuthen.id = element.id;
+                            break;
+                        case Setting.CODE_TRANSACTION:
+                            this.tranAuthen.type = element.value;
+                            this.tranAuthen.status = element.status == 'ACT' ? true : false;
+                            this.tranAuthen.id = element.id;
+                            break;
+                        case Setting.CODE_LOCK:
+                            this.lock.status = element.status == 'ACT' ? true : false;
+                            this.lock.id = element.id;
+                            break;
                     }
                 });
             }
@@ -90,27 +92,6 @@ export class SettingComponent implements OnInit {
                 console.log(rsp.message);
             }
         }, err => console.log(err));
-    }
-
-    public showDetailSetting(code: string) {
-        let t = code.split("SET");
-        switch (+t[1]) {
-            case 1:
-                this.reminderPopup.show();
-                break;
-            case 2:
-                this.currencyPopup.show();
-                break;
-            case 3:
-                this.loginAuthenPopup.show();
-                break;
-            case 4:
-                this.tranAuthenPopup.show();
-                break;
-            case 5:
-                this.lockPopup.show();
-                break;
-        }
     }
 
     public changeTime() {
@@ -140,22 +121,20 @@ export class SettingComponent implements OnInit {
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
-                this.reminderPopup.hide();
             }
         }, err => console.log(err));
     }
 
     public saveCurrency() {
         let x = {
-            id: this.dataCurrency.id,
-            value: this.dataCurrency.value,
-            status: this.dataCurrency.status
+            id: this.selectedCurrency.id,
+            value: this.selectedCurrency.value,
+            status: this.selectedCurrency.status
         }
-
+        
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success") {
                 this.search();
-                this.currencyPopup.hide();
             } else {
                 alert(rsp.message);
             }
@@ -174,7 +153,6 @@ export class SettingComponent implements OnInit {
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
-                this.loginAuthenPopup.hide();
             }
         }, err => console.log(err));
     }
@@ -191,7 +169,6 @@ export class SettingComponent implements OnInit {
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
-                this.tranAuthenPopup.hide();
             }
         }, err => console.log(err));
     }
@@ -207,13 +184,7 @@ export class SettingComponent implements OnInit {
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
                 this.search();
-                this.lockPopup.hide();
             }
         }, err => console.log(err));
-    }
-
-    public show() {
-        document.getElementById("currency").style.display = "block";
-        document.getElementById("reminder").style.display = "none";
     }
 }

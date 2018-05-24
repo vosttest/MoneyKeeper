@@ -17,8 +17,8 @@ export class SignInComponent implements OnInit {
     public isDisabled = true;
     public token = '';
 
-    @ViewChild('ForgotPassModal') public forgotPassModal: ModalDirective;
-    @ViewChild('AccessTokenModal') public accessTokenModal: ModalDirective;
+    @ViewChild('forgotPassModal') public forgotPassModal: ModalDirective;
+    @ViewChild('accessTokenModal') public accessTokenModal: ModalDirective;
 
     constructor(private pro: UserProvider) { }
 

@@ -8,7 +8,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FilterPipeDashBoard } from '../../utilities/filter.pipe';
+import { FilterPipeDashBoard } from '../../utilities/utility';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 @NgModule({

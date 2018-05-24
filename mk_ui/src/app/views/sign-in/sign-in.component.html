@@ -9,47 +9,49 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <h1 class="text-center">Money Keeper <i class="far fa-money-bill-alt"></i></h1>
-        <form class="sign-in" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signIn()">
-            <div class="form-group input">
-                <label for="userName">User Name</label>
-                <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" required type="text" class="form-control" maxlength="64">
-                <span [hidden]="userName.valid || (userName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+        <div class="my-box">
+            <h2>Money Keeper <i class="far fa-money-bill-alt"></i></h2>
+            <form class="sign-in" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signIn()">
+                <div class="form-group input">
+                    <label for="userName">User Name</label>
+                    <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" required type="text" class="form-control" maxlength="64">
+                    <span [hidden]="userName.valid || (userName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                         <span *ngIf="userName.errors?.required">
                             <i class="fa fa-exclamation-triangle"></i>Please enter user name or email.
                         </span>
-                </span>
-            </div>
-            <div class="form-group input">
-                <label for="password">Password</label>
-                <input id="password" name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" required maxlength="64">
-                <span [hidden]="password.valid || (password.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    </span>
+                </div>
+                <div class="form-group input">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" required maxlength="64">
+                    <span [hidden]="password.valid || (password.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <span *ngIf="password.errors?.required">
                         <i class="fa fa-exclamation-triangle"></i>Please enter password.
                     </span>
-                </span>
-            </div>
-            <div *ngIf="message != ''" class="form-group">
-                <label>{{message}}</label>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-success full-width">SIGN IN</button>
-            </div>
-            <div class="form-group input">
-                <label class="text-center">
-                    <a (click)="ForgotPassModal.show()">Forgot your password?</a>
+                    </span>
+                </div>
+                <div *ngIf="message != ''" class="form-group">
+                    <label>{{message}}</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success full-width">SIGN IN</button>
+                </div>
+                <div class="form-group input">
+                    <label class="text-center">
+                    <a routerLink="/sign-in" (click)="forgotPassModal.show()">Forgot your password?</a>
                 </label>
-                <br/>
-                <label class="text-center">
+                    <br/>
+                    <label class="text-center">
                     <a routerLink="/sign-up">Don't have Account? Create one now.</a>
                 </label>
-            </div>
-        </form>
+                </div>
+            </form>
+        </div>
     </div>
     <div class="col-md-4"></div>
 </div>
 
-<div bsModal #ForgotPassModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #forgotPassModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document"></div>
     <div class="modal-content">
         <div class="modal-header">
@@ -58,12 +60,12 @@
         <div class="modal-body">
             <form class="form-horizontal form-label-left input_mask" name="forgotForm" #forgotForm="ngForm" (ngSubmit)="sendEmailVerificationLink(forgotForm.valid)">
                 <div class=" col-md-12 col-sm-12 col-xs-12 ">
-                    <div class="form-group ">
-                        <div class="row ">
+                    <div class="form-group">
+                        <div class="row">
                             <label>Please enter your email address below</label>
                         </div>
                     </div>
-                    <div class="form-group ">
+                    <div class="form-group">
                         <div class="row input">
                             <label for="femail">Email</label>
                             <span class="text-danger">*</span>
@@ -84,7 +86,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6 ">
-                            <button type="button" class="btn btn-block" (click)="ForgotPassModal.hide()">Cancel</button>
+                            <button type="button" class="btn btn-block" (click)="forgotPassModal.hide()">Cancel</button>
                         </div>
                         <div class="col-md-6">
                             <button type="submit" class="btn btn-success btn-block">Next</button>
@@ -96,7 +98,7 @@
     </div>
 </div>
 
-<div bsModal #AccessTokenModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div bsModal #accessTokenModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xs" role="document">
         <div class="modal-content">
             <div class="modal-header" style="background-color:#dddddd ">
@@ -125,7 +127,7 @@
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-4" style="margin-left: 12%">
-                            <button type="button" class="btn btn-block" (click)="AccessTokenModal.hide()">Cancel</button>
+                            <button type="button" class="btn btn-block" (click)="accessTokenModal.hide()">Cancel</button>
                         </div>
                         <div class="col-md-1">
                         </div>

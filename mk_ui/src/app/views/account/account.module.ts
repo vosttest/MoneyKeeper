@@ -7,7 +7,7 @@ import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { AccountRoutingModule } from './account-routing.module';
 import { AccountComponent } from './account.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FilterPipe } from '../../utilities/filter.pipe';
+import { FilterPipe } from '../../utilities/utility';
 import { DataTableModule } from "angular2-datatable";
 
 @NgModule({
