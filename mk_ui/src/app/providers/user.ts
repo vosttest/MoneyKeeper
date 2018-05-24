@@ -120,10 +120,12 @@ export class UserProvider {
     }
 
     /**
-    *   Change Send ActivationCode
-    */
-    public getActivationCode(info: any) {
-        return this.api.post('user/activation-code', info);
+     * Get activation code
+     * @param type Mail or SMS
+     */
+    public getActivationCode(type: string) {
+        let x = { keyword: type };
+        return this.api.post('user/activation-code', x);
     }
 
     /**

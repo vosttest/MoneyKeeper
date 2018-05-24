@@ -10,8 +10,9 @@ import { UserProvider } from '../../providers/provider';
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    public vm: any = {value: 'MAIL'};
+    public vm: any = {};
     public loader: boolean;
+    public type = 'MAIL';
 
     @ViewChild('SendActiveModal') public sendActiveModal: ModalDirective;
 
@@ -19,7 +20,6 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         this.infoUser();
-        this.changeSend();
     }
 
     public infoUser() {
@@ -45,10 +45,7 @@ export class ProfileComponent implements OnInit {
     }
 
     public changeSend() {
-        console.log(this.vm.value);
-        
-        let info = { keyword: this.vm.value};
-        this.pro.getActivationCode(info).subscribe((rsp: any) => {
+        this.pro.getActivationCode(this.type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.sendActiveModal.hide();
             } else {

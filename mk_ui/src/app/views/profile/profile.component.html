@@ -92,6 +92,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <label><input [(ngModel)]="type" type="radio" value="MAIL">Email</label>
+                    </div>
+                    <div class="col-md-6">
+                        <label><input [(ngModel)]="type" type="radio" value="SMS">SMS</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="text-center full-width">
                         <button type="button" (click)="SendActiveModal.hide()" class="btn btn-secondary btn-lg" aria-pressed="true">Cancel</button>
