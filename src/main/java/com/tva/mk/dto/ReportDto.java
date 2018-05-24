@@ -1,5 +1,7 @@
 package com.tva.mk.dto;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ReportDto {
@@ -15,13 +17,10 @@ public class ReportDto {
 	private String text;
 
 	@JsonProperty(value = "amount")
-	private String amount;
+	private Float amount;
 
-	@JsonProperty(value = "createOn1")
-	private String createOn1;
-
-	@JsonProperty(value = "createOn2")
-	private String createOn2;
+	@JsonProperty(value = "startDate")
+	private Date startDate;
 
 	@JsonProperty(value = "accountId")
 	private int accountId;
@@ -54,28 +53,20 @@ public class ReportDto {
 		this.text = text;
 	}
 
-	public String getAmount() {
+	public Float getAmount() {
 		return amount;
 	}
 
-	public void setAmount(String amount) {
+	public void setAmount(Float amount) {
 		this.amount = amount;
 	}
 
-	public String getCreateOn1() {
-		return createOn1;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setCreateOn1(String createOn1) {
-		this.createOn1 = createOn1;
-	}
-
-	public String getCreateOn2() {
-		return createOn2;
-	}
-
-	public void setCreateOn2(String createOn2) {
-		this.createOn2 = createOn2;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	public int getAccountId() {

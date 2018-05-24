@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AccountProvider, ReportProvider } from '../../providers/provider';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-dashboard',
@@ -30,6 +31,8 @@ export class DashboardComponent implements OnInit {
 
     bsValue: Date = new Date();
 
+    @ViewChild('messageModal') public messageModal: ModalDirective;
+
     constructor(private proAcc: AccountProvider,
         private proReport: ReportProvider) { }
 
@@ -59,9 +62,6 @@ export class DashboardComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    changeValue($event: any) {
-    }
-
     public report() {
         let t = [];
         this.multiSelect.forEach(obj => {
@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit {
                 this.reportIncome = rsp.result.data2;
             }
             else {
-                console.log(rsp.message);
+                this.messageModal.show();
             }
         }, err => console.log(err));
     }

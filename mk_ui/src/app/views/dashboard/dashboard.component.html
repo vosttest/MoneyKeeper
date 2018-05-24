@@ -15,7 +15,7 @@
                         <p>Account</p>
                     </div>
                     <div class="col-md-8">
-                        <ngx-select-dropdown (change)="changeValue($event)" [multiple]="true" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
+                        <ngx-select-dropdown [multiple]="false" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
                     </div>
                 </div>
                 <div class="row">
@@ -86,18 +86,22 @@
         </div>
         <div class="col-md-6">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-4"> </div>
+                <div class="col-md-4">
                     <h2>Accounts</h2>
                 </div>
-                <div class="col-md-4">
-                    <div class="icon-right">
-                        <h2><i class="fa fa-plus" routerLink="/account-add"></i></h2>
-                    </div>
+                <div class="col-md-4 text-right">
+                    <button routerLink="/account-add" class="btn btn-outline-success">NEW &nbsp;<i class="fa fa-plus" ></i></button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <input [(ngModel)]="searchText" class="form-control" placeholder="Search account...">
                 </div>
             </div>
             <div class="row">
                 <div class="card">
-                    <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
                     <ul class="card-list list-group list-group-flush">
                         <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" *ngFor="let i of account | filterDashBoard : searchText">
                             <div class="acc left"> {{ i.text }}</div>
@@ -111,3 +115,22 @@
         </div>
     </div>
 </section>
+<!-- Modal Message -->
+<div bsModal #messageModal="bs-modal" class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">View Expense & Income Your Account</h5>
+                <button type="button" class="close" (click)="messageModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Please choose Account, From Date and To Date !!!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="messageModal.hide()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

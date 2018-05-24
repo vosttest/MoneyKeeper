@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.VoucherDao;
 import com.tva.mk.dal.VoucherDetailDao;
+import com.tva.mk.dto.ReportDto;
 import com.tva.mk.dto.VoucherDto;
 import com.tva.mk.model.Voucher;
 import com.tva.mk.model.VoucherDetail;
@@ -34,13 +35,35 @@ public class VoucherService {
 		return res;
 	}
 
-	public List<Object[]> getByExpense(int[] accountId, Date fromDate, Date toDate) {
-		List<Object[]> res = voucherDao.getExpense(accountId, fromDate, toDate);
+	public List<ReportDto> getByExpense(int[] accountId, Date fromDate, Date toDate) {
+		List<Object[]> t = voucherDao.getExpense(accountId, fromDate, toDate);
+		List<ReportDto> res = new ArrayList<>();
+		for (Object[] item : t) {
+			ReportDto t1 = new ReportDto();
+			t1.setCode(item[0].toString());
+			t1.setText(item[1].toString());
+			t1.setAmount(Float.parseFloat(item[2].toString()));
+			t1.setStartDate((Date) item[3]);
+
+			res.add(t1);
+		}
+
 		return res;
 	}
 
-	public List<Object[]> getByIncome(int[] accountId, Date fromDate, Date toDate) {
-		List<Object[]> res = voucherDao.getIncome(accountId, fromDate, toDate);
+	public List<ReportDto> getByIncome(int[] accountId, Date fromDate, Date toDate) {
+		List<Object[]> t = voucherDao.getIncome(accountId, fromDate, toDate);
+		List<ReportDto> res = new ArrayList<>();
+		for (Object[] item : t) {
+			ReportDto t1 = new ReportDto();
+			t1.setCode(item[0].toString());
+			t1.setText(item[1].toString());
+			t1.setAmount(Float.parseFloat(item[2].toString()));
+			t1.setStartDate((Date) item[3]);
+
+			res.add(t1);
+		}
+
 		return res;
 	}
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.VoucherService;
+import com.tva.mk.dto.ReportDto;
 import com.tva.mk.req.ReportReq;
 import com.tva.mk.rsp.MultipleRsp;
 
@@ -40,8 +41,8 @@ public class ReportController {
 			Date toDate = req.getToDate();
 
 			// Handle
-			List<Object[]> tmp = voucherService.getByExpense(accountId, fromDate, toDate);
-			List<Object[]> tmp2 = voucherService.getByIncome(accountId, fromDate, toDate);
+			List<ReportDto> tmp = voucherService.getByExpense(accountId, fromDate, toDate);
+			List<ReportDto> tmp2 = voucherService.getByIncome(accountId, fromDate, toDate);
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();

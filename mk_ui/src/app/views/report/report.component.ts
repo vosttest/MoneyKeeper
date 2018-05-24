@@ -55,9 +55,6 @@ export class ReportComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    changeValue($event: any) {
-    }
-
     public report() {
         let t = [];
         this.multiSelect.forEach(obj => {
@@ -74,6 +71,8 @@ export class ReportComponent implements OnInit {
             if (rsp.status === 'success') {
                 this.isShow = true;
                 this.reportExpense = rsp.result.data;
+                console.log(this.reportExpense);
+                
                 this.reportIncome = rsp.result.data2;
             }
             else {

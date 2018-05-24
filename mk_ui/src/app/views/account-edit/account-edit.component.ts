@@ -26,14 +26,14 @@ export class AccountEditComponent implements OnInit {
 
     datePipe = new DatePipe("en");
 
-    @ViewChild('confirmModal') public confirmModal: ModalDirective;
-
     // Datepicker
 
     minDate = new Date(2018, 1, 1);
     maxDate = new Date(2050, 12, 12);
 
     bsValue: Date = new Date();
+
+    @ViewChild('confirmModal') public confirmModal: ModalDirective;
 
     constructor(private pro: CommonProvider,
         private rou: Router,
