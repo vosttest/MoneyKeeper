@@ -3,6 +3,7 @@ import { SettingProvider, CommonProvider } from '../../providers/provider';
 import { ModalDirective, TimepickerModule } from 'ngx-bootstrap';
 import { element } from 'protractor';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-setting',
@@ -13,6 +14,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class SettingComponent implements OnInit {
     public data = [];
     public dataCurrency: any = [];
+    public selectedCurrency: any = {};
     public reminder: any = {};
     public ismeridian = false;
     public isTime = false;
