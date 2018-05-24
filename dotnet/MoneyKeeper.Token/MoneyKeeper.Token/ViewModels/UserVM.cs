@@ -34,15 +34,16 @@ namespace MoneyKeeper.Token.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var res = await UserService.VerifyActivation(Email);
+                var res = await UserService.VerifyActivation(Code);
 
-                if (res)
+                if (res.Status == "success")
                 {
-                    await main.DisplayAlert("Information", "Verify email success", "OK");
+                    Application.Current.Properties["jwt"] = res.Result;
+                    await Application.Current.SavePropertiesAsync();
                 }
                 else
                 {
-                    await main.DisplayAlert("Error", "Verify email fail", "OK");
+                    await main.DisplayAlert("Error", res.Message, "OK");
                 }
             }
             catch (Exception ex)
@@ -57,9 +58,9 @@ namespace MoneyKeeper.Token.ViewModels
         #region -- Properties --
 
         /// <summary>
-        /// Email
+        /// Activation code
         /// </summary>
-        public string Email { get; set; }
+        public string Code { get; set; }
 
         /// <summary>
         /// Verify mail command

@@ -2,6 +2,8 @@
 
 namespace MoneyKeeper.Token
 {
+    using Views;
+
     /// <summary>
     /// App
     /// </summary>
@@ -34,8 +36,22 @@ namespace MoneyKeeper.Token
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage();
+            try
+            {
+                var jwt = Application.Current.Properties["jwt"].ToString();
+                if (string.IsNullOrEmpty(jwt))
+                {
+                    MainPage = new Activation();
+                }
+                else
+                {
+                    MainPage = new MainPage();
+                }
+            }
+            catch
+            {
+                MainPage = new Activation();
+            }
         }
 
         #endregion

@@ -1,9 +1,11 @@
-﻿using System.Net.Http;
+﻿using Newtonsoft.Json;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MoneyKeeper.Token.Services
 {
     using Models;
+    using Rsp;
 
     /// <summary>
     /// User service
@@ -20,24 +22,25 @@ namespace MoneyKeeper.Token.Services
         /// <summary>
         /// Verify activation code
         /// </summary>
-        /// <param name="email">Email</param>
+        /// <param name="code">Activation code</param>
         /// <returns>Return the result</returns>
-        public async Task<bool> VerifyActivation(string email)
+        public async Task<SingleRsp> VerifyActivation(string code)
         {
-            var m = new
-            {
-                keyword = email
-            };
+            SingleRsp res = null;
+
+            var m = new { keyword = code };
             var data = CreateData(m);
 
             var client = new HttpClient();
             var rsp = await client.PostAsync(Host + "user/verify-activation", data);
+
             if (rsp.IsSuccessStatusCode)
             {
-                return true;
+                var t = await rsp.Content.ReadAsStringAsync();
+                res = JsonConvert.DeserializeObject<SingleRsp>(t);
             }
 
-            return false;
+            return res;
         }
 
         #endregion

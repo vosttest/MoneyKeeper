@@ -9,18 +9,6 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Entry x:Name="txtEmail"
-                   Text="{Binding Email}"
-                   HorizontalTextAlignment="Center"
-                   Placeholder="Input email to verify"
-                   PlaceholderColor="#bababa"
-                   FontSize="16"/>
-            <Button Text="Verify"
-                    TextColor="White"
-                    BackgroundColor="#3897F0"
-                    HeightRequest="50"
-                    VerticalOptions="Start"
-                    Command="{Binding VerifyCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
