@@ -398,6 +398,26 @@ public class UserController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("/token-otp")
+	public ResponseEntity<?> getTokenOtp(@RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			// Handle
+			com.tva.mk.model.Authentication m = userService.generateToken("sign-in",id);
+
+			// Set data
+			res.setResult(m.getAuthKey());
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 
 	// end
 }
