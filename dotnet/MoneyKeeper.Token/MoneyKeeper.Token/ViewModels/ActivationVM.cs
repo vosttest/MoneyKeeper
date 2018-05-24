@@ -6,18 +6,18 @@ using Xamarin.Forms;
 namespace MoneyKeeper.Token.ViewModels
 {
     /// <summary>
-    /// User view model
+    /// Activation view model
     /// </summary>
-    public class UserVM : BaseVM
+    public class ActivationVM : BaseVM
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public UserVM()
+        public ActivationVM()
         {
-            Title = "User";
+            Title = "Activation";
 
             VerifyCommand = new Command(async () => await ExecuteVerifyCommand());
         }
@@ -34,12 +34,12 @@ namespace MoneyKeeper.Token.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var res = await UserService.GetTokenOtp();
+                var res = await UserService.VerifyActivation(Code);
 
                 if (res.Status == "success")
                 {
-                    Code = res.Result.ToString();
-                    await main.DisplayAlert("Success", Code, "OK");
+                    Application.Current.Properties["jwt"] = res.Result;
+                    await Application.Current.SavePropertiesAsync();
                 }
                 else
                 {

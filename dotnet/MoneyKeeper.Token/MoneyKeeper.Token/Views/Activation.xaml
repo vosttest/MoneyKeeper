@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:MoneyKeeper.Token.ViewModels"
              x:Class="MoneyKeeper.Token.Views.Activation">
     <ContentPage.BindingContext>
-        <vm:UserVM/>
+        <vm:ActivationVM/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>

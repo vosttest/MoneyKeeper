@@ -78,7 +78,7 @@ namespace MoneyKeeper.Token.Services
         protected HttpClient CreateClient()
         {
             var res = new HttpClient();
-            var t = new AuthenticationHeaderValue("Bearer", "");
+            var t = new AuthenticationHeaderValue("Bearer", App.Jwt);
             res.DefaultRequestHeaders.Authorization = t;
             return res;
         }

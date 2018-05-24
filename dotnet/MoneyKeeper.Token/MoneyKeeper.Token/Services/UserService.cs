@@ -43,6 +43,26 @@ namespace MoneyKeeper.Token.Services
             return res;
         }
 
+        /// <summary>
+        /// Get token or OTP
+        /// </summary>
+        /// <returns>Return the result</returns>
+        public async Task<SingleRsp> GetTokenOtp()
+        {
+            SingleRsp res = null;
+
+            var client = CreateClient();
+            var rsp = await client.GetAsync(Host + "user/token-otp");
+
+            if (rsp.IsSuccessStatusCode)
+            {
+                var t = await rsp.Content.ReadAsStringAsync();
+                res = JsonConvert.DeserializeObject<SingleRsp>(t);
+            }
+
+            return res;
+        }
+
         #endregion
     }
 }

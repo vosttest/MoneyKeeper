@@ -36,10 +36,11 @@ namespace MoneyKeeper.Token
         public App()
         {
             InitializeComponent();
+
             try
             {
-                var jwt = Application.Current.Properties["jwt"].ToString();
-                if (string.IsNullOrEmpty(jwt))
+                Jwt = Application.Current.Properties["jwt"].ToString();
+                if (string.IsNullOrEmpty(Jwt))
                 {
                     MainPage = new Activation();
                 }
@@ -53,6 +54,15 @@ namespace MoneyKeeper.Token
                 MainPage = new Activation();
             }
         }
+
+        #endregion
+
+        #region -- Properties --
+
+        /// <summary>
+        /// JSON web token
+        /// </summary>
+        public static string Jwt { get; set; }
 
         #endregion
     }
