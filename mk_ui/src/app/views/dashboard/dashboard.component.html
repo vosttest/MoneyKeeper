@@ -18,7 +18,6 @@
                         <ngx-select-dropdown (change)="changeValue($event)" [multiple]="true" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
                     </div>
                 </div>
-                <hr>
                 <div class="row">
                     <div class="col-md-4">
                         <p>Viewed By</p>
@@ -29,9 +28,7 @@
                     <div class="col-md-4">
                         <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
                     </div>
-                    <hr>
                 </div>
-                <hr>
                 <button type="button" class="btn btn-success" (click)="report()">View</button>
                 <div class="row">
                     <div class="content-report full-width" *ngIf="isShow">
@@ -104,7 +101,7 @@
                     <ul class="card-list list-group list-group-flush">
                         <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" *ngFor="let i of account | filterDashBoard : searchText">
                             <div class="acc left"> {{ i.text }}</div>
-                            <div class="acc right"> Balance: {{ i.balance | currency:'USD':'symbol-narrow':'4.0-0'}} {{ i.currency }}
+                            <div class="acc right"> Balance: {{ i.balance | currency:'USD':'symbol-narrow':'0.0-0'}} {{ i.currency }}
                                 <i class="fa fa-edit"></i>
                             </div>
                         </li>

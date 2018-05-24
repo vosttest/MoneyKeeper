@@ -4,28 +4,31 @@ form {
     margin-top: 20px;
 }
 
-.form-control {
-    border: none;
+.form-control:focus {
+    box-shadow: none;
+}
+
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 input[type=number]::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-input[type=number] {
-    text-align: right;
-}
-
-select {
-    text-align-last: right;
-}
-
-input[type=text] {
-    text-align: right;
+input#balance {
+    text-align: left!important;
 }
 
 button {
-    float: right;
     width: 10%;
     margin-right: 10px;
+}
+
+.text-right {
+    margin-top: 10%;
+}
+
+.row {
+    margin-bottom: 15px;
 }

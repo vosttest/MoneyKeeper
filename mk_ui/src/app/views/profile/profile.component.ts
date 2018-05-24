@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap';
 import { UserProvider } from '../../providers/provider';
 
 
@@ -9,13 +10,16 @@ import { UserProvider } from '../../providers/provider';
     styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
-    public vm: any = {};
+    public vm: any = {value: 'MAIL'};
     public loader: boolean;
+
+    @ViewChild('SendActiveModal') public sendActiveModal: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
     ngOnInit() {
         this.infoUser();
+        this.changeSend();
     }
 
     public infoUser() {
@@ -40,4 +44,15 @@ export class ProfileComponent implements OnInit {
         }, err => console.log(err));
     }
 
+    public changeSend() {
+        console.log(this.vm.value);
+        
+        let info = { keyword: this.vm.value};
+        this.pro.getActivationCode(info).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.sendActiveModal.hide();
+            } else {
+            }
+        }, err => console.log(err));
+    }
 }

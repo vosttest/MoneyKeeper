@@ -52,6 +52,7 @@ export class UserProvider {
         //info.newpassword = this.rsa.encrypt(info.newpassword); // encrypt password
         return this.api.post('user/change-password', info);
     }
+
     /**
     * Info User
     * @param info
@@ -59,6 +60,7 @@ export class UserProvider {
     public profileUser(info: any) {
         return this.api.post('user/profile', info);
     }
+
     /**
     * Update User
     * @param info
@@ -66,6 +68,7 @@ export class UserProvider {
     public updateUser(info: any) {
         return this.api.post('user/update-user', info);
     }
+
     /**
      * Reset password
      * @param info
@@ -114,6 +117,13 @@ export class UserProvider {
      */
     public getConfig() {
         return this.api.get('common/config');
+    }
+
+    /**
+    *   Change Send ActivationCode
+    */
+    public getActivationCode(info: any) {
+        return this.api.post('user/activation-code', info);
     }
 
     /**

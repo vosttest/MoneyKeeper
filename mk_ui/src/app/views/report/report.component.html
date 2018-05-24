@@ -23,7 +23,6 @@
                     <ngx-select-dropdown (change)="changeValue($event)" [multiple]="true" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
                 </div>
             </div>
-            <hr>
             <div class="row">
                 <div class="col-md-2">
                     <p>Viewed By</p>
@@ -32,11 +31,9 @@
                     <div class="row">
                         <div class="col-md-6">
                             <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
-                            <hr>
                         </div>
                         <div class="col-md-6">
                             <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
-                            <hr>
                         </div>
                     </div>
                 </div>

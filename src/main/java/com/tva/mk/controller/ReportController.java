@@ -42,6 +42,7 @@ public class ReportController {
 			// Handle
 			List<Object[]> tmp = voucherService.getByExpense(accountId, fromDate, toDate);
 			List<Object[]> tmp2 = voucherService.getByIncome(accountId, fromDate, toDate);
+
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();
 			data.put("data", tmp);

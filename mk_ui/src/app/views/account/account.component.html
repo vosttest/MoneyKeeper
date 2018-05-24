@@ -7,40 +7,36 @@
 </div>
 <section class="format-layout">
     <div class="row">
-        <div class="col-md-1"></div>
-        <div class="col-md-10">
-            <h2 class="text-center">Accounts</h2>
+        <div class="col-md-4">
+            <input [(ngModel)]="searchText" class="form-control" placeholder="Search account name...">
         </div>
-        <div class="col-md-1">
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-2">
             <h2 class="text-right"><i class="fa fa-plus" routerLink="/account-add"></i></h2>
         </div>
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <div class="row btn-left">
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('cash')">Account<i class="fa fa-chevron-circle-right"></i></button>
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('bankAccount')">Bank Account<i class="fa fa-chevron-circle-right"></i></button>
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('atm')">ATM<i class="fa fa-chevron-circle-right"></i></button>
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('deposit')">Deposit Account <i class="fa fa-chevron-circle-right"></i></button>
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('saveAccount')">Save Account<i class="fa fa-chevron-circle-right"></i></button>
-                <button class="btn btn-outline-success full-width" type="button" (click)="changeType('other')">Other<i class="fa fa-chevron-circle-right"></i></button>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="card">
-                <input [(ngModel)]="searchText" class="form-control" placeholder="Search...">
-                <ul class="card-list list-group list-group-flush">
-                    <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" *ngFor="let i of lstTmp | filter : searchText">
-                        <table border="0" class="full-width">
-                            <tr>
-                                <th>{{ i.text }}</th>
-                                <td>Balance: {{ i.balance | currency:'USD':'symbol-narrow':'4.0-0'}} {{ i.currency }}</td>
-                                <td>{{ i.createOn| date:'dd-MM-yyyy' }}</td>
-                                <td><i class="fa fa-edit"></i></td>
-                            </tr>
-                        </table>
-                    </li>
-                </ul>
+        <div class="col-md">
+            <div class="card bg-white card-2 full-width">
+                <table border="0" class="table table-hover full-width">
+                    <thead>
+                        <tr>
+                            <th>Account Name</th>
+                            <th>Balance</th>
+                            <th>Create Date</th>
+                            <th>Edit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let i of account | filter : searchText">
+                            <td>{{ i.text }}</td>
+                            <td>{{ i.balance | currency:'USD':'symbol-narrow':'0.0-0'}} {{ i.currency }}</td>
+                            <td>{{ i.createOn| date:'dd-MM-yyyy' }}</td>
+                            <td><i class="fa fa-edit" routerLink="/account-edit/{{i.id}}"></i></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
