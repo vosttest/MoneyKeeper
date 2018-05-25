@@ -1,0 +1,74 @@
+button#add {
+    margin-left: 80px;
+}
+
+li {
+    list-style-type: none;
+}
+
+ul {
+    width: 100%;
+}
+
+li .left {
+    display: inline;
+}
+
+li .right {
+    float: right;
+}
+
+.card.list {
+    margin-top: 5%;
+    margin-bottom: 2%;
+    margin-left: 35px;
+    margin-right: 35px;
+    width: 96%;
+    overflow-y: auto;
+    overflow-x: visible;
+    max-height: 450px;
+}
+
+.title {
+    background-color: gainsboro;
+}
+
+.form-control {
+    border: none;
+}
+
+.content-left {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 5%;
+    margin-bottom: 2%
+}
+
+h2 {
+    margin-right: 15px;
+    padding-top: 15px;
+    margin-bottom: 0% !important;
+}
+
+.icon-right {
+    display: inline-flex;
+    float: right;
+}
+
+.content-report {
+    margin-top: 2%;
+    margin-left: 15px;
+    width: 95%;
+    overflow-x: hidden;
+    max-height: 320px;
+}
+
+.full-width {
+    margin-left: 15px;
+    width: 95%;
+    max-height: 320px;
+}
+
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}

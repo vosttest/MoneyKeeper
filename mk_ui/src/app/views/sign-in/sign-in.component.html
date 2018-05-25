@@ -1,0 +1,142 @@
+<div *ngIf="loader" class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="my-box">
+            <h2>Money Keeper <i class="far fa-money-bill-alt"></i></h2>
+            <form class="sign-in" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signIn()">
+                <div class="form-group input">
+                    <label for="userName">User Name</label>
+                    <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" required type="text" class="form-control" maxlength="64">
+                    <span [hidden]="userName.valid || (userName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                        <span *ngIf="userName.errors?.required">
+                            <i class="fa fa-exclamation-triangle"></i>Please enter user name or email.
+                        </span>
+                    </span>
+                </div>
+                <div class="form-group input">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" #password="ngModel" [(ngModel)]="vm.password" type="password" class="form-control" required maxlength="64">
+                    <span [hidden]="password.valid || (password.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                    <span *ngIf="password.errors?.required">
+                        <i class="fa fa-exclamation-triangle"></i>Please enter password.
+                    </span>
+                    </span>
+                </div>
+                <div *ngIf="message != ''" class="form-group">
+                    <label>{{message}}</label>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success full-width">SIGN IN</button>
+                </div>
+                <div class="form-group input">
+                    <label class="text-center">
+                    <a routerLink="/sign-in" (click)="forgotPassModal.show()">Forgot your password?</a>
+                </label>
+                    <br/>
+                    <label class="text-center">
+                    <a routerLink="/sign-up">Don't have Account? Create one now.</a>
+                </label>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<div bsModal #forgotPassModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document"></div>
+    <div class="modal-content">
+        <div class="modal-header">
+            Forgot your password
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal form-label-left input_mask" name="forgotForm" #forgotForm="ngForm" (ngSubmit)="sendEmailVerificationLink(forgotForm.valid)">
+                <div class=" col-md-12 col-sm-12 col-xs-12 ">
+                    <div class="form-group">
+                        <div class="row">
+                            <label>Please enter your email address below</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="row input">
+                            <label for="femail">Email</label>
+                            <span class="text-danger">*</span>
+                        </div>
+                        <div class="row">
+                            <input id="femail" name="femail" type="text" class="form-control" #femail="ngModel" [(ngModel)]="vm1.email" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" maxlength="64" />
+                            <span [hidden]="femail.valid || (femail.pristine && !forgotForm.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                <span *ngIf="femail.errors?.required">
+                                    <i class="fa fa-exclamation-triangle"></i>Please enter email address.
+                                </span>
+                            <span *ngIf="femail.errors?.pattern">
+                                    <i class="fa fa-exclamation-triangle"></i>Please enter valid email address.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 ">
+                            <button type="button" class="btn btn-block" (click)="forgotPassModal.hide()">Cancel</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-success btn-block">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div bsModal #accessTokenModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#dddddd ">
+                <h4 class="modal-title">Confirm Token</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div>
+                            <strong>Please enter the token</strong>
+                        </div>
+                        <div class="form-group">
+                            <div class="row" style="margin-left: 1%">
+                                <input type="number" class="form-control border-iput margin-right" name="codeNumber1" id="codeNumber1" #codeNumber1="ngModel" [(ngModel)]="vm.codeNumber1" (keyup)="checkMaxlength('input1', $event)" />
+                                <input type="number" class="form-control border-iput margin-right" name="codeNumber2" #codeNumber2="ngModel" [(ngModel)]="vm.codeNumber2" (change)="checkMaxlength('input2', $event)" (keyup)="checkMaxlength('input2', $event)" />
+                                <input type="number" class="form-control border-iput margin-right" name="codeNumber3" #codeNumber3="ngModel" [(ngModel)]="vm.codeNumber3" (change)="checkMaxlength('input3', $event)" (keyup)="checkMaxlength('input3', $event)" />
+                                <input type="number" class="form-control border-iput margin-right" name="codeNumber4" #codeNumber4="ngModel" [(ngModel)]="vm.codeNumber4" (change)="checkMaxlength('input4', $event)" (keyup)="checkMaxlength('input4', $event)" />
+                                <input type="number" class="form-control border-iput margin-right" name="codeNumber5" #codeNumber5="ngModel" [(ngModel)]="vm.codeNumber5" (change)="checkMaxlength('input5', $event)" (keyup)="checkMaxlength('input5', $event)" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span class="a-underline" (click)="signIn()">Resend OTP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-4" style="margin-left: 12%">
+                            <button type="button" class="btn btn-block" (click)="accessTokenModal.hide()">Cancel</button>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" (click)="proceedClick()" style="background-color :#06539C;" [disabled]="isDisabled" class="btn btn-primary btn-block">Proceed</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

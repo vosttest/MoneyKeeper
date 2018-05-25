@@ -1,0 +1,94 @@
+<div *ngIf="loader" class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+</div>
+<section class="format-layout">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h2 class="text-center">Profile</h2>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="card bg-white card-2 full-width">
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <p>User Name</p>
+                            <input class="form-control" id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="hidden" />
+                            <label class="form-control " for="userName">{{vm.userName}}</label>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Email</p>
+                            <input class="form-control" name="email" #email="ngModel" [(ngModel)]="vm.email" type="hidden" />
+                            <label class="form-control " for="userName">{{vm.email}}</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <p>First Name</p>
+                            <input class="form-control " name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Last Name</p>
+                            <input class="form-control " name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <p>Contact No</p>
+                            <input class="form-control " name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" />
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Remarks</p>
+                            <input class="form-control " name="remarks" #remarks="ngModel" [(ngModel)]="vm.remarks" />
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <button class="btn btn-info" type="button" (click)='activeCodePopup.show()'>Send Active Code</button>
+                        <button class="btn btn-info btnChange" type="button" routerLink="/change-password">Change Password</button>
+                        <button type="button" class="btn btn-secondary btnBack" (click)='back()'>Cancel</button>
+                        <button class="btn btn-success btnSave" type="button" (click)='save()'>Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Modal -->
+<div bsModal #activeCodePopup="bs-modal" id="activeCodePopup" [config]="{backdrop: 'static'}" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#dddddd ">
+                <h4 class="modal-title">Send Active Code</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <label>
+                            <input [(ngModel)]="type" type="radio" value="MAIL">
+                            <strong>Email</strong>
+                        </label>
+                    </div>
+                    <div class="col-md-6">
+                        <label>
+                            <input [(ngModel)]="type" type="radio" value="SMS">
+                            <strong>SMS</strong>
+                        </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="text-center full-width">
+                        <button type="button" (click)="activeCodePopup.hide()" class="btn btn-secondary btn-lg" aria-pressed="true">Cancel</button>
+                        <button type="button" (click)="getActiveCode()" class="btn btn-primary btn-lg active" aria-pressed="true">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

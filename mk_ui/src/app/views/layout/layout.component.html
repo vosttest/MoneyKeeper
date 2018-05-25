@@ -1,0 +1,176 @@
+<div *ngIf="isMenuLeft">
+    <nav class="row navbar navbar-expand-lg navbar-dark bg-dark fixed-top resize-none" id="mainNav">
+        <div class="col-md-2 bg-green text-center">
+            <span class="navbar-brand mb-0 h1 color-white">Money Keeper</span>
+        </div>
+        <div class="col-md-10">
+            <ul class="navbar-nav my-top-menu float-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="far fa-user color-white"></i>
+                    </a>
+                    <div class="dropdown-menu dropleft my-dropdown-left" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" routerLink="/profile"> <i class="fas fa-search"></i> Profile</a>
+                        <a class="dropdown-item" routerLink="/setting"> <i class="fas fa-cogs"></i> Setting</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item pointer" (click)='showConfirm()'> <i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+                <li class="nav-item pointer" id="dashboard" (click)="active('dashboard')" data-toggle="tooltip" title="Dashboard">
+                    <a class="nav-link">
+                        <img src="../../../../assets/img/dashboard.png" class="format-icon">
+                        <span class="nav-link-text"> Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item pointer" id="account" (click)="active('account')" data-toggle="tooltip" title="Account">
+                    <a class="nav-link">
+                        <img src="../../../../assets/img/account.png" class="format-icon">
+                        <span class="nav-link-text"> Account</span>
+                    </a>
+                </li>
+                <li class="nav-item pointer" id="voucher" (click)="active('voucher')" data-toggle="tooltip" title="Voucher">
+                    <a class="nav-link">
+                        <img src="../../../../assets/img/voucher.png" class="format-icon">
+                        <span class="nav-link-text"> Voucher</span>
+                    </a>
+                </li>
+                <li class="nav-item pointer" id="report" (click)="active('report')" data-toggle="tooltip" title="Report">
+                    <a class="nav-link">
+                        <img src="../../../../assets/img/report.png" class="format-icon">
+                        <span class="nav-link-text"> Report</span>
+                    </a>
+                </li>
+                <li class="nav-item pointer" id="category" (click)="active('category')" data-toggle="tooltip" title="Category">
+                    <a class="nav-link">
+                        <img src="../../../../assets/img/category.png" class="format-icon">
+                        <span class="nav-link-text"> Category</span>
+                    </a>
+                </li>
+                <li class="pointer resize" (click)="resize()" data-toggle="tooltip" title="Category">
+                    <i class="fas fa-angle-double-left" id="rotateIcon"></i>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div id="content-wrapper">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+
+<div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body"> Do You Want Sign Out ? </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="signOut()">Yes</button>
+                <button type="button" class="btn btn-success" (click)="confirmModal.hide()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!isMenuLeft">
+    <nav class="navbar navbar-expand-lg navbar-light bg-green nav-top">
+        <span class="navbar-brand mb-0 h1 color-white">Money Keeper</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Dashboard
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" routerLink="/dashboard"><i class="fas fa-file-alt"></i>Overview</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="fas fa-book"></i>Log</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Accounts
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" routerLink="/account/overview"><i class="fas fa-file-alt"></i>Overview</a>
+                        <a class="dropdown-item" href="#" routerLink="/account-add/create"><i class="far fa-plus-square"></i>Create</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="fas fa-book"></i>Log</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Vouchers
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" routerLink="/voucher/overview"><i class="fas fa-file-alt"></i>Overview</a>
+                        <a class="dropdown-item" href="#" routerLink="/voucher/create"><i class="far fa-plus-square"></i>Create</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="fas fa-book"></i>Log</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Reports
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" routerLink="/report/overview"><i class="fas fa-file-alt"></i>Overview</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="fas fa-book"></i>Log</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Categories
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" routerLink="/category/overview"><i class="fas fa-file-alt"></i>Overview</a>
+                        <a class="dropdown-item" href="#" routerLink="/category/create"><i class="far fa-plus-square"></i>Create</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#"><i class="fas fa-book"></i>Log</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Setting
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#" routerLink="/setting/reminder"><i class="far fa-bell"></i>Remider</a>
+                        <a class="dropdown-item" href="#" routerLink="/setting/currency"><i class="far fa-money-bill-alt"></i>Currency</a>
+                        <a class="dropdown-item" href="#" routerLink="/setting/lock"><i class="fas fa-lock"></i>Lock</a>
+                        <a class="dropdown-item" href="#" routerLink="/setting/loginAuthen"><i class="fas fa-sign-in-alt"></i>Login Authentication</a>
+                        <a class="dropdown-item" href="#" routerLink="/setting/tranAuthen"><i class="fas fa-handshake"></i>Transaction</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <a class="nav-link dropdown-toggle color-white" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="far fa-user color-white"></i>
+                </a>
+                <div class="dropdown-menu dropleft my-dropdown-left" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" routerLink="/profile"> <i class="fas fa-search"></i> Profile</a>
+                    <a class="dropdown-item pointer" (click)='showConfirm()'> <i class="fas fa-sign-out-alt"></i> Sign Out</a>
+                </div>
+            </form>
+        </div>
+    </nav>
+    <div class="margin-top">
+        <router-outlet></router-outlet>
+    </div>
+</div>

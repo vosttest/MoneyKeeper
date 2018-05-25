@@ -1,0 +1,110 @@
+ul {
+    list-style-type: none;
+}
+
+ul>li {
+    color: white;
+    background-color: #1CB09A;
+    border: 1px solid #1CB09A;
+    margin-bottom: 2%;
+    padding: 3% 0;
+    font-size: 25px;
+}
+
+h2 {
+    margin-top: 5%;
+    margin-bottom: 15%;
+}
+
+
+/* .setting-body {
+    margin-bottom: 40px;
+} */
+
+.img-reminder {
+    width: 300px;
+}
+
+.img-login-authen {
+    width: 80px;
+}
+
+.modal-header {
+    background-color: #dddddd;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: -3px;
+    right: 2px;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #1CB09A;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #1CB09A;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.btn-success {
+    margin-top: 5%
+}
+
+
+/* Rounded sliders */
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.top-time-picker {
+    margin-top: -6%;
+}
+
+.my-contains {
+    margin-top: 5px;
+}
+
+.each-row {
+    align-items: center;
+    padding: 8px 0px;
+    border-top: solid 1px #DEDEDE;
+    border-bottom: solid 1px #DEDEDE;
+    box-shadow: none;
+}

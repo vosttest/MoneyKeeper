@@ -1,0 +1,148 @@
+<section class="format-layout">
+    <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <h2 class="text-center"> Edit Account: {{vm.text}} </h2>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row">
+        <div class="card bg-white card-2 full-width">
+            <div class="card-body">
+                <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" class="full-width">
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <p>Account Name</p>
+                            <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" required>
+                            <span [hidden]="text.valid || (text.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                <i class="fa fa-exclamation-triangle"></i> Please choose a Account name.!
+                            </span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Type</p>
+                            <select name="type" (change)="checkType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
+                                <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" [hidden]="pickSaveAcc">
+                        <div class="form-group col-md-6">
+                            <p>Bank</p>
+                            <input name="bank" #bank="ngModel" [(ngModel)]="vm.bank" type="text" class="form-control" placeholder="Bank name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Transfer money from account</p>
+                            <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
+                                    <option *ngFor="let i of account" value="{{i.id}}">
+                                    <div class="left"> {{ i.text }}</div>
+                                    <div class="right"> Balance: {{ i.balance }} {{ i.currency }} </div>
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div [hidden]="pickOther">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <p>Initial Balance</p>
+                                <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
+                                <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                    <i class="fa fa-exclamation-triangle"></i> Please input balance account!
+                                </span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <p>Currency</p>
+                                <select name="currency" #currency="ngModel" [(ngModel)]="vm.currency" class="form-control">
+                                    <option *ngFor="let i of lstCurrency"  value="{{i.value}}">{{i.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div [hidden]="pickSaveAcc">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <p>Balance</p>
+                                <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
+                                <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                    <i class="fa fa-exclamation-triangle"></i> Please input balance account!
+                                </span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <p>Currency</p>
+                                <select name="currency" #currency="ngModel" [(ngModel)]="vm.currency" class="form-control">
+                                    <option *ngFor="let i of lstCurrency" value="{{i.value}}">{{i.value}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div [hidden]="pickSaveAcc">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <p>Start Date</p>
+                                <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" [(ngModel)]="vm.startDate" type="text" class="form-control" placeholder="Start Date">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <p>Term</p>
+                                <select name="term" class="form-control" #term="ngModel" [(ngModel)]="vm.term">
+                                    <option *ngFor="let i of lstTerm"  value="{{i.value}}">{{i.text}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" [hidden]="pickSaveAcc">
+                        <div class="form-group col-md-6">
+                            <p>Interest rate</p>
+                            <input name="interestRate" #interestRate="ngModel" [(ngModel)]="vm.interestRate" type="text" class="form-control" placeholder="%/year">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Interest Paid</p>
+                            <select name="interestPaid" class="form-control" #interestPaid="ngModel" [(ngModel)]="vm.interestPaid">
+                                <option *ngFor="let i of lstInterestPaid" value="{{i.value}}">{{i.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" [hidden]="pickSaveAcc">
+                        <div class="form-group col-md-6">
+                            <p>Interest rate free</p>
+                            <input name="interestRateFree" #interestRateFree="ngModel" [(ngModel)]="vm.interestRateFree" type="text" class="form-control" placeholder="%/year">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <p>Term End</p>
+                            <select name="termEnded" class="form-control" #termEnded="ngModel" [(ngModel)]="vm.termEnded">
+                                <option *ngFor="let i of lstTermEnd" value="{{i.value}}">{{i.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p>Note</p>
+                        <textarea name="description" #description="ngModel" [(ngModel)]="vm.description" class=" form-control " rows="2 "></textarea>
+                    </div>
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <button type="button" class="btn btn-danger" (click)="confirmModal.show()">Delete</button>
+                        <button type="button" class="btn btn-secondary" routerLink="/account">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                    <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    Are you sure delete this Account ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="delete()">Yes</button>
+                    <button type="button" class="btn btn-success" (click)="confirmModal.hide()">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

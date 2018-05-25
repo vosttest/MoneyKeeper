@@ -1,0 +1,61 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.text-right {
+    margin-bottom: 2%;
+}
+
+.form-control {
+    border: none;
+}
+
+p {
+    margin-top: 5px;
+}
+
+h2 {
+    margin-bottom: 5%;
+}
+
+form {
+    margin: 0 auto;
+    width: 90%;
+    margin-top: 20px;
+}
+
+.form-control {
+    border: 0;
+    background-image: linear-gradient(to top, #d2d2d2 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+    background-size: 0 100%, 100% 100%;
+    transition: border-color 0s ease-in-out, box-shadow 0s ease-in-out;
+}
+
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.btn-lg {
+    width: 20%;
+    margin: auto 20px;
+}
+
+.modal-body .row {
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+.modal-body label {
+    font-size: 2em;
+}
+
+.modal-body p {
+    font-size: 1.5em;
+    font-weight: bold;
+}

@@ -1,0 +1,53 @@
+li {
+    list-style-type: none;
+}
+
+ul {
+    width: 100%;
+}
+
+li .left {
+    display: inline;
+}
+
+li .right {
+    float: right;
+}
+
+.card {
+    margin-top: 20px;
+    width: 100%;
+}
+
+.btn-left {
+    margin-top: 20px;
+}
+
+.btn-left button {
+    text-align: left;
+}
+
+.btn-left button i {
+    float: right;
+}
+
+.card-list {
+    max-height: 410px;
+    overflow-y: auto;
+    overflow-x: visible;
+}
+
+.btn-outline-success {
+    /* background-color: #1CB09A; */
+    border-color: #1CB09A !important;
+    color: #1CB09A !important;
+}
+
+.btn-outline-success:hover {
+    background-color: #1CB09A !important;
+    color: white !important;
+}
+
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}

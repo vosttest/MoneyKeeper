@@ -1,0 +1,210 @@
+/* You can add global styles to this file, and also import other style files */
+
+.full-width {
+    width: 100%;
+}
+
+.bs-chevron {
+    border-style: hidden !important;
+}
+
+.format-layout {
+    margin: 55px 20px 0 20px;
+}
+
+h2 {
+    margin-bottom: 5%;
+    color: #1CB09A;
+    font-weight: 700;
+}
+
+p {
+    font-weight: bold;
+}
+
+.form-control {
+    border: 0;
+    background-image: linear-gradient(to top, #d2d2d2 2px, rgba(156, 39, 176, 0) 2px), linear-gradient(to top, #d2d2d2 1px, rgba(210, 210, 210, 0) 1px);
+    background-size: 0 100%, 100% 100%;
+    transition: border-color 0s ease-in-out, box-shadow 0s ease-in-out;
+}
+
+.form-control:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none!important;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #1CB09A !important;
+    border-color: #1CB09A !important;
+}
+
+ul.pagination {
+    margin-bottom: 0rem;
+}
+
+
+/* Kendo validate */
+
+span.k-tooltip {
+    position: static;
+    display: inline-block;
+    border-width: 1px;
+    padding: 2px 5px 1px 6px;
+}
+
+.k-tooltip {
+    background-color: #FFFC9D !important;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 12000;
+    border-style: solid;
+    border-width: 0;
+    padding: 5px 5px 5px 6px;
+    background-repeat: repeat-x;
+    min-width: 20px;
+    text-align: center;
+}
+
+.k-widget.k-tooltip-validation {
+    border-color: #FFCA00;
+    background-color: #ffb400;
+    color: #000;
+}
+
+.k-tooltip-validation {
+    z-index: 9999;
+}
+
+.k-widget {
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    line-height: normal;
+}
+
+.float-right {
+    float: right;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+section {
+    padding: 20px 15px 20px 15px;
+}
+
+.resize-none {
+    padding: 0;
+    margin: 0;
+}
+
+.bg-green {
+    background-color: #1CB09A;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem #79D6C9;
+}
+
+li:hover,
+.dropdown-item:hover {
+    background-color: #1CB09A !important;
+    color: white !important;
+    font-weight: 700;
+}
+
+
+/* .btn-success {
+    background-color: #1CB09A !important;
+} */
+
+.btn-outline-success {
+    /* background-color: #1CB09A; */
+    border-color: #1CB09A !important;
+    color: #1CB09A !important;
+}
+
+.btn-outline-success:hover,
+.btn-success {
+    border-color: #1CB09A !important;
+    background-color: #1CB09A !important;
+    color: white !important;
+}
+
+
+/* ------ Spiner ------ */
+
+.spinner {
+    position: fixed;
+    z-index: 999;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100px;
+    height: 40px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.spinner:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    color: black;
+    background-color: rgba(0, 0, 0, 0.3);
+    margin: auto;
+}
+
+.spinner>div {
+    background-color: #333;
+    height: 100%;
+    width: 15px;
+    display: inline-block;
+    animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+    animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+    animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+    animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+    animation-delay: -0.8s;
+}
+
+@keyframes sk-stretchdelay {
+    0%,
+    40%,
+    100% {
+        transform: scaleY(0.4);
+    }
+    20% {
+        transform: scaleY(1.0);
+    }
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
