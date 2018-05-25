@@ -7,6 +7,20 @@ import org.springframework.data.repository.query.Param;
 import com.tva.mk.model.Authentication;
 
 public interface AuthenticationDao extends CrudRepository<Authentication, Integer> {
-	@Query("FROM Authentication a WHERE a.clientKey = :clientKey AND isVerified = FALSE AND a.createBy = :userId")
-	public Authentication getBy(@Param("clientKey") String clientKey, @Param("userId") int userId);
+	/**
+	 * Get by client key (for create new authen key) or module (for update authen
+	 * key) belong to user.
+	 * 
+	 * @param clientKey
+	 *            client key always have 60 characters
+	 * @param module
+	 *            module have from 0 to 32 characters
+	 * @param userId
+	 *            user id
+	 * @return
+	 */
+	@Query("FROM Authentication a WHERE ((a.clientKey = :clientKey AND a.module = :module) OR a.module = :module)"
+			+ " AND a.createBy = :userId")
+	public Authentication getBy(@Param("clientKey") String clientKey, @Param("module") String module,
+			@Param("userId") int userId);
 }

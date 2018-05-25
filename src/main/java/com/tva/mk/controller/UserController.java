@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.SettingService;
 import com.tva.mk.bll.UserService;
 import com.tva.mk.common.Const;
+import com.tva.mk.common.SMSService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
@@ -107,14 +108,18 @@ public class UserController {
 
 					switch (t2) {
 					case "TOKEN":
-						// TODO - Add code
-						// break;
-
 					case "OTP":
-						com.tva.mk.model.Authentication m1;
-						m1 = userService.generateToken("sign-in", userId);
-
+						com.tva.mk.model.Authentication m1 = null;
+						m1 = userService.generateToken("sign-in", userId, true);
 						String t3 = m1.getClientKey();
+
+						if (t2.equals("OTP")) {
+							// Send SMS
+							String t4 = m.getContactNo();
+							String t5 = m1.getAuthKey();
+							SMSService.sendSMS(t4, t5);
+						}
+
 						data.put("authen", true);
 						data.put("key", t3);
 						break;
@@ -127,7 +132,7 @@ public class UserController {
 						break;
 					}
 				} else {
-					userService.verifyToken(clientKey, userId, token);
+					userService.verifyToken(clientKey, userId, token, "sign-in");
 
 					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
 					String t1 = jwtTokenUtil.doGenerateToken(m, z);
@@ -347,7 +352,7 @@ public class UserController {
 			Users m = userService.getActivationCode(id);
 			String data = "";
 			if (Const.Activation.SMS.equals(keyword)) {
-				// TODO - Send SMS
+				SMSService.sendSMS(m.getContactNo(), m.getActivationCode());
 				data = "Sent to your phone";
 			} else if (Const.Activation.MAIL.equals(keyword)) {
 				Utils.sendMail(m.getEmail(), m.getActivationCode(), m.getFirstName());
@@ -398,7 +403,7 @@ public class UserController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
+
 	@GetMapping("/token-otp")
 	public ResponseEntity<?> getTokenOtp(@RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
@@ -408,7 +413,7 @@ public class UserController {
 			int id = pl.getId();
 
 			// Handle
-			com.tva.mk.model.Authentication m = userService.generateToken("sign-in",id);
+			com.tva.mk.model.Authentication m = userService.generateToken("sign-in", id, false);
 
 			// Set data
 			res.setResult(m.getAuthKey());

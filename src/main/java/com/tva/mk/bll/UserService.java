@@ -213,28 +213,40 @@ public class UserService implements UserDetailsService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Authentication generateToken(String module, int userId) throws Exception {
-		Authentication m = new Authentication();
+	public Authentication generateToken(String module, int userId, boolean isSignIn) throws Exception {
+		Authentication m = authenticationDao.getBy("", module, userId);
+
+		if (m == null) {
+			m = new Authentication();
+		}
 
 		m.setCreateBy(userId);
 		m.setCreateOn(new Date());
 
-		String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
-		m.setClientKey(clientKey);
-
 		String token = Utils.getToken();
 		m.setAuthKey(token);
+		
+		if (isSignIn) {
+			String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
+			m.setClientKey(clientKey);
+		}
 
 		m.setModule(module);
 		m.setExpireOn(Utils.getTime(Calendar.MINUTE, 2));
+
+		// Reset data
+		m.setModifyBy(null);
+		m.setVerified(false);
+		m.setModifyOn(null);
 
 		authenticationDao.save(m);
 
 		return m;
 	}
 
-	public void verifyToken(String clientKey, int userId, String token) throws Exception {
-		Authentication m = authenticationDao.getBy(clientKey, userId);
+	public void verifyToken(String clientKey, int userId, String token, String module) throws Exception {
+		Authentication m = authenticationDao.getBy(clientKey, module, userId);
+
 		if (m == null) {
 			throw new Exception(Enums.Error.E201.toString());
 		}
