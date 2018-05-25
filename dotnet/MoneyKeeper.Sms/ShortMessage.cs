@@ -7,6 +7,8 @@ namespace MoneyKeeper.Sms
     /// </summary>
     public class ShortMessage
     {
+        #region -- Properties --
+
         public string Index { get; set; }
 
         public string Status { get; set; }
@@ -18,10 +20,12 @@ namespace MoneyKeeper.Sms
         public string Sent { get; set; }
 
         public string Message { get; set; }
+
+        #endregion
     }
 
     /// <summary>
-    /// ShortMessage collection
+    /// Short message collection
     /// </summary>
     public class ShortMessageCollection : List<ShortMessage> { }
 }

@@ -19,14 +19,14 @@ namespace MoneyKeeper.Token.ViewModels
         {
             Title = "User";
 
-            VerifyCommand = new Command(async () => await ExecuteVerifyCommand());
+            GetTokenCmd = new Command(async () => await ExeGetTokenCmd());
         }
 
         /// <summary>
-        /// Execute verify mail command
+        /// Execute get token command
         /// </summary>
         /// <returns>Return the result</returns>
-        private async Task ExecuteVerifyCommand()
+        private async Task ExeGetTokenCmd()
         {
             if (IsBusy) { return; }
             IsBusy = true;
@@ -63,9 +63,9 @@ namespace MoneyKeeper.Token.ViewModels
         public string Code { get; set; }
 
         /// <summary>
-        /// Verify mail command
+        /// Get token command
         /// </summary>
-        public Command VerifyCommand { get; set; }
+        public Command GetTokenCmd { get; set; }
 
         #endregion
     }

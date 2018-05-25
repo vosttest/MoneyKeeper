@@ -8,15 +8,19 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Welcome to Money Keeper Token Application"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand"/>
             <Entry Text="{Binding Code}"
                    HorizontalTextAlignment="Center"
-                   Placeholder="Input activation code"
+                   Placeholder="Please input activation code..."
                    FontSize="16"/>
             <Button Text="Verify"
                     TextColor="White"
+                    BackgroundColor="Blue"
                     HeightRequest="50"
                     VerticalOptions="Start"
-                    Command="{Binding VerifyCommand}"/>
+                    Command="{Binding VerifyCmd}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -19,14 +19,14 @@ namespace MoneyKeeper.Token.ViewModels
         {
             Title = "Activation";
 
-            VerifyCommand = new Command(async () => await ExecuteVerifyCommand());
+            VerifyCmd = new Command(async () => await ExeVerifyCmd());
         }
 
         /// <summary>
-        /// Execute verify mail command
+        /// Execute verify command
         /// </summary>
         /// <returns>Return the result</returns>
-        private async Task ExecuteVerifyCommand()
+        private async Task ExeVerifyCmd()
         {
             if (IsBusy) { return; }
             IsBusy = true;
@@ -38,8 +38,10 @@ namespace MoneyKeeper.Token.ViewModels
 
                 if (res.Status == "success")
                 {
-                    Application.Current.Properties["jwt"] = res.Result;
+                    App.Jwt = res.Result.ToString();
+                    Application.Current.Properties["jwt"] = App.Jwt;
                     await Application.Current.SavePropertiesAsync();
+                    await main.Navigation.PushModalAsync(new MainPage());
                 }
                 else
                 {
@@ -63,9 +65,9 @@ namespace MoneyKeeper.Token.ViewModels
         public string Code { get; set; }
 
         /// <summary>
-        /// Verify mail command
+        /// Verify command
         /// </summary>
-        public Command VerifyCommand { get; set; }
+        public Command VerifyCmd { get; set; }
 
         #endregion
     }

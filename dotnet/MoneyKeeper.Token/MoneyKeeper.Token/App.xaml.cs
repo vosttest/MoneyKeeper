@@ -1,5 +1,7 @@
-﻿using Xamarin.Forms;
+using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
+[assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MoneyKeeper.Token
 {
     using Views;
@@ -30,9 +32,6 @@ namespace MoneyKeeper.Token
 
         #region -- Methods --
 
-        /// <summary>
-        /// Initialize
-        /// </summary>
         public App()
         {
             InitializeComponent();

@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MoneyKeeper.Token"
              xmlns:vm="clr-namespace:MoneyKeeper.Token.ViewModels"
              x:Class="MoneyKeeper.Token.MainPage">
     <ContentPage.BindingContext>
         <vm:UserVM/>
     </ContentPage.BindingContext>
-    <ContentPage.Content>
-        <StackLayout>
-            <Entry Text="{Binding Code}"
-                   HorizontalTextAlignment="Center"
-                   FontSize="16"/>
-            <Button Text="Verify"
-                    TextColor="White"
-                    HeightRequest="50"
-                    VerticalOptions="Start"
-                    Command="{Binding VerifyCommand}"/>
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout>
+        <Label Text="Welcome to Money Keeper Token Application"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"/>
+        <Button Text="Get Token"
+                TextColor="White"
+                BackgroundColor="Blue"
+                HeightRequest="50"
+                VerticalOptions="Start"
+                Command="{Binding GetTokenCmd}"/>
+    </StackLayout>
 </ContentPage>

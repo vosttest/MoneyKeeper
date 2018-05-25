@@ -13,7 +13,6 @@ namespace MoneyKeeper.Token.Rsp
         public string Status;
 
         [JsonProperty("message")]
-
         public string Message;
 
         #endregion

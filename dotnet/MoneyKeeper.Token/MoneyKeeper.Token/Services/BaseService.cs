@@ -17,7 +17,14 @@ namespace MoneyKeeper.Token.Services
         /// <summary>
         /// Initialize
         /// </summary>
-        public BaseService() { }
+        public BaseService()
+        {
+#if DEBUG
+            Host = "https://mk-dev.herokuapp.com/";
+#else
+            Host = "https://mk-dev.herokuapp.com/";
+#endif
+        }
 
         /// <summary>
         /// Add
@@ -99,12 +106,12 @@ namespace MoneyKeeper.Token.Services
 
         #endregion
 
-        #region -- Constants --
+        #region -- Properties --
 
         /// <summary>
         /// Host
         /// </summary>
-        protected const string Host = "https://mk-dev.herokuapp.com/";
+        protected string Host { get; set; }
 
         #endregion
     }
