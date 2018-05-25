@@ -34,6 +34,17 @@ p {
     box-shadow: none!important;
 }
 
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #1CB09A !important;
+    border-color: #1CB09A !important;
+}
+
+ul.pagination {
+    margin-bottom: 0rem;
+}
+
 
 /* Kendo validate */
 

@@ -86,7 +86,7 @@ export class AccountEditComponent implements OnInit {
     public save() {
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/account']);
+                this.rou.navigate(['/account/overview']);
             } else {
                 this.message = rsp.message;
             }
@@ -124,7 +124,7 @@ export class AccountEditComponent implements OnInit {
         const id = +this.route.snapshot.paramMap.get('id');
         this.proAccount.delete(id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/account']);
+                this.rou.navigate(['/account/overview']);
             }
             else {
                 console.log(rsp.message);

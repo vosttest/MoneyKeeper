@@ -43,51 +43,47 @@
     </div>
     <div class="content-report" *ngIf="isShow">
         <div class="row">
-            <div class="card full-width">
-                <div class="title">
-                    <div class="left">
-                        <h3>Expense</h3>
+            <div class="col-md-6">
+                <div class="card full-width">
+                    <div class="title">
+                        <h3>Expense Total: {{vm.total}}</h3>
                     </div>
-                    <div class="right"></div>
+                    <ul class="card-list list-group list-group-flush">
+                        <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
+                            <table border="0" class="full-width">
+                                <tr>
+                                    <th>{{ item.text }}</th>
+                                    <td class="text-right">{{ item.amount }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="card-list list-group list-group-flush">
-                    <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
-                        <table border="0" class="full-width">
-                            <tr>
-                                <th>{{ item.text }}</th>
-                                <td class="text-right">{{ item.amount }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </li>
-                </ul>
             </div>
-        </div>
-        <div class="row">
-            <div class="card full-width">
-                <div class="title">
-                    <div class="left">
-                        <h3>Income</h3>
+            <div class="col-md-6">
+                <div class="card full-width">
+                    <div class="title">
+                        <h3>Income Total: {{vm.total2}}</h3>
                     </div>
-                    <div class="right"> </div>
+                    <ul class="card-list list-group list-group-flush">
+                        <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
+                            <table border="0" class="full-width">
+                                <tr>
+                                    <th>{{ item.text }}</th>
+                                    <td class="text-right">{{ item.amount }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
                 </div>
-                <ul class="card-list list-group list-group-flush">
-                    <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
-                        <table border="0" class="full-width">
-                            <tr>
-                                <th>{{ item.text }}</th>
-                                <td class="text-right">{{ item.amount }}</td>
-                            </tr>
-                            <tr>
-                                <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
-                                <td></td>
-                            </tr>
-                        </table>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

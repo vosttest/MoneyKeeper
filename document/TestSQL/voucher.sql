@@ -3,9 +3,9 @@ TRUNCATE TABLE PUBLIC."voucher" RESTART IDENTITY;
 TRUNCATE TABLE PUBLIC."voucher_detail" RESTART IDENTITY;
 
 -- Insert data
-INSERT INTO PUBLIC."voucher" ("serial", "account_id", "type", "total", "description", "object", "user_id", "create_on","start_date") VALUES
-	(NULL, 1, 'Expense', 20000, NULL, NULL, 1, '2018-05-18', '2018-05-18'),
-	(NULL, 1, 'Income', 30000, NULL, NULL, 1, '2018-05-18', '2018-05-18');
+INSERT INTO PUBLIC."voucher" ("serial", "account_id", "type", "total", "description", "user_id", "create_on","start_date") VALUES
+	(NULL, 1, 'Expense', 20000, NULL, 1, '2018-05-18', '2018-05-18'),
+	(NULL, 1, 'Income', 30000, NULL, 1, '2018-05-18', '2018-05-18');
 
 INSERT INTO PUBLIC."voucher_detail" ("voucher_id", "category", "amount") VALUES
 	(1, 'EXP003', 10000),

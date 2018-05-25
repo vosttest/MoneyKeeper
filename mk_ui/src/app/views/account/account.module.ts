@@ -9,6 +9,7 @@ import { AccountComponent } from './account.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FilterPipe } from '../../utilities/utility';
 import { DataTableModule } from "angular2-datatable";
+import { BsDropdownModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { DataTableModule } from "angular2-datatable";
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
         AccountRoutingModule,
-        DataTableModule
+        DataTableModule,
+        BsDropdownModule.forRoot()
     ],
     declarations: [
         AccountComponent,

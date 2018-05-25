@@ -7,19 +7,23 @@
 </div>
 <section class="format-layout">
     <div class="row">
-        <div class="col-md-4">
-            <input [(ngModel)]="searchText" class="form-control" placeholder="Search account name...">
+        <div class="col-md-2">
+            <select name="type" (change)="changeType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
+                <option value="showAll">Show All</option>
+                <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
+            </select>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-3">
+            <input [(ngModel)]="searchText" class="form-control" placeholder="Search by Account Name...">
         </div>
-        <div class="col-md-2 text-right">
-            <button routerLink="/account-add" class="btn btn-outline-success">NEW &nbsp;<i class="fa fa-plus" ></i>
+        <div class="col-md-7 text-right">
+            <button routerLink="/account-add/overview" class="btn btn-outline-success">NEW &nbsp;<i class="fa fa-plus" ></i>
             </button>
         </div>
     </div>
     <div class="row">
         <div class="card bg-white card-2 full-width">
-            <table class="table table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="6">
+            <table class="table table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="7">
                 <thead>
                     <tr>
                         <th style="width: 40%">
@@ -38,7 +42,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let i of mf.data | filter : searchText">
-                        <td>{{i.text}}</td>
+                        <td>{{ i.text }}</td>
                         <td>{{ i.balance | currency:'USD':'symbol-narrow':'0.0-0'}} {{ i.currency }}</td>
                         <td>{{ i.createOn| date:'dd-MM-yyyy' }}</td>
                         <td routerLink="/account-edit/{{i.id}}"><i class="fa fa-edit"></i></td>

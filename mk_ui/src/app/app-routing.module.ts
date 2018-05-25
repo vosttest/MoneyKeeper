@@ -16,10 +16,10 @@ const routes: Routes = [
         children:
             [
                 {
-                    path: 'account',
+                    path: 'account/:function',
                     loadChildren: './views/account/account.module#AccountModule'
                 }, {
-                    path: 'account-add',
+                    path: 'account-add/:function',
                     loadChildren: './views/account-add/account-add.module#AccountAddModule'
                 }, {
                     path: 'account-edit/:id',
@@ -40,7 +40,7 @@ const routes: Routes = [
                     path: 'change-password',
                     loadChildren: './views/change-password/change-password.module#ChangePasswordModule'
                 }, {
-                    path: 'report',
+                    path: 'report/:function',
                     loadChildren: './views/report/report.module#ReportModule'
                 },
                 { path: 'profile', loadChildren: './views/profile/profile.module#ProfileModule' },

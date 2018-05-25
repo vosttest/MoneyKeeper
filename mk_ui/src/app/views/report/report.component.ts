@@ -11,7 +11,7 @@ export class ReportComponent implements OnInit {
     public reportExpense = [];
     public reportIncome = [];
     public multiSelect = [];
-    public vm: any = {};
+    public vm: any = { total: '', total2: '' };
     public options: any = [];
     public loader: boolean;
     public isShow: boolean = false;
@@ -70,10 +70,12 @@ export class ReportComponent implements OnInit {
         this.proReport.report(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.isShow = true;
+
                 this.reportExpense = rsp.result.data;
-                console.log(this.reportExpense);
-                
+                this.vm.total = rsp.result.total;
+
                 this.reportIncome = rsp.result.data2;
+                this.vm.total2 = rsp.result.total2;
             }
             else {
                 console.log(rsp.message);

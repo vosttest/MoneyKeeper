@@ -79,11 +79,14 @@ public class Const {
 				+ "Your password won't change until you access the link above and create a new one.</p>"
 				+ "<p>With regards,<br><strong>Money Keeper Team</strong></p></div>";
 
+		public static final String TEMPLATE_ACTIVATION_CODE = "<div style=\"font-family:arial;\">Hi {0},<br/>"
+				+ "<p>We recently received a activation code request for your Money Keeper account login.<br/>"
+				+ "If you would like to active your Token application, please use activation code <b>{1}</b>.</p>"
+				+ "<p>If you did not request a Token application, please ignore this email.<br/>"
+				+ "Your Token application won't change until you access the link above and create a new one.</p>"
+				+ "<p>With regards,<br><strong>Money Keeper Team</strong></p></div>";
+
 		public static final String SENDGRID_API_KEY = "SENDGRID_API_KEY";
-
-		public static final String SENDGRID_USERNAME = "SENDGRID_USERNAME";
-
-		public static final String SENDGRID_PASSWORD = "SENDGRID_PASSWORD";
 	}
 
 	public class SMS {

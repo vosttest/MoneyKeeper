@@ -42,12 +42,17 @@ public class ReportController {
 
 			// Handle
 			List<ReportDto> tmp = voucherService.getByExpense(accountId, fromDate, toDate);
+			double t = tmp.stream().mapToDouble(f -> f.getAmount()).sum();
+
 			List<ReportDto> tmp2 = voucherService.getByIncome(accountId, fromDate, toDate);
+			double t2 = tmp2.stream().mapToDouble(f -> f.getAmount()).sum();
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();
 			data.put("data", tmp);
+			data.put("total", t);
 			data.put("data2", tmp2);
+			data.put("total2", t2);
 			res.setResult(data);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());

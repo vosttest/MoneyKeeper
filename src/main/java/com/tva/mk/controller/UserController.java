@@ -25,7 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.SettingService;
 import com.tva.mk.bll.UserService;
 import com.tva.mk.common.Const;
-import com.tva.mk.common.SMSService;
+import com.tva.mk.common.EmailService;
+import com.tva.mk.common.MessageService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
@@ -117,7 +118,7 @@ public class UserController {
 							// Send SMS
 							String t4 = m.getContactNo();
 							String t5 = m1.getAuthKey();
-							SMSService.sendSMS(t4, t5);
+							MessageService.getActiveCode(t4, t5);
 						}
 
 						data.put("authen", true);
@@ -352,10 +353,10 @@ public class UserController {
 			Users m = userService.getActivationCode(id);
 			String data = "";
 			if (Const.Activation.SMS.equals(keyword)) {
-				SMSService.sendSMS(m.getContactNo(), m.getActivationCode());
+				MessageService.getActiveCode(m.getContactNo(), m.getActivationCode());
 				data = "Sent to your phone";
 			} else if (Const.Activation.MAIL.equals(keyword)) {
-				Utils.sendMail(m.getEmail(), m.getActivationCode(), m.getFirstName());
+				EmailService.getActiveCode(m.getEmail(), m.getActivationCode(), m.getFirstName());
 				data = "Sent to your email";
 			} else {
 				res.setError("Cannot send activation code");

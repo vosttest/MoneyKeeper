@@ -23,7 +23,7 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>MoneyKeeper.Main</string>
+	<string>MoneyKeeper</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.cws.rdp.MoneyKeeper.Main</string>
 	<key>CFBundleVersion</key>

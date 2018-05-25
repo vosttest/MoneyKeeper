@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
     public reportExpense = [];
     public reportIncome = [];
     public multiSelect = [];
-    public vm: any = {};
+    public vm: any = { total: '', total2: '' };
     public options: any = [];
     public isShow: boolean = false;
 
@@ -77,8 +77,12 @@ export class DashboardComponent implements OnInit {
         this.proReport.report(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.isShow = true;
+
                 this.reportExpense = rsp.result.data;
+                this.vm.total = rsp.result.total;
+
                 this.reportIncome = rsp.result.data2;
+                this.vm.total2 = rsp.result.total2;
             }
             else {
                 this.messageModal.show();

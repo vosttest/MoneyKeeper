@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tva.mk.common.EmailService;
 import com.tva.mk.common.Enums;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dal.AuthenticationDao;
@@ -201,7 +202,7 @@ public class UserService implements UserDetailsService {
 
 		userDao.save(m);
 
-		Utils.sendMail(email, token, m.getFirstName());
+		EmailService.forgotPassword(email, token, m.getFirstName());
 	}
 
 	/**
@@ -225,7 +226,7 @@ public class UserService implements UserDetailsService {
 
 		String token = Utils.getToken();
 		m.setAuthKey(token);
-		
+
 		if (isSignIn) {
 			String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
 			m.setClientKey(clientKey);

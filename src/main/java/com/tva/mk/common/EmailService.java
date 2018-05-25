@@ -67,23 +67,47 @@ public class EmailService {
 	 * 
 	 * @param to
 	 *            To email
-	 * @param token
+	 * @param code
 	 *            User's token
 	 * @param name
 	 *            First name
 	 */
-	public static void forgotPassword(String to, String token, String name) {
+	public static void forgotPassword(String to, String code, String name) {
 		try {
 			String url = System.getenv(Const.APP_BASE_URL);
 			String template = Const.Email.TEMPLATE_FORGOT_PASSWORD;
 
 			StringBuilder t = new StringBuilder(url);
 			t.append("/#/forgot-password?token=");
-			t.append(token);
+			t.append(code);
 
 			if (StringUtils.hasText(to)) {
 				String subject = "Reset your Money Keeper password";
 				String content = MessageFormat.format(template, name, t);
+				sendMail(to, subject, content);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Send email with activation code template
+	 * 
+	 * @param to
+	 *            To email
+	 * @param code
+	 *            Activation code
+	 * @param name
+	 *            First name
+	 */
+	public static void getActiveCode(String to, String code, String name) {
+		try {
+			String template = Const.Email.TEMPLATE_ACTIVATION_CODE;
+
+			if (StringUtils.hasText(to)) {
+				String subject = "Reset your Money Keeper password";
+				String content = MessageFormat.format(template, name, code);
 				sendMail(to, subject, content);
 			}
 		} catch (Exception e) {
