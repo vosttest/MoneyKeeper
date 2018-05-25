@@ -60,4 +60,8 @@ export class ProfileComponent implements OnInit {
             this.loader = false;
         }, err => console.log(err));
     }
+
+    public back(){
+        window.history.back();
+    }
 }

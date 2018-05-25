@@ -67,7 +67,7 @@ export class SettingComponent implements OnInit {
                             this.loginAuthen.id = element.id;
                             break;
                         case Setting.CODE_TRANSACTION:
-                            this.tranAuthen.type = element.value;
+                            this.tranAuthen.type = element.value == null ? '' : element.value;
                             this.tranAuthen.status = element.status == 'ACT' ? true : false;
                             this.tranAuthen.id = element.id;
                             break;
@@ -128,7 +128,7 @@ export class SettingComponent implements OnInit {
             value: this.selectedCurrency.value,
             status: this.selectedCurrency.status
         }
-        
+
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success") {
                 this.search();

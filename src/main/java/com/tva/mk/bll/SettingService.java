@@ -83,5 +83,19 @@ public class SettingService {
 		return res;
 	}
 
+	/**
+	 * Reset authentication
+	 * 
+	 * @param id
+	 *            User id
+	 */
+	public void resetAuth(int id) {
+		try {
+			entityManager.createNamedQuery("updateSetting", Setting.class).setParameter(1, id).executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	// end
 }

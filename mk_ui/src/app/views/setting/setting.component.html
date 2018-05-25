@@ -13,77 +13,78 @@
         </div>
         <div class="col-md-4"></div>
     </div>
-
     <!-- Modal -->
-
-    <div class="text-center" id="reminder" style="display: none;">
-        <div class="form-group">
-            <img class="img-reminder" src="../../../assets/img/reminder.png" />
-        </div>
-        <div class="form-group">
-            System will send a message prompt you input the data details per day.
-        </div>
-        <div class="form-group row">
-            <div class="col-md-6">
+    <div class="modal-dialog" id="reminder">
+        <div class="modal-content" style="border:none">
+            <div class="form-group text-center">
+                <img class="img-reminder" src="../../../assets/img/reminder.png" />
             </div>
-            <div class="col-md-6">
-                <label class="switch">
-                    <input type="checkbox" [checked]="reminder.status" name="status" #status="ngModel" [(ngModel)]="reminder.status">
-                    <span class="slider round"></span>
-                </label>
+            <div class="form-group">
+                System will send a message prompt you input the data details per day.
             </div>
-        </div>
-        <div class="form-group row" *ngIf="reminder.status">
-            <div class="col-md-6"></div>
-            <div class="col-md-6 top-time-picker">
-                <timepicker [(ngModel)]="reminder.time" [showMeridian]="ismeridian" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
-                <span *ngIf="isTime" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                    <i class="fa fa-exclamation-triangle"></i> Invalid time!
-                </span>
+            <div class="form-group row">
+                <div class="col-md-6">Reminder</div>
+                <div class="col-md-2"></div>
+                <div class="col-md-4">
+                    <label class="switch" style="float: right">
+                        <input type="checkbox" [checked]="reminder.status" name="status" #status="ngModel" [(ngModel)]="reminder.status">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-3"> </div>
-            <div class="col-md-6">
-                <button type="button" class="btn btn-success btn-block" (click)="saveReminder()">OK</button>
+            <div class="form-group row" *ngIf="reminder.status">
+                <div class="col-md-6">Time</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3 top-time-picker" style="float: right">
+                    <timepicker [(ngModel)]="reminder.time" [showMeridian]="ismeridian" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
+                    <span *ngIf="isTime" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                        <i class="fa fa-exclamation-triangle"></i> Invalid time!
+                    </span>
+                </div>
             </div>
-            <div class="col-md-3"> </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success btn-block" (click)="saveReminder()">OK</button>
+                </div>
+            </div>
         </div>
     </div>
     <div class="text-center" id="currency" style="display: none;">
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3"> </div>
-                <div class="col-md-6" style="margin-bottom: 5%;">
-                    <input type="text" class="form-control text-center" [(ngModel)]="searchCurrency" placeholder="Search currency" />
+                <div class="col-md-4"> </div>
+                <div class="col-md-4" style="margin-bottom: 5%;">
+                    <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search by currency" />
                 </div>
-                <div class="col-md-3"> </div>
+                <div class="col-md-4"> </div>
             </div>
             <div class="my-contains">
                 <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none">
-                    <div class="col-md-4">
-                        <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
+                    <div class="col-md-4"> </div>
+                    <div class="col-md-4 row">
+                        <div class="col-md-3">
+                            <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
+                        </div>
+                        <div class="col-md-6"> {{ i.text }} </div>
+                        <div class="col-md-3">
+                            <input type="radio" name="currency" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" checked value="{{ i.value }}" />
+                            <ng-template #elseCurrency>
+                                <input type="radio" name="currency" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
+                            </ng-template>
+                            {{ i.value }}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        {{ i.text }}
-                    </div>
-                    <div class="col-md-4 ">
-                        <input type="radio" name="currency" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" checked value="{{ i.value }}" />
-                        <ng-template #elseCurrency>
-                            <input type="radio" name="currency" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
-                        </ng-template>
-                        {{ i.value }}
-                    </div>
+                    <div class="col-md-4 "> </div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-3"> </div>
-                <div class="col-md-6">
+                <div class="col-md-4"> </div>
+                <div class="col-md-4">
                     <button type="button" class="btn btn-success btn-block" (click)="saveCurrency()">OK</button>
                 </div>
-                <div class="col-md-3"> </div>
+                <div class="col-md-4"> </div>
             </div>
         </div>
     </div>
@@ -92,38 +93,38 @@
             <img class="img-login-authen" src="../../../assets/img/login_authen.png" />
         </div>
         <div class="form-group row">
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
                 On / Off
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label class="switch" style="float: right;">
                     <input type="checkbox" [checked]="loginAuthen.status" name="loginAuthenstatus" #loginAuthenstatus="ngModel" [(ngModel)]="loginAuthen.status">
                     <span class="slider round"></span>
                 </label>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
         <div class="form-group row" *ngIf="loginAuthen.status">
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
                 Authentication type
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <select id="loginAuthenType" name="loginAuthenType" #loginAuthenType="ngModel" [(ngModel)]="loginAuthen.type" class="form-control">
                     <option value="">-- Please Select --</option>
                     <option value="OTP">OTP</option>
                     <option value="TOKEN">TOKEN</option>
                 </select>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
         <div class="form-group row">
-            <div class="col-md-3"> </div>
-            <div class="col-md-6">
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
                 <button type="button" class="btn btn-success btn-block" (click)="saveLoginAuthen()">OK</button>
             </div>
-            <div class="col-md-3"> </div>
+            <div class="col-md-4"> </div>
         </div>
     </div>
     <div class="text-center" id="tranAuthen" style="display: none;">
@@ -131,38 +132,38 @@
             <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
         </div>
         <div class="form-group row">
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
                 On / Off
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label class="switch" style="float: right;">
                     <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenStatus" #tranAuthenStatus="ngModel" [(ngModel)]="tranAuthen.status">
                     <span class="slider round"></span>
                 </label>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
         <div class="form-group row" *ngIf="tranAuthen.status">
-            <div class="col-md-1"></div>
-            <div class="col-md-5">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
                 Authentication type
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <select id="tranAuthenType" name="tranAuthenType" #tranAuthenType="ngModel" [(ngModel)]="tranAuthen.type" class="form-control">
                     <option value="">-- Please Select --</option>
                     <option value="OTP">OTP</option>
                     <option value="TOKEN">TOKEN</option>
                 </select>
             </div>
-            <div class="col-md-2"></div>
+            <div class="col-md-4"></div>
         </div>
         <div class="form-group row">
-            <div class="col-md-3"> </div>
-            <div class="col-md-6">
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
                 <button type="button" class="btn btn-success btn-block" (click)="saveTranAuthen()">OK</button>
             </div>
-            <div class="col-md-3"> </div>
+            <div class="col-md-4"> </div>
         </div>
     </div>
     <div class="text-center" id="lock" style="display: none;">
@@ -170,22 +171,24 @@
             <img class="img-login-authen" src="../../../assets/img/lock.png" />
         </div>
         <div class="form-group row">
-            <div class="col-md-6">
+            <div class="col-md-4"></div>
+            <div class="col-md-2">
                 Lock
             </div>
-            <div class="col-md-6">
-                <label class="switch">
+            <div class="col-md-2">
+                <label class="switch" style="float: right;">
                     <input type="checkbox" [checked]="lock.status" name="lockStatus" #lockStatus="ngModel" [(ngModel)]="lock.status">
                     <span class="slider round"></span>
                 </label>
             </div>
+            <div class="col-md-4"></div>
         </div>
         <div class="form-group row">
-            <div class="col-md-3"> </div>
-            <div class="col-md-6">
+            <div class="col-md-4"> </div>
+            <div class="col-md-4">
                 <button type="button" class="btn btn-success btn-block" (click)="saveLock()">OK</button>
             </div>
-            <div class="col-md-3"> </div>
+            <div class="col-md-4"> </div>
         </div>
     </div>
 </section>
