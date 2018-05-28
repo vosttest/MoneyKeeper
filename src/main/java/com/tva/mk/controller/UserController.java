@@ -418,7 +418,7 @@ public class UserController {
 			int id = pl.getId();
 
 			// Handle
-			com.tva.mk.model.Authentication m = userService.generateToken(Const.Module.SIGN_IN, id, null);
+			com.tva.mk.model.Authentication m = userService.generateToken(Const.Module.SIGN_IN, id, "");
 
 			// Set data
 			res.setResult(m.getAuthKey());

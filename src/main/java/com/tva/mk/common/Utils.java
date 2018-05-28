@@ -156,6 +156,23 @@ public class Utils {
 
 		return res;
 	}
+	
+	/**
+	 * Get token with 5 digits
+	 * @param d Date time
+	 * @return
+	 */
+	public static String getToken(Date d) {
+		SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
+		//TODO
+		String res = "00000";
+
+		Random t = new Random();
+		String s = (t.nextInt(99999) + 1) + "";
+		res = res.substring(0, 5 - s.length()) + s;
+
+		return res;
+	}
 
 	// end
 }
