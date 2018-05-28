@@ -84,12 +84,16 @@ export class AccountEditComponent implements OnInit {
     }
 
     public save() {
+        this.loader = true;
+
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.rou.navigate(['/account/overview']);
             } else {
                 this.message = rsp.message;
             }
+
+            this.loader = false;
         }, err => console.log(err))
     }
 
@@ -106,6 +110,8 @@ export class AccountEditComponent implements OnInit {
     }
 
     public getAccount() {
+        this.loader = true;
+
         const id = +this.route.snapshot.paramMap.get('id');
         this.proAccount.getAccount(id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -117,10 +123,14 @@ export class AccountEditComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
+            this.loader = false;
         }, err => console.log(err));
     }
 
     public delete() {
+        this.loader = true;
+
         const id = +this.route.snapshot.paramMap.get('id');
         this.proAccount.delete(id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -129,6 +139,8 @@ export class AccountEditComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
+            this.loader = false;
         }, err => console.log(err));
     }
 }

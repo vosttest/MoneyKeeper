@@ -1,8 +1,10 @@
 package com.tva.mk.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tva.mk.model.VoucherDetail;
 
 public class VoucherDto {
 	// region -- Fields --
@@ -36,6 +38,9 @@ public class VoucherDto {
 
 	@JsonProperty(value = "startDate")
 	private Date startDate;
+
+	@JsonProperty(value = "startDate")
+	private List<VoucherDetail> voucherDetail;
 
 	// end
 
@@ -119,6 +124,14 @@ public class VoucherDto {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	public List<VoucherDetail> getVoucherDetail() {
+		return voucherDetail;
+	}
+
+	public void setVoucherDetail(List<VoucherDetail> voucherDetail) {
+		this.voucherDetail = voucherDetail;
 	}
 
 	// end

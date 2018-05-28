@@ -51,7 +51,6 @@ h2 {
 }
 
 .content-report {
-    margin-top: 10%;
     margin-left: 15px;
     width: 95%;
     overflow-x: hidden;
@@ -61,7 +60,6 @@ h2 {
 .full-width {
     margin-left: 15px;
     width: 95%;
-    max-height: 320px;
 }
 
 .card-2 {

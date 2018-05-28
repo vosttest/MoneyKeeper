@@ -1,6 +1,7 @@
-.button {
-    width: 100%;
-    text-align: left;
+.btn {
+    width: 13%;
+    margin-right: 10px;
+    text-align: center;
 }
 
 a {
@@ -45,6 +46,7 @@ a {
     overflow-x: auto;
 }
 
+
 /* 
 #inputState {
     position: relative;
@@ -77,9 +79,15 @@ a {
 .btn-light {
     background-color: white;
     border-color: white;
+    width: 17%;
 }
 
 .list-icon {
+    overflow-x: auto;
+    max-height: auto;
+}
+
+.tab-pane {
     overflow-x: auto;
     max-height: 5in;
 }

@@ -83,7 +83,7 @@ public class Const {
 				+ "Your password won't change until you access the link above and create a new one.</p>"
 				+ "<p>With regards,<br><strong>Money Keeper Team</strong></p></div>";
 
-		public static final String TEMPLATE_ACTIVATION_CODE = "<div style=\"font-family:arial;\">Hi {0},<br/>"
+		public static final String TEMPLATE_ACTIVE_CODE = "<div style=\"font-family:arial;\">Hi {0},<br/>"
 				+ "<p>We recently received a activation code request for your Money Keeper account login.<br/>"
 				+ "If you would like to active your Token application, please use activation code <b>{1}</b>.</p>"
 				+ "<p>If you did not request a Token application, please ignore this email.<br/>"
@@ -99,10 +99,14 @@ public class Const {
 		public static final String SMS_USERNAME = "SMS_USERNAME";
 
 		public static final String SMS_PASSWORD = "SMS_PASSWORD";
+
+		public static final String TEMPLATE_ACTIVE_CODE = "Hi {0},\n\rYour active code is: {1}.";
 	}
 
 	public class DateTime {
 		public static final String FULL = "yyyy-MM-dd HH:mm:ss";
+
+		public static final String TOKEN = "yyyy-MM-dd HH:mm";
 	}
 
 	public class Activation {
@@ -113,5 +117,91 @@ public class Const {
 
 	public class Module {
 		public static final String SIGN_IN = "sign-in";
+	}
+
+	public class SpecialString {
+		public static final String Slash = "/";
+
+		public static final String BackSlash = "\\";
+
+		public static final String Space = " ";
+
+		public static final String Semicolon = ";";
+
+		public static final String Comma = ",";
+
+		public static final String Question = "?";
+
+		public static final String Asterisk = "*";
+
+		public static final String Caret = "^";
+
+		public static final String Plus = "+";
+
+		public static final String Blank = "";
+
+		public static final String Minus = "-";
+
+		public static final String Dot = ".";
+
+		public static final String Colon = ":";
+
+		public static final String Quotation = "\"";
+
+		public static final String LeftSquare = "[";
+
+		public static final String RightSquare = "]";
+
+		public static final String Underscore = "_";
+
+		public static final String VBar = "|";
+
+		public static final String Ampersand = "&";
+
+		public static final String Percent = "%";
+
+		public static final String AtSign = "@";
+	}
+
+	public class SpecialChar {
+		public static final char Slash = '/';
+
+		public static final char BackSlash = '\\';
+
+		public static final char Space = ' ';
+
+		public static final char Semicolon = ';';
+
+		public static final char Comma = ',';
+
+		public static final char Question = '?';
+
+		public static final char Asterisk = '*';
+
+		public static final char Caret = '^';
+
+		public static final char Plus = '+';
+
+		public static final char Minus = '-';
+
+		public static final char Dot = '.';
+
+		public static final char Colon = ':';
+
+		public static final char Quotation = '\'';
+
+		public static final char LeftSquare = '[';
+
+		public static final char RightSquare = ']';
+
+		public static final char Underscore = '_';
+
+		public static final char VBar = '|';
+
+		public static final char Ampersand = '&';
+
+		public static final char Percent = '%';
+
+		public static final char AtSign = '@';
 	}
 }

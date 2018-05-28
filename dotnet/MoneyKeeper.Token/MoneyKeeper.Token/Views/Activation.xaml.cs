@@ -17,6 +17,27 @@ namespace MoneyKeeper.Token.Views
         public Activation()
         {
             InitializeComponent();
+            code1.Focus();
+        }
+
+        private void code1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            code2.Focus();
+        }
+
+        private void code2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            code3.Focus();
+        }
+
+        private void code3_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            code4.Focus();
+        }
+
+        private void code4_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            code5.Focus();
         }
 
         #endregion

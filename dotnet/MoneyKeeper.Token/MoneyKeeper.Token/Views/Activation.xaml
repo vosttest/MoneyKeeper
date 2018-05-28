@@ -7,10 +7,26 @@
         <vm:ActivationVM/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Money Keeper Token Application"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"/>
+        <StackLayout BackgroundColor="#62CBBC">
+            <StackLayout Margin="40">
+                <Label Text="Verification Code" TextColor="White" HorizontalTextAlignment="Center" FontSize="Large" />
+                <Label Text="Please type the verification code sent to +84 999999999" TextColor="White" HorizontalTextAlignment="Center" FontSize="Default"/>
+            </StackLayout>
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="0">
+                <StackLayout Orientation="Horizontal">
+                    <Entry x:Name="code1" HorizontalTextAlignment="Center" TextChanged="code1_TextChanged"
+                   FontSize="16" WidthRequest="65" />
+                    <Entry x:Name="code2" HorizontalTextAlignment="Center" TextChanged="code2_TextChanged"
+                   FontSize="16" WidthRequest="65"/>
+                    <Entry x:Name="code3" HorizontalTextAlignment="Center" TextChanged="code3_TextChanged"
+                   FontSize="16" WidthRequest="65"/>
+                    <Entry x:Name="code4" HorizontalTextAlignment="Center" TextChanged="code4_TextChanged"
+                   FontSize="16" WidthRequest="65"/>
+                    <Entry x:Name="code5" HorizontalTextAlignment="Center" Keyboard="Numeric"
+                   FontSize="16" WidthRequest="65"/>
+                </StackLayout>
+            </Frame>
+
             <Entry Text="{Binding Code}"
                    HorizontalTextAlignment="Center"
                    Placeholder="Please input activation code..."

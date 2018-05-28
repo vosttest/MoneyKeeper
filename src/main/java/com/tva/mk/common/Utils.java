@@ -1,5 +1,8 @@
 package com.tva.mk.common;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -131,7 +134,7 @@ public class Utils {
 	 * @return
 	 */
 	public static String getToken(int l) {
-		String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		String chars = "0123456789";
 		Random random = new Random();
 		StringBuilder token = new StringBuilder(l);
 
@@ -143,33 +146,89 @@ public class Utils {
 	}
 
 	/**
-	 * Get token with 5 digits
+	 * Get token with 6 digits
 	 * 
 	 * @return
 	 */
 	public static String getToken() {
-		String res = "00000";
+		String res = "000000";
 
 		Random t = new Random();
 		String s = (t.nextInt(99999) + 1) + "";
-		res = res.substring(0, 5 - s.length()) + s;
+		res = res.substring(0, 6 - s.length()) + s;
 
 		return res;
 	}
-	
+
 	/**
-	 * Get token with 5 digits
-	 * @param d Date time
+	 * Get token
+	 * 
+	 * @param d
+	 *            Date time
+	 * @param num
+	 *            Number of digits will get
 	 * @return
 	 */
-	public static String getToken(Date d) {
-		SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
-		//TODO
-		String res = "00000";
+	public static String getToken(Date d, int num) {
+		String res = "";
 
-		Random t = new Random();
-		String s = (t.nextInt(99999) + 1) + "";
-		res = res.substring(0, 5 - s.length()) + s;
+		String hash = generateSHA256(d);
+		String[] arr = hash.split(Const.SpecialString.Minus);
+
+		if (num > 8 || num < 1) {
+			num = 8;
+		}
+
+		for (String i : arr) {
+			if (num == 0) {
+				break;
+			}
+
+			eachHash: for (char item : i.toCharArray()) {
+				if (Character.isDigit(item)) {
+					res += item;
+					break eachHash;
+				}
+			}
+
+			num--;
+		}
+
+		return res;
+	}
+
+	/**
+	 * Generate SHA-256
+	 * 
+	 * @param d
+	 *            Date time
+	 * @return
+	 */
+	private static String generateSHA256(Date d) {
+		String res = "";
+		SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
+		String text = f.format(d);
+
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] encodedhash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+			StringBuffer hexString = new StringBuffer();
+
+			for (int i = 0; i < encodedhash.length; i++) {
+				String hex = Integer.toHexString(0xff & encodedhash[i]);
+				if (hex.length() == 1) {
+					hexString.append('0');
+				}
+				hexString.append(hex);
+				if (i % 4 == 3) {
+					hexString.append(Const.SpecialChar.Minus);
+				}
+			}
+
+			res = hexString.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 
 		return res;
 	}

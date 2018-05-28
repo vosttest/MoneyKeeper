@@ -55,6 +55,7 @@ export class CategoryComponent implements OnInit {
     }
 
     public loadIncome() {
+        this.loader = true;
         this.tab = "Income";
         document.getElementById("tabExpense").style.backgroundColor = "white";
         document.getElementById("tabExpense").style.color = "black";
@@ -72,10 +73,12 @@ export class CategoryComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+            this.loader = false;
         }, err => console.log(err));
     }
 
     public loadExpense() {
+        this.loader = true;
         this.tab = "Expense";
         document.getElementById("tabExpense").style.backgroundColor = "#1CB09A";
         document.getElementById("tabExpense").style.color = "white";
@@ -93,6 +96,7 @@ export class CategoryComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+            this.loader = false;
         }, err => console.log(err));
     }
 

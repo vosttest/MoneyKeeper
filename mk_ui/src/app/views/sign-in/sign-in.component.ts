@@ -24,7 +24,8 @@ export class SignInComponent implements OnInit {
 
     constructor(private pro: UserProvider) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     public signIn() {
         this.loader = true;
@@ -146,12 +147,6 @@ export class SignInComponent implements OnInit {
         this.token = this.vm.codeNumber1 + this.vm.codeNumber2
             + this.vm.codeNumber3 + this.vm.codeNumber4
             + this.vm.codeNumber5;
-        console.log(this.vm.codeNumber1);
-        console.log(this.vm.codeNumber2);
-        console.log(this.vm.codeNumber3);
-        console.log(this.vm.codeNumber4);
-        console.log(this.vm.codeNumber5);
-
 
         if (this.token.length == 5) {
             this.isDisabled = false;

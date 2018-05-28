@@ -14,7 +14,7 @@ export class AccountComponent implements OnInit {
     public lstTmp = [];
     public lstType = [];
     public keyword: string = '';
-    public vm: any = {};
+    public vm: any = { type: 'showAll' };
     public searchText = '';
     public loader: boolean;
 
@@ -29,6 +29,7 @@ export class AccountComponent implements OnInit {
 
     private search() {
         this.loader = true;
+
         let info = { keyword: '' };
         this.pro.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -38,11 +39,14 @@ export class AccountComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
             this.loader = false;
         }, err => console.log(err));
     }
 
     private searchByType(type: string) {
+        this.loader = true;
+
         this.proCom.search(type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 if (type == 'Account') {
@@ -52,6 +56,7 @@ export class AccountComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
             this.loader = false;
         }, err => console.log(err));
     }

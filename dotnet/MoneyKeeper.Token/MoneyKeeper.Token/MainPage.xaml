@@ -8,8 +8,11 @@
     </ContentPage.BindingContext>
     <StackLayout>
         <Label Text="Welcome to Money Keeper Token Application"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand"/>
+               VerticalOptions="CenterAndExpand"
+               HorizontalOptions="CenterAndExpand"/>
+        <Label x:Name="lblDate"/>
+        <Label x:Name="lblSecond"/>
+        <Label x:Name="lblToken"/>
         <Button Text="Get Token"
                 TextColor="White"
                 BackgroundColor="Blue"

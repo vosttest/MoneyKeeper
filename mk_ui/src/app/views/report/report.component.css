@@ -36,9 +36,8 @@ input[type=text] {
     background-color: #1e90ff;
 }
 
-button {
-    float: right;
-    width: 10%;
+.text-right {
+    margin-bottom: 2%;
 }
 
 .right {

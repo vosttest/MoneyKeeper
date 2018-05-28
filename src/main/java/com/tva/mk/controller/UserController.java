@@ -123,7 +123,7 @@ public class UserController {
 						// Send SMS
 						String t4 = m.getContactNo();
 						String t5 = m1.getAuthKey();
-						MessageService.getActiveCode(t4, t5);
+						MessageService.send(t4, t5);
 
 						data.put("authen", true);
 						data.put("key", t3);
@@ -355,12 +355,15 @@ public class UserController {
 
 			// Handle
 			Users m = userService.getActiveCode(id);
+			String code = m.getActivationCode();
+			String name = m.getFirstName();
 			String data = "";
+
 			if (Const.Activation.SMS.equals(keyword)) {
-				MessageService.getActiveCode(m.getContactNo(), m.getActivationCode());
+				MessageService.getActiveCode(m.getContactNo(), name, code);
 				data = "Sent to your phone";
 			} else if (Const.Activation.MAIL.equals(keyword)) {
-				EmailService.getActiveCode(m.getEmail(), m.getActivationCode(), m.getFirstName());
+				EmailService.getActiveCode(m.getEmail(), name, code);
 				data = "Sent to your email";
 			} else {
 				res.setError("Cannot send activation code");

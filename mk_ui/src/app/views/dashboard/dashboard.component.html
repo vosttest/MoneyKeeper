@@ -11,39 +11,49 @@
             <div class="card bg-white card-2">
                 <h2 class="text-center">Expense vs Income</h2>
                 <div class="content-left">
-                    <form>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p>Account</p>
+                    <div class="row">
+                        <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && report()" class="full-width">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p>Account</p>
+                                </div>
+                                <div class="col-md-8">
+                                    <ngx-select-dropdown [multiple]="false" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
+                                </div>
                             </div>
-                            <div class="col-md-8">
-                                <ngx-select-dropdown [multiple]="false" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p>Viewed By</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
+                                    <input type="hidden" class="form-control" name="fromDate2" #fromDate2="ngModel" [(ngModel)]="vm.fromDate" required>
+                                    <span [hidden]="fromDate2.valid || (fromDate2.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="fromDate2" data-valmsg-for="fromDate2" id="fromDate2_validationMessage" role="alert">
+                                        <i class="fa fa-exclamation-triangle"></i> Pick From Date!
+                                    </span>
+                                </div>
+                                <div class="col-md-4">
+                                    <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
+                                    <input type="hidden" class="form-control" name="toDate2" #toDate2="ngModel" [(ngModel)]="vm.toDate" required>
+                                    <span [hidden]="toDate2.valid || (toDate2.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="toDate2" data-valmsg-for="toDate2" id="toDate2_validationMessage" role="alert">
+                                        <i class="fa fa-exclamation-triangle"></i> Pick To Date!
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <p>Viewed By</p>
+                            <div class="text-right">
+                                <button type="submit" class="btn btn-success">View</button>
                             </div>
-                            <div class="col-md-4">
-                                <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
-                            </div>
-                            <div class="col-md-4">
-                                <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <button type="button" class="btn btn-success" (click)="report()">View</button>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                     <div class="row">
                         <div class="content-report full-width" *ngIf="isShow">
                             <div class="row">
                                 <div class="card full-width">
                                     <div class="title">
-                                        <h3>Expense Total: {{vm.total | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
+                                        <h3>Expense Total : {{vm.total | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
                                     </div>
-                                    <ul class="card-list list-group list-group-flush">
-                                        <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
+                                    <ul class="card-list list-group list-group-flush" *ngFor="let item of getReport">
+                                        <li class="list-group-item list-group-item-action" *ngIf="item.type == 'Expense'">
                                             <table border="0" class="full-width">
                                                 <tr>
                                                     <th>{{ item.text }}</th>
@@ -51,20 +61,16 @@
                                                 </tr>
                                                 <tr>
                                                     <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
-                                                    <td></td>
+                                                    <td class="text-right">{{item.type}}</td>
                                                 </tr>
                                             </table>
                                         </li>
                                     </ul>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="card full-width">
                                     <div class="title">
-                                        <h3>Income Total: {{vm.total2 | currency:'USD':'symbol-narrow':'0.0-0'}}</h3>
+                                        <h3>Income Total : {{vm.total2 | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
                                     </div>
-                                    <ul class="card-list list-group list-group-flush">
-                                        <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
+                                    <ul class="card-list list-group list-group-flush" *ngFor="let item of getReport">
+                                        <li class="list-group-item list-group-item-action" *ngIf="item.type == 'Income'">
                                             <table border="0" class="full-width">
                                                 <tr>
                                                     <th>{{ item.text }}</th>
@@ -72,7 +78,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
-                                                    <td></td>
+                                                    <td class="text-right">{{item.type}}</td>
                                                 </tr>
                                             </table>
                                         </li>
@@ -103,22 +109,3 @@
         </div>
     </div>
 </section>
-<!-- Modal Message -->
-<div bsModal #messageModal="bs-modal" class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">View Expense & Income Your Account</h5>
-                <button type="button" class="close" (click)="messageModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                Please choose Account, From Date and To Date !!!
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" (click)="messageModal.hide()">OK</button>
-            </div>
-        </div>
-    </div>
-</div>

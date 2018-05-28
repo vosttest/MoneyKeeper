@@ -21,7 +21,8 @@ import com.tva.mk.common.Const;
 @Entity
 @Table(name = "setting", schema = "public")
 @SqlResultSetMapping(name = "updateResult", columns = { @ColumnResult(name = "count") })
-@NamedNativeQueries({ @NamedNativeQuery(name = "updateSetting", query = "UPDATE setting SET status = 'INA', value = NULL WHERE code = 'SET003' and user_id = ?", resultSetMapping = "updateResult") })
+@NamedNativeQueries({
+		@NamedNativeQuery(name = "updateSetting", query = "UPDATE setting SET status = 'INA', value = NULL WHERE code = 'SET003' and user_id = ?", resultSetMapping = "updateResult") })
 public class Setting {
 	// region -- Fields --
 

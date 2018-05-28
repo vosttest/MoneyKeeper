@@ -96,14 +96,14 @@ public class EmailService {
 	 * 
 	 * @param to
 	 *            To email
-	 * @param code
-	 *            Active code
 	 * @param name
 	 *            First name
+	 * @param code
+	 *            Active code
 	 */
-	public static void getActiveCode(String to, String code, String name) {
+	public static void getActiveCode(String to, String name, String code) {
 		try {
-			String template = Const.Email.TEMPLATE_ACTIVATION_CODE;
+			String template = Const.Email.TEMPLATE_ACTIVE_CODE;
 
 			if (StringUtils.hasText(to)) {
 				String subject = "Get your Money Keeper active code";
