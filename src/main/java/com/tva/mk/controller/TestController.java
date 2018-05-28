@@ -72,7 +72,7 @@ public class TestController {
 				int id = pl.getId();
 
 				// Handle
-				Users m = userService.getActivationCode(id);
+				Users m = userService.getActiveCode(id);
 				String data = m.getActivationCode();
 
 				// Set data
@@ -118,7 +118,7 @@ public class TestController {
 
 			if (mod != null && "Y".equals(mod)) {
 				// Handle
-				Users m = userService.getActivationCode(id);
+				Users m = userService.getActiveCode(id);
 				String data = m.getActivationCode();
 
 				// Set data

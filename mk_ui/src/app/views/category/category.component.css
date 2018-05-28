@@ -33,9 +33,12 @@ a {
     margin-top: 1%;
 }
 
+.margin-bottom {
+    margin-bottom: 1%;
+}
+
 .button-action.button {
     width: 10%;
-    /* margin-right: 15px; */
 }
 
 .scroll {
@@ -66,18 +69,6 @@ a {
 .col-md-6 {
     flex: 0 0 50%;
 }
-
-/* .col-md-1 {
-    width: auto !important;
-    padding: unset !important;
-    max-width: 4%;
-}
-
-.col-md-10 {
-    width: auto !important;
-    padding: unset !important;
-    margin: auto !important;
-} */
 
 .btn-group {
     display: unset;

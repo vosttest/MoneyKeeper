@@ -27,7 +27,7 @@
             <div class="card bg-white card-2 full-width">
                 <div class="card-body">
                     <div class="col-md-12">
-                        <input *ngIf="isShow" class="form-control" id="myInput" type="text" placeholder="Search.." [(ngModel)]="keyword" (keyup)="search(keyword)">
+                        <input *ngIf="isShow" class="form-control margin-bottom" id="myInput" type="text" placeholder="Search by name" [(ngModel)]="keyword" (keyup)="search(keyword)">
                         <div id="expense" class="tab-pane">
                             <div class="accordion" id="accordionExample">
                                 <div *ngFor="let i of lstParentTmp" class="card">
@@ -173,8 +173,8 @@
                     Are you sure delete this Category ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" (click)="confirmModal.hide()">No</button>
-                    <button type="button" class="btn btn-success" (click)="delete(vm.id)">Yes</button>
+                    <button type="button" class="btn btn-secondary" (click)="delete(vm.id)">Yes</button>
+                    <button type="button" class="btn btn-success" (click)="confirmModal.hide()">No</button>
                 </div>
             </div>
         </div>

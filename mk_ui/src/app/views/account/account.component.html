@@ -45,7 +45,7 @@
                         <td>{{ i.text }}</td>
                         <td>{{ i.balance | currency:'USD':'symbol-narrow':'0.0-0'}} {{ i.currency }}</td>
                         <td>{{ i.createOn| date:'dd-MM-yyyy' }}</td>
-                        <td routerLink="/account-edit/{{i.id}}"><i class="fa fa-edit"></i></td>
+                        <td tabindex="-1" routerLink="/account-edit/{{i.id}}"><i class="fa fa-edit"></i></td>
                     </tr>
                 </tbody>
                 <tfoot>

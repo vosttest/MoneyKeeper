@@ -11,39 +11,43 @@
             <div class="card bg-white card-2">
                 <h2 class="text-center">Expense vs Income</h2>
                 <div class="content-left">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p>Account</p>
+                    <form>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>Account</p>
+                            </div>
+                            <div class="col-md-8">
+                                <ngx-select-dropdown [multiple]="false" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
+                            </div>
                         </div>
-                        <div class="col-md-8">
-                            <ngx-select-dropdown [multiple]="false" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p>Viewed By</p>
+                            </div>
+                            <div class="col-md-4">
+                                <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
+                            </div>
+                            <div class="col-md-4">
+                                <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <p>Viewed By</p>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-success" (click)="report()">View</button>
                         </div>
-                        <div class="col-md-4">
-                            <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
-                        </div>
-                        <div class="col-md-4">
-                            <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-success" (click)="report()">View</button>
+                    </form>
                     <div class="row">
                         <div class="content-report full-width" *ngIf="isShow">
                             <div class="row">
                                 <div class="card full-width">
                                     <div class="title">
-                                        <h3>Expense Total: {{vm.total}} </h3>
+                                        <h3>Expense Total: {{vm.total | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
                                     </div>
                                     <ul class="card-list list-group list-group-flush">
                                         <li class="list-group-item list-group-item-action" *ngFor="let item of reportExpense">
                                             <table border="0" class="full-width">
                                                 <tr>
                                                     <th>{{ item.text }}</th>
-                                                    <td class="text-right">{{ item.amount }}</td>
+                                                    <td class="text-right">{{ item.amount | currency:'USD':'symbol-narrow':'0.0-0'}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
@@ -57,14 +61,14 @@
                             <div class="row">
                                 <div class="card full-width">
                                     <div class="title">
-                                        <h3>Income Total: {{vm.total2}}</h3>
+                                        <h3>Income Total: {{vm.total2 | currency:'USD':'symbol-narrow':'0.0-0'}}</h3>
                                     </div>
                                     <ul class="card-list list-group list-group-flush">
                                         <li class="list-group-item list-group-item-action" *ngFor="let item of reportIncome">
                                             <table border="0" class="full-width">
                                                 <tr>
                                                     <th>{{ item.text }}</th>
-                                                    <td class="text-right">{{ item.amount }}</td>
+                                                    <td class="text-right">{{ item.amount | currency:'USD':'symbol-narrow':'0.0-0'}}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>

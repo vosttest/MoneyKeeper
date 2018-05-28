@@ -60,6 +60,10 @@ public class Const {
 
 		public static final String CODE_LOGIN = "SET003";
 
+		public static final String CODE_TOKEN = "TOKEN";
+
+		public static final String CODE_OTP = "OTP";
+
 		public static final String DEFAULT_REMINDER = "20:00";
 
 		public static final String DEFAULT_CURRENCY = "VND";
@@ -105,5 +109,9 @@ public class Const {
 		public static final String MAIL = "MAIL";
 
 		public static final String SMS = "SMS";
+	}
+
+	public class Module {
+		public static final String SIGN_IN = "sign-in";
 	}
 }

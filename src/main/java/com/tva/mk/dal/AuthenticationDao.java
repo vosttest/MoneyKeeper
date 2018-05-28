@@ -19,7 +19,7 @@ public interface AuthenticationDao extends CrudRepository<Authentication, Intege
 	 *            user id
 	 * @return
 	 */
-	@Query("FROM Authentication a WHERE ((a.clientKey = :clientKey AND a.module = :module) OR a.module = :module)"
+	@Query("FROM Authentication a WHERE ((a.clientKey = :clientKey AND a.isVerified = FALSE) OR a.module = :module)"
 			+ " AND a.createBy = :userId")
 	public Authentication getBy(@Param("clientKey") String clientKey, @Param("module") String module,
 			@Param("userId") int userId);

@@ -18,6 +18,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tva.mk.common.Const;
 import com.tva.mk.common.EmailService;
 import com.tva.mk.common.Enums;
 import com.tva.mk.common.Utils;
@@ -211,10 +212,12 @@ public class UserService implements UserDetailsService {
 	 * @param module
 	 *            Token/OTP of action (sign-in, transaction, ...)
 	 * @param userId
+	 * @param type
+	 *            TOKEN or OTP or empty
 	 * @return
 	 * @throws Exception
 	 */
-	public Authentication generateToken(String module, int userId, boolean isSignIn) throws Exception {
+	public Authentication generateToken(String module, int userId, String type) throws Exception {
 		Authentication m = authenticationDao.getBy("", module, userId);
 
 		if (m == null) {
@@ -224,12 +227,26 @@ public class UserService implements UserDetailsService {
 		m.setCreateBy(userId);
 		m.setCreateOn(new Date());
 
-		String token = Utils.getToken();
-		m.setAuthKey(token);
-
-		if (isSignIn) {
-			String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
+		String token = "";
+		String clientKey = "";
+		switch (type) {
+		case Const.Setting.CODE_TOKEN:
+			clientKey = bCryptPasswordEncoder.encode(new Date().toString());
 			m.setClientKey(clientKey);
+			m.setAuthKey("");
+			break;
+
+		case Const.Setting.CODE_OTP:
+			clientKey = bCryptPasswordEncoder.encode(new Date().toString());
+			m.setClientKey(clientKey);
+			token = Utils.getToken();
+			m.setAuthKey(token);
+			break;
+
+		default:
+			token = Utils.getToken();
+			m.setAuthKey(token);
+			break;
 		}
 
 		m.setModule(module);
@@ -245,8 +262,8 @@ public class UserService implements UserDetailsService {
 		return m;
 	}
 
-	public void verifyToken(String clientKey, int userId, String token, String module) throws Exception {
-		Authentication m = authenticationDao.getBy(clientKey, module, userId);
+	public void verifyToken(String clientKey, int userId, String token) throws Exception {
+		Authentication m = authenticationDao.getBy(clientKey, "", userId);
 
 		if (m == null) {
 			throw new Exception(Enums.Error.E201.toString());
@@ -258,7 +275,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		String authKey = m.getAuthKey();
-		if (!authKey.equals(token)) {
+		if (!authKey.equals(token) || authKey == null) {
 			throw new Exception(Enums.Error.E203.toString());
 		}
 
@@ -269,7 +286,7 @@ public class UserService implements UserDetailsService {
 		authenticationDao.save(m);
 	}
 
-	public Users getActivationCode(int id) {
+	public Users getActiveCode(int id) {
 		Users res = null;
 
 		try {
@@ -292,11 +309,11 @@ public class UserService implements UserDetailsService {
 		return res;
 	}
 
-	public Users verifyActivation(String code) {
+	public Users verifyActiveCode(String code) {
 		Users res = null;
 
 		try {
-			res = userDao.getByActivationCode(code);
+			res = userDao.getByActiveCode(code);
 			if (res != null) {
 				res.setModifyOn(new Date());
 				res.setActivationExpire(null);

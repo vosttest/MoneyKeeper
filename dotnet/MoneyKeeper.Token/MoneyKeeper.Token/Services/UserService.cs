@@ -20,11 +20,11 @@ namespace MoneyKeeper.Token.Services
         public UserService() { }
 
         /// <summary>
-        /// Verify activation code
+        /// Verify active code
         /// </summary>
-        /// <param name="code">Activation code</param>
+        /// <param name="code">Active code</param>
         /// <returns>Return the result</returns>
-        public async Task<SingleRsp> VerifyActivation(string code)
+        public async Task<SingleRsp> VerifyActiveCode(string code)
         {
             SingleRsp res = null;
 
@@ -32,7 +32,7 @@ namespace MoneyKeeper.Token.Services
             var data = CreateData(m);
 
             var client = new HttpClient();
-            var rsp = await client.PostAsync(Host + "user/verify-activation", data);
+            var rsp = await client.PostAsync(Host + "user/verify-active-code", data);
 
             if (rsp.IsSuccessStatusCode)
             {

@@ -15,6 +15,7 @@ export class ProfileComponent implements OnInit {
     public type = 'MAIL';
 
     @ViewChild('activeCodePopup') public activeCodePopup: ModalDirective;
+    @ViewChild('messageModal') public messageModal: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
@@ -29,7 +30,7 @@ export class ProfileComponent implements OnInit {
             if (rsp.status === 'success') {
                 this.rou.navigate(['/dashboard']);
             } else {
-                //TODO - Show popup
+                this.messageModal.show()
                 console.log(rsp.message);
             }
 
