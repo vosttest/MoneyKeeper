@@ -77,7 +77,7 @@ public class TestController {
 
 				// Handle
 				Users m = userService.getActiveCode(id);
-				String data = m.getActivationCode();
+				String data = m.getActiveCode();
 
 				// Set data
 				res.setResult(data);
@@ -123,7 +123,7 @@ public class TestController {
 			if (mod != null && "Y".equals(mod)) {
 				// Handle
 				Users m = userService.getActiveCode(id);
-				String data = m.getActivationCode();
+				String data = m.getActiveCode();
 
 				// Set data
 				res.setResult(data);
@@ -152,7 +152,8 @@ public class TestController {
 			f.setTimeZone(TimeZone.getTimeZone("UTC"));
 			String s = f.format(d);
 
-			String token = text + " - " + Utils.getToken(s, 6);
+			int n = Const.Authentication.TOKEN_NUMBER;
+			String token = text + " - " + Utils.getToken(s, n);
 
 			// Set data
 			res.setResult(token);

@@ -63,7 +63,7 @@ BEGIN
 		END LOOP;
 	CLOSE curr_expense;
 	---------------------------------------
-				
+
 	-- Income ----------------------------
 	-- Step 1
 	INSERT INTO income(code, text, user_id, description, sequence, icon)

@@ -3,8 +3,10 @@ package com.tva.mk.common;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -151,11 +153,17 @@ public class Utils {
 	 * @return
 	 */
 	public static String getToken() {
-		String res = "000000";
+		int n = Const.Authentication.TOKEN_NUMBER;
+		int max = (int) Math.pow(10, n) - 1;
 
 		Random t = new Random();
-		String s = (t.nextInt(99999) + 1) + "";
-		res = res.substring(0, 6 - s.length()) + s;
+		int s = t.nextInt(max);
+
+		char[] zeros = new char[n];
+		Arrays.fill(zeros, '0');
+		String format = String.valueOf(zeros);
+		DecimalFormat df = new DecimalFormat(format);
+		String res = df.format(s);
 
 		return res;
 	}

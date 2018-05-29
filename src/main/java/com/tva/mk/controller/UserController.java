@@ -31,6 +31,7 @@ import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.dto.ProfileDto;
+import com.tva.mk.model.AuthToken;
 import com.tva.mk.model.Setting;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.BaseReq;
@@ -107,7 +108,7 @@ public class UserController {
 						t2 = t1.getValue() + "";
 					}
 
-					com.tva.mk.model.Authentication m1 = null;
+					AuthToken m1 = null;
 					switch (t2) {
 					case Const.Setting.CODE_TOKEN:
 						m1 = userService.generateToken(Const.Module.SIGN_IN, userId, t2);
@@ -122,7 +123,7 @@ public class UserController {
 
 						// Send SMS
 						String t4 = m.getContactNo();
-						String t5 = m1.getAuthKey();
+						String t5 = m1.getToken();
 						MessageService.send(t4, t5);
 
 						data.put("authen", true);
@@ -355,7 +356,7 @@ public class UserController {
 
 			// Handle
 			Users m = userService.getActiveCode(id);
-			String code = m.getActivationCode();
+			String code = m.getActiveCode();
 			String name = m.getFirstName();
 			String data = "";
 
@@ -421,10 +422,10 @@ public class UserController {
 			int id = pl.getId();
 
 			// Handle
-			com.tva.mk.model.Authentication m = userService.generateToken(Const.Module.SIGN_IN, id, "");
+			AuthToken m = userService.generateToken(Const.Module.SIGN_IN, id, "");
 
 			// Set data
-			res.setResult(m.getAuthKey());
+			res.setResult(m.getToken());
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

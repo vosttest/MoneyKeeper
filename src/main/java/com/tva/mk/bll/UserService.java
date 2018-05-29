@@ -1,8 +1,10 @@
 package com.tva.mk.bll;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -22,11 +24,11 @@ import com.tva.mk.common.Const;
 import com.tva.mk.common.EmailService;
 import com.tva.mk.common.Enums;
 import com.tva.mk.common.Utils;
-import com.tva.mk.dal.AuthenticationDao;
+import com.tva.mk.dal.AuthTokenDao;
 import com.tva.mk.dal.RoleDao;
 import com.tva.mk.dal.UserDao;
 import com.tva.mk.dto.ProfileDto;
-import com.tva.mk.model.Authentication;
+import com.tva.mk.model.AuthToken;
 import com.tva.mk.model.Users;
 
 @Service(value = "userService")
@@ -38,7 +40,7 @@ public class UserService implements UserDetailsService {
 	private UserDao userDao;
 
 	@Autowired
-	private AuthenticationDao authenticationDao;
+	private AuthTokenDao authTokenDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -217,53 +219,57 @@ public class UserService implements UserDetailsService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Authentication generateToken(String module, int userId, String type) throws Exception {
-		Authentication m = authenticationDao.getBy("", module, userId);
+	public AuthToken generateToken(String module, int userId, String type) throws Exception {
+		AuthToken m = authTokenDao.getBy("", module, userId);
 
 		if (m == null) {
-			m = new Authentication();
+			m = new AuthToken();
 		}
 
 		m.setCreateBy(userId);
 		m.setCreateOn(new Date());
 
+		String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
+		m.setClientKey(clientKey);
+
+		int n = Const.Authentication.TOKEN_NUMBER;
 		String token = "";
-		String clientKey = "";
 		switch (type) {
 		case Const.Setting.CODE_TOKEN:
-			clientKey = bCryptPasswordEncoder.encode(new Date().toString());
-			m.setClientKey(clientKey);
-			m.setAuthKey("");
+			Date d = new Date();
+			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
+			f.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String s = f.format(d);
+
+			token = Utils.getToken(s, n);
 			break;
 
 		case Const.Setting.CODE_OTP:
-			clientKey = bCryptPasswordEncoder.encode(new Date().toString());
-			m.setClientKey(clientKey);
 			token = Utils.getToken();
-			m.setAuthKey(token);
 			break;
 
 		default:
-			token = Utils.getToken();
-			m.setAuthKey(token);
+			token = Utils.getToken(n);
 			break;
 		}
+		m.setToken(token);
 
 		m.setModule(module);
-		m.setExpireOn(Utils.getTime(Calendar.MINUTE, 2));
+		Date d = Utils.getTime(Calendar.MINUTE, Const.Authentication.TOKEN_MINUTE);
+		m.setExpireOn(d);
 
 		// Reset data
 		m.setModifyBy(null);
 		m.setVerified(false);
 		m.setModifyOn(null);
 
-		authenticationDao.save(m);
+		authTokenDao.save(m);
 
 		return m;
 	}
 
 	public void verifyToken(String clientKey, int userId, String token) throws Exception {
-		Authentication m = authenticationDao.getBy(clientKey, "", userId);
+		AuthToken m = authTokenDao.getBy(clientKey, "", userId);
 
 		if (m == null) {
 			throw new Exception(Enums.Error.E201.toString());
@@ -274,7 +280,7 @@ public class UserService implements UserDetailsService {
 			throw new Exception(Enums.Error.E202.toString());
 		}
 
-		String authKey = m.getAuthKey();
+		String authKey = m.getToken();
 		if (!authKey.equals(token) || authKey == null) {
 			throw new Exception(Enums.Error.E203.toString());
 		}
@@ -283,7 +289,7 @@ public class UserService implements UserDetailsService {
 		m.setModifyOn(new Date());
 		m.setModifyBy(userId);
 
-		authenticationDao.save(m);
+		authTokenDao.save(m);
 	}
 
 	public Users getActiveCode(int id) {
@@ -297,8 +303,9 @@ public class UserService implements UserDetailsService {
 
 				Date t = Utils.getTime(Calendar.HOUR, 1);
 				res.setActivationExpire(t);
-				String c = Utils.getToken(6);
-				res.setActivationCode(c);
+				int n = Const.Authentication.ACTIVE_NUMBER;
+				String c = Utils.getToken(n);
+				res.setActiveCode(c);
 
 				userDao.save(res);
 			}
@@ -317,7 +324,7 @@ public class UserService implements UserDetailsService {
 			if (res != null) {
 				res.setModifyOn(new Date());
 				res.setActivationExpire(null);
-				res.setActivationCode(null);
+				res.setActiveCode(null);
 
 				userDao.save(res);
 			}

@@ -29,11 +29,12 @@ namespace MoneyKeeper.Token
                 if (t == 60 || string.IsNullOrEmpty(lblToken.Text))
                 {
                     var s = d.ToUniversalTime().ToString(Const.DateTime.TOKEN);
-                    lblToken.Text = Utils.GetToken(s, 6);
-                    progressBar.Progress = d.Second / 60.0;
+                    int n = Const.Authentication.TOKEN_NUMBER;
+                    lblToken.Text = Utils.GetToken(s, n);
+                    progressBar.Progress = d.Second / 60f;
                 }
 
-                var f = 1.0 / 60;
+                var f = 1 / 60f;
 
                 if (progressBar.Progress < 1)
                 {

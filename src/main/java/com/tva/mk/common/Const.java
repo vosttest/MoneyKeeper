@@ -27,6 +27,12 @@ public class Const {
 		public static final String TOKEN_KEY1 = "E3B51E3A5B0035DDEA2D063728B4C79E39E9F259138CB42481AFA41084DB9F0B";
 
 		public static final String TOKEN_KEY2 = "9C8F616E0317998A10F3518D6272EA31B3CB9FECAA4C9FAF1A2FEDB6B6C2AA9E";
+
+		public static final int TOKEN_MINUTE = 2;
+
+		public static final int TOKEN_NUMBER = 5;
+
+		public static final int ACTIVE_NUMBER = 6;
 	}
 
 	public class HTTP {
