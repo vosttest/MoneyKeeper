@@ -22,7 +22,7 @@ namespace MoneyKeeper.Token.Services
 #if DEBUG
             Host = "https://mk-dev.herokuapp.com/";
 #else
-            Host = "https://mk-dev.herokuapp.com/";
+            Host = "https://mk-uat.herokuapp.com/";
 #endif
         }
 
