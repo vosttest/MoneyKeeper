@@ -10,6 +10,9 @@ public class ReportDto {
 	@JsonProperty(value = "id")
 	private Integer id;
 
+	@JsonProperty(value = "type")
+	private String type;
+
 	@JsonProperty(value = "code")
 	private String code;
 
@@ -35,6 +38,14 @@ public class ReportDto {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getCode() {

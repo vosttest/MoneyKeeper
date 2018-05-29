@@ -1,5 +1,9 @@
 package com.tva.mk.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -72,8 +76,8 @@ public class TestController {
 				int id = pl.getId();
 
 				// Handle
-				Users m = userService.getActivationCode(id);
-				String data = m.getActivationCode();
+				Users m = userService.getActiveCode(id);
+				String data = m.getActiveCode();
 
 				// Set data
 				res.setResult(data);
@@ -118,14 +122,41 @@ public class TestController {
 
 			if (mod != null && "Y".equals(mod)) {
 				// Handle
-				Users m = userService.getActivationCode(id);
-				String data = m.getActivationCode();
+				Users m = userService.getActiveCode(id);
+				String data = m.getActiveCode();
 
 				// Set data
 				res.setResult(data);
 			} else {
 				res.setError("You can get active code in development mode only");
 			}
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@GetMapping("/token")
+	public ResponseEntity<?> getToken() {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Handle
+			Date d = new Date();
+			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
+			f.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+			String text = f.format(d);
+
+			f = new SimpleDateFormat(Const.DateTime.TOKEN);
+			f.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String s = f.format(d);
+
+			int n = Const.Authentication.TOKEN_NUMBER;
+			String token = text + " - " + Utils.getToken(s, n);
+
+			// Set data
+			res.setResult(token);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

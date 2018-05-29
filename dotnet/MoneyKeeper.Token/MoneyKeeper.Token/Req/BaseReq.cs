@@ -11,7 +11,7 @@ namespace MoneyKeeper.Token.Req
 
         [JsonProperty("keyword")]
 
-        public object Keyword;
+        public object Keyword { get; set; }
 
         #endregion
     }

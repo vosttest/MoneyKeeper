@@ -12,8 +12,7 @@ export class DashboardComponent implements OnInit {
     public account = [];
     public searchText = '';
     public loader: boolean = false;
-    public reportExpense = [];
-    public reportIncome = [];
+    public getReport = [];
     public multiSelect = [];
     public vm: any = { total: '', total2: '' };
     public options: any = [];
@@ -41,7 +40,8 @@ export class DashboardComponent implements OnInit {
     }
 
     private search() {
-        this.loader = true;
+        this.loader = false;
+
         let info = { keyword: '' };
         this.proAcc.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -58,18 +58,16 @@ export class DashboardComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
             this.loader = false;
         }, err => console.log(err));
     }
 
     public report() {
-        let t = [];
-        this.multiSelect.forEach(obj => {
-            t.push(obj.id);
-        });
+        this.loader = true;
 
         let obj = {
-            accountId: t,
+            accountId: this.multiSelect[0].id,
             fromDate: this.vm.fromDate,
             toDate: this.vm.toDate
         };
@@ -77,16 +75,15 @@ export class DashboardComponent implements OnInit {
         this.proReport.report(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.isShow = true;
-
-                this.reportExpense = rsp.result.data;
+                this.getReport = rsp.result.data;
                 this.vm.total = rsp.result.total;
-
-                this.reportIncome = rsp.result.data2;
                 this.vm.total2 = rsp.result.total2;
             }
             else {
-                this.messageModal.show();
+                console.log(rsp.message);
             }
+            
+            this.loader = false;
         }, err => console.log(err));
     }
 }

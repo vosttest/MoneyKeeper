@@ -103,12 +103,12 @@ export class UserProvider {
     }
 
     /**
-     * Get activation code
+     * Get active code
      * @param type Mail or SMS
      */
     public getActiveCode(type: string) {
         let x = { keyword: type };
-        return this.api.post('user/activation-code', x);
+        return this.api.post('user/active-code', x);
     }
 
     /**

@@ -36,9 +36,8 @@ input[type=text] {
     background-color: #1e90ff;
 }
 
-button {
-    float: right;
-    width: 10%;
+.text-right {
+    margin-bottom: 2%;
 }
 
 .right {
@@ -51,5 +50,24 @@ button {
 
 .card {
     margin-top: 20px;
-    width: 100%;
+}
+
+.card-2 {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.content-left {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 5%;
+    margin-bottom: 2%
+}
+
+h2 {
+    padding-top: 15px;
+    margin-bottom: 0% !important;
+}
+
+.row {
+    margin-bottom: 1%;
 }

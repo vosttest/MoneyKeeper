@@ -32,7 +32,7 @@ public class EmailService {
 	 * @param msg
 	 *            Email's content
 	 */
-	public static void sendMail(String to, String sub, String msg) {
+	private static void sendMail(String to, String sub, String msg) {
 		try {
 			String from = System.getenv(Const.APP_FROM_EMAIL);
 
@@ -92,21 +92,21 @@ public class EmailService {
 	}
 
 	/**
-	 * Send email with activation code template
+	 * Send email with active code template
 	 * 
 	 * @param to
 	 *            To email
-	 * @param code
-	 *            Activation code
 	 * @param name
 	 *            First name
+	 * @param code
+	 *            Active code
 	 */
-	public static void getActiveCode(String to, String code, String name) {
+	public static void getActiveCode(String to, String name, String code) {
 		try {
-			String template = Const.Email.TEMPLATE_ACTIVATION_CODE;
+			String template = Const.Email.TEMPLATE_ACTIVE_CODE;
 
 			if (StringUtils.hasText(to)) {
-				String subject = "Reset your Money Keeper password";
+				String subject = "Get your Money Keeper active code";
 				String content = MessageFormat.format(template, name, code);
 				sendMail(to, subject, content);
 			}

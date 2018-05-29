@@ -86,7 +86,7 @@ public class Users {
 	private Date passReminderExpire;
 
 	@Column(columnDefinition = "varchar(8)")
-	private String activationCode;
+	private String activeCode;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
@@ -227,11 +227,11 @@ public class Users {
 		this.eothExpiryOn = eothExpiryOn;
 	}
 
-	public Boolean isEmailVerified() {
+	public boolean isEmailVerified() {
 		return isEmailVerified;
 	}
 
-	public void setEmailVerified(Boolean isEmailVerified) {
+	public void setEmailVerified(boolean isEmailVerified) {
 		this.isEmailVerified = isEmailVerified;
 	}
 
@@ -283,12 +283,12 @@ public class Users {
 		this.passReminderExpire = passReminderExpire;
 	}
 
-	public String getActivationCode() {
-		return activationCode;
+	public String getActiveCode() {
+		return activeCode;
 	}
 
-	public void setActivationCode(String activationCode) {
-		this.activationCode = activationCode;
+	public void setActiveCode(String activeCode) {
+		this.activeCode = activeCode;
 	}
 
 	public Date getActivationExpire() {

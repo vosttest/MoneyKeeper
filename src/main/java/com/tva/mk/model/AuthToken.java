@@ -13,13 +13,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "authentication", schema = "public")
-public class Authentication {
+@Table(name = "auth_token", schema = "public")
+public class AuthToken {
 	// region -- Fields --
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authentication_id_seq_generator")
-	@SequenceGenerator(name = "authentication_id_seq_generator", sequenceName = "public.authentication_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "auth_token_id_seq_generator")
+	@SequenceGenerator(name = "auth_token_id_seq_generator", sequenceName = "public.auth_token_id_seq", allocationSize = 1)
 	@Column(columnDefinition = "SERIAL")
 	private Integer id;
 
@@ -30,7 +30,7 @@ public class Authentication {
 	private String module;
 
 	@Column(columnDefinition = "varchar(8)")
-	private String authKey;
+	private String token;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(columnDefinition = "TIMESTAMP WITH TIME ZONE")
@@ -81,12 +81,12 @@ public class Authentication {
 		this.module = module;
 	}
 
-	public String getAuthKey() {
-		return authKey;
+	public String getToken() {
+		return token;
 	}
 
-	public void setAuthKey(String authKey) {
-		this.authKey = authKey;
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public Date getExpireOn() {
@@ -141,7 +141,7 @@ public class Authentication {
 
 	// region -- Methods --
 
-	public Authentication() {
+	public AuthToken() {
 	}
 
 	// end

@@ -1,5 +1,5 @@
-button#add {
-    margin-left: 80px;
+button {
+    float: right;
 }
 
 li {
@@ -50,13 +50,7 @@ h2 {
     margin-bottom: 0% !important;
 }
 
-.icon-right {
-    display: inline-flex;
-    float: right;
-}
-
 .content-report {
-    margin-top: 2%;
     margin-left: 15px;
     width: 95%;
     overflow-x: hidden;
@@ -66,9 +60,17 @@ h2 {
 .full-width {
     margin-left: 15px;
     width: 95%;
-    max-height: 320px;
 }
 
 .card-2 {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.ngx-dorpdown-container[_ngcontent-c3] .ngx-dropdown-list-container[_ngcontent-c3] {
+    overflow-x: scroll;
+    max-height: 320px;
+}
+
+div.row {
+    margin-bottom: 3%;
 }

@@ -20,10 +20,6 @@ input#balance {
     text-align: left!important;
 }
 
-select.form-control.ng-untouched.ng-pristine.ng-valid {
-    height: 36px;
-}
-
 button {
     width: 10%;
     margin-right: 10px;

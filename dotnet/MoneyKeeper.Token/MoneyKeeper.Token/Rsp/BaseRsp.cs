@@ -10,10 +10,10 @@ namespace MoneyKeeper.Token.Rsp
         #region -- Properties --
 
         [JsonProperty("status")]
-        public string Status;
+        public string Status { get; set; }
 
         [JsonProperty("message")]
-        public string Message;
+        public string Message { get; set; }
 
         #endregion
     }

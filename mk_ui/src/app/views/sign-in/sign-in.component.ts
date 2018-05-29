@@ -3,6 +3,8 @@ import { UserProvider } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
 import { NgForm } from '@angular/forms';
 
+import * as $ from 'jquery';
+
 @Component({
     selector: 'app-sign-in',
     templateUrl: './sign-in.component.html',
@@ -22,7 +24,8 @@ export class SignInComponent implements OnInit {
 
     constructor(private pro: UserProvider) { }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 
     public signIn() {
         this.loader = true;
@@ -43,7 +46,12 @@ export class SignInComponent implements OnInit {
                     this.pro.saveAuth(rsp.result.key); // Response JWT -> log in success
                 } else {
                     this.vm.clientKey = rsp.result.key; // Response client key
+                    this.vm.codeNumber1 = this.vm.codeNumber2 = this.vm.codeNumber3 = this.vm.codeNumber4 = this.vm.codeNumber5 = null;
+                    this.isDisabled = true;
                     this.accessTokenModal.show();
+                    setTimeout(function () {
+                        document.getElementById("codeNumber1").focus();
+                    }, 500);
                 }
             } else {
                 this.message = rsp.message;
@@ -70,6 +78,10 @@ export class SignInComponent implements OnInit {
     public proceedClick() {
         this.loader = true;
 
+        if (this.token.length < 5) {
+            return;
+        }
+
         let obj = {
             userName: this.vm.userName,
             password: this.vm.password,
@@ -93,50 +105,41 @@ export class SignInComponent implements OnInit {
         this.isDisabled = true;
         let element = $event.target.nextElementSibling;
         let value = $event.target.value;
+        let value2 = $event.key;
         switch (inputNumber) {
             case 'input1':
-                if (value && value.toString().length > 1) {
-                    this.vm.codeNumber1 = value.toString().substring(0, 1);
+                if (value.length > 1) {
+                    $('#codeNumber1').val(value2);
                 }
-                else {
-                    this.vm.codeNumber1 = value.toString();
-                }
+                this.vm.codeNumber1 = value2;
                 break;
 
             case 'input2':
-                if (value && value.toString().length > 1) {
-                    this.vm.codeNumber2 = value.toString().substring(0, 1);
+                if (value.length > 1) {
+                    $('#codeNumber2').val(value2);
                 }
-                else {
-                    this.vm.codeNumber2 = value.toString();
-                }
+                this.vm.codeNumber2 = value2.toString();
                 break;
 
             case 'input3':
-                if (value && value.toString().length > 1) {
-                    this.vm.codeNumber3 = value.toString().substring(0, 1);
+                if (value.length > 1) {
+                    $('#codeNumber3').val(value2);
                 }
-                else {
-                    this.vm.codeNumber3 = value.toString();
-                }
+                this.vm.codeNumber3 = value2.toString();
                 break;
 
             case 'input4':
-                if (value && value.toString().length > 1) {
-                    this.vm.codeNumber4 = value.toString().substring(0, 1);
+                if (value.length > 1) {
+                    $('#codeNumber4').val(value2);
                 }
-                else {
-                    this.vm.codeNumber4 = value.toString();
-                }
+                this.vm.codeNumber4 = value2.toString();
                 break;
 
             case 'input5':
-                if (value && value.toString().length > 1) {
-                    this.vm.codeNumber5 = value.toString().substring(0, 1);
+                if (value.length > 1) {
+                    $('#codeNumber5').val(value2);
                 }
-                else {
-                    this.vm.codeNumber5 = value.toString();
-                }
+                this.vm.codeNumber5 = value2.toString();
                 break;
 
         }

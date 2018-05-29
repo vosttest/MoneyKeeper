@@ -79,16 +79,22 @@ export class AccountAddComponent implements OnInit {
     }
 
     public save() {
+        this.loader = true;
+
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.rou.navigate(['/account/overview']);
             } else {
                 this.message = rsp.message;
             }
+
+            this.loader = false;
         }, err => console.log(err))
     }
 
     private search() {
+        this.loader = true;
+
         let info = { keyword: '' };
         this.proAccount.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -97,6 +103,8 @@ export class AccountAddComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
+            this.loader = false;
         }, err => console.log(err));
     }
 }

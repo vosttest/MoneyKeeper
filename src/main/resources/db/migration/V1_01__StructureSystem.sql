@@ -81,7 +81,7 @@ CREATE TABLE PUBLIC."user"
 	"poth_expiry_on"		TIMESTAMP,
 	"pass_reminder_token"	VARCHAR(256),
 	"pass_reminder_expire"	TIMESTAMP,
-	"activation_code"		VARCHAR(6),
+	"active_code"			VARCHAR(8),
 	"activation_expire"		TIMESTAMP,
 	"lock_expiry_on"		TIMESTAMP,
 	"last_declaration_on"	TIMESTAMP,
@@ -121,13 +121,13 @@ CREATE TABLE PUBLIC."role_function"
 	"modify_on"				TIMESTAMP
 );
 
-DROP TABLE IF EXISTS PUBLIC."authentication";
-CREATE TABLE PUBLIC."authentication"
+DROP TABLE IF EXISTS PUBLIC."auth_token";
+CREATE TABLE PUBLIC."auth_token"
 (
 	"id"					SERIAL PRIMARY KEY,
 	"client_key"			VARCHAR(64),
 	"module"				VARCHAR(32),
-	"auth_key"				VARCHAR(8),
+	"token"					VARCHAR(8),
 	"expire_on"				TIMESTAMP,
 	"is_verified"			BOOLEAN NOT NULL DEFAULT FALSE,
 	"create_by"				INT4,

@@ -1,8 +1,10 @@
 package com.tva.mk.bll;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -18,14 +20,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tva.mk.common.Const;
 import com.tva.mk.common.EmailService;
 import com.tva.mk.common.Enums;
 import com.tva.mk.common.Utils;
-import com.tva.mk.dal.AuthenticationDao;
+import com.tva.mk.dal.AuthTokenDao;
 import com.tva.mk.dal.RoleDao;
 import com.tva.mk.dal.UserDao;
 import com.tva.mk.dto.ProfileDto;
-import com.tva.mk.model.Authentication;
+import com.tva.mk.model.AuthToken;
 import com.tva.mk.model.Users;
 
 @Service(value = "userService")
@@ -37,7 +40,7 @@ public class UserService implements UserDetailsService {
 	private UserDao userDao;
 
 	@Autowired
-	private AuthenticationDao authenticationDao;
+	private AuthTokenDao authTokenDao;
 
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -211,42 +214,62 @@ public class UserService implements UserDetailsService {
 	 * @param module
 	 *            Token/OTP of action (sign-in, transaction, ...)
 	 * @param userId
+	 * @param type
+	 *            TOKEN or OTP or empty
 	 * @return
 	 * @throws Exception
 	 */
-	public Authentication generateToken(String module, int userId, boolean isSignIn) throws Exception {
-		Authentication m = authenticationDao.getBy("", module, userId);
+	public AuthToken generateToken(String module, int userId, String type) throws Exception {
+		AuthToken m = authTokenDao.getBy("", module, userId);
 
 		if (m == null) {
-			m = new Authentication();
+			m = new AuthToken();
 		}
 
 		m.setCreateBy(userId);
 		m.setCreateOn(new Date());
 
-		String token = Utils.getToken();
-		m.setAuthKey(token);
+		String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
+		m.setClientKey(clientKey);
 
-		if (isSignIn) {
-			String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
-			m.setClientKey(clientKey);
+		int n = Const.Authentication.TOKEN_NUMBER;
+		String token = "";
+		switch (type) {
+		case Const.Setting.CODE_TOKEN:
+			Date d = new Date();
+			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
+			f.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String s = f.format(d);
+
+			token = Utils.getToken(s, n);
+			break;
+
+		case Const.Setting.CODE_OTP:
+			token = Utils.getToken();
+			break;
+
+		default:
+			token = Utils.getToken(n);
+			break;
 		}
+		m.setToken(token);
 
 		m.setModule(module);
-		m.setExpireOn(Utils.getTime(Calendar.MINUTE, 2));
+		Date d = Utils.getTime(Calendar.MINUTE, Const.Authentication.TOKEN_MINUTE);
+		m.setExpireOn(d);
 
 		// Reset data
 		m.setModifyBy(null);
 		m.setVerified(false);
 		m.setModifyOn(null);
 
-		authenticationDao.save(m);
+		authTokenDao.save(m);
 
 		return m;
 	}
 
-	public void verifyToken(String clientKey, int userId, String token, String module) throws Exception {
-		Authentication m = authenticationDao.getBy(clientKey, module, userId);
+	public void verifyToken(String clientKey, int userId, String token) throws Exception {
+		AuthToken m = authTokenDao.getBy(clientKey, "", userId);
 
 		if (m == null) {
 			throw new Exception(Enums.Error.E201.toString());
@@ -257,8 +280,8 @@ public class UserService implements UserDetailsService {
 			throw new Exception(Enums.Error.E202.toString());
 		}
 
-		String authKey = m.getAuthKey();
-		if (!authKey.equals(token)) {
+		String authKey = m.getToken();
+		if (!authKey.equals(token) || authKey == null) {
 			throw new Exception(Enums.Error.E203.toString());
 		}
 
@@ -266,10 +289,10 @@ public class UserService implements UserDetailsService {
 		m.setModifyOn(new Date());
 		m.setModifyBy(userId);
 
-		authenticationDao.save(m);
+		authTokenDao.save(m);
 	}
 
-	public Users getActivationCode(int id) {
+	public Users getActiveCode(int id) {
 		Users res = null;
 
 		try {
@@ -280,8 +303,9 @@ public class UserService implements UserDetailsService {
 
 				Date t = Utils.getTime(Calendar.HOUR, 1);
 				res.setActivationExpire(t);
-				String c = Utils.getToken(6);
-				res.setActivationCode(c);
+				int n = Const.Authentication.ACTIVE_NUMBER;
+				String c = Utils.getToken(n);
+				res.setActiveCode(c);
 
 				userDao.save(res);
 			}
@@ -292,15 +316,15 @@ public class UserService implements UserDetailsService {
 		return res;
 	}
 
-	public Users verifyActivation(String code) {
+	public Users verifyActiveCode(String code) {
 		Users res = null;
 
 		try {
-			res = userDao.getByActivationCode(code);
+			res = userDao.getByActiveCode(code);
 			if (res != null) {
 				res.setModifyOn(new Date());
 				res.setActivationExpire(null);
-				res.setActivationCode(null);
+				res.setActiveCode(null);
 
 				userDao.save(res);
 			}

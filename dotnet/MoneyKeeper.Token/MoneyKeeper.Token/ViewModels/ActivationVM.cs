@@ -34,7 +34,7 @@ namespace MoneyKeeper.Token.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var res = await UserService.VerifyActivation(Code);
+                var res = await UserService.VerifyActiveCode(Code);
 
                 if (res.Status == "success")
                 {

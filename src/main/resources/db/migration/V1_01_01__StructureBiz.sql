@@ -97,3 +97,22 @@ CREATE TABLE PUBLIC."voucher_detail"
 	"modify_by"				INT4,
 	"modify_on"				TIMESTAMP
 );
+
+DROP TABLE IF EXISTS PUBLIC."card";
+CREATE TABLE PUBLIC."card"
+(
+	"id"					SERIAL PRIMARY KEY,
+	"code"					VARCHAR(16),
+	"serial"				VARCHAR(16),
+	"provider"				VARCHAR(128),
+	"description"			VARCHAR(256),
+	"buyer"					INT4,
+	"buyer_phone"			VARCHAR(16),
+	"buyer_email"			VARCHAR(128),
+	"buy_status"			VARCHAR(256),
+	"is_deleted"			BOOLEAN NOT NULL DEFAULT FALSE,
+	"create_by"				INT4,
+	"create_on"				TIMESTAMP,
+	"modify_by"				INT4,
+	"modify_on"				TIMESTAMP
+);

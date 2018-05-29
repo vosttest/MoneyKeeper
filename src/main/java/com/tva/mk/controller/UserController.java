@@ -31,6 +31,7 @@ import com.tva.mk.common.Utils;
 import com.tva.mk.config.JwtTokenUtil;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.dto.ProfileDto;
+import com.tva.mk.model.AuthToken;
 import com.tva.mk.model.Setting;
 import com.tva.mk.model.Users;
 import com.tva.mk.req.BaseReq;
@@ -107,19 +108,23 @@ public class UserController {
 						t2 = t1.getValue() + "";
 					}
 
+					AuthToken m1 = null;
 					switch (t2) {
-					case "TOKEN":
-					case "OTP":
-						com.tva.mk.model.Authentication m1 = null;
-						m1 = userService.generateToken("sign-in", userId, true);
+					case Const.Setting.CODE_TOKEN:
+						m1 = userService.generateToken(Const.Module.SIGN_IN, userId, t2);
 						String t3 = m1.getClientKey();
+						data.put("authen", true);
+						data.put("key", t3);
+						break;
 
-						if (t2.equals("OTP")) {
-							// Send SMS
-							String t4 = m.getContactNo();
-							String t5 = m1.getAuthKey();
-							MessageService.getActiveCode(t4, t5);
-						}
+					case Const.Setting.CODE_OTP:
+						m1 = userService.generateToken(Const.Module.SIGN_IN, userId, t2);
+						t3 = m1.getClientKey();
+
+						// Send SMS
+						String t4 = m.getContactNo();
+						String t5 = m1.getToken();
+						MessageService.send(t4, t5);
 
 						data.put("authen", true);
 						data.put("key", t3);
@@ -133,7 +138,7 @@ public class UserController {
 						break;
 					}
 				} else {
-					userService.verifyToken(clientKey, userId, token, "sign-in");
+					userService.verifyToken(clientKey, userId, token);
 
 					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
 					String t1 = jwtTokenUtil.doGenerateToken(m, z);
@@ -332,13 +337,13 @@ public class UserController {
 	}
 
 	/**
-	 * Get activation code to access token application
+	 * Get active code to access token application
 	 * 
 	 * @param header
 	 * @param req
 	 * @return
 	 */
-	@PostMapping("/activation-code")
+	@PostMapping("/active-code")
 	public ResponseEntity<?> getActiveCode(@RequestHeader HttpHeaders header, @RequestBody BaseReq req) {
 		SingleRsp res = new SingleRsp();
 
@@ -350,13 +355,16 @@ public class UserController {
 			String keyword = req.getKeyword();
 
 			// Handle
-			Users m = userService.getActivationCode(id);
+			Users m = userService.getActiveCode(id);
+			String code = m.getActiveCode();
+			String name = m.getFirstName();
 			String data = "";
+
 			if (Const.Activation.SMS.equals(keyword)) {
-				MessageService.getActiveCode(m.getContactNo(), m.getActivationCode());
+				MessageService.getActiveCode(m.getContactNo(), name, code);
 				data = "Sent to your phone";
 			} else if (Const.Activation.MAIL.equals(keyword)) {
-				EmailService.getActiveCode(m.getEmail(), m.getActivationCode(), m.getFirstName());
+				EmailService.getActiveCode(m.getEmail(), name, code);
 				data = "Sent to your email";
 			} else {
 				res.setError("Cannot send activation code");
@@ -372,13 +380,13 @@ public class UserController {
 	}
 
 	/**
-	 * Verify activation code to access token application
+	 * Verify active code to access token application
 	 * 
 	 * @param req
 	 * @return
 	 */
-	@PostMapping("/verify-activation")
-	public ResponseEntity<?> verifyActivation(@RequestBody BaseReq req) {
+	@PostMapping("/verify-active-code")
+	public ResponseEntity<?> verifyActiveCode(@RequestBody BaseReq req) {
 		SingleRsp res = new SingleRsp();
 
 		try {
@@ -386,7 +394,7 @@ public class UserController {
 			String keyword = req.getKeyword();
 
 			// Handle
-			Users m = userService.verifyActivation(keyword);
+			Users m = userService.verifyActiveCode(keyword);
 
 			String token = "";
 			if (m != null) {
@@ -414,10 +422,10 @@ public class UserController {
 			int id = pl.getId();
 
 			// Handle
-			com.tva.mk.model.Authentication m = userService.generateToken("sign-in", id, false);
+			AuthToken m = userService.generateToken(Const.Module.SIGN_IN, id, "");
 
 			// Set data
-			res.setResult(m.getAuthKey());
+			res.setResult(m.getToken());
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

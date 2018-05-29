@@ -61,33 +61,50 @@
     </div>
 </section>
 <!-- Modal -->
-<div bsModal #activeCodePopup="bs-modal" id="activeCodePopup" [config]="{backdrop: 'static'}" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xs" role="document">
+<div bsModal #activeCodePopup="bs-modal" class="modal fade" id="activeCodePopup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header" style="background-color:#dddddd ">
-                <h4 class="modal-title">Send Active Code</h4>
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Send Active Code</h5>
+                <button type="button" class="close" (click)="activeCodePopup.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row text-center">
-                    <div class="col-md-6">
-                        <label>
-                            <input [(ngModel)]="type" type="radio" value="MAIL">
-                            <strong>Email</strong>
-                        </label>
+                    <div class="col-md-2"></div>
+                    <div class="col-md-4">
+                        <label><input [(ngModel)]="type" type="radio" value="MAIL">Email</label>
                     </div>
-                    <div class="col-md-6">
-                        <label>
-                            <input [(ngModel)]="type" type="radio" value="SMS">
-                            <strong>SMS</strong>
-                        </label>
+                    <div class="col-md-4">
+                        <label><input [(ngModel)]="type" type="radio" value="SMS">SMS</label>
                     </div>
+                    <div class="col-md-2"></div>
                 </div>
-                <div class="row">
-                    <div class="text-center full-width">
-                        <button type="button" (click)="activeCodePopup.hide()" class="btn btn-secondary btn-lg" aria-pressed="true">Cancel</button>
-                        <button type="button" (click)="getActiveCode()" class="btn btn-primary btn-lg active" aria-pressed="true">OK</button>
-                    </div>
-                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="getActiveCode()">OK</button>
+                <button type="button" class="btn btn-secondary" (click)="activeCodePopup.hide()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Message -->
+<div bsModal #messageModal="bs-modal" class="modal fade" id="c" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                <button type="button" class="close" (click)="messageModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Can not update user
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="messageModal.hide()">OK</button>
             </div>
         </div>
     </div>

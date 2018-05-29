@@ -1,7 +1,12 @@
 package com.tva.mk.common;
 
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -131,7 +136,7 @@ public class Utils {
 	 * @return
 	 */
 	public static String getToken(int l) {
-		String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		String chars = "0123456789";
 		Random random = new Random();
 		StringBuilder token = new StringBuilder(l);
 
@@ -143,16 +148,94 @@ public class Utils {
 	}
 
 	/**
-	 * Get token with 5 digits
+	 * Get token with 6 digits
 	 * 
 	 * @return
 	 */
 	public static String getToken() {
-		String res = "00000";
+		int n = Const.Authentication.TOKEN_NUMBER;
+		int max = (int) Math.pow(10, n) - 1;
 
 		Random t = new Random();
-		String s = (t.nextInt(99999) + 1) + "";
-		res = res.substring(0, 5 - s.length()) + s;
+		int s = t.nextInt(max);
+
+		char[] zeros = new char[n];
+		Arrays.fill(zeros, '0');
+		String format = String.valueOf(zeros);
+		DecimalFormat df = new DecimalFormat(format);
+		String res = df.format(s);
+
+		return res;
+	}
+
+	/**
+	 * Get token
+	 * 
+	 * @param s
+	 *            String data
+	 * @param num
+	 *            Number of digits will get
+	 * @return
+	 */
+	public static String getToken(String s, int num) {
+		String res = "";
+
+		s = Const.Authentication.TOKEN_KEY1 + s + Const.Authentication.TOKEN_KEY2;
+		String hash = generateSHA256(s);
+		String[] arr = hash.split(Const.SpecialString.Minus);
+
+		if (num > 8 || num < 1) {
+			num = 8;
+		}
+
+		for (String i : arr) {
+			if (num == 0) {
+				break;
+			}
+
+			eachHash: for (char item : i.toCharArray()) {
+				if (Character.isDigit(item)) {
+					res += item;
+					break eachHash;
+				}
+			}
+
+			num--;
+		}
+
+		return res;
+	}
+
+	/**
+	 * Generate SHA-256
+	 * 
+	 * @param s
+	 *            String data
+	 * @return
+	 */
+	private static String generateSHA256(String s) {
+		String res = "";
+
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] encodedhash = digest.digest(s.getBytes(StandardCharsets.UTF_8));
+			StringBuffer hexString = new StringBuffer();
+
+			for (int i = 0; i < encodedhash.length; i++) {
+				String hex = Integer.toHexString(0xff & encodedhash[i]);
+				if (hex.length() == 1) {
+					hexString.append('0');
+				}
+				hexString.append(hex);
+				if (i % 4 == 3) {
+					hexString.append(Const.SpecialChar.Minus);
+				}
+			}
+
+			res = hexString.toString();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
 
 		return res;
 	}

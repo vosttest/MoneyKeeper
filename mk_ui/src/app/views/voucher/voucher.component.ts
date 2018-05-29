@@ -23,10 +23,11 @@ export class VoucherComponent implements OnInit {
     public lstParentTmp = [];
     public lstChildTmp = [];
     public lstAccount = [];
+    public lstSearch = [];
     public account = [];
     public toAccount = [];
     public voucher = [];
-    public apiURL: string = "../../../../assets/img/";
+    public apiURL: string = "../../../assets/img/";
     public loader: boolean = false;
 
     public selectedCategory = { code: '', text: '-- Select Category --', icon: '' };
@@ -62,7 +63,7 @@ export class VoucherComponent implements OnInit {
         private act: ActivatedRoute) { }
 
     ngOnInit() {
-        this.getVoucher();
+        this.getVoucher("");
         this.getExpense();
         this.getAccount();
         this.hideShow('Expense');
@@ -109,18 +110,40 @@ export class VoucherComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public getVoucher() {
-        this.proVoucher.search(this.vm).subscribe((rsp: any) =>{
+    public getVoucher(keyword: string) {
+        this.proVoucher.search(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.voucher = rsp.result.data;
-                console.log((this.voucher));
+                console.log(rsp.result.data);
                 
+                // if (this.voucher != undefined || this.voucher.length > 0) {
+                //     for (let i = 0; i < this.voucher.length; i++) {
+                //         let isParentNull = false;
+                //         let isChildNull = true;
+                //         if (this.voucher[i].description.includes(keyword) || this.voucher[i].type.includes(keyword)) {
+                //             isParentNull = true;
+                //         }
+                //         let details = this.voucher[i].voucherDetail;
+
+                //         for (let j = 0; j < details.length; j++) {
+                //             if (!details[j].category.includes(keyword)) {
+                //                 isChildNull = false;
+                //                 details.pop(details[j]);
+                //             }
+                //         }
+                //         if (isParentNull && isChildNull) {
+                //             this.lstSearch.push(this.voucher[i]);
+                //         }
+                //     }
+                //     console.log(this.voucher);
+                // }
+
             } else {
                 this.message = rsp.message;
             }
         }, err => console.log(err));
     }
-
+    
     public changeIcon(id: any) {
         let arrow = document.getElementById("arrow" + id).style.transform;
 

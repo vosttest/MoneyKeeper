@@ -8,7 +8,7 @@ public class ReportReq {
 	// region -- Fields --
 
 	@JsonProperty(value = "accountId")
-	private int[] accountId;
+	private int accountId;
 
 	@JsonProperty(value = "fromDate")
 	private Date fromDate;
@@ -20,11 +20,11 @@ public class ReportReq {
 
 	// region -- Get set --
 
-	public int[] getAccountId() {
+	public int getAccountId() {
 		return accountId;
 	}
 
-	public void setAccountId(int[] accountId) {
+	public void setAccountId(int accountId) {
 		this.accountId = accountId;
 	}
 

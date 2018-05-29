@@ -35,31 +35,16 @@ public class VoucherService {
 		return res;
 	}
 
-	public List<ReportDto> getByExpense(int[] accountId, Date fromDate, Date toDate) {
-		List<Object[]> t = voucherDao.getExpense(accountId, fromDate, toDate);
+	public List<ReportDto> getReports(int accountId, Date fromDate, Date toDate) {
+		List<Object[]> t = voucherDao.getReports(accountId, fromDate, toDate);
 		List<ReportDto> res = new ArrayList<>();
 		for (Object[] item : t) {
 			ReportDto t1 = new ReportDto();
-			t1.setCode(item[0].toString());
-			t1.setText(item[1].toString());
-			t1.setAmount(Float.parseFloat(item[2].toString()));
-			t1.setStartDate((Date) item[3]);
-
-			res.add(t1);
-		}
-
-		return res;
-	}
-
-	public List<ReportDto> getByIncome(int[] accountId, Date fromDate, Date toDate) {
-		List<Object[]> t = voucherDao.getIncome(accountId, fromDate, toDate);
-		List<ReportDto> res = new ArrayList<>();
-		for (Object[] item : t) {
-			ReportDto t1 = new ReportDto();
-			t1.setCode(item[0].toString());
-			t1.setText(item[1].toString());
-			t1.setAmount(Float.parseFloat(item[2].toString()));
-			t1.setStartDate((Date) item[3]);
+			t1.setType(item[0].toString());
+			t1.setCode(item[1].toString());
+			t1.setText(item[2].toString());
+			t1.setAmount(Float.parseFloat(item[3].toString()));
+			t1.setStartDate((Date) item[4]);
 
 			res.add(t1);
 		}
@@ -72,7 +57,8 @@ public class VoucherService {
 		List<VoucherDto> res = new ArrayList<>();
 		for (Object[] item : t) {
 			VoucherDto t1 = new VoucherDto();
-			t1.setId(Integer.parseInt(item[0].toString()));
+			int id = Integer.parseInt(item[0].toString());
+			t1.setId(id);
 			t1.setAccountId(Integer.parseInt(item[1].toString()));
 			t1.setType(item[2].toString());
 			t1.setTotal(Double.parseDouble(item[3] != null ? item[3].toString() : "0"));
@@ -83,6 +69,8 @@ public class VoucherService {
 			t1.setUserId(Integer.parseInt(item[8].toString()));
 			t1.setStartDate((Date) item[9]);
 
+			List<VoucherDetail> t2 = voucherDetailDao.getBy(id);
+			t1.setVoucherDetail(t2);
 			res.add(t1);
 		}
 

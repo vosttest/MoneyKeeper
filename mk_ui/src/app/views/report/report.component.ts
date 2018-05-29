@@ -8,8 +8,7 @@ import { AccountProvider, ReportProvider } from '../../providers/provider';
 })
 
 export class ReportComponent implements OnInit {
-    public reportExpense = [];
-    public reportIncome = [];
+    public getReport = [];
     public multiSelect = [];
     public vm: any = { total: '', total2: '' };
     public options: any = [];
@@ -56,13 +55,8 @@ export class ReportComponent implements OnInit {
     }
 
     public report() {
-        let t = [];
-        this.multiSelect.forEach(obj => {
-            t.push(obj.id);
-        });
-
         let obj = {
-            accountId: t,
+            accountId: this.multiSelect[0].id,
             fromDate: this.vm.fromDate,
             toDate: this.vm.toDate
         };
@@ -70,11 +64,8 @@ export class ReportComponent implements OnInit {
         this.proReport.report(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.isShow = true;
-
-                this.reportExpense = rsp.result.data;
+                this.getReport = rsp.result.data;
                 this.vm.total = rsp.result.total;
-
-                this.reportIncome = rsp.result.data2;
                 this.vm.total2 = rsp.result.total2;
             }
             else {
