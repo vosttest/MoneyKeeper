@@ -1,5 +1,8 @@
 package com.tva.mk.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -126,6 +129,26 @@ public class TestController {
 			} else {
 				res.setError("You can get active code in development mode only");
 			}
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@GetMapping("/token")
+	public ResponseEntity<?> getToken() {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Handle
+			Date d = new Date();
+			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
+			String text = f.format(d);
+			String token = text + " - " + Utils.getToken(d, 6);
+
+			// Set data
+			res.setResult(token);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

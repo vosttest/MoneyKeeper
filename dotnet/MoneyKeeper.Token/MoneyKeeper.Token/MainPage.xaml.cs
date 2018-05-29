@@ -26,7 +26,7 @@ namespace MoneyKeeper.Token
                 lblDate.Text = d.ToString(Const.DateTime.FULL);
                 lblSecond.Text = t.ToString();
 
-                if (t == 1 || string.IsNullOrEmpty(lblToken.Text))
+                if (t == 60 || string.IsNullOrEmpty(lblToken.Text))
                 {
                     lblToken.Text = Utils.GetToken(d, 6);
                 }
