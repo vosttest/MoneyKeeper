@@ -232,19 +232,14 @@ public class UserService implements UserDetailsService {
 		String clientKey = bCryptPasswordEncoder.encode(new Date().toString());
 		m.setClientKey(clientKey);
 
-		int n = Const.Authentication.TOKEN_NUMBER;
 		String token = "";
-		switch (type) {
-		case Const.Setting.CODE_TOKEN:
-			break;
-
-		case Const.Setting.CODE_OTP:
+		if (Const.Setting.CODE_TOKEN.equals(type)) {
+			token = Const.Setting.CODE_TOKEN;
+		} else if (Const.Setting.CODE_OTP.equals(type)) {
 			token = Utils.getToken();
-			break;
-
-		default:
+		} else {
+			int n = Const.Authentication.TOKEN_NUMBER;
 			token = Utils.getToken(n);
-			break;
 		}
 		m.setToken(token);
 
@@ -253,8 +248,8 @@ public class UserService implements UserDetailsService {
 		m.setExpireOn(d);
 
 		// Reset data
-		m.setModifyBy(null);
 		m.setVerified(false);
+		m.setModifyBy(null);
 		m.setModifyOn(null);
 
 		authTokenDao.save(m);
@@ -275,7 +270,7 @@ public class UserService implements UserDetailsService {
 		}
 
 		String authKey = m.getToken();
-		if (authKey == null) {
+		if (Const.Setting.CODE_TOKEN.equals(authKey)) {
 			Date d = new Date();
 			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
 			f.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -284,7 +279,7 @@ public class UserService implements UserDetailsService {
 			int n = Const.Authentication.TOKEN_NUMBER;
 			authKey = Utils.getToken(s, n);
 		}
-		
+
 		if (!authKey.equals(token)) {
 			throw new Exception(Enums.Error.E203.toString());
 		}

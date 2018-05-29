@@ -60,7 +60,7 @@ public class VoucherService {
 			VoucherDto t1 = new VoucherDto();
 			int id = Integer.parseInt(item[0].toString());
 			int accountId = Integer.parseInt(item[1].toString());
-			
+
 			t1.setId(id);
 			t1.setAccountId(accountId);
 			t1.setType(item[2].toString());
@@ -73,8 +73,7 @@ public class VoucherService {
 			t1.setStartDate((Date) item[9]);
 
 			List<Object[]> t2 = voucherDetailDao.getVouchersDetail(accountId, id);
-			if(t2.size() > 0)
-			{
+			if (t2.size() > 0) {
 				List<VoucherDetailDto> res1 = new ArrayList<>();
 				for (Object[] item1 : t2) {
 					VoucherDetailDto t3 = new VoucherDetailDto();
@@ -85,10 +84,10 @@ public class VoucherService {
 
 					res1.add(t3);
 				}
-				
+
 				t1.setVoucherDetail(res1);
 			}
-			
+
 			res.add(t1);
 		}
 
