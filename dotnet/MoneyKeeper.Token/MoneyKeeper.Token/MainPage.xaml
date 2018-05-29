@@ -6,18 +6,34 @@
     <ContentPage.BindingContext>
         <vm:UserVM/>
     </ContentPage.BindingContext>
-    <StackLayout>
-        <Label Text="Welcome to Money Keeper Token Application"
-               VerticalOptions="CenterAndExpand"
-               HorizontalOptions="CenterAndExpand"/>
-        <Label x:Name="lblDate"/>
-        <Label x:Name="lblSecond"/>
-        <Label x:Name="lblToken"/>
-        <Button Text="Get Token"
-                TextColor="White"
-                BackgroundColor="Blue"
-                HeightRequest="50"
-                VerticalOptions="Start"
-                Command="{Binding GetTokenCmd}"/>
+    <StackLayout BackgroundColor="#62CBBC">
+        <Label Text="Get Token"
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontSize="Large"
+               Margin="40"/>
+        <StackLayout BackgroundColor="#CFD770"
+                     HorizontalOptions="Center"
+                     Padding="20">
+            <Frame BackgroundColor="White" CornerRadius="10" Padding="0">
+                <Label x:Name="lblToken"
+                       TextColor="#3DADCE"
+                       HorizontalOptions="CenterAndExpand"
+                       FontSize="36"
+                       FontAttributes="Bold"/>
+            </Frame>
+            <Label Text="OTP will be updated in"
+                   HorizontalOptions="Center"
+                   FontSize="Medium"
+                   Margin="0,20,0,0"/>
+            <Label x:Name="lblSecond"
+                   HorizontalOptions="Center"
+                   FontSize="Medium"
+                   FontAttributes="Bold"/>
+            <ProgressBar x:Name="progressBar"/>
+            <Label x:Name="lblDate"
+                   HorizontalOptions="Center"
+                   FontSize="Medium"/>
+        </StackLayout>
     </StackLayout>
 </ContentPage>

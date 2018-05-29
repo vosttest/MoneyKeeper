@@ -2,6 +2,7 @@ package com.tva.mk.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -144,8 +145,14 @@ public class TestController {
 			// Handle
 			Date d = new Date();
 			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
+			f.setTimeZone(TimeZone.getTimeZone("GMT+7"));
 			String text = f.format(d);
-			String token = text + " - " + Utils.getToken(d, 6);
+
+			f = new SimpleDateFormat(Const.DateTime.TOKEN);
+			f.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String s = f.format(d);
+
+			String token = text + " - " + Utils.getToken(s, 6);
 
 			// Set data
 			res.setResult(token);

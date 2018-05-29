@@ -11,7 +11,7 @@ namespace MoneyKeeper.Token.Rsp
 
         [JsonProperty("result")]
 
-        public object Result;
+        public object Result { get; set; }
 
         #endregion
     }

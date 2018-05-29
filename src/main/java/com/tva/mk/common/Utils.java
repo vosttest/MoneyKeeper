@@ -163,16 +163,17 @@ public class Utils {
 	/**
 	 * Get token
 	 * 
-	 * @param d
-	 *            Date time
+	 * @param s
+	 *            String data
 	 * @param num
 	 *            Number of digits will get
 	 * @return
 	 */
-	public static String getToken(Date d, int num) {
+	public static String getToken(String s, int num) {
 		String res = "";
 
-		String hash = generateSHA256(d);
+		s = Const.Authentication.TOKEN_KEY1 + s + Const.Authentication.TOKEN_KEY2;
+		String hash = generateSHA256(s);
 		String[] arr = hash.split(Const.SpecialString.Minus);
 
 		if (num > 8 || num < 1) {
@@ -200,18 +201,16 @@ public class Utils {
 	/**
 	 * Generate SHA-256
 	 * 
-	 * @param d
-	 *            Date time
+	 * @param s
+	 *            String data
 	 * @return
 	 */
-	private static String generateSHA256(Date d) {
+	private static String generateSHA256(String s) {
 		String res = "";
-		SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
-		String text = f.format(d);
 
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] encodedhash = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+			byte[] encodedhash = digest.digest(s.getBytes(StandardCharsets.UTF_8));
 			StringBuffer hexString = new StringBuffer();
 
 			for (int i = 0; i < encodedhash.length; i++) {

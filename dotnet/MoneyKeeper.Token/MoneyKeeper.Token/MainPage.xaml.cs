@@ -24,11 +24,20 @@ namespace MoneyKeeper.Token
                 var d = DateTime.Now;
                 var t = (60 - d.Second);
                 lblDate.Text = d.ToString(Const.DateTime.FULL);
-                lblSecond.Text = t.ToString();
+                lblSecond.Text = t.ToString() + "s";
 
                 if (t == 60 || string.IsNullOrEmpty(lblToken.Text))
                 {
-                    lblToken.Text = Utils.GetToken(d, 6);
+                    var s = d.ToUniversalTime().ToString(Const.DateTime.TOKEN);
+                    lblToken.Text = Utils.GetToken(s, 6);
+                    progressBar.Progress = d.Second / 60.0;
+                }
+
+                var f = 1.0 / 60;
+
+                if (progressBar.Progress < 1)
+                {
+                    Device.BeginInvokeOnMainThread(() => progressBar.Progress += f);
                 }
 
                 return true;
