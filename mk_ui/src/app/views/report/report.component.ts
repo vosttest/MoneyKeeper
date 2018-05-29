@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountProvider, ReportProvider } from '../../providers/provider';
+import { Utils } from '../../utils';
 
 @Component({
     selector: 'app-report',
@@ -14,6 +15,8 @@ export class ReportComponent implements OnInit {
     public options: any = [];
     public loader: boolean;
     public isShow: boolean = false;
+    public message = '';
+    public message2 = '';
 
     config = {
         displayKey: "text",
@@ -28,7 +31,8 @@ export class ReportComponent implements OnInit {
     bsValue: Date = new Date();
 
     constructor(private proAcc: AccountProvider,
-        private proReport: ReportProvider) { }
+        private proReport: ReportProvider,
+        private utl: Utils) { }
 
     ngOnInit() {
         this.search();
@@ -55,6 +59,14 @@ export class ReportComponent implements OnInit {
     }
 
     public report() {
+        this.loader = true;
+
+        if (this.multiSelect[0] == null) {
+            this.message2 = 'Choose a Account';
+            return;
+        }
+        this.message2 = '';
+
         let obj = {
             accountId: this.multiSelect[0].id,
             fromDate: this.vm.fromDate,
@@ -71,6 +83,37 @@ export class ReportComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
+            this.loader = false;
         }, err => console.log(err));
+    }
+
+    public export() {
+        this.loader = true;
+
+        if (this.getReport.length == 0) {
+            this.loader = false;
+            this.message = 'Not Data. Please choose Account, From Date, To Date ';
+
+            return;
+        }
+
+        let x = this.utl.getName("Report_Expense_Income_");
+        let tmp: any[] = [];
+        let no = 1;
+
+        this.getReport.forEach(i => {
+            let item = {
+                "Type": i.type,
+                "Categories": i.text,
+                "Amount": i.amount,
+                "Start Date": this.utl.formatDate(i.startDate, 'dd-MMM-yyyy HH:mm')
+            };
+            tmp.push(item);
+        });
+
+        this.utl.exportToExcel(tmp, x);
+
+        this.loader = false;
     }
 }

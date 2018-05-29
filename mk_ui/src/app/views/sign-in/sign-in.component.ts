@@ -46,7 +46,7 @@ export class SignInComponent implements OnInit {
                     this.pro.saveAuth(rsp.result.key); // Response JWT -> log in success
                 } else {
                     this.vm.clientKey = rsp.result.key; // Response client key
-                    this.vm.codeNumber1 = this.vm.codeNumber2 = this.vm.codeNumber3 = this.vm.codeNumber4 = this.vm.codeNumber5 = null;
+                    this.vm.codeNumber1 = this.vm.codeNumber2 = this.vm.codeNumber3 = this.vm.codeNumber4 = this.vm.codeNumber5 = this.vm.codeNumber6 = null;
                     this.isDisabled = true;
                     this.accessTokenModal.show();
                     setTimeout(function () {
@@ -59,6 +59,16 @@ export class SignInComponent implements OnInit {
 
             this.loader = false;
         }, err => console.log(err));
+    }
+
+    public cancelAccessTokenModal(){
+        $('#codeNumber1').val(null);
+        $('#codeNumber2').val(null);
+        $('#codeNumber3').val(null);
+        $('#codeNumber4').val(null);
+        $('#codeNumber5').val(null);
+        $('#codeNumber6').val(null);
+        this.accessTokenModal.hide();
     }
 
     public sendEmailVerificationLink(valid: boolean) {
@@ -142,13 +152,19 @@ export class SignInComponent implements OnInit {
                 this.vm.codeNumber5 = value2.toString();
                 break;
 
+            case 'input6':
+                if (value.length > 1) {
+                    $('#codeNumber6').val(value2);
+                }
+                this.vm.codeNumber6 = value2.toString();
+                break;
         }
 
         this.token = this.vm.codeNumber1 + this.vm.codeNumber2
             + this.vm.codeNumber3 + this.vm.codeNumber4
-            + this.vm.codeNumber5;
+            + this.vm.codeNumber5 + this.vm.codeNumber6;
 
-        if (this.token.length == 5) {
+        if (this.token.length == 6) {
             this.isDisabled = false;
         }
 

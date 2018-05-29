@@ -5,6 +5,9 @@ using Xamarin.Forms;
 
 namespace MoneyKeeper.Token.ViewModels
 {
+    using Common;
+    using Views;
+
     /// <summary>
     /// Activation view model
     /// </summary>
@@ -34,14 +37,23 @@ namespace MoneyKeeper.Token.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var res = await UserService.VerifyActiveCode(Code);
+                var code = Code1 + Code2 + Code3 + Code4 + Code5 + Code6;
+                var res = await UserService.VerifyActiveCode(code);
 
-                if (res.Status == "success")
+                if (res.Status == Const.HTTP.STATUS_SUCCESS)
                 {
                     App.Jwt = res.Result.ToString();
-                    Application.Current.Properties["jwt"] = App.Jwt;
-                    await Application.Current.SavePropertiesAsync();
-                    await main.Navigation.PushModalAsync(new MainPage());
+                    Utils.SetVar(Const.Authentication.JWT, App.Jwt);
+
+                    var ok = await main.DisplayAlert("Confirm", "Do you want to create password?", "Yes", "No");
+                    if (ok)
+                    {
+                        await main.Navigation.PushModalAsync(new Login());
+                    }
+                    else
+                    {
+                        await main.Navigation.PushModalAsync(new MainPage());
+                    }
                 }
                 else
                 {
@@ -60,9 +72,34 @@ namespace MoneyKeeper.Token.ViewModels
         #region -- Properties --
 
         /// <summary>
-        /// Activation code
+        /// Activation code 1
         /// </summary>
-        public string Code { get; set; }
+        public string Code1 { get; set; }
+
+        /// <summary>
+        /// Activation code 2
+        /// </summary>
+        public string Code2 { get; set; }
+
+        /// <summary>
+        /// Activation code 3
+        /// </summary>
+        public string Code3 { get; set; }
+
+        /// <summary>
+        /// Activation code 4
+        /// </summary>
+        public string Code4 { get; set; }
+
+        /// <summary>
+        /// Activation code 5
+        /// </summary>
+        public string Code5 { get; set; }
+
+        /// <summary>
+        /// Activation code 6
+        /// </summary>
+        public string Code6 { get; set; }
 
         /// <summary>
         /// Verify command

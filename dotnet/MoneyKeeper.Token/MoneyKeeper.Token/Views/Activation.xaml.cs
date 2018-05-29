@@ -20,24 +20,41 @@ namespace MoneyKeeper.Token.Views
             code1.Focus();
         }
 
-        private void code1_TextChanged(object sender, TextChangedEventArgs e)
+        private void Code1_TextChanged(object sender, TextChangedEventArgs e)
         {
             code2.Focus();
         }
 
-        private void code2_TextChanged(object sender, TextChangedEventArgs e)
+        private void Code2_TextChanged(object sender, TextChangedEventArgs e)
         {
             code3.Focus();
         }
 
-        private void code3_TextChanged(object sender, TextChangedEventArgs e)
+        private void Code3_TextChanged(object sender, TextChangedEventArgs e)
         {
             code4.Focus();
         }
 
-        private void code4_TextChanged(object sender, TextChangedEventArgs e)
+        private void Code4_TextChanged(object sender, TextChangedEventArgs e)
         {
             code5.Focus();
+        }
+
+        private void Code5_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            code6.Focus();
+        }
+
+        private void ResendCode_Tapped(object sender, System.EventArgs e)
+        {
+            code1.Text = null;
+            code2.Text = null;
+            code3.Text = null;
+            code4.Text = null;
+            code5.Text = null;
+            code6.Text = null;
+
+            code1.Focus();
         }
 
         #endregion

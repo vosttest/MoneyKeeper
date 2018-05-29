@@ -19,6 +19,9 @@
                                 </div>
                                 <div class="col-md-8">
                                     <ngx-select-dropdown [multiple]="false" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
+                                    <span [hidden]="message === ''" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="fromDate2" data-valmsg-for="fromDate2" id="fromDate2_validationMessage" role="alert">
+                                        <i class="fa fa-exclamation-triangle"></i> Choose account.
+                                    </span>
                                 </div>
                             </div>
                             <div class="row">
@@ -50,7 +53,7 @@
                             <div class="row">
                                 <div class="card full-width">
                                     <div class="title">
-                                        <h3>Expense Total : {{vm.total | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
+                                        <h3> Expense Total : {{vm.total | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
                                     </div>
                                     <ul class="card-list list-group list-group-flush" *ngFor="let item of getReport">
                                         <li class="list-group-item list-group-item-action" *ngIf="item.type == 'Expense'">
@@ -67,7 +70,7 @@
                                         </li>
                                     </ul>
                                     <div class="title">
-                                        <h3>Income Total : {{vm.total2 | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
+                                        <h3> Income Total : {{vm.total2 | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
                                     </div>
                                     <ul class="card-list list-group list-group-flush" *ngFor="let item of getReport">
                                         <li class="list-group-item list-group-item-action" *ngIf="item.type == 'Income'">

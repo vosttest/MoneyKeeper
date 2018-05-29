@@ -1,3 +1,4 @@
+using MoneyKeeper.Main.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -37,8 +38,32 @@ namespace MoneyKeeper.Main
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            try
+            {
+                Jwt = Application.Current.Properties["jwt"].ToString();
+                if (string.IsNullOrEmpty(Jwt))
+                {
+                    MainPage = new SignIn();
+                }
+                else
+                {
+                    MainPage = new MainPage();
+                }
+            }
+            catch
+            {
+                MainPage = new SignIn();
+            }
         }
+
+        #endregion
+
+        #region -- Properties --
+
+        /// <summary>
+        /// JSON web token
+        /// </summary>
+        public static string Jwt { get; set; }
 
         #endregion
     }

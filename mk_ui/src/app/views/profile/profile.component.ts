@@ -39,6 +39,8 @@ export class ProfileComponent implements OnInit {
     }
 
     public getActiveCode() {
+        this.loader = true;
+
         this.pro.getActiveCode(this.type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.activeCodePopup.hide();
@@ -46,11 +48,14 @@ export class ProfileComponent implements OnInit {
                 //TODO - Show popup
                 console.log(rsp.message);
             }
+
+            this.loader = false;
         }, err => console.log(err));
     }
 
     private view() {
         this.loader = true;
+
         this.pro.view().subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.vm = rsp.result;
@@ -58,11 +63,12 @@ export class ProfileComponent implements OnInit {
                 //TODO - Show popup
                 console.log(rsp.message);
             }
+
             this.loader = false;
         }, err => console.log(err));
     }
 
-    public back(){
+    public back() {
         window.history.back();
     }
 }

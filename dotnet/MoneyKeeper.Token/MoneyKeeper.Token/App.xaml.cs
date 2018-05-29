@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MoneyKeeper.Token
 {
+    using Common;
     using Views;
 
     /// <summary>
@@ -36,21 +37,22 @@ namespace MoneyKeeper.Token
         {
             InitializeComponent();
 
-            try
+            Jwt = Utils.GetVar(Const.Authentication.JWT);
+            if (string.IsNullOrEmpty(Jwt))
             {
-                Jwt = Application.Current.Properties["jwt"].ToString();
-                if (string.IsNullOrEmpty(Jwt))
-                {
-                    MainPage = new Activation();
-                }
-                else
+                MainPage = new Activation();
+            }
+            else
+            {
+                Password = Utils.GetVar(Const.Authentication.PIN);
+                if (string.IsNullOrEmpty(Password))
                 {
                     MainPage = new MainPage();
                 }
-            }
-            catch
-            {
-                MainPage = new Activation();
+                else
+                {
+                    MainPage = new Login();
+                }
             }
         }
 
@@ -62,6 +64,11 @@ namespace MoneyKeeper.Token
         /// JSON web token
         /// </summary>
         public static string Jwt { get; set; }
+
+        /// <summary>
+        /// Password
+        /// </summary>
+        public static string Password { get; set; }
 
         #endregion
     }

@@ -11,7 +11,21 @@
 
             public const string TOKEN_KEY2 = "9C8F616E0317998A10F3518D6272EA31B3CB9FECAA4C9FAF1A2FEDB6B6C2AA9E";
 
-            public const int TOKEN_NUMBER = 5;
+            public const int TOKEN_NUMBER = 6;
+
+            public const string JWT = "jwt";
+
+            public const string PIN = "pin";
+        }
+
+        /// <summary>
+        /// HTTP
+        /// </summary>
+        public class HTTP
+        {
+            public const string STATUS_SUCCESS = "success";
+
+            public const string STATUS_ERROR = "error";
         }
 
         /// <summary>

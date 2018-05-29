@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
+             x:Class="MoneyKeeper.Main.Views.SignIn">
+    <ContentPage.BindingContext>
+        <vm:SignInVM/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Money Keeper"
+                   FontSize="24"
+                   TextColor="#1cb09a"
+                   HorizontalOptions="CenterAndExpand"/>
+            <Entry Text="{Binding UserName}"
+                   HorizontalTextAlignment="Center"
+                   Placeholder="User name"
+                   FontSize="16"/>
+            <Entry Text="{Binding Password}"
+                   IsPassword="true"
+                   HorizontalTextAlignment="Center"
+                   Placeholder="Password"
+                   FontSize="16"/>
+            <Button Text="Sign In"
+                    TextColor="White"
+                    BackgroundColor="#1cb09a"
+                    HeightRequest="50"
+                    VerticalOptions="Start"
+                    Command="{Binding SignInCmd}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

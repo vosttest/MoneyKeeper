@@ -13,7 +13,7 @@
             <h2>SIGN UP <i class="far fa-money-bill-alt"></i></h2>
             <form class="sign-up" name="form" #f="ngForm" (ngSubmit)="f.form.valid && signUp()">
                 <div class="form-group input">
-                    <label for="userName">Username<span class="text-danger">*</span></label>
+                    <label for="userName">Usern Name<span class="text-danger">*</span></label>
                     <input id="userName" name="userName" #userName="ngModel" [(ngModel)]="vm.userName" type="text" class="form-control" maxlength="32" minlength="6" required>
                     <span [hidden]="userName.valid || (userName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                     <span *ngIf="userName.errors?.required">

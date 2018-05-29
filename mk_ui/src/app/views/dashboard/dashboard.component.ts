@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     public vm: any = { total: '', total2: '' };
     public options: any = [];
     public isShow: boolean = false;
+    public message = '';
 
     config = {
         displayKey: "text",
@@ -64,7 +65,11 @@ export class DashboardComponent implements OnInit {
     }
 
     public report() {
-        this.loader = true;
+        if (this.multiSelect[0] == null) {
+            this.message = 'Choose a Account';
+            return;
+        }
+        this.message = '';
 
         let obj = {
             accountId: this.multiSelect[0].id,
@@ -82,8 +87,6 @@ export class DashboardComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
-            
-            this.loader = false;
         }, err => console.log(err));
     }
 }

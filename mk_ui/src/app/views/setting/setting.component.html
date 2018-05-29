@@ -67,9 +67,9 @@
                         </div>
                         <div class="col-md-6"> {{ i.text }} </div>
                         <div class="col-md-3">
-                            <input type="radio" name="currency" *ngIf="i.value === dataCurrency.value; else elseCurrency" [(ngModel)]="dataCurrency.value" checked value="{{ i.value }}" />
+                            <input type="radio" name="currency" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" checked value="{{ i.value }}" />
                             <ng-template #elseCurrency>
-                                <input type="radio" name="currency" [(ngModel)]="dataCurrency.value" value="{{ i.value }}" />
+                                <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
                             </ng-template>
                             {{ i.value }}
                         </div>

@@ -5,6 +5,8 @@ using Xamarin.Forms;
 
 namespace MoneyKeeper.Token.ViewModels
 {
+    using Common;
+
     /// <summary>
     /// User view model
     /// </summary>
@@ -36,7 +38,7 @@ namespace MoneyKeeper.Token.ViewModels
                 var main = App.Current.MainPage;
                 var res = await UserService.GetTokenOtp();
 
-                if (res.Status == "success")
+                if (res.Status == Const.HTTP.STATUS_SUCCESS)
                 {
                     Code = res.Result.ToString();
                     await main.DisplayAlert("Success", Code, "OK");
