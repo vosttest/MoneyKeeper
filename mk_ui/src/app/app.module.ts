@@ -28,6 +28,8 @@ import { FormsModule } from '@angular/forms';
 
 import { LayoutComponent } from './views/layout/layout.component';
 
+import { Utils } from '../app/utils';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -53,7 +55,8 @@ import { LayoutComponent } from './views/layout/layout.component';
         VoucherProvider,
         RsaService,
         AccountProvider,
-        ReportProvider
+        ReportProvider,
+        Utils
     ],
     bootstrap: [AppComponent]
 })

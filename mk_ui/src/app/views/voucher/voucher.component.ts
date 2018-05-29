@@ -27,6 +27,9 @@ export class VoucherComponent implements OnInit {
     public account = [];
     public toAccount = [];
     public voucher = [];
+    public voucher1 = [];
+    public voucherTmp = [];
+    public voucher2: any;
     public apiURL: string = "../../../assets/img/";
     public loader: boolean = false;
 
@@ -41,6 +44,7 @@ export class VoucherComponent implements OnInit {
     public isAdjustment: boolean = false;
     public labelObj: string = "";
     public function = "overview";
+    public date: any;
     // public isShow: boolean = true;
 
     public labelAccountId = 'Account';
@@ -63,7 +67,7 @@ export class VoucherComponent implements OnInit {
         private act: ActivatedRoute) { }
 
     ngOnInit() {
-        this.getVoucher("");
+        this.getVoucher();
         this.getExpense();
         this.getAccount();
         this.hideShow('Expense');
@@ -71,9 +75,9 @@ export class VoucherComponent implements OnInit {
         this.searchToAccount();
 
         this.act.params.subscribe((params: Params) => {
-            document.getElementById(this.function).style.display="none";
+            document.getElementById(this.function).style.display = "none";
             this.function = params["function"];
-            document.getElementById(this.function).style.display="block";
+            document.getElementById(this.function).style.display = "block";
         });
     }
 
@@ -110,40 +114,28 @@ export class VoucherComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public getVoucher(keyword: string) {
+    public getVoucher() {
         this.proVoucher.search(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.voucher = rsp.result.data;
-                console.log(rsp.result.data);
-                
-                // if (this.voucher != undefined || this.voucher.length > 0) {
-                //     for (let i = 0; i < this.voucher.length; i++) {
-                //         let isParentNull = false;
-                //         let isChildNull = true;
-                //         if (this.voucher[i].description.includes(keyword) || this.voucher[i].type.includes(keyword)) {
-                //             isParentNull = true;
-                //         }
-                //         let details = this.voucher[i].voucherDetail;
-
-                //         for (let j = 0; j < details.length; j++) {
-                //             if (!details[j].category.includes(keyword)) {
-                //                 isChildNull = false;
-                //                 details.pop(details[j]);
-                //             }
-                //         }
-                //         if (isParentNull && isChildNull) {
-                //             this.lstSearch.push(this.voucher[i]);
-                //         }
-                //     }
-                //     console.log(this.voucher);
-                // }
-
+                this.voucher.forEach(obj => {
+                    if (this.date != obj.startDate) {
+                        this.date = obj.startDate;
+                        let tmp = { startDate: obj.startDate, voucher: [] };
+                        this.voucher2 = tmp.voucher;
+                        this.voucher2.push(obj);
+                        this.voucher1.push(tmp);
+                    }
+                    else {
+                        this.voucher2.push(obj);
+                    }
+                });
             } else {
                 this.message = rsp.message;
             }
         }, err => console.log(err));
     }
-    
+
     public changeIcon(id: any) {
         let arrow = document.getElementById("arrow" + id).style.transform;
 
@@ -179,6 +171,43 @@ export class VoucherComponent implements OnInit {
             this.getExpense();
         } else if (typeVoucher === 'Income') {
             this.getIncome();
+        }
+    }
+
+    public searchVoucher(keyword: string) {
+        if (keyword != "") {
+            if (this.voucher1 != undefined || this.voucher1.length > 0) {
+                for (let i = 0; i < this.voucher1.length; i++) {
+                    let isParentNull = false;
+                    let isChildNull = true;
+                    for (let j = 0; j < this.voucher1[i].voucher.length; j++) {
+                        let voucher = this.voucher1[i].voucher[j];
+                        if (voucher.description.includes(keyword)
+                            || voucher.type.includes(keyword)) {
+                            isParentNull = true;
+                        }
+
+                        let details = this.voucher1[i].voucher[j].voucherDetail;
+                        if (details != undefined) {
+                            for (let z = 0; z < details.length; z++) {
+                                if (!details[z].categoryText.includes(keyword)) {
+                                    isChildNull = false;
+                                    details.splice(0, 1);
+                                    z=-1;
+                                }
+                            }
+                        }
+
+                        if (isParentNull && isChildNull) {
+                            this.lstSearch.push(this.voucher1[j]);
+                        }
+                    }
+                }
+            }
+        }
+        else {
+            this.voucher1= [];
+            this.getVoucher();
         }
     }
 

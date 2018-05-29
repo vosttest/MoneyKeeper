@@ -236,12 +236,6 @@ public class UserService implements UserDetailsService {
 		String token = "";
 		switch (type) {
 		case Const.Setting.CODE_TOKEN:
-			Date d = new Date();
-			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
-			f.setTimeZone(TimeZone.getTimeZone("UTC"));
-			String s = f.format(d);
-
-			token = Utils.getToken(s, n);
 			break;
 
 		case Const.Setting.CODE_OTP:
@@ -281,10 +275,21 @@ public class UserService implements UserDetailsService {
 		}
 
 		String authKey = m.getToken();
-		if (!authKey.equals(token) || authKey == null) {
+		if (authKey == null) {
+			Date d = new Date();
+			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
+			f.setTimeZone(TimeZone.getTimeZone("UTC"));
+			String s = f.format(d);
+
+			int n = Const.Authentication.TOKEN_NUMBER;
+			authKey = Utils.getToken(s, n);
+		}
+		
+		if (!authKey.equals(token)) {
 			throw new Exception(Enums.Error.E203.toString());
 		}
 
+		m.setToken(token);
 		m.setVerified(true);
 		m.setModifyOn(new Date());
 		m.setModifyBy(userId);

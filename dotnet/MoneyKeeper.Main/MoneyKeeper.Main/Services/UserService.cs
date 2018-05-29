@@ -1,0 +1,56 @@
+﻿using Newtonsoft.Json;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+namespace MoneyKeeper.Main.Services
+{
+    using Models;
+    using Req;
+    using Rsp;
+
+    /// <summary>
+    /// User service
+    /// </summary>
+    public class UserService : BaseService<UserModel>
+    {
+        #region -- Methods --
+
+        /// <summary>
+        /// Initialize
+        /// </summary>
+        public UserService() { }
+
+        /// <summary>
+        /// Verify active code
+        /// </summary>
+        /// <param name="code">Active code</param>
+        /// <returns>Return the result</returns>
+        public async Task<SignInRsp> SignIn(SignInReq req)
+        {
+            SignInRsp res = null;
+
+            var m = new
+            {
+                userName = req.UserName,
+                password = req.Password,
+                clientKey = req.ClientKey,
+                token = req.Token,
+                sendToken = req.SendToken
+            };
+            var data = CreateData(m);
+
+            var client = new HttpClient();
+            var rsp = await client.PostAsync(Host + "user/sign-in", data);
+
+            if (rsp.IsSuccessStatusCode)
+            {
+                var t = await rsp.Content.ReadAsStringAsync();
+                res = JsonConvert.DeserializeObject<SignInRsp>(t);
+            }
+
+            return res;
+        }
+
+        #endregion
+    }
+}

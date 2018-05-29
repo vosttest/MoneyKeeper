@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using Xamarin.Forms;
 
 namespace MoneyKeeper.Token.Common
 {
@@ -8,6 +9,35 @@ namespace MoneyKeeper.Token.Common
     /// </summary>
     public static class Utils
     {
+        /// <summary>
+        /// Get variable
+        /// </summary>
+        /// <param name="name">Variable name</param>
+        /// <returns>Return the result</returns>
+        public static string GetVar(string name)
+        {
+            var res = string.Empty;
+
+            try
+            {
+                res = Application.Current.Properties[name].ToString();
+            }
+            catch { }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Set variable
+        /// </summary>
+        /// <param name="name">Variable name</param>
+        /// <param name="value">Variable value</param>
+        public static void SetVar(string name, string value)
+        {
+            Application.Current.Properties[name] = value;
+            Application.Current.SavePropertiesAsync();
+        }
+
         /// <summary>
         /// Get token
         /// </summary>

@@ -45,7 +45,9 @@ input[type=text] {
 }
 
 .title {
-    background-color: gainsboro;
+    background-color: #1CB09A;
+    color: #fff;
+    border-bottom: solid;
 }
 
 .card {

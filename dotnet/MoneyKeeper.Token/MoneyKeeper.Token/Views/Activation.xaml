@@ -7,36 +7,78 @@
         <vm:ActivationVM/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout BackgroundColor="#62CBBC">
-            <StackLayout Margin="40">
-                <Label Text="Verification Code" TextColor="White" HorizontalTextAlignment="Center" FontSize="Large" />
-                <Label Text="Please type the verification code sent to +84 999999999" TextColor="White" HorizontalTextAlignment="Center" FontSize="Default"/>
+        <StackLayout BackgroundColor="White"
+                     Orientation="Vertical"
+                     VerticalOptions="FillAndExpand">
+            <StackLayout Margin="40"
+                         Orientation="Vertical"
+                         VerticalOptions="Center">
+                <Image Source="smartphoneSMS.jpg"
+                       Margin="70,30,40,30"
+                       HeightRequest="120"
+                       WidthRequest="120"/>
             </StackLayout>
-            <Frame BackgroundColor="White" CornerRadius="10" Padding="0">
-                <StackLayout Orientation="Horizontal">
-                    <Entry x:Name="code1" HorizontalTextAlignment="Center" TextChanged="code1_TextChanged"
-                   FontSize="16" WidthRequest="65" />
-                    <Entry x:Name="code2" HorizontalTextAlignment="Center" TextChanged="code2_TextChanged"
-                   FontSize="16" WidthRequest="65"/>
-                    <Entry x:Name="code3" HorizontalTextAlignment="Center" TextChanged="code3_TextChanged"
-                   FontSize="16" WidthRequest="65"/>
-                    <Entry x:Name="code4" HorizontalTextAlignment="Center" TextChanged="code4_TextChanged"
-                   FontSize="16" WidthRequest="65"/>
-                    <Entry x:Name="code5" HorizontalTextAlignment="Center" Keyboard="Numeric"
-                   FontSize="16" WidthRequest="65"/>
-                </StackLayout>
-            </Frame>
-
-            <Entry Text="{Binding Code}"
+            <Label Text="Please enter six digits"
+                   TextColor="#62CBBC"
                    HorizontalTextAlignment="Center"
-                   Placeholder="Please input activation code..."
-                   FontSize="16"/>
-            <Button Text="Verify"
-                    TextColor="White"
-                    BackgroundColor="Blue"
-                    HeightRequest="50"
-                    VerticalOptions="Start"
-                    Command="{Binding VerifyCmd}"/>
+                   Font="Bold, 15"/>
+            <StackLayout Margin="20" Orientation="Horizontal">
+                <Entry x:Name="code1"
+                       Text="{Binding Code1}"
+                       HorizontalOptions="FillAndExpand"
+                       VerticalOptions="FillAndExpand"
+                       Keyboard="Numeric"
+                       TextChanged="Code1_TextChanged" />
+                <Entry x:Name="code2"
+                       Text="{Binding Code2}"
+                       HorizontalOptions="FillAndExpand"
+                       Keyboard="Numeric"
+                       TextChanged="Code2_TextChanged" />
+                <Entry x:Name="code3"
+                       Text="{Binding Code3}"
+                       HorizontalOptions="FillAndExpand" 
+                       Keyboard="Numeric"
+                       TextChanged="Code3_TextChanged" />
+                <Entry x:Name="code4"
+                       Text="{Binding Code4}"
+                       HorizontalOptions="FillAndExpand"
+                       Keyboard="Numeric"
+                       TextChanged="Code4_TextChanged"  />
+                <Entry x:Name="code5"
+                       Text="{Binding Code5}"
+                       HorizontalOptions="FillAndExpand"
+                       Keyboard="Numeric" 
+                       TextChanged="Code5_TextChanged" />
+                <Entry x:Name="code6"
+                       Text="{Binding Code6}"
+                       HorizontalOptions="FillAndExpand"
+                       Keyboard="Numeric" />
+            </StackLayout>
+            <StackLayout Margin="40,5,40,0"
+                         Orientation="Horizontal">
+                <Label Text="Didn't receive the code?"
+                       TextColor="#62CBBC"
+                       HorizontalTextAlignment="Center"
+                       Font="Italic"
+                       Margin="0,5,0,0"/>
+                <Label Text="RESEND CODE"
+                       TextColor="#62CBBC"
+                       HorizontalTextAlignment="Center"
+                       Font="Bold,18">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="ResendCode_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
+            <StackLayout Margin="20"
+                         VerticalOptions="EndAndExpand">
+                <Button Text="Verify"
+                        TextColor="White"
+                        BackgroundColor="#62CBBC"
+                        HeightRequest="50"
+                        VerticalOptions="End"
+                        Command="{Binding VerifyCmd}"/>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

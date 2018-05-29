@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MoneyKeeper.Token.Views.Login">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="#62CBBC">
+            <Label Text="Password"
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontSize="Large"
+               Margin="40"/>
+            <Frame BackgroundColor="White"
+                   CornerRadius="10"
+                   Padding="0"
+                   Margin="100,0,100,0">
+                <Entry x:Name="txtPassword"
+                       FontSize="36"
+                       FontAttributes="Bold"
+                       Keyboard="Numeric"
+                       IsPassword="True"
+                       WidthRequest="65"
+                       MaxLength="4"
+                       TextChanged="Password_TextChanged"/>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

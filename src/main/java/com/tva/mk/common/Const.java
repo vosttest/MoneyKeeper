@@ -30,7 +30,7 @@ public class Const {
 
 		public static final int TOKEN_MINUTE = 2;
 
-		public static final int TOKEN_NUMBER = 5;
+		public static final int TOKEN_NUMBER = 6;
 
 		public static final int ACTIVE_NUMBER = 6;
 	}

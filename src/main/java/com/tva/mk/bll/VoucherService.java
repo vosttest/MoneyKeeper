@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tva.mk.dal.VoucherDao;
 import com.tva.mk.dal.VoucherDetailDao;
 import com.tva.mk.dto.ReportDto;
+import com.tva.mk.dto.VoucherDetailDto;
 import com.tva.mk.dto.VoucherDto;
 import com.tva.mk.model.Voucher;
 import com.tva.mk.model.VoucherDetail;
@@ -58,8 +59,10 @@ public class VoucherService {
 		for (Object[] item : t) {
 			VoucherDto t1 = new VoucherDto();
 			int id = Integer.parseInt(item[0].toString());
+			int accountId = Integer.parseInt(item[1].toString());
+			
 			t1.setId(id);
-			t1.setAccountId(Integer.parseInt(item[1].toString()));
+			t1.setAccountId(accountId);
 			t1.setType(item[2].toString());
 			t1.setTotal(Double.parseDouble(item[3] != null ? item[3].toString() : "0"));
 			t1.setDescription(item[4] != null ? item[4].toString() : "");
@@ -69,8 +72,23 @@ public class VoucherService {
 			t1.setUserId(Integer.parseInt(item[8].toString()));
 			t1.setStartDate((Date) item[9]);
 
-			List<VoucherDetail> t2 = voucherDetailDao.getBy(id);
-			t1.setVoucherDetail(t2);
+			List<Object[]> t2 = voucherDetailDao.getVouchersDetail(accountId, id);
+			if(t2.size() > 0)
+			{
+				List<VoucherDetailDto> res1 = new ArrayList<>();
+				for (Object[] item1 : t2) {
+					VoucherDetailDto t3 = new VoucherDetailDto();
+					t3.setAmount(Double.parseDouble(item1[0].toString()));
+					t3.setCategoryText(item1[1].toString());
+					t3.setIcon(item1[2].toString());
+					t3.setAccountText(item1[3].toString());
+
+					res1.add(t3);
+				}
+				
+				t1.setVoucherDetail(res1);
+			}
+			
 			res.add(t1);
 		}
 

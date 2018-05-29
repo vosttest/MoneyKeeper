@@ -17,15 +17,14 @@
         </div>
         <div class="row ">
             <div class="col-md-6">
-                <input class="form-control border" placeholder="Search...">
+                <input id="keyword" name="keyword" #keyword="ngModel" [(ngModel)]="vm.keyword" type="text" class="form-control" (keyup)="searchVoucher(vm.keyword)">
             </div>
             <div class="col-md-6">
                 <input type="text" placeholder="Date" class="form-control border" bsDatepicker>
             </div>
         </div>
-        <div *ngFor="let i of voucher">
+        <div *ngFor="let i of voucher1">
             <div class="row bg-secondary text-white">
-                {{ i.voucherDetails[0].amount }}
                 <div class="col-md-1">
                     <h1>{{i.startDate | date: 'dd'}}</h1>
                 </div>
@@ -36,16 +35,19 @@
                     <span>Icome: <br /> <i>Expense: </i></span>
                 </div>
             </div>
-            <div class="row list" *ngFor="let j of i.voucherDetails">
-                <div class="col-md-1">
-                    <img src="{{apiURL + 'expense/IMG001.png'}}" />
+            <div *ngFor="let j of i.voucher">
+                <div class="row list" *ngFor="let z of j.voucherDetail">
+                    <div class="col-md-1">
+                        <img src="{{apiURL + z.icon}}" />
+                    </div>
+                    <div class="col-md-9">
+                        <span>{{j.type}}: {{z.categoryText}} <br /> <i>{{j.description}}</i></span>
+                    </div>
+                    <div class="col-md-2">
+                        <span>{{z.amount}} VND <br /> <i>{{z.accountText}}</i></span>
+                    </div>
                 </div>
-                <div class="col-md-9">
-                    <span>{{i.type}}: {{j.category}} <br /> <i>{{i.description}}</i></span>
-                </div>
-                <div class="col-md-2">
-                    <span>{{j.amount}} VND <br /> <i>{{i.accountId}}</i></span>
-                </div>
+
             </div>
         </div>
 

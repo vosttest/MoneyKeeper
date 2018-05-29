@@ -30,7 +30,9 @@ li .right {
 }
 
 .title {
-    background-color: gainsboro;
+    background-color: #1CB09A;
+    color: #fff;
+    border-bottom: solid;
 }
 
 .form-control {
@@ -41,7 +43,9 @@ li .right {
     padding-left: 20px;
     padding-right: 20px;
     margin-top: 5%;
-    margin-bottom: 2%
+    margin-bottom: 2%;
+    max-height: 414px;
+    height: 414px;
 }
 
 h2 {
@@ -54,7 +58,7 @@ h2 {
     margin-left: 15px;
     width: 95%;
     overflow-x: hidden;
-    max-height: 320px;
+    max-height: 245px;
 }
 
 .full-width {
@@ -73,4 +77,8 @@ h2 {
 
 div.row {
     margin-bottom: 3%;
+}
+
+.card.bg-white.card-2 {
+    height: 100%;
 }

@@ -48,8 +48,6 @@ export class SettingComponent implements OnInit {
                 this.data = rsp.result.data;
 
                 this.data.forEach(element => {
-                    let t = element.code.split('SET');
-
                     switch (element.code) {
                         case Setting.CODE_REMINDER:
                             this.reminder.time = new Date(element.value);
