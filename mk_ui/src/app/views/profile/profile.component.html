@@ -61,7 +61,7 @@
     </div>
 </section>
 <!-- Modal -->
-<div bsModal #activeCodePopup="bs-modal" class="modal fade" id="activeCodePopup" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div bsModal #activeCodePopup="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="activeCodePopup" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -91,17 +91,14 @@
 </div>
 
 <!-- Modal Message -->
-<div bsModal #messageModal="bs-modal" class="modal fade" id="c" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div bsModal #messageModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="c" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
-                <button type="button" class="close" (click)="messageModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
             </div>
             <div class="modal-body">
-                Can not update user
+                {{tab}}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" (click)="messageModal.hide()">OK</button>

@@ -216,4 +216,8 @@ public class Const {
 
 		public static final char AtSign = '@';
 	}
+
+	public class UI {
+		public static final String SELECT_OPTION = "-- Please select --";
+	}
 }

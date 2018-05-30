@@ -75,6 +75,7 @@ public class VoucherController {
 			Integer accountId = req.getAccountId();
 			String type = req.getType();
 			Float total = req.getTotal();
+			Float transferFee = req.getTransferFee();
 			String description = req.getDescription();
 			String payee = req.getPayee();
 			String payer = req.getPayer();
@@ -87,6 +88,7 @@ public class VoucherController {
 			m.setAccountId(accountId);
 			m.setType(type);
 			m.setTotal(total);
+			m.setTransferFee(transferFee);
 			m.setDescription(description);
 			m.setPayee(payee);
 			m.setPayer(payer);

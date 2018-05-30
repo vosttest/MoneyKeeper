@@ -35,6 +35,9 @@ public class Voucher {
 	@Column(columnDefinition = "float")
 	private Float total;
 
+	@Column(columnDefinition = "float")
+	private Float transferFee;
+
 	@Column(columnDefinition = "varchar(256)")
 	private String description;
 
@@ -113,6 +116,14 @@ public class Voucher {
 
 	public void setTotal(Float total) {
 		this.total = total;
+	}
+
+	public Float getTransferFee() {
+		return transferFee;
+	}
+
+	public void setTransferFee(Float transferFee) {
+		this.transferFee = transferFee;
 	}
 
 	public String getDescription() {

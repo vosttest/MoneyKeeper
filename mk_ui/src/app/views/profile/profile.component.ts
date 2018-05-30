@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
     public vm: any = {};
     public loader: boolean;
     public type = 'MAIL';
+    public tab: string = "";
 
     @ViewChild('activeCodePopup') public activeCodePopup: ModalDirective;
     @ViewChild('messageModal') public messageModal: ModalDirective;
@@ -28,10 +29,10 @@ export class ProfileComponent implements OnInit {
 
         this.pro.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/dashboard']);
-            } else {
+                this.tab = "You have update success!!!";
                 this.messageModal.show()
-                console.log(rsp.message);
+            } else {
+                this.tab = "Can not update user!!!";
             }
 
             this.loader = false;

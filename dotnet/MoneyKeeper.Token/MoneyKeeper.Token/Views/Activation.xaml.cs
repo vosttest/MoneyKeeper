@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using MoneyKeeper.Token.Dependencies;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MoneyKeeper.Token.Views
@@ -55,6 +56,12 @@ namespace MoneyKeeper.Token.Views
             code6.Text = null;
 
             code1.Focus();
+        }
+
+        private void Close_Clicked(object sender, System.EventArgs e)
+        {
+            var closer = DependencyService.Get<ICloseApplication>();
+            closer?.Close();
         }
 
         #endregion

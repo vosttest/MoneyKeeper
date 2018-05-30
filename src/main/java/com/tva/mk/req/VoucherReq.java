@@ -19,6 +19,9 @@ public class VoucherReq {
 	@JsonProperty(value = "total")
 	private Float total;
 
+	@JsonProperty(value = "transferFee")
+	private Float transferFee;
+
 	@JsonProperty(value = "description")
 	private String description;
 
@@ -71,6 +74,14 @@ public class VoucherReq {
 
 	public void setTotal(Float total) {
 		this.total = total;
+	}
+
+	public Float getTransferFee() {
+		return transferFee;
+	}
+
+	public void setTransferFee(Float transferFee) {
+		this.transferFee = transferFee;
 	}
 
 	public String getDescription() {

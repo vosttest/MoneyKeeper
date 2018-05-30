@@ -16,7 +16,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 
 export class VoucherComponent implements OnInit {
-    public vm: any = { type: 'Expense', total: null, accountId: null, description: " ", object: " ", startDate: new Date() };
+    public vm: any = { type: 'Expense', total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
     public cm: any = {};
     public lstParent = [];
     public lstChild = [];
@@ -29,9 +29,6 @@ export class VoucherComponent implements OnInit {
     public voucher = [];
     public voucher1 = [];
     public voucherTmp = [];
-    public voucher2: any;
-    public apiURL: string = "../../../assets/img/";
-    public loader: boolean = false;
 
     public selectedCategory = { code: '', text: '-- Select Category --', icon: '' };
     public selectedAccount = { accountId: 0, text: '-- Select Account --' };
@@ -45,6 +42,9 @@ export class VoucherComponent implements OnInit {
     public labelObj: string = "";
     public function = "overview";
     public date: any;
+    public voucher2: any;
+    public apiURL: string = "../../../assets/img/";
+    public loader: boolean = false;
     // public isShow: boolean = true;
 
     public labelAccountId = 'Account';
@@ -64,6 +64,7 @@ export class VoucherComponent implements OnInit {
         private proIncome: IncomeProvider,
         private proAccount: AccountProvider,
         private proVoucher: VoucherProvider,
+        private rou: Router,
         private act: ActivatedRoute) { }
 
     ngOnInit() {
@@ -193,7 +194,7 @@ export class VoucherComponent implements OnInit {
                                 if (!details[z].categoryText.includes(keyword)) {
                                     isChildNull = false;
                                     details.splice(0, 1);
-                                    z=-1;
+                                    z = -1;
                                 }
                             }
                         }
@@ -206,7 +207,7 @@ export class VoucherComponent implements OnInit {
             }
         }
         else {
-            this.voucher1= [];
+            this.voucher1 = [];
             this.getVoucher();
         }
     }
@@ -241,7 +242,6 @@ export class VoucherComponent implements OnInit {
             this.isTransfer = false;
             this.isAdjustment = false;
             this.labelAccountId = "Account";
-            this.labelObj = "Payee";
         }
         else if (a == "Income") {
             this.getIncome();
@@ -250,7 +250,6 @@ export class VoucherComponent implements OnInit {
             this.isTransfer = false;
             this.isAdjustment = false;
             this.labelAccountId = "To Account";
-            this.labelObj = "Payer";
         }
         else if (a == "Transfer") {
             this.getExpense();
@@ -267,7 +266,6 @@ export class VoucherComponent implements OnInit {
             this.isExpense = false;
             this.isTransfer = false;
             this.labelAccountId = "Account";
-            this.labelObj = "Payee";
         }
 
         console.log(a);
@@ -310,10 +308,14 @@ export class VoucherComponent implements OnInit {
         }
         let t = this.vm.type === "Transfer" ? this.selectedToAccount.accountId : this.vm.object;
         let obj = {
-            id: 0, description: this.vm.description,
+            id: 0,
+            description: this.vm.description,
             accountId: this.selectedAccount.accountId,
-            object: t,
+            payee: this.vm.payee,
+            payer: this.vm.payer,
+            toAccount: this.vm.toAccount,
             total: this.vm.total,
+            transferFee: this.vm.transferFee,
             type: this.vm.type,
             category: this.selectedCategory.code,
             startDate: this.vm.startDate

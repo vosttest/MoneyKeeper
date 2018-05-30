@@ -18,6 +18,7 @@ export class ChangePasswordComponent implements OnInit {
     public show = false;
     public showConfirm = false;
     public loader: boolean;
+    public tab: string = "";
 
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
@@ -28,16 +29,21 @@ export class ChangePasswordComponent implements OnInit {
     ngOnInit() { }
 
     public changePassword() {
-        this.confirmModal.hide();
+
         this.loader = true;
+
         this.pro.changePassword(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
+                this.messageModal.show();
                 this.rou.navigate(['/sign-in']);
             } else {
                 this.confirmModal.hide();
                 this.loader = true;
+
+                this.tab = "Old Password Wrong!!!";
                 this.messageModal.show();
             }
+
             this.loader = false;
         }, err => console.log(err));
     }
