@@ -277,7 +277,7 @@ public class UserService implements UserDetailsService {
 			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
 			f.setTimeZone(TimeZone.getTimeZone("UTC"));
 			String s = f.format(d);
-			s += uuid.toString();
+			s += uuid;
 			int n = Const.Authentication.TOKEN_NUMBER;
 			authKey = Utils.getToken(s, n);
 		}

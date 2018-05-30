@@ -7,6 +7,8 @@
         /// </summary>
         public class Authentication
         {
+            public const string PAYLOAD_NAME = "user";
+
             public const string TOKEN_KEY1 = "E3B51E3A5B0035DDEA2D063728B4C79E39E9F259138CB42481AFA41084DB9F0B";
 
             public const string TOKEN_KEY2 = "9C8F616E0317998A10F3518D6272EA31B3CB9FECAA4C9FAF1A2FEDB6B6C2AA9E";

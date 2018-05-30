@@ -48,8 +48,14 @@ namespace MoneyKeeper.Token.Common
         /// <returns>Return the result</returns>
         public static string DecodeJwt(string jwt, string type)
         {
-            var token = new JwtSecurityToken(jwt);
-            var res = token.Claims.First(c => c.Type == type).Value;
+            var res = string.Empty;
+            try
+            {
+                var token = new JwtSecurityToken(jwt);
+                res = token.Claims.First(c => c.Type == type).Value;
+            }
+            catch { }
+
             return res;
         }
 
