@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using Xamarin.Forms;
 
@@ -36,6 +38,19 @@ namespace MoneyKeeper.Token.Common
         {
             Application.Current.Properties[name] = value;
             Application.Current.SavePropertiesAsync();
+        }
+
+        /// <summary>
+        /// Decode JWT
+        /// </summary>
+        /// <param name="jwt">JSON web token</param>
+        /// <param name="type">Type</param>
+        /// <returns>Return the result</returns>
+        public static string DecodeJwt(string jwt, string type)
+        {
+            var token = new JwtSecurityToken(jwt);
+            var res = token.Claims.First(c => c.Type == type).Value;
+            return res;
         }
 
         /// <summary>

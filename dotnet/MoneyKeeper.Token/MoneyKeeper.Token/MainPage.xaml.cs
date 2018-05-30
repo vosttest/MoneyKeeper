@@ -24,11 +24,12 @@ namespace MoneyKeeper.Token
                 var d = DateTime.Now;
                 var t = (60 - d.Second);
                 lblDate.Text = d.ToString(Const.DateTime.FULL);
-                lblSecond.Text = t.ToString() + "s";
+                lblSecond.Text = t.ToString() + " s";
 
                 if (t == 60 || string.IsNullOrEmpty(lblToken.Text))
                 {
                     var s = d.ToUniversalTime().ToString(Const.DateTime.TOKEN);
+                    s += App.UUID;
                     int n = Const.Authentication.TOKEN_NUMBER;
                     lblToken.Text = Utils.GetToken(s, n);
                     progressBar.Progress = d.Second / 60f;

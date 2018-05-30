@@ -1,5 +1,7 @@
 package com.tva.mk.dto;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class PayloadDto {
@@ -28,6 +30,9 @@ public class PayloadDto {
 
 	@JsonProperty(value = "remarks")
 	private String remarks;
+
+	@JsonProperty(value = "uuid")
+	private UUID uuid;
 
 	// end
 
@@ -65,6 +70,14 @@ public class PayloadDto {
 		this.lastName = lastName;
 	}
 
+	public String getAccountNo() {
+		return accountNo;
+	}
+
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -89,12 +102,12 @@ public class PayloadDto {
 		this.remarks = remarks;
 	}
 
-	public String getAccountNo() {
-		return accountNo;
+	public UUID getUuid() {
+		return uuid;
 	}
 
-	public void setAccountNo(String accountNo) {
-		this.accountNo = accountNo;
+	public void setUuid(UUID uuid) {
+		this.uuid = uuid;
 	}
 
 	// end

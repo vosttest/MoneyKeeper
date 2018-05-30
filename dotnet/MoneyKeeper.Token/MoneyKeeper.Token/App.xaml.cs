@@ -47,6 +47,7 @@ namespace MoneyKeeper.Token
                 Password = Utils.GetVar(Const.Authentication.PIN);
                 if (string.IsNullOrEmpty(Password))
                 {
+                    UUID = Utils.DecodeJwt(Jwt, "uuid");
                     MainPage = new MainPage();
                 }
                 else
@@ -69,6 +70,11 @@ namespace MoneyKeeper.Token
         /// Password
         /// </summary>
         public static string Password { get; set; }
+
+        /// <summary>
+        /// Universally unique identifier
+        /// </summary>
+        public static string UUID { get; set; }
 
         #endregion
     }

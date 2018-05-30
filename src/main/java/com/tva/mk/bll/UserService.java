@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
@@ -102,6 +103,7 @@ public class UserService implements UserDetailsService {
 			if (m1 != null) {
 				res = "Duplicate data";
 			} else {
+				m.setUuid(UUID.randomUUID());
 				m.setCreateBy(1);
 				m.setCreateOn(new Date());
 
@@ -257,7 +259,7 @@ public class UserService implements UserDetailsService {
 		return m;
 	}
 
-	public void verifyToken(String clientKey, int userId, String token) throws Exception {
+	public void verifyToken(String clientKey, int userId, String token, UUID uuid) throws Exception {
 		AuthToken m = authTokenDao.getBy(clientKey, "", userId);
 
 		if (m == null) {
@@ -275,7 +277,7 @@ public class UserService implements UserDetailsService {
 			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.TOKEN);
 			f.setTimeZone(TimeZone.getTimeZone("UTC"));
 			String s = f.format(d);
-
+			s += uuid.toString();
 			int n = Const.Authentication.TOKEN_NUMBER;
 			authKey = Utils.getToken(s, n);
 		}
