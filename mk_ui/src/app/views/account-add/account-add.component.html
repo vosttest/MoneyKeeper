@@ -19,7 +19,7 @@
                 <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" class="full-width">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <p>Account Name</p>
+                            <p>Account Name <span class="text-danger">*</span></p>
                             <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" required>
                             <span [hidden]="text.valid || (text.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                 <i class="fa fa-exclamation-triangle"></i> Required.
@@ -28,7 +28,7 @@
                         <div class="form-group col-md-6">
                             <p>Type</p>
                             <select name="type" (change)="checkType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
-                                <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
+                                <option [hidden]="i.id == null || i.id == ''" *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
                             </select>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="row" [hidden]="pickOther">
                         <div class="form-group col-md-6">
-                            <p>Initial Balance</p>
+                            <p>Initial Balance <span class="text-danger">*</span></p>
                             <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                             <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                 <i class="fa fa-exclamation-triangle"></i> Required.
@@ -64,7 +64,7 @@
                     </div>
                     <div class="row" [hidden]="pickSaveAcc">
                         <div class="form-group col-md-6">
-                            <p>Balance</p>
+                            <p>Balance <span class="text-danger">*</span></p>
                             <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                             <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                 <i class="fa fa-exclamation-triangle"></i> Required.

@@ -23,7 +23,7 @@ export class LayoutComponent implements OnInit {
             this.cssNav[i].removeAttribute("tabindex");
         }
 
-        this.rou.navigate(['/dashboard']);
+        // this.rou.navigate(['/dashboard']);
     }
 
     ngAfterViewChecked() {

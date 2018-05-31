@@ -14,7 +14,7 @@ export class AccountComponent implements OnInit {
     public lstTmp = [];
     public lstType = [];
     public keyword: string = '';
-    public vm: any = { type: 'showAll' };
+    public vm: any = { type: '' };
     public searchText = '';
     public loader: boolean;
 

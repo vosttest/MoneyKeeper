@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountProvider, CommonProvider } from '../../providers/provider';
@@ -41,7 +42,6 @@ export class AccountAddComponent implements OnInit {
         this.getType('TermEnd');
         this.search();
         this.checkType(this.vm.type);
-        this.vm.startDate = new Date();
     }
 
     private getType(type: string) {
@@ -67,6 +67,7 @@ export class AccountAddComponent implements OnInit {
             this.pickSaveAcc = false;
             this.pickOther = true;
             this.pickAtm = true;
+            this.vm.startDate = new Date();
         }
         else if (va === 'ACC003') {
             this.pickSaveAcc = true;

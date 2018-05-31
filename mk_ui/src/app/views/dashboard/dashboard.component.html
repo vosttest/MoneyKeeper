@@ -15,7 +15,7 @@
                         <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && report()" class="full-width">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p>Account</p>
+                                    <p>Account <span class="text-danger">*</span></p>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId" required>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p>Viewed By</p>
+                                    <p>Viewed By <span class="text-danger">*</span></p>
                                 </div>
                                 <div class="col-md-4">
                                     <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
@@ -101,7 +101,7 @@
                 <div class="row">
                     <div class="card list">
                         <ul class="card-list list-group list-group-flush" *ngFor="let i of account">
-                            <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" [hidden]="i.id == null || i.id == ''">
+                            <li routerLink="/account-edit/view-{{i.id}}" class="list-group-item list-group-item-action pointer" [hidden]="i.id == null || i.id == ''">
                                 <div class="acc left">{{ i.text }}</div>
                                 <div class="acc right">
                                     Balance: {{ i.balance | currency:'CAD':'symbol-narrow':'0.0-0'}} {{ i.currency }}

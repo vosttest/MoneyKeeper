@@ -37,8 +37,6 @@ export class DashboardComponent implements OnInit {
         this.proAcc.search(info).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
-                console.log(this.account);
-                
             }
             else {
                 console.log(rsp.message);
