@@ -1,10 +1,19 @@
 ﻿namespace MoneyKeeper.Token.Dependencies
 {
     /// <summary>
-    /// interface version and build
+    /// Interface helper
     /// </summary>
-    public interface IVersionAndBuild
+    public interface IHelper
     {
+        #region -- Methods --
+
+        /// <summary>
+        /// Close application
+        /// </summary>
+        void Close();
+
+        #endregion
+
         #region -- Properties --
 
         /// <summary>

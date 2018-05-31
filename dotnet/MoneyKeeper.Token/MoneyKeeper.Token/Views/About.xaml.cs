@@ -1,11 +1,11 @@
-﻿using Xamarin.Forms;
+﻿using System;
+using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MoneyKeeper.Token.Views
 {
     using Common;
     using Dependencies;
-    using System;
 
     /// <summary>
     /// About
@@ -22,7 +22,7 @@ namespace MoneyKeeper.Token.Views
         {
             InitializeComponent();
 
-            var t = DependencyService.Get<IVersionAndBuild>();
+            var t = DependencyService.Get<IHelper>();
             lblVersionNumber.Text = string.Format("Version {0} Build {1}", t.VersionNumber, t.BuildNumber);
 
             var d = DateTime.Now;

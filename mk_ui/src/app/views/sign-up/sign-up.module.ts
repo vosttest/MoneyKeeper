@@ -7,6 +7,7 @@ import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { SignInRoutingModule } from './sign-up-routing.module';
 import { SignUpComponent } from './sign-up.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { EqualValidatorSignUp } from '../../utilities/utility';
 
 @NgModule({
     imports: [
@@ -18,7 +19,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
         SignInRoutingModule
     ],
     declarations: [
-        SignUpComponent
+        SignUpComponent,
+        EqualValidatorSignUp
     ]
 })
 

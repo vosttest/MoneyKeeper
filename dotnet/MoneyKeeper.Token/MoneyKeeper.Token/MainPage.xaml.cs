@@ -8,7 +8,7 @@ namespace MoneyKeeper.Token
     /// <summary>
     /// Main page
     /// </summary>
-    public partial class MainPage : ContentPage
+    public partial class MainPage : TabbedPage
     {
         #region -- Methods --
 
@@ -19,6 +19,11 @@ namespace MoneyKeeper.Token
         {
             InitializeComponent();
 
+            CreatePassword();
+        }
+
+        public void CreatePassword()
+        {
             Device.StartTimer(new TimeSpan(0, 0, 1), () =>
             {
                 var d = DateTime.Now;

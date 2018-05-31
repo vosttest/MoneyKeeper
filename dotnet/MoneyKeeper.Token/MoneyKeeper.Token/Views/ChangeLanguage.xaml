@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MoneyKeeper.Token.Views.ChangeLanguage">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <StackLayout Orientation="Horizontal"
+                         BackgroundColor="#62CBBC"
+                         Padding="10">
+                <Label Text="Change Password"
+                       HorizontalOptions="Center"
+                       Font="Bold,20"
+                       TextColor="White"
+                       Margin="50,5,0,0"/>
+            </StackLayout>
+            <Label Text="Please select your language"
+                   HorizontalOptions="Center"/>
+            <Picker HorizontalOptions="Center"
+                    WidthRequest="130"
+                    SelectedIndex="0">
+                <Picker.Items>
+                    <x:String>Tiếng Việt</x:String>
+                    <x:String>English</x:String>
+                </Picker.Items>
+            </Picker>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

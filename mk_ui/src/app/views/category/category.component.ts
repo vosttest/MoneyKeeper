@@ -33,6 +33,7 @@ export class CategoryComponent implements OnInit {
     public function = "overview";
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
+    @ViewChild('confirmModal1') public confirmModal1: ModalDirective;
     @ViewChild('iconModal') public iconModal: ModalDirective;
 
     constructor(private proIncome: IncomeProvider,
@@ -163,7 +164,6 @@ export class CategoryComponent implements OnInit {
     }
 
     public saveCategory(valid: boolean) {
-        this.loader = true;
         if (!valid) {
             return;
         }
@@ -173,23 +173,23 @@ export class CategoryComponent implements OnInit {
                 if (rsp.status === 'success') {
                     this.rou.navigate(['/category/overview']);
                     this.loadExpense();
+                    this.confirmModal1.show();
                 }
                 else {
                     console.log(rsp.message);
                 }
-                this.loader = false;
             })
         }
         else {
             this.proIncome.save(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
                     this.rou.navigate(['/category/overview']);
+                    this.confirmModal1.show();
                     this.loadIncome();
                 }
                 else {
                     console.log(rsp.message);
                 }
-                this.loader = false;
             })
         }
     }

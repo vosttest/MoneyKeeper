@@ -17,6 +17,7 @@ export class SignInComponent implements OnInit {
     public loader: boolean = false;
     public message = '';
     public isDisabled = true;
+    public show = false;
     public token = '';
 
     @ViewChild('forgotPassModal') public forgotPassModal: ModalDirective;
@@ -48,6 +49,7 @@ export class SignInComponent implements OnInit {
                     this.vm.clientKey = rsp.result.key; // Response client key
                     this.vm.codeNumber1 = this.vm.codeNumber2 = this.vm.codeNumber3 = this.vm.codeNumber4 = this.vm.codeNumber5 = this.vm.codeNumber6 = null;
                     this.isDisabled = true;
+                    this.show = true;
                     this.accessTokenModal.show();
                     setTimeout(function () {
                         document.getElementById("codeNumber1").focus();
@@ -72,6 +74,10 @@ export class SignInComponent implements OnInit {
     }
 
     public sendEmailVerificationLink(valid: boolean) {
+        if(!valid){
+            return;
+        }
+        
         this.loader = true;
         let obj = { keyword: this.vm1.email };
         this.pro.verifyMail(obj).subscribe((rsp: any) => {
@@ -82,6 +88,7 @@ export class SignInComponent implements OnInit {
             }
             this.loader = false;
             this.forgotPassModal.hide();
+            this.show = false;
         });
     }
 

@@ -116,7 +116,7 @@ export class AccountEditComponent implements OnInit {
         this.proAccount.getAccount(id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.vm = rsp.result;
-                this.vm.startDate = this.datePipe.transform(this.vm.startDate, 'yyyy-MM-dd');
+                this.vm.startDate = this.datePipe.transform(this.vm.startDate, 'DD-MMM-YYYY');
 
                 this.checkType(this.vm.type);
             }

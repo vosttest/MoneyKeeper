@@ -1,21 +1,30 @@
 ﻿using Foundation;
 using MoneyKeeper.Token.iOS;
+using System.Threading;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(VersionAndBuild))]
+[assembly: Dependency(typeof(Helper))]
 namespace MoneyKeeper.Token.iOS
 {
     /// <summary>
-    /// Version and build
+    /// Helper
     /// </summary>
-    public class VersionAndBuild : Dependencies.IVersionAndBuild
+    public class Helper : Dependencies.IHelper
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public VersionAndBuild() { }
+        public Helper() { }
+
+        /// <summary>
+        /// Close application
+        /// </summary>
+        public void Close()
+        {
+            Thread.CurrentThread.Abort();
+        }
 
         #endregion
 

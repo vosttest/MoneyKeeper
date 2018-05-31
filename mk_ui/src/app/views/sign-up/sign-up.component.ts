@@ -11,6 +11,7 @@ export class SignUpComponent implements OnInit {
     public vm: any = { userName: '', password: '' };
     public loader: boolean = false;
     public message = '';
+    public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
 
     constructor(private pro: UserProvider) { }
 

@@ -18,9 +18,11 @@
                                     <p>Account</p>
                                 </div>
                                 <div class="col-md-8">
-                                    <ngx-select-dropdown [multiple]="false" [(value)]="multiSelect" [config]="config" [options]="options"></ngx-select-dropdown>
-                                    <span [hidden]="message === ''" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="fromDate2" data-valmsg-for="fromDate2" id="fromDate2_validationMessage" role="alert">
-                                        <i class="fa fa-exclamation-triangle"></i> Choose account.
+                                    <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId" required>
+                                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                                    </select>
+                                    <span [hidden]="accountId.valid || (accountId.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                        <i class="fa fa-exclamation-triangle"></i> Required.
                                     </span>
                                 </div>
                             </div>
@@ -32,14 +34,14 @@
                                     <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
                                     <input type="hidden" class="form-control" name="fromDate2" #fromDate2="ngModel" [(ngModel)]="vm.fromDate" required>
                                     <span [hidden]="fromDate2.valid || (fromDate2.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="fromDate2" data-valmsg-for="fromDate2" id="fromDate2_validationMessage" role="alert">
-                                        <i class="fa fa-exclamation-triangle"></i> Pick From Date!
+                                        <i class="fa fa-exclamation-triangle"></i> Required.
                                     </span>
                                 </div>
                                 <div class="col-md-4">
                                     <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
                                     <input type="hidden" class="form-control" name="toDate2" #toDate2="ngModel" [(ngModel)]="vm.toDate" required>
                                     <span [hidden]="toDate2.valid || (toDate2.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="toDate2" data-valmsg-for="toDate2" id="toDate2_validationMessage" role="alert">
-                                        <i class="fa fa-exclamation-triangle"></i> Pick To Date!
+                                        <i class="fa fa-exclamation-triangle"></i> Required.
                                     </span>
                                 </div>
                             </div>
@@ -98,11 +100,11 @@
                 <h2 class="text-center">Accounts</h2>
                 <div class="row">
                     <div class="card list">
-                        <ul class="card-list list-group list-group-flush">
-                            <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" *ngFor="let i of account | filterDashBoard : searchText">
-                                <div class="acc left"> {{ i.text }}</div>
+                        <ul class="card-list list-group list-group-flush" *ngFor="let i of account">
+                            <li routerLink="/account-edit/{{i.id}}" class="list-group-item list-group-item-action pointer" [hidden]="i.id == null || i.id == ''">
+                                <div class="acc left">{{ i.text }}</div>
                                 <div class="acc right">
-                                    Balance: {{ i.balance | currency:'USD':'symbol-narrow':'0.0-0'}} {{ i.currency }}
+                                    Balance: {{ i.balance | currency:'CAD':'symbol-narrow':'0.0-0'}} {{ i.currency }}
                                 </div>
                             </li>
                         </ul>

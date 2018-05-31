@@ -43,8 +43,8 @@
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr *ngFor="let i of mf.data | filter : searchText; let count = index">
+                <tbody *ngFor="let i of mf.data | filter : searchText; let count = index">
+                    <tr [hidden]="i.id == null || i.id == ''">
                         <td>{{ count + 1 }}</td>
                         <td>{{ i.text }}</td>
                         <td>{{ i.balance | currency:'USD':'symbol-narrow':'0.0-0'}} {{ i.currency }}</td>

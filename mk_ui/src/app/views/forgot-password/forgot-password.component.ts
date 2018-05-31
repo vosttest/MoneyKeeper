@@ -5,13 +5,14 @@ import { UserProvider } from '../../providers/provider';
 @Component({
     selector: 'app-forgot-password',
     templateUrl: './forgot-password.component.html',
-    styleUrls: ['./forgot-password.component.css']
+    styleUrls: ['../sign-in/sign-in.component.css', './forgot-password.component.css']
 })
 
 export class ForgotPasswordComponent implements OnInit {
     public vm: any = { newPassword: '', confirmPassword: '' };
     public loader: boolean = false;
     public token: string = '';
+    public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
     public message: string = '';
 
     constructor(private rou: Router,

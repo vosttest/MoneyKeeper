@@ -41,6 +41,7 @@ export class AccountAddComponent implements OnInit {
         this.getType('TermEnd');
         this.search();
         this.checkType(this.vm.type);
+        this.vm.startDate = new Date();
     }
 
     private getType(type: string) {
