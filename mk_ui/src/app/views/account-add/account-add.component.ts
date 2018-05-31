@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap';
 import { AccountProvider, CommonProvider } from '../../providers/provider';
 
 @Component({
@@ -21,7 +22,11 @@ export class AccountAddComponent implements OnInit {
     public vm: any = { id: '', type: 'ACC001', currency: 'USD', term: 'TRM001', interestPaid: 'IPD002', termEnded: 'TRE002' };
     public message = '';
     public account: any[] = [];
+    public msg = '';
+    public success = false;
     public loader: boolean = false;
+
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     // Datepicker
 
@@ -85,10 +90,13 @@ export class AccountAddComponent implements OnInit {
 
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/account/overview']);
+                this.msg = 'Save successfully!';
+                this.success = true;
             } else {
-                this.message = rsp.message;
+                this.msg = rsp.message;
+                this.success = false;
             }
+            this.informationModal.show();
 
             this.loader = false;
         }, err => console.log(err));

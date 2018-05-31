@@ -48,9 +48,10 @@ public class VoucherController {
 
 			// Get data
 			Date date = req.getStartDate();
+			String keyword = req.getKeyword();
 
 			// Handle
-			List<VoucherDto> tmp = voucherService.getVoucher(id, date);
+			List<VoucherDto> tmp = voucherService.getVoucher(keyword, id, date);
 
 			// Set data
 			Map<String, Object> t = new LinkedHashMap<>();

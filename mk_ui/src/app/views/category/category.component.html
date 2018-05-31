@@ -233,7 +233,10 @@
                 {{ msg }}
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" routerLink="/category/overview">OK</button>
+                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" *ngIf='success; else other_content' routerLink="/category/overview">OK</button>
+                <ng-template #other_content>
+                    <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
+                </ng-template>
             </div>
         </div>
     </div>

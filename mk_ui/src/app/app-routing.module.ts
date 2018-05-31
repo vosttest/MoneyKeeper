@@ -9,7 +9,6 @@ const routes: Routes = [
     { path: 'sign-in', loadChildren: './views/sign-in/sign-in.module#SignInModule' },
     { path: 'sign-up', loadChildren: './views/sign-up/sign-up.module#SignUpModule' },
     { path: 'forgot-password', loadChildren: './views/forgot-password/forgot-password.module#ForgotPasswordModule' },
-    
     {
         path: '',
         component: LayoutComponent,
@@ -37,13 +36,21 @@ const routes: Routes = [
                     path: 'voucher/:function',
                     loadChildren: './views/voucher/voucher.module#VoucherModule'
                 }, {
+                    path: 'voucher-edit',
+                    loadChildren: './views/voucher-edit/voucher-edit.module#VoucherEditModule'
+                }, {
                     path: 'change-password',
                     loadChildren: './views/change-password/change-password.module#ChangePasswordModule'
                 }, {
                     path: 'report/:function',
                     loadChildren: './views/report/report.module#ReportModule'
-                },
-                { path: 'profile', loadChildren: './views/profile/profile.module#ProfileModule' },
+                }, {
+                    path: 'profile',
+                    loadChildren: './views/profile/profile.module#ProfileModule'
+                }, {
+                    path: 'log',
+                    loadChildren: './views/log/log.module#LogModule'
+                }
             ]
     },
     { path: '**', redirectTo: 'sign-in', pathMatch: 'full' },

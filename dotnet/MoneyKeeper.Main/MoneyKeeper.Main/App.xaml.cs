@@ -1,10 +1,12 @@
-using MoneyKeeper.Main.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace MoneyKeeper.Main
 {
+    using Common;
+    using Views;
+
     /// <summary>
     /// App
     /// </summary>
@@ -38,21 +40,14 @@ namespace MoneyKeeper.Main
         {
             InitializeComponent();
 
-            try
-            {
-                Jwt = Application.Current.Properties["jwt"].ToString();
-                if (string.IsNullOrEmpty(Jwt))
-                {
-                    MainPage = new SignIn();
-                }
-                else
-                {
-                    MainPage = new MainPage();
-                }
-            }
-            catch
+            Jwt = Utils.GetVar(Const.Authentication.JWT);
+            if (string.IsNullOrEmpty(Jwt))
             {
                 MainPage = new SignIn();
+            }
+            else
+            {
+                MainPage = new MainPage();
             }
         }
 

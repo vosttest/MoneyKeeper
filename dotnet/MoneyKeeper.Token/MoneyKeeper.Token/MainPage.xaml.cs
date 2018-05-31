@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using Xamarin.Forms;
 
 namespace MoneyKeeper.Token
 {
     using Common;
+    using ViewModels;
 
     /// <summary>
     /// Main page
@@ -20,6 +22,14 @@ namespace MoneyKeeper.Token
             InitializeComponent();
 
             CreatePassword();
+
+            var setting = new List<SettingVM>();
+
+            setting.Add(new SettingVM() { Display = "eMK information" });
+            setting.Add(new SettingVM() { Display = "Password" });
+            setting.Add(new SettingVM() { Display = "Language" });
+            setting.Add(new SettingVM() { Display = "Time Asynchronization" });
+            lstSetting.ItemsSource = setting;
         }
 
         public void CreatePassword()

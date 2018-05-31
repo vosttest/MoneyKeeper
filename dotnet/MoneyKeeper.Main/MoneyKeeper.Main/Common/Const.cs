@@ -31,6 +31,28 @@
         }
 
         /// <summary>
+        /// Setting
+        /// </summary>
+        public class Setting
+        {
+            public const string CODE_REMINDER = "SET001";
+
+            public const string CODE_CURRENCY = "SET002";
+
+            public const string CODE_LOGIN = "SET003";
+
+            public const string CODE_TRANSACTION = "SET004";
+
+            public const string CODE_LOCK = "SET005";
+
+            public const string CODE_LANGGUAGE = "SET006";
+
+            public const string DEFAULT_REMINDER = "20:00";
+
+            public const string DEFAULT_CURRENCY = "VND";
+        }
+
+        /// <summary>
         /// Date time format
         /// </summary>
         public class DateTime

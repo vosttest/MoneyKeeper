@@ -7,7 +7,7 @@ import {
     IncomeProvider,
     AccountProvider
 } from '../../providers/provider';
-import { ModalDirective } from 'ngx-bootstrap';
+import { ModalDirective, DateFormatter } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-voucher',
@@ -16,7 +16,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 
 export class VoucherComponent implements OnInit {
-    public vm: any = { type: 'Expense', total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
+    public vm: any = { keyword: '', type: 'Expense', total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
     public cm: any = {};
     public lstParent = [];
     public lstChild = [];
@@ -27,12 +27,10 @@ export class VoucherComponent implements OnInit {
     public account = [];
     public toAccount = [];
     public voucher = [];
-    public voucher1 = [];
-    public voucherTmp = [];
 
-    public selectedCategory = { code: '', text: '-- Select Category --', icon: '' };
-    public selectedAccount = { accountId: 0, text: '-- Select Account --' };
-    public selectedToAccount = { accountId: 0, text: '-- Select To Account --' };
+    public selectedCategory = { code: '', text: '-- Please Select --', icon: '' };
+    public selectedAccount = { accountId: 0, text: '-- Please Select --' };
+    public selectedToAccount = { accountId: 0, text: '-- Please Select --' };
     public message = '';
     public isCheck: boolean;
     public isExpense: boolean = false;
@@ -41,12 +39,10 @@ export class VoucherComponent implements OnInit {
     public isAdjustment: boolean = false;
     public labelObj: string = "";
     public function = "overview";
-    public date: any;
-    public voucher2: any;
     public apiURL: string = "../../../assets/img/";
     public loader: boolean = false;
     public msg = '';
-    public routeLink = '';
+    public success = false;
     // public isShow: boolean = true;
 
     public labelAccountId = 'Account';
@@ -58,9 +54,10 @@ export class VoucherComponent implements OnInit {
 
     // Datepicker
 
-    maxDate = new Date();
+    minDate = new Date(2018, 1, 1);
+    maxDate = new Date(2050, 12, 12);
 
-    bsValue: Date = new Date();
+    // bsValue: Date = new Date();
 
     constructor(private proExpense: ExpenseProvider,
         private proIncome: IncomeProvider,
@@ -120,18 +117,6 @@ export class VoucherComponent implements OnInit {
         this.proVoucher.search(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.voucher = rsp.result.data;
-                this.voucher.forEach(obj => {
-                    if (this.date != obj.startDate) {
-                        this.date = obj.startDate;
-                        let tmp = { startDate: obj.startDate, voucher: [] };
-                        this.voucher2 = tmp.voucher;
-                        this.voucher2.push(obj);
-                        this.voucher1.push(tmp);
-                    }
-                    else {
-                        this.voucher2.push(obj);
-                    }
-                });
             } else {
                 this.message = rsp.message;
             }
@@ -173,43 +158,6 @@ export class VoucherComponent implements OnInit {
             this.getExpense();
         } else if (typeVoucher === 'Income') {
             this.getIncome();
-        }
-    }
-
-    public searchVoucher(keyword: string) {
-        if (keyword != "") {
-            if (this.voucher1 != undefined || this.voucher1.length > 0) {
-                for (let i = 0; i < this.voucher1.length; i++) {
-                    let isParentNull = false;
-                    let isChildNull = true;
-                    for (let j = 0; j < this.voucher1[i].voucher.length; j++) {
-                        let voucher = this.voucher1[i].voucher[j];
-                        if (voucher.description.includes(keyword)
-                            || voucher.type.includes(keyword)) {
-                            isParentNull = true;
-                        }
-
-                        let details = this.voucher1[i].voucher[j].voucherDetail;
-                        if (details != undefined) {
-                            for (let z = 0; z < details.length; z++) {
-                                if (!details[z].categoryText.includes(keyword)) {
-                                    isChildNull = false;
-                                    details.splice(0, 1);
-                                    z = -1;
-                                }
-                            }
-                        }
-
-                        if (isParentNull && isChildNull) {
-                            this.lstSearch.push(this.voucher1[j]);
-                        }
-                    }
-                }
-            }
-        }
-        else {
-            this.voucher1 = [];
-            this.getVoucher();
         }
     }
 
@@ -296,6 +244,8 @@ export class VoucherComponent implements OnInit {
     }
 
     public save() {
+        console.log(this.vm);
+
         if (this.vm.type == 'Transfer') {
             if (this.selectedCategory.code === '' || this.selectedAccount.accountId === 0 || this.selectedToAccount.accountId === 0) {
                 return;
@@ -320,16 +270,19 @@ export class VoucherComponent implements OnInit {
             category: this.selectedCategory.code,
             startDate: this.vm.startDate
         };
+        this.loader = true;
 
         this.proVoucher.save(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.msg = 'Save successfully!';
-                this.routeLink = '/voucher/overview';
+                this.success = true;
             } else {
                 this.msg = rsp.message;
-                this.routeLink = '';
+                this.success = false;
             }
             this.informationModal.show();
+
+            this.loader = false;
         }, err => console.log(err));
     }
 }

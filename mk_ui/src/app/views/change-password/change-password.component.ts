@@ -30,7 +30,6 @@ export class ChangePasswordComponent implements OnInit {
     ngOnInit() { }
 
     public changePassword() {
-
         this.loader = true;
 
         this.pro.changePassword(this.vm).subscribe((rsp: any) => {
@@ -38,13 +37,12 @@ export class ChangePasswordComponent implements OnInit {
                 this.confirmModal.hide();
                 this.success = true;
                 this.msg = "Save successfully!";
-                this.informationModal.show();
             } else {
                 this.confirmModal.hide();
                 this.success = false;
                 this.msg = "Current password is wrong!!!";
-                this.informationModal.show();
             }
+            this.informationModal.show();
 
             this.loader = false;
         }, err => console.log(err));

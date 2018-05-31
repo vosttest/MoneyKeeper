@@ -72,13 +72,19 @@ public class Const {
 
 		public static final String CODE_LOGIN = "SET003";
 
-		public static final String CODE_TOKEN = "TOKEN";
+		public static final String CODE_TRANSACTION = "SET004";
 
-		public static final String CODE_OTP = "OTP";
+		public static final String CODE_LOCK = "SET005";
+
+		public static final String CODE_LANGGUAGE = "SET006";
 
 		public static final String DEFAULT_REMINDER = "20:00";
 
 		public static final String DEFAULT_CURRENCY = "VND";
+
+		public static final String CODE_TOKEN = "TOKEN";
+
+		public static final String CODE_OTP = "OTP";
 	}
 
 	public class Mode {

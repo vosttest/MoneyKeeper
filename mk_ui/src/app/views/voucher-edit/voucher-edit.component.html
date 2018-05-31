@@ -1,66 +1,10 @@
-<div *ngIf="loader" class="spinner">
-    <div class="rect1"></div>
-    <div class="rect2"></div>
-    <div class="rect3"></div>
-    <div class="rect4"></div>
-    <div class="rect5"></div>
-</div>
 <section class="format-layout">
-    <div id="overview">
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4">
-                <h2 class="text-center">Voucher</h2>
-            </div>
-            <div class="col-md-4">
-            </div>
-        </div>
-        <div class="row ">
-            <div class="col-md-6">
-                <input id="keyword" name="keyword" placeholder="Search by name" #keyword="ngModel" [(ngModel)]="vm.keyword" type="text" class="form-control" (keyup)="getVoucher()">
-            </div>
-            <div class="col-md-6">
-                <input name="startDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.startDate" type="text" class="form-control" (bsValueChange)="getVoucher()">
-            </div>
-        </div>
-        <div class="card bg-white card-2 full-width">
-            <div class="card-body">
-                <form class="voucher" name="form" #f="ngForm">
-                    <div *ngFor="let i of voucher">
-                        <div class="row bg-secondary text-white">
-                            <div class="col-md-1">
-                                <h1>{{i.startDate | date: 'dd'}}</h1>
-                            </div>
-                            <div class="col-md-9">
-                                <span>{{i.startDate | date: 'EEEE'}}<br /> <i>{{i.startDate | date: 'MM-yyyy'}}</i></span>
-                            </div>
-                            <div class="col-md-2">
-                                <span>Icome: {{i.totalIncome}}<br /> <i>Expense: {{i.totalExpense}}</i></span>
-                            </div>
-                        </div>
-                        <div class="row list" *ngFor="let j of i.voucherDetail">
-                            <div class="col-md-1">
-                                <img src="{{apiURL + j.icon}}" />
-                            </div>
-                            <div class="col-md-9">
-                                <span>{{j.type}}: {{j.categoryText}} <br /> <i>{{j.description}}</i></span>
-                            </div>
-                            <div class="col-md-2">
-                                <span>{{j.amount}} VND <br /> <i>{{j.accountText}}</i></span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-    </div>
-    <div id="create" style="display: none">
+    <div id="editVoucher">
         <div class="row">
             <div class="col-md-4">
             </div>
             <div class="col-md-4">
-                <h2 class="text-center">Add Voucher</h2>
+                <h2 class="text-center">Edit Voucher</h2>
             </div>
             <div class="col-md-4">
             </div>
@@ -72,22 +16,18 @@
                         <div class="form-group col-md-6">
                             <p>Type</p>
                             <select name="type" #type="ngModel" [(ngModel)]="vm.type" class="form-control" (click)="hideShow(vm.type)">
-                                <option value='Expense' selected>Expense</option>
-                                <option value='Income'>Income</option>
-                                <option value='Transfer'>Transfer</option>
-                                <option value='Adjustment'>Adjustment</option>
-                            </select>
+                                    <option value='Expense' selected>Expense</option>
+                                    <option value='Income'>Income</option>
+                                    <option value='Adjustment'>Adjustment</option>
+                                </select>
                         </div>
                         <div class="form-group col-md 6">
                             <p>Amount</p>
-                            <input name="total" id="total" #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='0' currencyMask required>
+                            <input type='number' name="total" id="total" #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='0' required>
                             <span [hidden]="total.valid || (total.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Required!
-                            </span>
+                                        <i class="fa fa-exclamation-triangle"></i> Required!
+                                    </span>
                         </div>
-                        <!-- <div class="form-group col-md 1">
-                            <span class='input-group-text' id='basic-addon2'>VND</span>
-                        </div> -->
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
@@ -96,20 +36,17 @@
                                 <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{apiURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
                             </div>
                             <span [hidden]="selectedCategory.code != '' || (selectedCategory.code === '' && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                    <i class="fa fa-exclamation-triangle"></i> Required!
-                                </span>
+                                            <i class="fa fa-exclamation-triangle"></i> Required!
+                                        </span>
                             <hr/>
                         </div>
                         <div class="form-group col-md-6" (click)='accountModal.show()'>
                             <p>{{ labelAccountId }} <span class="text-danger">*</span></p>
                             <div class="col-md-6">{{ selectedAccount.text }}
-                                <!-- <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                    </select> -->
                             </div>
                             <span [hidden]="selectedAccount.accountId != 0 || (selectedAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Required!
-                        </span>
+                                        <i class="fa fa-exclamation-triangle"></i> Required!
+                                </span>
                             <hr/>
                         </div>
                     </div>
@@ -127,8 +64,8 @@
                             <div class="col-md-6">{{ selectedToAccount.text }}
                             </div>
                             <span [hidden]="selectedToAccount.accountId != 0 || (selectedToAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                     <i class="fa fa-exclamation-triangle"></i> Required!
-                                </span>
+                                             <i class="fa fa-exclamation-triangle"></i> Required!
+                                        </span>
                         </div>
                     </div>
                     <div class="row">
@@ -136,63 +73,23 @@
                             <p>Payee</p>
                             <input class="form-control none-border" name="Payee" #payee="ngModel" [(ngModel)]="vm.payee" />
                         </div>
-                        <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <p>Event</p>
-                                    </div>
-                                <div class="col-md-10">
-                                    <input class="form-control none-border" name="event" #event="ngModel" [(ngModel)]="vm.event" />
-                                </div>
-                            </div>
-                             <hr>
-                        </div> -->
                         <div class="form-group col-md 6" *ngIf="isTransfer || isIncome">
                             <p>Payer</p>
                             <input class="form-control none-border" name="Payer" #payer="ngModel" [(ngModel)]="vm.payer" />
                         </div>
-                        <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <p>Event</p>
-                                    </div>
-                                <div class="col-md-10">
-                                    <input class="form-control none-border" name="event" #event="ngModel" [(ngModel)]="vm.event" />
-                                </div>
-                            </div>
-                             <hr>
-                        </div> -->
                     </div>
                     <div class="row">
                         <div class="form-group col-md-12">
                             <p>Date</p>
-                            <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.startDate" value="{{ vm.startDate | date:'dd-MMM-yyyy' }}" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
                         <p>Note</p>
                         <textarea name="description" #description="ngModel" [(ngModel)]="vm.description" class=" form-control " rows="2 "></textarea>
                     </div>
-                    <!-- <div class="form-group" *ngIf="isExpense">
-        <div class="row">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="isCheck">
-                <label class="form-check-label" for="defaultCheck1">Borrow to pay</label>
-            </div>
-        </div>
-    </div>
-    <div id="lender" *ngIf="isCheck && isExpense">
-        <div class="row">
-            <div class="col-md-2">
-                <p>Lender</p>
-            </div>
-            <div class="col-md-10">
-                <input class="form-control none-border" name="lender" #lender="ngModel" [(ngModel)]="vm.lender" />
-            </div>
-        </div>
-        <hr>
-    </div> -->
-                    <button class="btn btn-success btnSave" type="submit">Save</button>
+                    <button type="submit" class="btn btn-success">Save</button>
+                    <button type="button" class="btn btn-danger" (click)="confirmModalDelete.show()">Delete</button>
+                    <button type="button" class="btn btn-secondary" routerLink="/voucher/overview">Cancel</button>
                 </form>
             </div>
         </div>
@@ -206,8 +103,8 @@
             <div class='modal-header'>
                 Choose Category
                 <button type='button' class='text-right' (click)='categoryModal.hide()' aria-label='Close'>
-                        <i class='fa fa-window-close'></i>
-                    </button>
+                            <i class='fa fa-window-close'></i>
+                        </button>
             </div>
             <div class='modal-body height-modal'>
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
@@ -242,8 +139,8 @@
             <div class='modal-header'>
                 Choose Account
                 <button type='button' class='text-right' (click)='accountModal.hide()' aria-label='Close'>
-                        <i class='fa fa-window-close'></i>
-                    </button>
+                            <i class='fa fa-window-close'></i>
+                        </button>
             </div>
             <div class='modal-body height-modal'>
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
@@ -251,9 +148,9 @@
                     <div class="card-header row row-margin pointer" id="headingOne">
                         <div class="col-md-11" (click)="chooseAccount(i.id, i.text)">
                             <span>
-                                <div class="left"> {{ i.text }}</div>
-                                <div class="right"> Balance: {{ i.balance }} VND</div>
-                            </span>
+                                    <div class="left"> {{ i.text }}</div>
+                                    <div class="right"> Balance: {{ i.balance }} Vnd</div>
+                                </span>
                         </div>
                     </div>
                 </div>
@@ -269,8 +166,8 @@
             <div class='modal-header'>
                 Choose To Account
                 <button type='button' class='text-right' (click)='toAccountModal.hide()' aria-label='Close'>
-                            <i class='fa fa-window-close'></i>
-                        </button>
+                                <i class='fa fa-window-close'></i>
+                            </button>
             </div>
             <div class='modal-body height-modal'>
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
@@ -278,9 +175,9 @@
                     <div class="card-header row row-margin pointer" id="headingOne">
                         <div class="col-md-11" (click)="chooseToAccount(i.id, i.text)">
                             <span>
-                                    <div class="left"> {{ i.text }}</div>
-                                    <div class="right"> Balance: {{ i.balance }} VND</div>
-                                </span>
+                                        <div class="left"> {{ i.text }}</div>
+                                        <div class="right"> Balance: {{ i.balance }} Vnd</div>
+                                    </span>
                         </div>
                     </div>
                 </div>
@@ -290,20 +187,35 @@
 </div>
 
 <!-- Modal -->
-<div bsModal #informationModal="bs-modal" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div bsModal #confirmModalDelete="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+            </div>
+            <div class="modal-body">
+                Are you sure delete this Account ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="delete()">Yes</button>
+                <button type="button" class="btn btn-success" (click)="confirmModal.hide()">No</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Information</h5>
             </div>
             <div class="modal-body">
-                {{ msg }}
+                Save successfully!
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" *ngIf='success; else other_content' routerLink="/voucher/overview">OK</button>
-                <ng-template #other_content>
-                    <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
-                </ng-template>
+                <button type="submit" class="btn btn-success" (click)="confirmModal.hide()" routerLink="/voucher/overview">OK</button>
             </div>
         </div>
     </div>

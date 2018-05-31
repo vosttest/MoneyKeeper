@@ -12,7 +12,10 @@ export class VoucherProvider {
     public save(vm) {
         return this.api.post('voucher/save', vm);
     }
-
+    
+    /**
+     * Delete by Id
+     */
     public delete(id: number) {
         return this.api.delete('voucher/delete?id=' + id);
     }
