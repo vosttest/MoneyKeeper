@@ -1,17 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:MoneyKeeper.Token.ViewModels"
-             x:Class="MoneyKeeper.Token.MainPage">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MoneyKeeper.Token.MainPage">
     <ContentPage Title="Active code" Icon="block.png">
-        <ContentPage.BindingContext>
-            <vm:SettingVM/>
-        </ContentPage.BindingContext>
         <ContentPage.Content>
             <StackLayout BackgroundColor="#62CBBC"
                          HorizontalOptions="Center"
                          VerticalOptions="Center"
-                        Padding="25">
+                         Padding="25">
                 <Frame BackgroundColor="White"
                        CornerRadius="10"
                        Padding="0">
@@ -43,12 +39,11 @@
             <StackLayout HorizontalOptions="Center"
                          VerticalOptions="Center"
                          Margin="40,20,40,0">
-                <ListView x:Name="lstSetting"
-                          ItemsSource="{Binding All}"
-                          ItemSelected="OnListViewItemSelected">
+                <ListView x:Name="lstMenu"
+                          ItemSelected="LstMenu_ItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding Display}"/>
+                            <TextCell Text="{Binding Title}"/>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
@@ -56,10 +51,5 @@
         </ContentPage.Content>
     </ContentPage>
     <ContentPage Title="Exit" Icon="exit.png">
-        <ContentPage.Content>
-            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
-                <Label Text="HEHEHEHEHE1"/>
-            </StackLayout>
-        </ContentPage.Content>
     </ContentPage>
 </TabbedPage>

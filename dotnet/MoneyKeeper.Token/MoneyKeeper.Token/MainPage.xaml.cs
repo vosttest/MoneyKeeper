@@ -5,8 +5,8 @@ using Xamarin.Forms;
 namespace MoneyKeeper.Token
 {
     using Common;
-    using MoneyKeeper.Token.Views;
-    using ViewModels;
+    using Models;
+    using Views;
 
     /// <summary>
     /// Main page
@@ -24,15 +24,11 @@ namespace MoneyKeeper.Token
 
             CreatePassword();
 
-            var setting = new List<SettingVM>();
-            var s = new SettingVM();
-
-            setting.Add(new SettingVM() { Type = typeof(About), Display = "eMK information" });
-            setting.Add(new SettingVM() { Type = typeof(Login), Display = "Password" });
-            setting.Add(new SettingVM() { Type = typeof(ChangeLanguage), Display = "Language" });
-            setting.Add(new SettingVM() { Type = typeof(TimeSynchronization), Display = "Time Asynchronization" });
-            s.All = setting;
-            lstSetting.ItemsSource = setting;
+            var m1 = new MenuModel { Title = "About eToken MK information", Target = typeof(About) };
+            var m2 = new MenuModel { Title = "Password", Target = typeof(Login) };
+            var m3 = new MenuModel { Title = "Language", Target = typeof(ChangeLanguage) };
+            var m4 = new MenuModel { Title = "Time synchronization", Target = typeof(TimeSynchronization) };
+            lstMenu.ItemsSource = new List<MenuModel> { m1, m2, m3, m4 };
         }
 
         public void CreatePassword()
@@ -64,15 +60,15 @@ namespace MoneyKeeper.Token
             });
         }
 
-        private async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void LstMenu_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             (sender as ListView).SelectedItem = null;
 
             if (e.SelectedItem != null)
             {
-                var pageData = e.SelectedItem as SettingVM;
-                Page page = (Page)Activator.CreateInstance(pageData.Type);
-                await Navigation.PushAsync(page);
+                var m = e.SelectedItem as MenuModel;
+                var page = (Page)Activator.CreateInstance(m.Target);
+                Navigation.PushModalAsync(page);
             }
         }
 

@@ -1,24 +1,20 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MoneyKeeper.Token.Views
+namespace MoneyKeeper.Main.Views
 {
     /// <summary>
-    /// Time synchronization
+    /// Accounts
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TimeSynchronization : ContentPage
+    public partial class Accounts : ContentPage
     {
-        #region -- Methods --
-
         /// <summary>
         /// Initialize
         /// </summary>
-        public TimeSynchronization()
+        public Accounts()
         {
             InitializeComponent();
         }
-
-        #endregion
     }
 }
