@@ -5,7 +5,7 @@
              x:Class="MoneyKeeper.Token.MainPage">
     <ContentPage Title="Active code" Icon="block.png">
         <ContentPage.BindingContext>
-            <vm:UserVM/>
+            <vm:SettingVM/>
         </ContentPage.BindingContext>
         <ContentPage.Content>
             <StackLayout BackgroundColor="#62CBBC"
@@ -43,7 +43,9 @@
             <StackLayout HorizontalOptions="Center"
                          VerticalOptions="Center"
                          Margin="40,20,40,0">
-                <ListView x:Name="lstSetting">
+                <ListView x:Name="lstSetting"
+                          ItemsSource="{Binding All}"
+                          ItemSelected="OnListViewItemSelected">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Display}"/>

@@ -45,12 +45,12 @@
                     </tr>
                 </thead>
                 <tbody *ngFor="let i of mf.data | filter : searchText; let count = index">
-                    <tr routerLink="/account-edit/view-{{i.id}}">
-                        <td>{{ count + 1 }}</td>
-                        <td>{{ i.text }}</td>
-                        <td>{{ i.balance | number:'0.0-0'}} {{ i.currency }}</td>
-                        <td>{{ i.createOn| date:'dd-MMM-yyyy' }}</td>
-                        <td tabindex="-1"><button routerLink="/account-edit/edit-{{i.id}}"><i class="fa fa-edit"></i></button></td>
+                    <tr>
+                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ count + 1 }}</td>
+                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.text }}</td>
+                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.balance | number:'0.0-0'}} {{ i.currency }}</td>
+                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.createOn| date:'dd-MMM-yyyy' }}</td>
+                        <td routerLink="/account-edit/{{i.id}}" tabindex="-1"><i class="fa fa-edit"></i></td>
                     </tr>
                 </tbody>
                 <tfoot>

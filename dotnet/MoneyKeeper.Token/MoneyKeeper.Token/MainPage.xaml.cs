@@ -5,6 +5,7 @@ using Xamarin.Forms;
 namespace MoneyKeeper.Token
 {
     using Common;
+    using MoneyKeeper.Token.Views;
     using ViewModels;
 
     /// <summary>
@@ -24,11 +25,13 @@ namespace MoneyKeeper.Token
             CreatePassword();
 
             var setting = new List<SettingVM>();
+            var s = new SettingVM();
 
-            setting.Add(new SettingVM() { Display = "eMK information" });
-            setting.Add(new SettingVM() { Display = "Password" });
-            setting.Add(new SettingVM() { Display = "Language" });
-            setting.Add(new SettingVM() { Display = "Time Asynchronization" });
+            setting.Add(new SettingVM() { Type = typeof(About), Display = "eMK information" });
+            setting.Add(new SettingVM() { Type = typeof(Login), Display = "Password" });
+            setting.Add(new SettingVM() { Type = typeof(ChangeLanguage), Display = "Language" });
+            setting.Add(new SettingVM() { Type = typeof(TimeSynchronization), Display = "Time Asynchronization" });
+            s.All = setting;
             lstSetting.ItemsSource = setting;
         }
 
@@ -59,6 +62,18 @@ namespace MoneyKeeper.Token
 
                 return true;
             });
+        }
+
+        private async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            (sender as ListView).SelectedItem = null;
+
+            if (e.SelectedItem != null)
+            {
+                var pageData = e.SelectedItem as SettingVM;
+                Page page = (Page)Activator.CreateInstance(pageData.Type);
+                await Navigation.PushAsync(page);
+            }
         }
 
         #endregion

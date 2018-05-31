@@ -31,6 +31,20 @@
         }
 
         /// <summary>
+        /// Setting
+        /// </summary>
+        public class Setting
+        {
+            public const string PAGE_ABOUT = "About";
+
+            public const string PAGE_PASSWORD = "Password";
+
+            public const string PAGE_LANGUAGE = "Language";
+
+            public const string PAGE_TIMESYNC = "TimeSync";
+        }
+
+        /// <summary>
         /// Date time format
         /// </summary>
         public class DateTime

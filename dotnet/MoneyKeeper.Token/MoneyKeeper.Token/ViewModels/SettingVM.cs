@@ -1,4 +1,7 @@
-﻿namespace MoneyKeeper.Token.ViewModels
+﻿using System;
+using System.Collections.Generic;
+
+namespace MoneyKeeper.Token.ViewModels
 {
     public class SettingVM : BaseVM
     {
@@ -17,9 +20,19 @@
         #region -- Properties --
 
         /// <summary>
-        /// Display name
+        /// Type
+        /// </summary>
+        public Type Type { get; set; }
+
+        /// <summary>
+        /// Display
         /// </summary>
         public string Display { get; set; }
+
+        /// <summary>
+        /// All
+        /// </summary>
+        public List<SettingVM> All { set; get; }
 
         #endregion
     }

@@ -67,4 +67,8 @@ export class AccountComponent implements OnInit {
             this.data = this.lstTmp.filter(a => a.type === value);
         }
     }
+
+    // public abc(id: any) {
+    //     this.rou.navigate(['/account-edit/edit-' + id]);
+    // }
 }
