@@ -91,14 +91,13 @@ export class AccountAddComponent implements OnInit {
             }
 
             this.loader = false;
-        }, err => console.log(err))
+        }, err => console.log(err));
     }
 
     private search() {
         this.loader = true;
 
-        let info = { keyword: '' };
-        this.proAccount.search(info).subscribe((rsp: any) => {
+        this.proAccount.search('').subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }

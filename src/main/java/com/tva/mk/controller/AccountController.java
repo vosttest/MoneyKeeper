@@ -55,12 +55,10 @@ public class AccountController {
 			List<Account> tmp = accountService.search(id, keyword);
 
 			if (isOptional != null && isOptional) {
-
+				Account m = new Account();
+				m.setText(Const.UI.SELECT_OPTION);
+				tmp.add(0, m);
 			}
-
-			Account m = new Account();
-			m.setText(Const.UI.SELECT_OPTION);
-			tmp.add(0, m);
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();

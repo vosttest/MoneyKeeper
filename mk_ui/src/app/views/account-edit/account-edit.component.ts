@@ -46,6 +46,13 @@ export class AccountEditComponent implements OnInit {
         private route: ActivatedRoute) { }
 
     ngOnInit() {
+        const param = this.route.snapshot.paramMap.get('id');
+        let arr = param.split("-");
+        this.id = +arr[1];
+        if (arr[0] == "edit") {
+            this.isView = false;
+        }
+
         this.getType('Account');
         this.getType('Currency');
         this.getType('Term');
@@ -106,8 +113,7 @@ export class AccountEditComponent implements OnInit {
     }
 
     private search() {
-        let info = { keyword: '' };
-        this.proAccount.search(info).subscribe((rsp: any) => {
+        this.proAccount.search('').subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }
@@ -120,11 +126,10 @@ export class AccountEditComponent implements OnInit {
     public getAccount() {
         this.loader = true;
 
-        const id = +this.route.snapshot.paramMap.get('id');
-        this.proAccount.getAccount(id).subscribe((rsp: any) => {
+        this.proAccount.getAccount(this.id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.vm = rsp.result;
-                this.vm.startDate = this.datePipe.transform(this.vm.startDate, 'DD-MMM-YYYY');
+                this.vm.startDate = new Date(this.vm.startDate);
 
                 this.checkType(this.vm.type);
             }

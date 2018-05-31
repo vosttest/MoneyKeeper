@@ -96,8 +96,7 @@ export class VoucherComponent implements OnInit {
     }
 
     public getAccount() {
-        let obj = { keyword: '' };
-        this.proAccount.search(obj).subscribe((rsp: any) => {
+        this.proAccount.search("").subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.lstAccount = rsp.result.data;
             } else {
@@ -274,8 +273,8 @@ export class VoucherComponent implements OnInit {
     }
 
     private searchAccount() {
-        let info = { keyword: '' };
-        this.proAccount.search(info).subscribe((rsp: any) => {
+
+        this.proAccount.search('').subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }
@@ -286,8 +285,7 @@ export class VoucherComponent implements OnInit {
     }
 
     private searchToAccount() {
-        let info = { keyword: '' };
-        this.proAccount.search(info).subscribe((rsp: any) => {
+        this.proAccount.search('').subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.toAccount = rsp.result.data;
             }

@@ -33,8 +33,8 @@ export class ReportComponent implements OnInit {
 
     private search() {
         this.loader = true;
-        let info = { keyword: '' };
-        this.proAcc.search(info).subscribe((rsp: any) => {
+
+        this.proAcc.search('', true).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }

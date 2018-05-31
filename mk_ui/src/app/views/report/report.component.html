@@ -65,14 +65,14 @@
                 <div class="col-md-8">
                     <div class="card full-width bg-white card-2">
                         <div class="title">
-                            <h3>Expense Total : {{vm.total | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
+                            <h3>Expense Total : {{vm.total | number:'0.0-0'}} </h3>
                         </div>
                         <ul class="card-list list-group list-group-flush" *ngFor="let item of getReport">
                             <li class="list-group-item list-group-item-action" *ngIf="item.type == 'Expense'">
                                 <table border="0" class="full-width">
                                     <tr>
                                         <th>{{ item.text }}</th>
-                                        <td class="text-right">{{ item.amount | currency:'USD':'symbol-narrow':'0.0-0'}}</td>
+                                        <td class="text-right">{{ item.amount | number:'0.0-0'}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
@@ -82,14 +82,14 @@
                             </li>
                         </ul>
                         <div class="title">
-                            <h3>Income Total : {{vm.total2 | currency:'USD':'symbol-narrow':'0.0-0'}} </h3>
+                            <h3>Income Total : {{vm.total2 | number:'0.0-0'}} </h3>
                         </div>
                         <ul class="card-list list-group list-group-flush" *ngFor="let item of getReport">
                             <li class="list-group-item list-group-item-action" *ngIf="item.type == 'Income'">
                                 <table border="0" class="full-width">
                                     <tr>
                                         <th>{{ item.text }}</th>
-                                        <td class="text-right">{{ item.amount | currency:'USD':'symbol-narrow':'0.0-0'}}</td>
+                                        <td class="text-right">{{ item.amount | number:'0.0-0'}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{ item.startDate | date:'dd-MM-yyyy' }}</td>
