@@ -25,6 +25,8 @@ export class AccountEditComponent implements OnInit {
     public loader: boolean = false;
     public msg = '';
     public routeLink = '';
+    public isView: boolean = true;
+    public id = 0;
 
     datePipe = new DatePipe("en");
 
