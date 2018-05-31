@@ -25,6 +25,8 @@ export class SettingComponent implements OnInit {
     public lock: any = {};
     public loader: boolean = false;
     public function: string = "reminder";
+    public msg = '';
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     constructor(private pro: SettingProvider,
         private act: ActivatedRoute,
@@ -32,7 +34,6 @@ export class SettingComponent implements OnInit {
 
     ngOnInit() {
         this.search();
-
 
         this.act.params.subscribe((params: Params) => {
             document.getElementById(this.function).style.display = "none";
@@ -114,9 +115,13 @@ export class SettingComponent implements OnInit {
             "status": this.reminder.status
         }
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success" && rsp.message == "") {
+            if (rsp.status == "success") {
+                this.msg = 'Save successfully!';
                 this.search();
+            }else{
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -129,10 +134,12 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success") {
+                this.msg = 'Save successfully!';
                 this.search();
             } else {
-                alert(rsp.message);
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -147,8 +154,12 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
+                this.msg = 'Save successfully!';
                 this.search();
+            }else{
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -163,8 +174,12 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
+                this.msg = 'Save successfully!';
                 this.search();
+            }else{
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -178,8 +193,12 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
+                this.msg = 'Save successfully!';
                 this.search();
+            }else{
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 }

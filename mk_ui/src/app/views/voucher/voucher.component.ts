@@ -45,6 +45,8 @@ export class VoucherComponent implements OnInit {
     public voucher2: any;
     public apiURL: string = "../../../assets/img/";
     public loader: boolean = false;
+    public msg = '';
+    public routeLink = '';
     // public isShow: boolean = true;
 
     public labelAccountId = 'Account';
@@ -52,7 +54,7 @@ export class VoucherComponent implements OnInit {
     @ViewChild('categoryModal') public categoryModal: ModalDirective;
     @ViewChild('accountModal') public accountModal: ModalDirective;
     @ViewChild('toAccountModal') public toAccountModal: ModalDirective;
-    @ViewChild('confirmModal') public confirmModal: ModalDirective;
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     // Datepicker
 
@@ -323,10 +325,13 @@ export class VoucherComponent implements OnInit {
 
         this.proVoucher.save(obj).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.confirmModal.show();
+                this.msg = 'Save successfully!';
+                this.routeLink = '/voucher/overview';
             } else {
-                this.message = rsp.message;
+                this.msg = rsp.message;
+                this.routeLink = '';
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 }

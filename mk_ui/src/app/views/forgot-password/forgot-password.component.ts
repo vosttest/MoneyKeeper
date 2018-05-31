@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserProvider } from '../../providers/provider';
+import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
     selector: 'app-forgot-password',
@@ -13,7 +14,7 @@ export class ForgotPasswordComponent implements OnInit {
     public loader: boolean = false;
     public token: string = '';
     public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
-    public message: string = '';
+    public msg: string = '';
 
     constructor(private rou: Router,
         private act: ActivatedRoute,
@@ -26,24 +27,26 @@ export class ForgotPasswordComponent implements OnInit {
                 this.token = params.token;
             });
     }
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     public resetPassword(valid: boolean) {
         if(!valid){
             return;
         }
         if (this.vm.newPassword != this.vm.confirmPassword) {
-            this.message = 'Password does not match!';
+            this.msg = 'Password does not match!';
             return;
         }
         let obj = { token: this.token, password: this.vm.newPassword };
         
         this.pro.forgotPassword(obj).subscribe((rsp: any) => {
             if(rsp.status === 'success'){
-                this.message = '';
+                this.msg = 'Change successfully!';
                 this.pro.saveAuth(rsp.result);
             }else{
-                alert(rsp.message);
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 }

@@ -192,3 +192,19 @@
         </div>
     </div>
 </section>
+
+<div bsModal #informationModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+            </div>
+            <div class="modal-body">
+                {{ msg }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

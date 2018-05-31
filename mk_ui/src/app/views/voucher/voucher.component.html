@@ -292,20 +292,17 @@
 </div>
 
 <!-- Modal -->
-<div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div bsModal #informationModal="bs-modal" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Information</h5>
-                <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
             </div>
             <div class="modal-body">
-                Save successfully!
+                {{ msg }}
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success" (click)="confirmModal.hide()" routerLink="/voucher/overview">OK</button>
+                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" routerLink="{{routeLink}}">OK</button>
             </div>
         </div>
     </div>

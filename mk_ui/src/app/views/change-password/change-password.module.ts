@@ -20,7 +20,6 @@ import { EqualValidator } from '../../utilities/utility';
     declarations: [
         ChangePasswordComponent,
         EqualValidator
-
     ]
 })
 

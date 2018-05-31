@@ -66,6 +66,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Send Active Code</h5>
+                <button type="button" class="close" (click)="activeCodePopup.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row text-center">
@@ -87,18 +90,17 @@
     </div>
 </div>
 
-<!-- Modal Message -->
-<div bsModal #messageModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="c" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div bsModal #informationModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
             </div>
             <div class="modal-body">
-                {{tab}}
+                {{ msg }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" routerLink="/dashboard">OK</button>
+                <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
             </div>
         </div>
     </div>

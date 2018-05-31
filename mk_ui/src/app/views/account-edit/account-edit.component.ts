@@ -23,8 +23,8 @@ export class AccountEditComponent implements OnInit {
     public message = '';
     public account: any[] = [];
     public loader: boolean = false;
-    public isView: boolean = true;
-    public id = 0;
+    public msg = '';
+    public routeLink = '';
 
     datePipe = new DatePipe("en");
 
@@ -36,6 +36,7 @@ export class AccountEditComponent implements OnInit {
     bsValue: Date = new Date();
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     constructor(private pro: CommonProvider,
         private rou: Router,
@@ -43,13 +44,6 @@ export class AccountEditComponent implements OnInit {
         private route: ActivatedRoute) { }
 
     ngOnInit() {
-        const param = this.route.snapshot.paramMap.get('id');
-        let arr = param.split("-");
-        this.id = +arr[1];
-        if (arr[0] == "edit") {
-            this.isView = false;
-        }
-
         this.getType('Account');
         this.getType('Currency');
         this.getType('Term');
@@ -97,10 +91,13 @@ export class AccountEditComponent implements OnInit {
 
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/account/overview']);
+                this.msg = 'Save successfully!';
+                this.routeLink = '/account/overview';
             } else {
-                this.message = rsp.message;
+                this.routeLink = '';
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
 
             this.loader = false;
         }, err => console.log(err))
@@ -121,10 +118,11 @@ export class AccountEditComponent implements OnInit {
     public getAccount() {
         this.loader = true;
 
-        this.proAccount.getAccount(this.id).subscribe((rsp: any) => {
+        const id = +this.route.snapshot.paramMap.get('id');
+        this.proAccount.getAccount(id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.vm = rsp.result;
-                this.vm.startDate = new Date(this.vm.startDate);
+                this.vm.startDate = this.datePipe.transform(this.vm.startDate, 'DD-MMM-YYYY');
 
                 this.checkType(this.vm.type);
             }
@@ -142,11 +140,15 @@ export class AccountEditComponent implements OnInit {
         const id = +this.route.snapshot.paramMap.get('id');
         this.proAccount.delete(id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/account/overview']);
+                this.msg = 'Delete successfully!';
+                this.routeLink = '/account/overview';
+                this.confirmModal.hide();
             }
             else {
-                console.log(rsp.message);
+                this.msg = rsp.message;
+                this.routeLink = '';
             }
+            this.informationModal.show();
 
             this.loader = false;
         }, err => console.log(err));
