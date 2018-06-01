@@ -4,17 +4,17 @@ using Xamarin.Forms.Xaml;
 namespace MoneyKeeper.Token.Views
 {
     /// <summary>
-    /// Time synchronization
+    /// Language
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class TimeSynchronization : ContentPage
+    public partial class Language : ContentPage
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public TimeSynchronization()
+        public Language()
         {
             InitializeComponent();
         }

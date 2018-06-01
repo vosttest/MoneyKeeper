@@ -6,17 +6,17 @@ namespace MoneyKeeper.Token.Views
     using Common;
 
     /// <summary>
-    /// Login
+    /// Password
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Login : ContentPage
+    public partial class Password : ContentPage
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public Login()
+        public Password()
         {
             InitializeComponent();
         }

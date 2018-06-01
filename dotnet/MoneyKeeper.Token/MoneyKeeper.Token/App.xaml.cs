@@ -29,7 +29,14 @@ namespace MoneyKeeper.Token
 
         protected override void OnResume()
         {
-            MainPage = new Login();
+            if (string.IsNullOrEmpty(Password))
+            {
+                MainPage = new MainPage();
+            }
+            else
+            {
+                MainPage = new Password();
+            }
         }
 
         #endregion
@@ -58,7 +65,7 @@ namespace MoneyKeeper.Token
                 }
                 else
                 {
-                    MainPage = new Login();
+                    MainPage = new Password();
                 }
             }
         }
