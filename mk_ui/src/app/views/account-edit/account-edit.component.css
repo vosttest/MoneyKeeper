@@ -12,14 +12,6 @@ form {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-input#balance {
-    text-align: left!important;
-}
-
 button {
     width: 10%;
     margin-right: 10px;
@@ -35,4 +27,8 @@ button {
 
 h2 {
     margin-bottom: 1%!important;
+}
+
+right {
+    float: right;
 }

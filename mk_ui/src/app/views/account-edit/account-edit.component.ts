@@ -97,6 +97,7 @@ export class AccountEditComponent implements OnInit {
 
     public save() {
         this.loader = true;
+        console.log(this.vm);
 
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
@@ -129,7 +130,11 @@ export class AccountEditComponent implements OnInit {
         this.proAccount.getAccount(this.id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.vm = rsp.result;
-                this.vm.startDate = new Date(this.vm.startDate);
+
+                if (this.vm.type === 'ACC005') {
+                    this.vm.startDate = new Date(this.vm.startDate);
+                }
+                console.log(this.vm.type);
 
                 this.checkType(this.vm.type);
             }
@@ -144,8 +149,7 @@ export class AccountEditComponent implements OnInit {
     public delete() {
         this.loader = true;
 
-        const id = +this.route.snapshot.paramMap.get('id');
-        this.proAccount.delete(id).subscribe((rsp: any) => {
+        this.proAccount.delete(this.id).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.msg = 'Delete successfully!';
                 this.routeLink = '/account/overview';
