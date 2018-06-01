@@ -50,7 +50,7 @@
                         <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.text }}</td>
                         <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.balance | number:'0.0-0'}} {{ i.currency }}</td>
                         <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.createOn| date:'dd-MMM-yyyy' }}</td>
-                        <td routerLink="/account-edit/{{i.id}}" tabindex="-1"><i class="fa fa-edit"></i></td>
+                        <td routerLink="/account-edit/edit-{{i.id}}" tabindex="-1"><i class="fa fa-edit"></i></td>
                     </tr>
                 </tbody>
                 <tfoot>

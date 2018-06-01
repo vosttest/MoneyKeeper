@@ -88,23 +88,31 @@ public class TestController {
 		SingleRsp res = new SingleRsp();
 
 		try {
-			// Handle
-			Users m = userService.getBy(id, id);
+			// Get environment variable
+			String mod = System.getenv(Const.Mode.DEV);
 
-			Date d = new Date();
-			SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
-			f.setTimeZone(TimeZone.getTimeZone("GMT+7"));
-			String text = f.format(d);
+			if (mod != null && "Y".equals(mod)) {
+				// Handle
+				Users m = userService.getBy(id, id);
 
-			f = new SimpleDateFormat(Const.DateTime.TOKEN);
-			f.setTimeZone(TimeZone.getTimeZone("UTC"));
-			String s = f.format(d);
-			s += m.getUuid();
-			int n = Const.Authentication.TOKEN_NUMBER;
-			String token = text + " - " + Utils.getToken(s, n);
+				Date d = new Date();
+				SimpleDateFormat f = new SimpleDateFormat(Const.DateTime.FULL);
+				f.setTimeZone(TimeZone.getTimeZone("GMT+7"));
+				String text = f.format(d);
 
-			// Set data
-			res.setResult(token);
+				f = new SimpleDateFormat(Const.DateTime.TOKEN);
+				f.setTimeZone(TimeZone.getTimeZone("UTC"));
+				String s = f.format(d);
+				s += m.getUuid();
+				int n = Const.Authentication.TOKEN_NUMBER;
+				String token = text + " - " + Utils.getToken(s, n);
+
+				// Set data
+				res.setResult(token);
+			} else {
+				res.setError("You can get token in development mode only");
+			}
+
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

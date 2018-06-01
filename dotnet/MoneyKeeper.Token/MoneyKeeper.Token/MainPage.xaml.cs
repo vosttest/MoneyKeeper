@@ -25,9 +25,9 @@ namespace MoneyKeeper.Token
             CreatePassword();
 
             var m1 = new MenuModel { Title = "About eToken MK information", Target = typeof(About) };
-            var m2 = new MenuModel { Title = "Password", Target = typeof(Login) };
-            var m3 = new MenuModel { Title = "Language", Target = typeof(ChangeLanguage) };
-            var m4 = new MenuModel { Title = "Time synchronization", Target = typeof(TimeSynchronization) };
+            var m2 = new MenuModel { Title = "Password", Target = typeof(Password) };
+            var m3 = new MenuModel { Title = "Language", Target = typeof(Language) };
+            var m4 = new MenuModel { Title = "Time synchronization", Target = typeof(Synchronization) };
             lstMenu.ItemsSource = new List<MenuModel> { m1, m2, m3, m4 };
         }
 

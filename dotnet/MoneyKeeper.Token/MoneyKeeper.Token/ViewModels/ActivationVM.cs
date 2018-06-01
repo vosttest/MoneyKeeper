@@ -48,7 +48,7 @@ namespace MoneyKeeper.Token.ViewModels
                     var ok = await main.DisplayAlert("Confirm", "Do you want to create password?", "Yes", "No");
                     if (ok)
                     {
-                        await main.Navigation.PushModalAsync(new Login());
+                        await main.Navigation.PushModalAsync(new Password());
                     }
                     else
                     {

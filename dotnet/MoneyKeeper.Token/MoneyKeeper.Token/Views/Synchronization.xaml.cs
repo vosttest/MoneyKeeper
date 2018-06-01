@@ -4,17 +4,17 @@ using Xamarin.Forms.Xaml;
 namespace MoneyKeeper.Token.Views
 {
     /// <summary>
-    /// Change language
+    /// Synchronization
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ChangeLanguage : ContentPage
+    public partial class Synchronization : ContentPage
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public ChangeLanguage()
+        public Synchronization()
         {
             InitializeComponent();
         }
