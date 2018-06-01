@@ -23,13 +23,17 @@
                             <div *ngIf="!isView">
                                 <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" required>
                                 <span [hidden]="text.valid || (text.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                    <i class="fa fa-exclamation-triangle"></i> Required.
+                                    <i class="fa fa-exclamation-triangle"></i> Required!
                                 </span>
                             </div>
                         </div>
                         <div class="form-group col-md-6">
                             <p>Type</p>
-                            <label *ngIf="isView" class="form-control">{{vm.type}}</label>
+                            <ng-container *ngIf="isView">
+                                <div *ngFor="let i of lstType">
+                                    <label class="form-control" *ngIf="vm.type == i.value">{{i.text}}</label>
+                                </div>
+                            </ng-container>
                             <div *ngIf="!isView">
                                 <select name="type" (change)="checkType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
                                 <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
@@ -47,13 +51,14 @@
                         </div>
                         <div class="form-group col-md-6">
                             <p>Transfer money from account</p>
-                            <label *ngIf="isView" class="form-control">{{vm.accountId}}</label>
+                            <ng-container *ngIf="isView">
+                                <div *ngFor="let i of account">
+                                    <label class="form-control" *ngIf="vm.accountId == i.id">{{i.text}}</label>
+                                </div>
+                            </ng-container>
                             <div *ngIf="!isView">
                                 <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                                    <option *ngFor="let i of account" value="{{i.id}}">
-                                        <div class="left"> {{ i.text }}</div>
-                                        <div class="right"> Balance: {{ i.balance }} {{ i.currency }} </div>
-                                    </option>
+                                    <option *ngFor="let i of account" value="{{i.id}}">{{ i.text }}</option>
                                 </select>
                             </div>
                         </div>
@@ -66,7 +71,7 @@
                                 <div *ngIf="!isView">
                                     <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                                     <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                        <i class="fa fa-exclamation-triangle"></i> Required.
+                                        <i class="fa fa-exclamation-triangle"></i> Required!
                                     </span>
                                 </div>
                             </div>
@@ -89,7 +94,7 @@
                                 <div *ngIf="!isView">
                                     <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                                     <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                        <i class="fa fa-exclamation-triangle"></i> Required.
+                                        <i class="fa fa-exclamation-triangle"></i> Required!
                                     </span>
                                 </div>
                             </div>
@@ -115,7 +120,11 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <p>Term</p>
-                                <label *ngIf="isView" class="form-control">{{vm.term}}</label>
+                                <ng-container *ngIf="isView">
+                                    <div *ngFor="let i of lstTerm">
+                                        <label class="form-control" *ngIf="vm.term == i.value">{{i.text}}</label>
+                                    </div>
+                                </ng-container>
                                 <div *ngIf="!isView">
                                     <select name="term" class="form-control" #term="ngModel" [(ngModel)]="vm.term">
                                         <option *ngFor="let i of lstTerm"  value="{{i.value}}">{{i.text}}</option>
@@ -134,7 +143,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <p>Interest Paid</p>
-                            <label *ngIf="isView" class="form-control">{{vm.interestPaid}}</label>
+                            <ng-container *ngIf="isView">
+                                <div *ngFor="let i of lstInterestPaid">
+                                    <label class="form-control" *ngIf="vm.interestPaid == i.value">{{i.text}}</label>
+                                </div>
+                            </ng-container>
                             <div *ngIf="!isView">
                                 <select name="interestPaid" class="form-control" #interestPaid="ngModel" [(ngModel)]="vm.interestPaid">
                                     <option *ngFor="let i of lstInterestPaid" value="{{i.value}}">{{i.text}}</option>
@@ -152,7 +165,11 @@
                         </div>
                         <div class="form-group col-md-6">
                             <p>Term End</p>
-                            <label *ngIf="isView" class="form-control">{{vm.termEnded}}</label>
+                            <ng-container *ngIf="isView">
+                                <div *ngFor="let i of lstTermEnd">
+                                    <label class="form-control" *ngIf="vm.termEnded == i.value">{{i.text}}</label>
+                                </div>
+                            </ng-container>
                             <div *ngIf="!isView">
                                 <select name="termEnded" class="form-control" #termEnded="ngModel" [(ngModel)]="vm.termEnded">
                                     <option *ngFor="let i of lstTermEnd" value="{{i.value}}">{{i.text}}</option>
@@ -167,9 +184,9 @@
                             <textarea name="description" #description="ngModel" [(ngModel)]="vm.description" class=" form-control " rows="2 "></textarea>
                         </div>
                     </div>
-                    <div class="text-right" *ngIf="!isView">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <button type="button" class="btn btn-danger" (click)="confirmModal.show()">Delete</button>
+                    <div class="text-right">
+                        <button *ngIf="!isView" type="submit" class="btn btn-success">Save</button>
+                        <button *ngIf="!isView" type="button" class="btn btn-danger" (click)="confirmModal.show()">Delete</button>
                         <button type="button" class="btn btn-secondary" routerLink="/account/overview">Cancel</button>
                     </div>
                 </form>
@@ -196,20 +213,19 @@
             </div>
         </div>
     </div>
-</section>
-
-<div bsModal #informationModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
-            </div>
-            <div class="modal-body">
-                {{ msg }}
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" routerLink="{{routeLink}}">OK</button>
+    <div bsModal #informationModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+                </div>
+                <div class="modal-body">
+                    {{ msg }}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" (click)="informationModal.hide()" routerLink="{{routeLink}}">OK</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>

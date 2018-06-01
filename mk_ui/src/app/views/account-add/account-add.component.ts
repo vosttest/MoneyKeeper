@@ -1,8 +1,8 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap';
-import { AccountProvider, CommonProvider } from '../../providers/provider';
+import { AccountProvider, CommonProvider, SettingProvider } from '../../providers/provider';
+import { Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-account-add',
@@ -16,10 +16,11 @@ export class AccountAddComponent implements OnInit {
     public lstTerm: any[] = [];
     public lstInterestPaid: any[] = [];
     public lstTermEnd: any[] = [];
+    public data: any = [];
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
-    public vm: any = { id: '', type: 'ACC001', currency: 'USD', term: 'TRM001', interestPaid: 'IPD002', termEnded: 'TRE002' };
+    public vm: any = { id: '', type: 'ACC001', term: 'TRM001', interestPaid: 'IPD002', termEnded: 'TRE002' };
     public message = '';
     public account: any[] = [];
     public msg = '';
@@ -37,6 +38,7 @@ export class AccountAddComponent implements OnInit {
 
     constructor(private proCommon: CommonProvider,
         private proAccount: AccountProvider,
+        private proSetting: SettingProvider,
         private rou: Router) { }
 
     ngOnInit() {
@@ -45,6 +47,7 @@ export class AccountAddComponent implements OnInit {
         this.getType('Term');
         this.getType('InterestPaid');
         this.getType('TermEnd');
+        this.searchCurrency();
         this.search();
         this.checkType(this.vm.type);
     }
@@ -114,6 +117,24 @@ export class AccountAddComponent implements OnInit {
             }
 
             this.loader = false;
+        }, err => console.log(err));
+    }
+
+
+    private searchCurrency() {
+        this.proSetting.search().subscribe((rsp: any) => {
+            if (rsp.status === "success") {
+                this.data = rsp.result.data;
+                console.log(this.data);
+                this.data.forEach(element => {
+                    if (element.code === Setting.CODE_CURRENCY) {
+                        this.vm.currency = element.value === "" || element.value === null ? "VND" : element.value;
+                    }
+                });
+            }
+            else {
+                console.log(rsp.message);
+            }
         }, err => console.log(err));
     }
 }

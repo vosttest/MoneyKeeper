@@ -13,6 +13,9 @@ namespace MoneyKeeper.Main.Req
 
         public object Keyword { get; set; }
 
+        [JsonProperty("isOptional")]
+        public bool? IsOptional { get; set; }
+
         #endregion
     }
 }

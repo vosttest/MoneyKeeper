@@ -42,7 +42,6 @@
                             <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
                                 <option *ngFor="let i of account" value="{{i.id}}">
                                     <div class="left"> {{ i.text }}</div>
-                                    <div class="right"> Balance: {{ i.balance }} {{ i.currency }} </div>
                                 </option>
                             </select>
                         </div>

@@ -73,6 +73,11 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Properties --
 
         /// <summary>
+        /// Account service
+        /// </summary>
+        public AccountService AccountService => DependencyService.Get<AccountService>() ?? new AccountService();
+
+        /// <summary>
         /// User service
         /// </summary>
         public UserService UserService => DependencyService.Get<UserService>() ?? new UserService();

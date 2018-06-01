@@ -67,8 +67,8 @@ namespace MoneyKeeper.Token
             if (e.SelectedItem != null)
             {
                 var m = e.SelectedItem as MenuModel;
-                var page = (Page)Activator.CreateInstance(m.Target);
-                Navigation.PushModalAsync(page);
+                var v = (Page)Activator.CreateInstance(m.Target);
+                Navigation.PushModalAsync(v);
             }
         }
 

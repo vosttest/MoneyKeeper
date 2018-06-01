@@ -44,7 +44,7 @@ public class Const {
 	}
 
 	public class Type {
-		public static final String Account = "Account";
+		public static final String ACCOUNT = "Account";
 
 		public static final String EXPENSE = "Expense";
 
@@ -53,6 +53,8 @@ public class Const {
 		public static final String SETTING = "Setting";
 
 		public static final String CURRENCY = "Currency";
+
+		public static final String LANGUAGE = "Language";
 
 		public static final String TERM = "Term";
 

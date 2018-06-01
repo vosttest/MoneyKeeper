@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -6,6 +7,7 @@ using Xamarin.Forms;
 namespace MoneyKeeper.Token.ViewModels
 {
     using Common;
+    using Dto;
     using Views;
 
     /// <summary>
@@ -44,6 +46,10 @@ namespace MoneyKeeper.Token.ViewModels
                 {
                     App.Jwt = res.Result.ToString();
                     Utils.SetVar(Const.Authentication.JWT, App.Jwt);
+
+                    var t = Utils.DecodeJwt(App.Jwt, Const.Authentication.PAYLOAD_NAME);
+                    var x = JsonConvert.DeserializeObject<PayloadDto>(t);
+                    App.UUID = x.Uuid;
 
                     var ok = await main.DisplayAlert("Confirm", "Do you want to create password?", "Yes", "No");
                     if (ok)

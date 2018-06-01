@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -29,23 +31,21 @@ namespace MoneyKeeper.Main.Services
         {
             SignInRsp res = null;
 
-            var m = new
+            try
             {
-                userName = req.UserName,
-                password = req.Password,
-                clientKey = req.ClientKey,
-                token = req.Token,
-                sendToken = req.SendToken
-            };
-            var data = CreateData(m);
+                var data = CreateData(req);
+                var client = new HttpClient();
+                var rsp = await client.PostAsync(Host + "user/sign-in", data);
 
-            var client = new HttpClient();
-            var rsp = await client.PostAsync(Host + "user/sign-in", data);
-
-            if (rsp.IsSuccessStatusCode)
+                if (rsp.IsSuccessStatusCode)
+                {
+                    var t = await rsp.Content.ReadAsStringAsync();
+                    res = JsonConvert.DeserializeObject<SignInRsp>(t);
+                }
+            }
+            catch (Exception ex)
             {
-                var t = await rsp.Content.ReadAsStringAsync();
-                res = JsonConvert.DeserializeObject<SignInRsp>(t);
+                Debug.WriteLine(ex);
             }
 
             return res;

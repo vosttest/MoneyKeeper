@@ -10,11 +10,14 @@ namespace MoneyKeeper.Main.Rsp
         #region -- Properties --
 
         [JsonProperty("result")]
-        public SignIn Result { get; set; }
+        public Dto Result { get; set; }
 
         #endregion
 
-        public class SignIn : BaseRsp
+        /// <summary>
+        /// Data transfer object
+        /// </summary>
+        public class Dto
         {
             #region -- Properties --
 

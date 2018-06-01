@@ -9,9 +9,8 @@
                     <RowDefinition Height="200"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid>
-                    <Image Source="logo.png"
-                           Aspect="Fill"/>
+                <Grid BackgroundColor="#62CBBC">
+                    <Image Source="logo1.png" Aspect="AspectFit"/>
                     <!--<StackLayout Padding="0,20,0,20"
                                  HorizontalOptions="CenterAndExpand"
                                  VerticalOptions="CenterAndExpand">
@@ -29,7 +28,6 @@
                     <ListView x:Name="lstMenu"
                               RowHeight="55"
                               SeparatorVisibility="None"
-                              BackgroundColor="#e8e8e8"
                               ItemSelected="LstMenu_ItemSelected">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -42,10 +40,12 @@
                                             <Image Source="{Binding Icon}"
                                                    WidthRequest="40"
                                                    HeightRequest="40"
-                                                   VerticalOptions="Start"/>
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Aspect="AspectFit"/>
                                             <Label Text="{Binding Title}"
                                                    FontSize="Small"
-                                                   VerticalOptions="End"/>
+                                                   VerticalOptions="CenterAndExpand"
+                                                   Font="Bold, 20"/>
                                         </StackLayout>
                                     </StackLayout>
                                 </ViewCell>

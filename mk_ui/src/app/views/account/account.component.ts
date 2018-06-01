@@ -16,7 +16,7 @@ export class AccountComponent implements OnInit {
     public keyword: string = '';
     public vm: any = { type: '' };
     public searchText = '';
-    public loader: boolean;
+    public loader = false;
 
     constructor(private pro: AccountProvider,
         private proCom: CommonProvider,
@@ -67,8 +67,4 @@ export class AccountComponent implements OnInit {
             this.data = this.lstTmp.filter(a => a.type === value);
         }
     }
-
-    // public abc(id: any) {
-    //     this.rou.navigate(['/account-edit/edit-' + id]);
-    // }
 }

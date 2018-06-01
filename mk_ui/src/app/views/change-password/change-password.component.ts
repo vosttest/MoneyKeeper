@@ -11,21 +11,25 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 export class ChangePasswordComponent implements OnInit {
     public vm: any = { newPassword: '', confirmPassword: '', oldPassword: '' };
+
+    public show = false;
+    public showConfirm = false;
+    public loader: boolean;
+    public success: boolean = false;
+
     public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
     public type = "password";
     public typeConfirm = "password";
     public typeOld = "password";
-    public show = false;
-    public showConfirm = false;
-    public loader: boolean;
     public msg: string = "";
-    public success: boolean = false;
+
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
     @ViewChild('messageModal') public messageModal: ModalDirective;
     @ViewChild('informationModal') public informationModal: ModalDirective;
 
-    constructor(private pro: UserProvider, private rou: Router) { }
+    constructor(private pro: UserProvider,
+         private rou: Router) { }
 
     ngOnInit() { }
 
@@ -49,7 +53,7 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     public showConfirm1() {
-        if (this.vm.oldPassword == '' || this.vm.newPassword == '' || this.vm.confirmPassword == '') {
+        if (this.vm.oldPassword === '' || this.vm.newPassword === '' || this.vm.confirmPassword === '') {
             this.confirmModal.hide();
         } else {
             this.confirmModal.show();
@@ -57,7 +61,7 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     public toggleShow(para?: string) {
-        if (para == 'P') {
+        if (para === 'P') {
             this.show = !this.show;
             this.type = this.show ? "text" : "password";
         }

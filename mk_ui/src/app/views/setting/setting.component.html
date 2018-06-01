@@ -38,7 +38,7 @@
                 <div class="col-md-6">Time</div>
                 <div class="col-md-3"></div>
                 <div class="col-md-3 top-time-picker" style="float: right">
-                    <timepicker [(ngModel)]="reminder.time" [showMeridian]="ismeridian" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
+                    <timepicker [(ngModel)]="reminder.time" [showMeridian]="isMeridian" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
                     <span *ngIf="isTime" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                         <i class="fa fa-exclamation-triangle"></i> Invalid time!
                     </span>
@@ -61,7 +61,7 @@
             </div>
             <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none">
                 <div class="col-md-3 ">
-                    <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
+                    <img height='40px' src="{{ imgCurrencyURL + i.value + '.png' }}" />
                 </div>
                 <div class="col-md-6"> {{ i.text }} </div>
                 <div class="col-md-3">
@@ -89,7 +89,7 @@
             </div>
             <div *ngFor="let i of dataLanguage | filterSetting: searchLanguage" class="row each-row" style="border: none">
                 <div class="col-md-3">
-                    <img height='40px' src="{{ apiURL1 + i.value + '.png' }}" /> </div>
+                    <img height='40px' src="{{ imgLanguageURL + i.value + '.png' }}" /> </div>
                 <div class="col-md-6"> {{ i.text }} </div>
                 <div class="col-md-3">
                     <input type="radio" name="language" *ngIf="i.value === selectedLanguage.value; else elseLanguage" [(ngModel)]="selectedLanguage.value" checked value="{{ i.value }}" />
@@ -112,6 +112,9 @@
             </div>
             <div class="form-group text-center">
                 <img class="img-login-authen" src="../../../assets/img/login_authen.png" />
+            </div>
+            <div class="form-group">
+                Configure login security options to control access to your account.
             </div>
             <div class="form-group row">
                 <div class="col-md-5">
@@ -151,6 +154,9 @@
             <div class="form-group text-center">
                 <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
             </div>
+            <div class="form-group">
+                Configure transaction security options to control to your transactions.
+            </div>
             <div class="form-group row">
                 <div class="col-md-5">
                     On / Off
@@ -176,7 +182,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-success btn-block" (click)="saveLoginAuthen()">OK</button>
+                    <button type="button" class="btn btn-success btn-block" (click)="saveTranAuthen()">OK</button>
                 </div>
             </div>
         </div>
@@ -189,13 +195,16 @@
             <div class="form-group text-center">
                 <img class="img-login-authen" src="../../../assets/img/lock.png" />
             </div>
+            <div class="form-group">
+                Lock update the month before the current month.
+            </div>
             <div class="form-group row">
                 <div class="col-md-5">
                     On / Off
                 </div>
                 <div class="col-md-7">
                     <label class="switch" style="float: right;">
-                        <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenstatus" #tranAuthenstatus="ngModel" [(ngModel)]="tranAuthen.status">
+                        <input type="checkbox" [checked]="lock.status" name="lockstatus" #lockstatus="ngModel" [(ngModel)]="lock.status">
                         <span class="slider round"></span>
                     </label>
                 </div>

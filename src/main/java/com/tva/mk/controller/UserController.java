@@ -105,7 +105,9 @@ public class UserController {
 					Setting t1 = settingService.getBy(userId, Const.Setting.CODE_LOGIN);
 					String t2 = "";
 					if (t1 != null) {
-						t2 = t1.getValue() + "";
+						if (Const.STATUS_ACTIVE.equals(t1.getStatus())) {
+							t2 = t1.getValue() + "";
+						}
 					}
 
 					AuthToken m1 = null;

@@ -5,6 +5,7 @@ using Xamarin.Forms;
 
 namespace MoneyKeeper.Main.ViewModels
 {
+    using Common;
     using Req;
 
     /// <summary>
@@ -51,7 +52,7 @@ namespace MoneyKeeper.Main.ViewModels
                 };
                 var res = await UserService.SignIn(m);
 
-                if (res.Status == "success")
+                if (res.Status == Const.HTTP.STATUS_SUCCESS)
                 {
                     if (res.Result.Authen)
                     {
