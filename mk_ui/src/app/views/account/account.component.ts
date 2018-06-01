@@ -14,7 +14,7 @@ export class AccountComponent implements OnInit {
     public lstTmp = [];
     public lstType = [];
     public keyword: string = '';
-    public vm: any = { type: 'showAll' };
+    public vm: any = { type: '' };
     public searchText = '';
     public loader: boolean;
 
@@ -30,8 +30,7 @@ export class AccountComponent implements OnInit {
     private search() {
         this.loader = true;
 
-        let info = { keyword: '' };
-        this.pro.search(info).subscribe((rsp: any) => {
+        this.pro.search('').subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.data = rsp.result.data;
                 this.lstTmp = this.data;
@@ -47,7 +46,7 @@ export class AccountComponent implements OnInit {
     private searchByType(type: string) {
         this.loader = true;
 
-        this.proCom.search(type).subscribe((rsp: any) => {
+        this.proCom.search(type, true).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 if (type == 'Account') {
                     this.lstType = rsp.result.data;
@@ -68,4 +67,8 @@ export class AccountComponent implements OnInit {
             this.data = this.lstTmp.filter(a => a.type === value);
         }
     }
+
+    // public abc(id: any) {
+    //     this.rou.navigate(['/account-edit/edit-' + id]);
+    // }
 }

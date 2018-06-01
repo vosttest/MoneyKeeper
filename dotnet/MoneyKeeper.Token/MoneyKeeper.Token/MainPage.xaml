@@ -1,39 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:vm="clr-namespace:MoneyKeeper.Token.ViewModels"
-             x:Class="MoneyKeeper.Token.MainPage">
-    <ContentPage.BindingContext>
-        <vm:UserVM/>
-    </ContentPage.BindingContext>
-    <StackLayout BackgroundColor="#62CBBC">
-        <Label Text="Get Token"
-               TextColor="White"
-               HorizontalOptions="Center"
-               FontSize="Large"
-               Margin="40"/>
-        <StackLayout BackgroundColor="#CFD770"
-                     HorizontalOptions="Center"
-                     Padding="20">
-            <Frame BackgroundColor="White" CornerRadius="10" Padding="0">
-                <Label x:Name="lblToken"
-                       TextColor="#3DADCE"
-                       HorizontalOptions="CenterAndExpand"
-                       FontSize="36"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            x:Class="MoneyKeeper.Token.MainPage">
+    <ContentPage Title="Active code" Icon="block.png">
+        <ContentPage.Content>
+            <StackLayout BackgroundColor="#62CBBC"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Padding="25">
+                <Frame BackgroundColor="White"
+                       CornerRadius="10"
+                       Padding="0">
+                    <Label x:Name="lblToken"
+                           TextColor="#3DADCE"
+                           HorizontalOptions="CenterAndExpand"
+                           FontSize="36"
+                           FontAttributes="Bold"/>
+                </Frame>
+                <Label Text="OTP will be updated in"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       FontSize="Medium"
+                       Margin="0,20,0,0"/>
+                <Label x:Name="lblSecond"
+                       TextColor="White"
+                       HorizontalOptions="Center"
+                       FontSize="Medium"
                        FontAttributes="Bold"/>
-            </Frame>
-            <Label Text="OTP will be updated in"
-                   HorizontalOptions="Center"
-                   FontSize="Medium"
-                   Margin="0,20,0,0"/>
-            <Label x:Name="lblSecond"
-                   HorizontalOptions="Center"
-                   FontSize="Medium"
-                   FontAttributes="Bold"/>
-            <ProgressBar x:Name="progressBar"/>
-            <Label x:Name="lblDate"
-                   HorizontalOptions="Center"
-                   FontSize="Medium"/>
-        </StackLayout>
-    </StackLayout>
-</ContentPage>
+                <ProgressBar x:Name="progressBar"/>
+                <Label x:Name="lblDate"
+                       TextColor="White"
+                       FontSize="Medium"/>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Setting" Icon="setting.png">
+        <ContentPage.Content>
+            <StackLayout HorizontalOptions="Center"
+                         VerticalOptions="Center"
+                         Margin="40,20,40,0">
+                <ListView x:Name="lstMenu"
+                          ItemSelected="LstMenu_ItemSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Title}"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+    </ContentPage>
+    <ContentPage Title="Exit" Icon="exit.png">
+    </ContentPage>
+</TabbedPage>

@@ -31,9 +31,12 @@ export class CategoryComponent implements OnInit {
     public apiURL: string = "../../../../assets/img/";
     public loader: boolean;
     public function = "overview";
+    public msg = '';
+    public success = false;
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
     @ViewChild('iconModal') public iconModal: ModalDirective;
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider,
@@ -171,24 +174,32 @@ export class CategoryComponent implements OnInit {
         if (this.tab == "Expense") {
             this.proExpense.save(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.rou.navigate(['/category/overview']);
+                    this.msg = 'Save successfully!';
+                    this.success = true;
                     this.loadExpense();
                 }
                 else {
-                    console.log(rsp.message);
+                    this.success = false;
+                    this.msg = rsp.message;
                 }
+                this.informationModal.show();
+                
                 this.loader = false;
             })
         }
         else {
             this.proIncome.save(this.vm).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.rou.navigate(['/category/overview']);
+                    this.msg = 'Save successfully!';
+                    this.success = true;
                     this.loadIncome();
                 }
                 else {
-                    console.log(rsp.message);
+                    this.msg = rsp.message;
+                    this.success = false;
                 }
+                this.informationModal.show();
+
                 this.loader = false;
             })
         }
@@ -196,29 +207,37 @@ export class CategoryComponent implements OnInit {
 
     public delete(id: any) {
         this.loader = true;
+
         if (this.tab == "Expense") {
             this.proExpense.delete(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.rou.navigate(['/category/overview']);
                     this.loadExpense();
                     this.confirmModal.hide();
+                    this.msg = 'Delete successfully!';
+                    this.success = true;
                 }
                 else {
-                    console.log(rsp.message);
+                    this.msg = rsp.message;
+                    this.success = false;
                 }
+                this.informationModal.show();
                 this.loader = false;
             })
         }
         else {
             this.proIncome.delete(id).subscribe((rsp: any) => {
                 if (rsp.status === 'success') {
-                    this.rou.navigate(['/category/overview']);
                     this.loadIncome();
                     this.confirmModal.hide();
+                    this.msg = 'Delete successfully!';
+                    this.success = true;
                 }
                 else {
-                    console.log(rsp.message);
+                    this.msg = rsp.message;
+                    this.success = false;
                 }
+                this.informationModal.show();
+                
                 this.loader = false;
             })
         }

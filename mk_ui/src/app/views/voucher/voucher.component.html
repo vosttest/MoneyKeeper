@@ -17,37 +17,40 @@
         </div>
         <div class="row ">
             <div class="col-md-6">
-                <input id="keyword" name="keyword" #keyword="ngModel" [(ngModel)]="vm.keyword" type="text" class="form-control" (keyup)="searchVoucher(vm.keyword)">
+                <input id="keyword" name="keyword" placeholder="Search by name" #keyword="ngModel" [(ngModel)]="vm.keyword" type="text" class="form-control" (keyup)="getVoucher()">
             </div>
             <div class="col-md-6">
-                <input type="text" placeholder="Date" class="form-control border" bsDatepicker>
+                <input name="startDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.startDate" type="text" class="form-control" (bsValueChange)="getVoucher()">
             </div>
         </div>
-        <div *ngFor="let i of voucher1">
-            <div class="row bg-secondary text-white">
-                <div class="col-md-1">
-                    <h1>{{i.startDate | date: 'dd'}}</h1>
-                </div>
-                <div class="col-md-9">
-                    <span>{{i.startDate | date: 'EEEE'}}<br /> <i>{{i.startDate | date: 'MM-yyyy'}}</i></span>
-                </div>
-                <div class="col-md-2">
-                    <span>Icome: <br /> <i>Expense: </i></span>
-                </div>
-            </div>
-            <div *ngFor="let j of i.voucher">
-                <div class="row list" *ngFor="let z of j.voucherDetail">
-                    <div class="col-md-1">
-                        <img src="{{apiURL + z.icon}}" />
+        <div class="card bg-white card-2 full-width">
+            <div class="card-body">
+                <form class="voucher" name="form" #f="ngForm">
+                    <div *ngFor="let i of voucher">
+                        <div class="row bg-secondary text-white">
+                            <div class="col-md-1">
+                                <h1>{{i.startDate | date: 'dd'}}</h1>
+                            </div>
+                            <div class="col-md-9">
+                                <span>{{i.startDate | date: 'EEEE'}}<br /> <i>{{i.startDate | date: 'MM-yyyy'}}</i></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span>Icome: {{i.totalIncome}}<br /> <i>Expense: {{i.totalExpense}}</i></span>
+                            </div>
+                        </div>
+                        <div class="row list" *ngFor="let j of i.voucherDetail">
+                            <div class="col-md-1">
+                                <img src="{{apiURL + j.icon}}" />
+                            </div>
+                            <div class="col-md-9">
+                                <span>{{j.type}}: {{j.categoryText}} <br /> <i>{{j.description}}</i></span>
+                            </div>
+                            <div class="col-md-2">
+                                <span>{{j.amount}} VND <br /> <i>{{j.accountText}}</i></span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-md-9">
-                        <span>{{j.type}}: {{z.categoryText}} <br /> <i>{{j.description}}</i></span>
-                    </div>
-                    <div class="col-md-2">
-                        <span>{{z.amount}} VND <br /> <i>{{z.accountText}}</i></span>
-                    </div>
-                </div>
-
+                </form>
             </div>
         </div>
 
@@ -77,9 +80,9 @@
                         </div>
                         <div class="form-group col-md 6">
                             <p>Amount</p>
-                            <input type='number' name="total" id="total" #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='Amount' required>
+                            <input name="total" id="total" #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='0' currencyMask required>
                             <span [hidden]="total.valid || (total.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Enter your Total!
+                                <i class="fa fa-exclamation-triangle"></i> Required!
                             </span>
                         </div>
                         <!-- <div class="form-group col-md 1">
@@ -93,7 +96,7 @@
                                 <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{apiURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
                             </div>
                             <span [hidden]="selectedCategory.code != '' || (selectedCategory.code === '' && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                    <i class="fa fa-exclamation-triangle"></i> Choose your Categorry!
+                                    <i class="fa fa-exclamation-triangle"></i> Required!
                                 </span>
                             <hr/>
                         </div>
@@ -105,7 +108,7 @@
                     </select> -->
                             </div>
                             <span [hidden]="selectedAccount.accountId != 0 || (selectedAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Choose your {{ labelAccountId }}!
+                                <i class="fa fa-exclamation-triangle"></i> Required!
                         </span>
                             <hr/>
                         </div>
@@ -115,7 +118,7 @@
                             <p>Transfer fee</p>
                             <div class="row">
                                 <div class='input-group mb-3'>
-                                    <input type='number' class='form-control' placeholder='Transfer fee'>
+                                    <input type='number' name="transferFee" id="transferFee" #transferFee="ngModel" [(ngModel)]="vm.transferFee" class='form-control' placeholder='0'>
                                 </div>
                             </div>
                         </div>
@@ -124,35 +127,47 @@
                             <div class="col-md-6">{{ selectedToAccount.text }}
                             </div>
                             <span [hidden]="selectedToAccount.accountId != 0 || (selectedToAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                     <i class="fa fa-exclamation-triangle"></i> Choose your To Account!
+                                     <i class="fa fa-exclamation-triangle"></i> Required!
                                 </span>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-6">
-                            <p>Date</p>
-                            <input type="text" placeholder="Date" [maxDate]="maxDate" class="form-control" bsDatepicker>
-                        </div>
-                        <div class="form-group col-md 6">
-                            <!-- TODO -->
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md 6" *ngIf="!isTransfer">
-                            <p>{{ labelObj }}</p>
-                            <input class="form-control none-border" name="Payee" #object="ngModel" [(ngModel)]="vm.object" />
+                        <div class="form-group col-md 6" *ngIf="isExpense || isTransfer">
+                            <p>Payee</p>
+                            <input class="form-control none-border" name="Payee" #payee="ngModel" [(ngModel)]="vm.payee" />
                         </div>
                         <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
-            <div class="row">
-                <div class="col-md-2">
-                    <p>Event</p>
-                </div>
-                <div class="col-md-10">
-                    <input class="form-control none-border" name="event" #event="ngModel" [(ngModel)]="vm.event" />
-                </div>
-            </div>
-            <hr>
-        </div> -->
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p>Event</p>
+                                    </div>
+                                <div class="col-md-10">
+                                    <input class="form-control none-border" name="event" #event="ngModel" [(ngModel)]="vm.event" />
+                                </div>
+                            </div>
+                             <hr>
+                        </div> -->
+                        <div class="form-group col-md 6" *ngIf="isTransfer || isIncome">
+                            <p>Payer</p>
+                            <input class="form-control none-border" name="Payer" #payer="ngModel" [(ngModel)]="vm.payer" />
+                        </div>
+                        <!-- <div class="form-group col-md-6" *ngIf="!isTransfer">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <p>Event</p>
+                                    </div>
+                                <div class="col-md-10">
+                                    <input class="form-control none-border" name="event" #event="ngModel" [(ngModel)]="vm.event" />
+                                </div>
+                            </div>
+                             <hr>
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <p>Date</p>
+                            <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.startDate" value="{{ vm.startDate | date:'dd-MMM-yyyy' }}" type="text" class="form-control">
+                        </div>
                     </div>
                     <div class="form-group">
                         <p>Note</p>
@@ -198,7 +213,7 @@
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
                 <div *ngFor="let i of lstParentTmp" class="card">
                     <div class="card-header row row-margin pointer" id="headingOne">
-                        <div class="col-md-11" (click)="chooseCategory(i.id, i.text, i.icon)">
+                        <div class="col-md-11" (click)="chooseCategory(i.code, i.text, i.icon)">
                             <img src="{{apiURL + i.icon}}" style="margin-right: 2%">
                             <span>{{ i.text }}</span>
                         </div>
@@ -208,7 +223,7 @@
                     </div>
                     <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
                         <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
-                            <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="chooseCategory(i2.id, i2.text, i2.icon)">
+                            <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="chooseCategory(i2.code, i2.text, i2.icon)">
                                 <img src="{{apiURL + i2.icon}}" class="padding-right" /> {{i2.text}}
                             </li>
                         </ul>
@@ -237,7 +252,7 @@
                         <div class="col-md-11" (click)="chooseAccount(i.id, i.text)">
                             <span>
                                 <div class="left"> {{ i.text }}</div>
-                                <div class="right"> Balance: {{ i.balance }} Vnd</div>
+                                <div class="right"> Balance: {{ i.balance }} VND</div>
                             </span>
                         </div>
                     </div>
@@ -264,7 +279,7 @@
                         <div class="col-md-11" (click)="chooseToAccount(i.id, i.text)">
                             <span>
                                     <div class="left"> {{ i.text }}</div>
-                                    <div class="right"> Balance: {{ i.balance }} Vnd</div>
+                                    <div class="right"> Balance: {{ i.balance }} VND</div>
                                 </span>
                         </div>
                     </div>
@@ -275,20 +290,20 @@
 </div>
 
 <!-- Modal -->
-<div bsModal #confirmModal="bs-modal" class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div bsModal #informationModal="bs-modal" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Notification</h5>
-                <button type="button" class="close" (click)="confirmModal.hide()" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
             </div>
             <div class="modal-body">
-                Save successfully!
+                {{ msg }}
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="confirmModal.hide()">Close</button>
+                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" *ngIf='success; else other_content' routerLink="/voucher/overview">OK</button>
+                <ng-template #other_content>
+                    <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
+                </ng-template>
             </div>
         </div>
     </div>

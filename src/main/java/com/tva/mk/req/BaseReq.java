@@ -8,6 +8,9 @@ public class BaseReq {
 	@JsonProperty(value = "keyword")
 	private String keyword;
 
+	@JsonProperty(value = "isOptional")
+	private Boolean isOptional;
+
 	// end
 
 	// region -- Get set --
@@ -18,6 +21,14 @@ public class BaseReq {
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+
+	public Boolean getIsOptional() {
+		return isOptional;
+	}
+
+	public void setIsOptional(Boolean isOptional) {
+		this.isOptional = isOptional;
 	}
 
 	// end

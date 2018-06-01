@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -5,6 +7,7 @@ using Xamarin.Forms.Xaml;
 namespace MoneyKeeper.Token
 {
     using Common;
+    using Dto;
     using Views;
 
     /// <summary>
@@ -26,7 +29,7 @@ namespace MoneyKeeper.Token
 
         protected override void OnResume()
         {
-            // Handle when your app resumes
+            MainPage = new Login();
         }
 
         #endregion
@@ -44,6 +47,10 @@ namespace MoneyKeeper.Token
             }
             else
             {
+                var t = Utils.DecodeJwt(Jwt, Const.Authentication.PAYLOAD_NAME);
+                var x = JsonConvert.DeserializeObject<PayloadDto>(t);
+                UUID = x.Uuid;
+
                 Password = Utils.GetVar(Const.Authentication.PIN);
                 if (string.IsNullOrEmpty(Password))
                 {
@@ -69,6 +76,11 @@ namespace MoneyKeeper.Token
         /// Password
         /// </summary>
         public static string Password { get; set; }
+
+        /// <summary>
+        /// Universally unique identifier
+        /// </summary>
+        public static Guid UUID { get; set; }
 
         #endregion
     }

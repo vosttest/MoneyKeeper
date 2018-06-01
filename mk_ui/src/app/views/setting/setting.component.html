@@ -9,13 +9,15 @@
     <div class="row setting-body">
         <div class="col-md-4"></div>
         <div class="col-md-4 text-center">
-            <h2 class="text-center">Setting</h2>
         </div>
         <div class="col-md-4"></div>
     </div>
     <!-- Modal -->
     <div class="modal-dialog" id="reminder">
         <div class="modal-content" style="border:none">
+            <div>
+                <h2 class="text-center">Setting Reminder</h2>
+            </div>
             <div class="form-group text-center">
                 <img class="img-reminder" src="../../../assets/img/reminder.png" />
             </div>
@@ -49,146 +51,176 @@
             </div>
         </div>
     </div>
-    <div class="text-center" id="currency" style="display: none;">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4"> </div>
-                <div class="col-md-4" style="margin-bottom: 5%;">
-                    <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search by currency" />
-                </div>
-                <div class="col-md-4"> </div>
+    <div class="modal-dialog" id="currency" style="display: none;">
+        <div class="modal-content" style="border:none">
+            <div>
+                <h2 class="text-center">Setting Currency</h2>
             </div>
-            <div class="my-contains">
-                <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none">
-                    <div class="col-md-4"> </div>
-                    <div class="col-md-4 row">
-                        <div class="col-md-3">
-                            <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
-                        </div>
-                        <div class="col-md-6"> {{ i.text }} </div>
-                        <div class="col-md-3">
-                            <input type="radio" name="currency" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" checked value="{{ i.value }}" />
-                            <ng-template #elseCurrency>
-                                <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
-                            </ng-template>
-                            {{ i.value }}
-                        </div>
-                    </div>
-                    <div class="col-md-4 "> </div>
+            <div class="form-group text-center">
+                <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search by currency" />
+            </div>
+            <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none">
+                <div class="col-md-3 ">
+                    <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
+                </div>
+                <div class="col-md-6"> {{ i.text }} </div>
+                <div class="col-md-3">
+                    <input type="radio" name="currency" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" checked value="{{ i.value }}" />
+                    <ng-template #elseCurrency>
+                        <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
+                    </ng-template>
+                    {{ i.value }}
                 </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-4"> </div>
-                <div class="col-md-4">
+            <div class="form-group row">
+                <div class="col-md-12">
                     <button type="button" class="btn btn-success btn-block" (click)="saveCurrency()">OK</button>
                 </div>
-                <div class="col-md-4"> </div>
             </div>
         </div>
     </div>
-    <div class="text-center" id="loginAuthen" style="display: none;">
-        <div class="form-group">
-            <img class="img-login-authen" src="../../../assets/img/login_authen.png" />
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4"></div>
-            <div class="col-md-2">
-                On / Off
+    <div class="modal-dialog" id="language" style="display: none;">
+        <div class="modal-content" style="border:none">
+            <div>
+                <h2 class="text-center">Setting Language</h2>
             </div>
-            <div class="col-md-2">
-                <label class="switch" style="float: right;">
-                    <input type="checkbox" [checked]="loginAuthen.status" name="loginAuthenstatus" #loginAuthenstatus="ngModel" [(ngModel)]="loginAuthen.status">
-                    <span class="slider round"></span>
-                </label>
+            <div class="form-group text-center">
+                <input type="text" class="form-control" [(ngModel)]="searchLanguage" placeholder="Search by language" />
             </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="form-group row" *ngIf="loginAuthen.status">
-            <div class="col-md-4"></div>
-            <div class="col-md-2">
-                Authentication type
+            <div *ngFor="let i of dataLanguage | filterSetting: searchLanguage" class="row each-row" style="border: none">
+                <div class="col-md-3">
+                    <img height='40px' src="{{ apiURL1 + i.value + '.png' }}" /> </div>
+                <div class="col-md-6"> {{ i.text }} </div>
+                <div class="col-md-3">
+                    <input type="radio" name="language" *ngIf="i.value === selectedLanguage.value; else elseLanguage" [(ngModel)]="selectedLanguage.value" checked value="{{ i.value }}" />
+                    <ng-template #elseLanguage>
+                        <input type="radio" name="language" [(ngModel)]="selectedLanguage.value" value="{{ i.value }}" />
+                    </ng-template>
+                </div>
             </div>
-            <div class="col-md-2">
-                <select id="loginAuthenType" name="loginAuthenType" #loginAuthenType="ngModel" [(ngModel)]="loginAuthen.type" class="form-control">
-                    <option value="">-- Please Select --</option>
-                    <option value="OTP">OTP</option>
-                    <option value="TOKEN">TOKEN</option>
-                </select>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success btn-block" (click)="saveLanguage()">OK</button>
+                </div>
             </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4"> </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-success btn-block" (click)="saveLoginAuthen()">OK</button>
-            </div>
-            <div class="col-md-4"> </div>
         </div>
     </div>
-    <div class="text-center" id="tranAuthen" style="display: none;">
-        <div class="form-group">
-            <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4"></div>
-            <div class="col-md-2">
-                On / Off
+    <div class="modal-dialog" id="loginAuthen" style="display: none;">
+        <div class="modal-content" style="border:none">
+            <div>
+                <h2 class="text-center">Setting Login Authentication</h2>
             </div>
-            <div class="col-md-2">
-                <label class="switch" style="float: right;">
-                    <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenStatus" #tranAuthenStatus="ngModel" [(ngModel)]="tranAuthen.status">
-                    <span class="slider round"></span>
-                </label>
+            <div class="form-group text-center">
+                <img class="img-login-authen" src="../../../assets/img/login_authen.png" />
             </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="form-group row" *ngIf="tranAuthen.status">
-            <div class="col-md-4"></div>
-            <div class="col-md-2">
-                Authentication type
+            <div class="form-group row">
+                <div class="col-md-5">
+                    On / Off
+                </div>
+                <div class="col-md-7">
+                    <label class="switch" style="float: right;">
+                        <input type="checkbox" [checked]="loginAuthen.status" name="loginAuthenstatus" #loginAuthenstatus="ngModel" [(ngModel)]="loginAuthen.status">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
-            <div class="col-md-2">
-                <select id="tranAuthenType" name="tranAuthenType" #tranAuthenType="ngModel" [(ngModel)]="tranAuthen.type" class="form-control">
-                    <option value="">-- Please Select --</option>
-                    <option value="OTP">OTP</option>
-                    <option value="TOKEN">TOKEN</option>
-                </select>
+            <div class="form-group row" *ngIf="loginAuthen.status">
+                <div class="col-md-5">
+                    Authentication type
+                </div>
+                <div class="col-md-7">
+                    <select id="loginAuthenType" name="loginAuthenType" #loginAuthenType="ngModel" [(ngModel)]="loginAuthen.type" class="form-control">
+                        <option value="">-- Please Select --</option>
+                        <option value="OTP">OTP</option>
+                        <option value="TOKEN">TOKEN</option>
+                    </select>
+                </div>
             </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4"> </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-success btn-block" (click)="saveTranAuthen()">OK</button>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success btn-block" (click)="saveLoginAuthen()">OK</button>
+                </div>
             </div>
-            <div class="col-md-4"> </div>
         </div>
     </div>
-    <div class="text-center" id="lock" style="display: none;">
-        <div class="form-group">
-            <img class="img-login-authen" src="../../../assets/img/lock.png" />
+    <div class="modal-dialog" id="tranAuthen" style="display: none;">
+        <div class="modal-content" style="border:none">
+            <div>
+                <h2 class="text-center">Setting Transaction Authentication</h2>
+            </div>
+            <div class="form-group text-center">
+                <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
+            </div>
+            <div class="form-group row">
+                <div class="col-md-5">
+                    On / Off
+                </div>
+                <div class="col-md-7">
+                    <label class="switch" style="float: right;">
+                        <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenstatus" #tranAuthenstatus="ngModel" [(ngModel)]="tranAuthen.status">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row" *ngIf="tranAuthen.status">
+                <div class="col-md-5">
+                    Authentication type
+                </div>
+                <div class="col-md-7">
+                    <select id="tranAuthenType" name="tranAuthenType" #tranAuthenType="ngModel" [(ngModel)]="tranAuthen.type" class="form-control">
+                        <option value="">-- Please Select --</option>
+                        <option value="OTP">OTP</option>
+                        <option value="TOKEN">TOKEN</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success btn-block" (click)="saveLoginAuthen()">OK</button>
+                </div>
+            </div>
         </div>
-        <div class="form-group row">
-            <div class="col-md-4"></div>
-            <div class="col-md-2">
-                Lock
+    </div>
+    <div class="modal-dialog" id="lock" style="display: none;">
+        <div class="modal-content" style="border:none">
+            <div>
+                <h2 class="text-center">Setting Lock</h2>
             </div>
-            <div class="col-md-2">
-                <label class="switch" style="float: right;">
-                    <input type="checkbox" [checked]="lock.status" name="lockStatus" #lockStatus="ngModel" [(ngModel)]="lock.status">
-                    <span class="slider round"></span>
-                </label>
+            <div class="form-group text-center">
+                <img class="img-login-authen" src="../../../assets/img/lock.png" />
             </div>
-            <div class="col-md-4"></div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4"> </div>
-            <div class="col-md-4">
-                <button type="button" class="btn btn-success btn-block" (click)="saveLock()">OK</button>
+            <div class="form-group row">
+                <div class="col-md-5">
+                    On / Off
+                </div>
+                <div class="col-md-7">
+                    <label class="switch" style="float: right;">
+                        <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenstatus" #tranAuthenstatus="ngModel" [(ngModel)]="tranAuthen.status">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
             </div>
-            <div class="col-md-4"> </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-success btn-block" (click)="saveLock()">OK</button>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<div bsModal #informationModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+            </div>
+            <div class="modal-body">
+                {{ msg }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

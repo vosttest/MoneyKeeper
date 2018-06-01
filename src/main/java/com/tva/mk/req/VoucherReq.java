@@ -7,6 +7,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class VoucherReq {
 	// region -- Fields --
 
+	@JsonProperty(value = "keyword")
+	private String keyword;
+
 	@JsonProperty(value = "id")
 	private Integer id;
 
@@ -18,6 +21,9 @@ public class VoucherReq {
 
 	@JsonProperty(value = "total")
 	private Float total;
+
+	@JsonProperty(value = "transferFee")
+	private Float transferFee;
 
 	@JsonProperty(value = "description")
 	private String description;
@@ -40,6 +46,14 @@ public class VoucherReq {
 	// end
 
 	// region -- Get set --
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
 
 	public Integer getId() {
 		return id;
@@ -71,6 +85,14 @@ public class VoucherReq {
 
 	public void setTotal(Float total) {
 		this.total = total;
+	}
+
+	public Float getTransferFee() {
+		return transferFee;
+	}
+
+	public void setTransferFee(Float transferFee) {
+		this.transferFee = transferFee;
 	}
 
 	public String getDescription() {

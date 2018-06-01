@@ -43,7 +43,7 @@ public class JwtTokenUtil implements Serializable {
 	public String doGenerateToken(Users m, List<SimpleGrantedAuthority> authorities) {
 		Claims claims = Jwts.claims().setSubject(m.getUserName());
 		claims.put("scopes", authorities);
-		claims.put("user", getPayload(m));
+		claims.put(Const.Authentication.PAYLOAD_NAME, getPayload(m));
 
 		return Jwts.builder().setClaims(claims).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + Const.Authentication.TOKEN_TIME * 1000))
@@ -75,6 +75,7 @@ public class JwtTokenUtil implements Serializable {
 		res.setEmail(m.getEmail());
 		res.setContactNo(m.getContactNo());
 		res.setRemarks(m.getRemarks());
+		res.setUuid(m.getUuid());
 
 		return res;
 	}

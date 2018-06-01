@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.CommonService;
+import com.tva.mk.common.Const;
 import com.tva.mk.model.Common;
 import com.tva.mk.req.BaseReq;
 import com.tva.mk.req.CommonReq;
@@ -37,9 +38,16 @@ public class CommonController {
 		try {
 			// Get data
 			String keyword = req.getKeyword();
+			Boolean isOptional = req.getIsOptional();
 
 			// Handle
 			List<Common> tmp = commonService.getBy(keyword);
+
+			if (isOptional != null && isOptional) {
+				Common m = new Common();
+				m.setText(Const.UI.SELECT_OPTION);
+				tmp.add(0, m);
+			}
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MoneyKeeper.Token.Views.About">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <StackLayout Orientation="Horizontal"
+                         BackgroundColor="#62CBBC"
+                         Padding="10">
+                <Label Text="About MK eToken"
+                       HorizontalOptions="Center"
+                       Font="Bold,20"
+                       TextColor="White"
+                       Margin="50,5,0,0"/>
+            </StackLayout>
+            <StackLayout Margin="20,0,0,0">
+                <Label Text="Seri number: 123456789"
+                       TextColor="#FA5A31"/>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Time: "
+                       TextColor="#FA5A31"/>
+                    <Label x:Name="lblTime"
+                       TextColor="#FA5A31"/>
+                </StackLayout>
+                <Label Text="The software on your mobile device provides the OTP code that is unique to your account. Very secure, secure, convenient, unlimited time, place, no network connection to get OTP."/>
+                <StackLayout Orientation="Horizontal"
+                             Margin="0,20,0,0">
+                    <Label Text="Version: "/>
+                    <Label x:Name="lblVersionNumber"/>
+                </StackLayout>
+                <Label Text="Copyright belongs to MK"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

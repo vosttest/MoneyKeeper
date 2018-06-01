@@ -55,3 +55,8 @@ li .right {
 td {
     cursor: pointer;
 }
+
+.table-hover tbody tr:hover {
+    background-color: #1CB09A !important;
+    color: white !important;
+}

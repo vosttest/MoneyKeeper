@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap';
 import { AccountProvider, CommonProvider } from '../../providers/provider';
 
 @Component({
@@ -20,7 +22,11 @@ export class AccountAddComponent implements OnInit {
     public vm: any = { id: '', type: 'ACC001', currency: 'USD', term: 'TRM001', interestPaid: 'IPD002', termEnded: 'TRE002' };
     public message = '';
     public account: any[] = [];
+    public msg = '';
+    public success = false;
     public loader: boolean = false;
+
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     // Datepicker
 
@@ -66,6 +72,7 @@ export class AccountAddComponent implements OnInit {
             this.pickSaveAcc = false;
             this.pickOther = true;
             this.pickAtm = true;
+            this.vm.startDate = new Date();
         }
         else if (va === 'ACC003') {
             this.pickSaveAcc = true;
@@ -83,20 +90,22 @@ export class AccountAddComponent implements OnInit {
 
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/account/overview']);
+                this.msg = 'Save successfully!';
+                this.success = true;
             } else {
-                this.message = rsp.message;
+                this.msg = rsp.message;
+                this.success = false;
             }
+            this.informationModal.show();
 
             this.loader = false;
-        }, err => console.log(err))
+        }, err => console.log(err));
     }
 
     private search() {
         this.loader = true;
 
-        let info = { keyword: '' };
-        this.proAccount.search(info).subscribe((rsp: any) => {
+        this.proAccount.search('').subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
             }

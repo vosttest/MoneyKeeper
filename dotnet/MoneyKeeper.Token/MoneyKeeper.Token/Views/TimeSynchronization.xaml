@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MoneyKeeper.Token.Views.TimeSynchronization">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout BackgroundColor="#E6E8E8">
+                <Label Text="Time Synchronization"
+                       HorizontalOptions="Center"
+                       Font="Bold,20"/>
+            </StackLayout>
+            <Image Source="sync.jpg"
+                   HorizontalOptions="End"
+                   Margin="0,0,20,0"/>
+            <StackLayout Padding="20">
+                <Label Text="Please do the time synchronously in the following cases:" />
+                <Label Text=" - After 3 successive times, the eMK system has reported incorrect authentication code for transaction authentication." />
+                <Label Text=" - Mobile devices that have MK installed have their time zones changed because:" />
+                <Label Text="       + You actively take" />
+                <Label Text="       + Mobile devices change automatically when traveling internationally." />
+                <Label Text="Note: The device needs internet connection when syncing time."/>
+                <Label Text="If after performing the time synchronization, the eMK system still reports incorrect authentication code. Please contact the customer service 24/7 for assistance(0988888888 -  free)"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

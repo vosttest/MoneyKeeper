@@ -24,6 +24,8 @@ public class Const {
 
 		public static final String RSA_PUBLIC = "RSA_PUBLIC_KEY";
 
+		public static final String PAYLOAD_NAME = "user";
+
 		public static final String TOKEN_KEY1 = "E3B51E3A5B0035DDEA2D063728B4C79E39E9F259138CB42481AFA41084DB9F0B";
 
 		public static final String TOKEN_KEY2 = "9C8F616E0317998A10F3518D6272EA31B3CB9FECAA4C9FAF1A2FEDB6B6C2AA9E";
@@ -70,13 +72,19 @@ public class Const {
 
 		public static final String CODE_LOGIN = "SET003";
 
-		public static final String CODE_TOKEN = "TOKEN";
+		public static final String CODE_TRANSACTION = "SET004";
 
-		public static final String CODE_OTP = "OTP";
+		public static final String CODE_LOCK = "SET005";
+
+		public static final String CODE_LANGGUAGE = "SET006";
 
 		public static final String DEFAULT_REMINDER = "20:00";
 
 		public static final String DEFAULT_CURRENCY = "VND";
+
+		public static final String CODE_TOKEN = "TOKEN";
+
+		public static final String CODE_OTP = "OTP";
 	}
 
 	public class Mode {
@@ -213,5 +221,9 @@ public class Const {
 		public static final char Percent = '%';
 
 		public static final char AtSign = '@';
+	}
+
+	public class UI {
+		public static final String SELECT_OPTION = "-- Please select --";
 	}
 }

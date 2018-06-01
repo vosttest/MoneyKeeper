@@ -1,8 +1,0 @@
-POST http://occapp.ddns.net:9999/MkOtp/api/Sms
-Body
-{
-    "Phone": "01645515010",
-    "Message": "Hello Mr. Toan",
-    "User": "qwuupwck8537",
-    "Pass": "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"
-}

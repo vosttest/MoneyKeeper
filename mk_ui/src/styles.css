@@ -222,3 +222,8 @@ ul.available-items {
     overflow-y: scroll;
     max-height: 300px;
 }
+
+.modal-header {
+    background-color: #1CB09A;
+    color: #ffffff;
+}

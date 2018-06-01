@@ -1,7 +1,7 @@
 import { RsaService } from './rsa';
 import { Setting } from './const';
 import { FilterPipe, FilterPipeDashBoard, FilterPipeSetting } from './filter.pipe';
-import { EqualValidatorForgotPassword, EqualValidator } from './equal-validator.directive';
+import { EqualValidatorForgotPassword, EqualValidator, EqualValidatorSignUp } from './equal-validator.directive';
 
 export {
     RsaService,
@@ -10,5 +10,6 @@ export {
     FilterPipeDashBoard,
     FilterPipeSetting,
     EqualValidatorForgotPassword,
-    EqualValidator
+    EqualValidator,
+    EqualValidatorSignUp
 };

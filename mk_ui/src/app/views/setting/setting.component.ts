@@ -14,17 +14,24 @@ import { Setting } from '../../utilities/utility';
 export class SettingComponent implements OnInit {
     public data = [];
     public dataCurrency: any = [];
+    public dataLanguage: any = [];
     public selectedCurrency: any = {};
+    public selectedLanguage: any = {};
     public reminder: any = {};
     public ismeridian = false;
     public isTime = false;
     public apiURL: string = "../../../../assets/img/currency/";
+    public apiURL1: string = "../../../../assets/img/language/";
     public searchCurrency = '';
+    public searchLanguage = '';
     public loginAuthen: any = {};
     public tranAuthen: any = {};
     public lock: any = {};
     public loader: boolean = false;
     public function: string = "reminder";
+    public msg = '';
+
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     constructor(private pro: SettingProvider,
         private act: ActivatedRoute,
@@ -32,7 +39,6 @@ export class SettingComponent implements OnInit {
 
     ngOnInit() {
         this.search();
-
 
         this.act.params.subscribe((params: Params) => {
             document.getElementById(this.function).style.display = "none";
@@ -58,6 +64,11 @@ export class SettingComponent implements OnInit {
                             this.selectedCurrency.id = element.id;
                             this.selectedCurrency.status = element.status;
                             this.selectedCurrency.value = element.value === '' || element.value == null ? 'VND' : element.value;
+                            break;
+                        case Setting.CODE_LANGGUAGE:
+                            this.selectedLanguage.id = element.id;
+                            this.selectedLanguage.status = element.status;
+                            this.selectedLanguage.value = element.value === '' || element.value == null ? 'VN' : element.value;
                             break;
                         case Setting.CODE_LOGIN:
                             this.loginAuthen.type = element.value == null ? '' : element.value;
@@ -90,6 +101,16 @@ export class SettingComponent implements OnInit {
                 console.log(rsp.message);
             }
         }, err => console.log(err));
+
+        this.proCommon.search('Language').subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.dataLanguage = rsp.result.data;
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+
     }
 
     public changeTime() {
@@ -114,9 +135,13 @@ export class SettingComponent implements OnInit {
             "status": this.reminder.status
         }
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success" && rsp.message == "") {
+            if (rsp.status == "success") {
+                this.msg = 'Save successfully!';
                 this.search();
+            } else {
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -129,10 +154,30 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success") {
+                this.msg = 'Save successfully!';
                 this.search();
             } else {
-                alert(rsp.message);
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
+        }, err => console.log(err));
+    }
+
+    public saveLanguage() {
+        let x = {
+            id: this.selectedLanguage.id,
+            value: this.selectedLanguage.value,
+            status: this.selectedLanguage.status
+        }
+
+        this.pro.save(x).subscribe((rsp: any) => {
+            if (rsp.status == "success") {
+                this.msg = 'Save successfully!';
+                this.search();
+            } else {
+                this.msg = rsp.message;
+            }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -147,8 +192,12 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
+                this.msg = 'Save successfully!';
                 this.search();
+            } else {
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -163,8 +212,12 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
+                this.msg = 'Save successfully!';
                 this.search();
+            } else {
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 
@@ -178,8 +231,12 @@ export class SettingComponent implements OnInit {
 
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status == "success" && rsp.message == "") {
+                this.msg = 'Save successfully!';
                 this.search();
+            } else {
+                this.msg = rsp.message;
             }
+            this.informationModal.show();
         }, err => console.log(err));
     }
 }

@@ -18,26 +18,32 @@ export class ChangePasswordComponent implements OnInit {
     public show = false;
     public showConfirm = false;
     public loader: boolean;
-
+    public msg: string = "";
+    public success: boolean = false;
 
     @ViewChild('confirmModal') public confirmModal: ModalDirective;
     @ViewChild('messageModal') public messageModal: ModalDirective;
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
     ngOnInit() { }
 
     public changePassword() {
-        this.confirmModal.hide();
         this.loader = true;
+
         this.pro.changePassword(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/sign-in']);
+                this.confirmModal.hide();
+                this.success = true;
+                this.msg = "Save successfully!";
             } else {
                 this.confirmModal.hide();
-                this.loader = true;
-                this.messageModal.show();
+                this.success = false;
+                this.msg = "Current password is wrong!!!";
             }
+            this.informationModal.show();
+
             this.loader = false;
         }, err => console.log(err));
     }

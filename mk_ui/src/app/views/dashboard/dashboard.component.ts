@@ -10,19 +10,11 @@ import { ModalDirective } from 'ngx-bootstrap';
 
 export class DashboardComponent implements OnInit {
     public account = [];
-    public searchText = '';
     public loader: boolean = false;
     public getReport = [];
-    public multiSelect = [];
-    public vm: any = { total: '', total2: '' };
-    public options: any = [];
+    public vm: any = { accountId: '', total: '', total2: '' };
     public isShow: boolean = false;
-    public message = '';
 
-    config = {
-        displayKey: "text",
-        search: true,
-    };
 
     // Datepicker
 
@@ -30,8 +22,6 @@ export class DashboardComponent implements OnInit {
     maxDate = new Date(2050, 12, 12);
 
     bsValue: Date = new Date();
-
-    @ViewChild('messageModal') public messageModal: ModalDirective;
 
     constructor(private proAcc: AccountProvider,
         private proReport: ReportProvider) { }
@@ -43,18 +33,9 @@ export class DashboardComponent implements OnInit {
     private search() {
         this.loader = false;
 
-        let info = { keyword: '' };
-        this.proAcc.search(info).subscribe((rsp: any) => {
+        this.proAcc.search('', true).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.account = rsp.result.data;
-
-                let name = [];
-                rsp.result.data.forEach(obj => {
-                    let a = { "id": obj.id, "text": obj.text };
-                    name.push(a);
-                });
-
-                this.options = name;
             }
             else {
                 console.log(rsp.message);
@@ -65,14 +46,9 @@ export class DashboardComponent implements OnInit {
     }
 
     public report() {
-        if (this.multiSelect[0] == null) {
-            this.message = 'Choose a Account';
-            return;
-        }
-        this.message = '';
 
         let obj = {
-            accountId: this.multiSelect[0].id,
+            accountId: this.vm.accountId,
             fromDate: this.vm.fromDate,
             toDate: this.vm.toDate
         };

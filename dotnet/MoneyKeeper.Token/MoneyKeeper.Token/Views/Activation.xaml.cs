@@ -3,6 +3,8 @@ using Xamarin.Forms.Xaml;
 
 namespace MoneyKeeper.Token.Views
 {
+    using Dependencies;
+
     /// <summary>
     /// Activation
     /// </summary>
@@ -45,16 +47,10 @@ namespace MoneyKeeper.Token.Views
             code6.Focus();
         }
 
-        private void ResendCode_Tapped(object sender, System.EventArgs e)
+        private void Close_Clicked(object sender, System.EventArgs e)
         {
-            code1.Text = null;
-            code2.Text = null;
-            code3.Text = null;
-            code4.Text = null;
-            code5.Text = null;
-            code6.Text = null;
-
-            code1.Focus();
+            var t = DependencyService.Get<IHelper>();
+            t.Close();
         }
 
         #endregion

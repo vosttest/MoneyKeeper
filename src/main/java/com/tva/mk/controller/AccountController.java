@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.AccountService;
+import com.tva.mk.common.Const;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Account;
@@ -48,9 +49,16 @@ public class AccountController {
 
 			// Get data
 			String keyword = req.getKeyword();
+			Boolean isOptional = req.getIsOptional();
 
 			// Handle
 			List<Account> tmp = accountService.search(id, keyword);
+
+			if (isOptional != null && isOptional) {
+				Account m = new Account();
+				m.setText(Const.UI.SELECT_OPTION);
+				tmp.add(0, m);
+			}
 
 			// Set data
 			Map<String, Object> data = new LinkedHashMap<>();

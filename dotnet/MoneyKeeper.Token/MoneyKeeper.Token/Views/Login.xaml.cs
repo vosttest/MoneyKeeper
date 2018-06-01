@@ -11,6 +11,8 @@ namespace MoneyKeeper.Token.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Login : ContentPage
     {
+        #region -- Methods --
+
         /// <summary>
         /// Initialize
         /// </summary>
@@ -44,5 +46,7 @@ namespace MoneyKeeper.Token.Views
                 }
             }
         }
+
+        #endregion
     }
 }

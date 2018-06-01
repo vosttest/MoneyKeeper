@@ -13,9 +13,10 @@ export class ProfileComponent implements OnInit {
     public vm: any = {};
     public loader: boolean;
     public type = 'MAIL';
+    public msg = '';
 
     @ViewChild('activeCodePopup') public activeCodePopup: ModalDirective;
-    @ViewChild('messageModal') public messageModal: ModalDirective;
+    @ViewChild('informationModal') public informationModal: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
@@ -28,12 +29,11 @@ export class ProfileComponent implements OnInit {
 
         this.pro.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
-                this.rou.navigate(['/dashboard']);
+                this.msg = 'Save successfully!';
             } else {
-                this.messageModal.show()
-                console.log(rsp.message);
+                this.msg = rsp.message;
             }
-
+            this.informationModal.show();
             this.loader = false;
         }, err => console.log(err));
     }
@@ -44,11 +44,11 @@ export class ProfileComponent implements OnInit {
         this.pro.getActiveCode(this.type).subscribe((rsp: any) => {
             if (rsp.status === 'success') {
                 this.activeCodePopup.hide();
+                this.msg = 'Active code have been send!';
             } else {
-                //TODO - Show popup
-                console.log(rsp.message);
+                this.msg = rsp.message;
             }
-
+            this.informationModal.show();
             this.loader = false;
         }, err => console.log(err));
     }

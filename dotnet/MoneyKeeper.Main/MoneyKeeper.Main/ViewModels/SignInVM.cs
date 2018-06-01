@@ -21,6 +21,11 @@ namespace MoneyKeeper.Main.ViewModels
         {
             Title = "Sign In";
 
+#if DEBUG
+            UserName = "vost.test";
+            Password = "Qwerty123!";
+#endif
+
             SignInCmd = new Command(async () => await ExeSignInCmd());
         }
 

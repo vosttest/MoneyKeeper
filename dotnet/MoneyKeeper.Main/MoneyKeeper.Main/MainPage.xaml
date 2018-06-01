@@ -1,12 +1,63 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MoneyKeeper.Main"
-             x:Class="MoneyKeeper.Main.MainPage">
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!"
-               HorizontalOptions="Center"
-               VerticalOptions="CenterAndExpand"/>
-    </StackLayout>
-</ContentPage>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="MoneyKeeper.Main.MainPage">
+    <MasterDetailPage.Master>
+        <ContentPage Title="Menu">
+            <Grid BackgroundColor="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Image Source="logo.png"
+                           Aspect="Fill"/>
+                    <!--<StackLayout Padding="0,20,0,20"
+                                 HorizontalOptions="CenterAndExpand"
+                                 VerticalOptions="CenterAndExpand">
+                        <Image Source="moneyKeeper.png"
+                               Aspect="AspectFill"
+                               WidthRequest="60"
+                               HeightRequest="60"/>
+                        <Label Text="Money Keeper"
+                               TextColor="White"
+                               FontSize="Large"/>
+                    </StackLayout>-->
+                </Grid>
+                <StackLayout Grid.Row="1"
+                             Spacing="15">
+                    <ListView x:Name="lstMenu"
+                              RowHeight="55"
+                              SeparatorVisibility="None"
+                              BackgroundColor="#e8e8e8"
+                              ItemSelected="LstMenu_ItemSelected">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <StackLayout VerticalOptions="FillAndExpand"
+                                                     Orientation="Horizontal"
+                                                     Padding="20,10,0,20"
+                                                     Spacing="20">
+                                            <Image Source="{Binding Icon}"
+                                                   WidthRequest="40"
+                                                   HeightRequest="40"
+                                                   VerticalOptions="Start"/>
+                                            <Label Text="{Binding Title}"
+                                                   FontSize="Small"
+                                                   VerticalOptions="End"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <NavigationPage>
+        </NavigationPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

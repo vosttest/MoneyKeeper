@@ -16,9 +16,15 @@ export class AccountProvider {
     /**
      * Search by
      * @param type
+     * @param isOptional
      */
-    public search(info: any) {
-        return this.api.post('account/search', info);
+    public search(type: string, isOptional: boolean = false) {
+        let x = {
+            'keyword': type,
+            'isOptional': isOptional
+        };
+
+        return this.api.post('account/search', x);
     }
 
     /**

@@ -19,16 +19,16 @@
                 <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && save()" class="full-width">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <p>Account Name</p>
+                            <p>Account Name <span class="text-danger">*</span></p>
                             <input name="text" #text="ngModel" [(ngModel)]="vm.text" type="text" class="form-control" required>
                             <span [hidden]="text.valid || (text.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Please input Account name.!
+                                <i class="fa fa-exclamation-triangle"></i> Required!
                             </span>
                         </div>
                         <div class="form-group col-md-6">
                             <p>Type</p>
                             <select name="type" (change)="checkType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
-                                <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
+                                <option [hidden]="i.id == null || i.id == ''" *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
                             </select>
                         </div>
                     </div>
@@ -38,7 +38,7 @@
                             <input name="bank" #bank="ngModel" [(ngModel)]="vm.bank" type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
-                            <p>Transfer money from account</p>
+                            <p>Transfer Money From Account</p>
                             <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
                                 <option *ngFor="let i of account" value="{{i.id}}">
                                     <div class="left"> {{ i.text }}</div>
@@ -49,10 +49,10 @@
                     </div>
                     <div class="row" [hidden]="pickOther">
                         <div class="form-group col-md-6">
-                            <p>Initial Balance</p>
+                            <p>Initial Balance <span class="text-danger">*</span></p>
                             <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                             <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Please input balance account!
+                                <i class="fa fa-exclamation-triangle"></i> Required!
                             </span>
                         </div>
                         <div class="form-group col-md-6">
@@ -64,10 +64,10 @@
                     </div>
                     <div class="row" [hidden]="pickSaveAcc">
                         <div class="form-group col-md-6">
-                            <p>Balance</p>
+                            <p>Balance <span class="text-danger">*</span></p>
                             <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                             <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Please input balance account!
+                                <i class="fa fa-exclamation-triangle"></i> Required!
                             </span>
                         </div>
                         <div class="form-group col-md-6">
@@ -80,7 +80,7 @@
                     <div class="row" [hidden]="pickSaveAcc">
                         <div class="form-group col-md-6">
                             <p>Start Date</p>
-                            <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.startDate" type="text" class="form-control">
+                            <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.startDate" type="text" class="form-control">
                         </div>
                         <div class="form-group col-md-6">
                             <p>Term</p>
@@ -91,7 +91,7 @@
                     </div>
                     <div class="row" [hidden]="pickSaveAcc">
                         <div class="form-group col-md-6">
-                            <p>Interest rate</p>
+                            <p>Interest Rate</p>
                             <input name="interestRate" #interestRate="ngModel" [(ngModel)]="vm.interestRate" type="text" class="form-control" placeholder="%/year">
                         </div>
                         <div class="form-group col-md-6">
@@ -103,7 +103,7 @@
                     </div>
                     <div class="row" [hidden]="pickSaveAcc">
                         <div class="form-group col-md-6">
-                            <p>Interest rate free</p>
+                            <p>Interest Rate Free</p>
                             <input name="interestRateFree" #interestRateFree="ngModel" [(ngModel)]="vm.interestRateFree" type="text" class="form-control" placeholder="%/year">
                         </div>
                         <div class="form-group col-md-6">
@@ -126,3 +126,22 @@
         </div>
     </div>
 </section>
+
+<div bsModal #informationModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" id="informationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Information</h5>
+            </div>
+            <div class="modal-body">
+                {{ msg }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" *ngIf='success; else other_content' routerLink="/account/overview">OK</button>
+                <ng-template #other_content>
+                    <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>

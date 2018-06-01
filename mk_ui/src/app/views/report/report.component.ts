@@ -10,18 +10,11 @@ import { Utils } from '../../utils';
 
 export class ReportComponent implements OnInit {
     public getReport = [];
-    public multiSelect = [];
-    public vm: any = { total: '', total2: '' };
-    public options: any = [];
+    public account = [];
+    public vm: any = { accountId: '', total: '', total2: '' };
     public loader: boolean;
     public isShow: boolean = false;
     public message = '';
-    public message2 = '';
-
-    config = {
-        displayKey: "text",
-        search: true,
-    };
 
     // Datepicker
 
@@ -40,16 +33,10 @@ export class ReportComponent implements OnInit {
 
     private search() {
         this.loader = true;
-        let info = { keyword: '' };
-        this.proAcc.search(info).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                let name = [];
-                rsp.result.data.forEach(obj => {
-                    let a = { "id": obj.id, "text": obj.text };
-                    name.push(a);
-                });
 
-                this.options = name;
+        this.proAcc.search('', true).subscribe((rsp: any) => {
+            if (rsp.status === 'success') {
+                this.account = rsp.result.data;
             }
             else {
                 console.log(rsp.message);
@@ -61,14 +48,8 @@ export class ReportComponent implements OnInit {
     public report() {
         this.loader = true;
 
-        if (this.multiSelect[0] == null) {
-            this.message2 = 'Choose a Account';
-            return;
-        }
-        this.message2 = '';
-
         let obj = {
-            accountId: this.multiSelect[0].id,
+            accountId: this.vm.accountId,
             fromDate: this.vm.fromDate,
             toDate: this.vm.toDate
         };

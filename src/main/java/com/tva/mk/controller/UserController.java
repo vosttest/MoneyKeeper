@@ -138,7 +138,7 @@ public class UserController {
 						break;
 					}
 				} else {
-					userService.verifyToken(clientKey, userId, token);
+					userService.verifyToken(clientKey, userId, token, m.getUuid());
 
 					List<SimpleGrantedAuthority> z = userService.getRole(m.getId());
 					String t1 = jwtTokenUtil.doGenerateToken(m, z);
