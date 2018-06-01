@@ -1,0 +1,37 @@
+{
+    "name": "English - United States",
+    "data": [
+        {
+            "code": "E101",
+            "text": "Duplicate data"
+        },
+        {
+            "code": "E102",
+            "text": "Id does not exist"
+        },
+        {
+            "code": "E201",
+            "text": "Invalid client key"
+        },
+        {
+            "code": "E202",
+            "text": "Token has expired"
+        },
+        {
+            "code": "E203",
+            "text": "Token is not match"
+        },
+        {
+            "code": "L0001",
+            "text": "User Name"
+        },
+        {
+            "code": "L0002",
+            "text": "Password"
+        },
+        {
+            "code": "L0003",
+            "text": "Email"
+        }
+    ]
+}

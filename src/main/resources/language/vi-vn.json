@@ -1,0 +1,37 @@
+{
+    "name": "Tiếng Việt - Việt Nam",
+    "data": [
+        {
+            "code": "E101",
+            "text": "Trùng dữ liệu"
+        },
+        {
+            "code": "E102",
+            "text": "Id không tồn tại"
+        },
+        {
+            "code": "E201",
+            "text": "Khoá không hợp lệ"
+        },
+        {
+            "code": "E202",
+            "text": "Mã hết hạn"
+        },
+        {
+            "code": "E203",
+            "text": "Mã không khớp"
+        },
+        {
+            "code": "L0001",
+            "text": "Tên Người Dùng"
+        },
+        {
+            "code": "L0002",
+            "text": "Mật Khẩu"
+        },
+        {
+            "code": "L0003",
+            "text": "Thư"
+        }
+    ]
+}
