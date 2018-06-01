@@ -12,7 +12,8 @@
             <Label Text="Accounts"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand"/>
-            <ListView  x:Name="LstAccount"
+            <ListView  x:Name="LstAccount" 
+                       ItemSelected="LstAccount_ItemSelected"
                        ItemsSource="{Binding Accounts, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

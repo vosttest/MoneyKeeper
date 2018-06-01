@@ -29,15 +29,16 @@ namespace MoneyKeeper.Main
             var m6 = new MenuModel { Title = "Settings", Icon = "setting.png", Target = typeof(Settings) };
             lstMenu.ItemsSource = new List<MenuModel> { m1, m2, m3, m4, m5, m6 };
 
-            Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(Dashboard)));
+            var v = (Page)Activator.CreateInstance(typeof(Dashboard));
+            Detail = new NavigationPage(v);
         }
 
         private void LstMenu_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            var item = (MenuModel)e.SelectedItem;
-            Type page = item.Target;
+            var m = e.SelectedItem as MenuModel;
+            var v = (Page)Activator.CreateInstance(m.Target);
+            Detail = new NavigationPage(v);
 
-            Detail = new NavigationPage((Page)Activator.CreateInstance(page));
             IsPresented = false;
         }
 
