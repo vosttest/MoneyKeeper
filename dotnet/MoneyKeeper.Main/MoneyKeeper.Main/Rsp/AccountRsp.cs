@@ -1,11 +1,14 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace MoneyKeeper.Main.Rsp
 {
+    using Dto;
+
     /// <summary>
-    /// Sign in response
+    /// Account response
     /// </summary>
-    public class SignInRsp : BaseRsp
+    public class AccountRsp : BaseRsp
     {
         #region -- Properties --
 
@@ -21,11 +24,11 @@ namespace MoneyKeeper.Main.Rsp
         {
             #region -- Properties --
 
-            [JsonProperty("authen")]
-            public bool Authen { get; set; }
+            [JsonProperty("count")]
+            public int Count { get; set; }
 
-            [JsonProperty("key")]
-            public string Key { get; set; }
+            [JsonProperty("data")]
+            public List<AccountDto> Data { get; set; }
 
             #endregion
         }

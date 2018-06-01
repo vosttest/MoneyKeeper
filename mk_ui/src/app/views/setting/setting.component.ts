@@ -195,13 +195,19 @@ export class SettingComponent implements OnInit {
             "status": this.loginAuthen.status
         }
 
+        if (this.loginAuthen.status === Const.STATUS_INACTIVE) {
+            x.value = null;
+        }
+
         this.pro.save(x).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
+
                 this.msg = "Save successfully!";
                 this.search();
             } else {
                 this.msg = rsp.message;
             }
+
             this.informationModal.show();
         }, err => console.log(err));
     }
@@ -213,6 +219,10 @@ export class SettingComponent implements OnInit {
             "id": this.tranAuthen.id,
             "value": this.tranAuthen.type,
             "status": this.tranAuthen.status
+        }
+
+        if (this.tranAuthen.status === Const.STATUS_INACTIVE) {
+            x.value = null;
         }
 
         this.pro.save(x).subscribe((rsp: any) => {

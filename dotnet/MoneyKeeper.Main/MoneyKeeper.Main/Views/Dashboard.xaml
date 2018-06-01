@@ -1,12 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MoneyKeeper.Main.Views.Dashboard">
+             xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
+             x:Class="MoneyKeeper.Main.Views.Dashboard"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:DashboardVM/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Dashboard!"
+            <Label Text="Accounts"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand"/>
+            <ListView  x:Name="LstAccount"
+                       ItemsSource="{Binding Accounts, Mode=TwoWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eeeeee"
+                                         Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Text}"
+                                           TextColor="#f35e20"/>
+                                    <Label Text="{Binding Balance}"
+                                           HorizontalOptions="EndAndExpand"
+                                           TextColor="#503026"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

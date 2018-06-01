@@ -27,16 +27,16 @@
             <table class="table table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="7">
                 <thead>
                     <tr>
-                        <th style="width: 5%">
+                        <!-- <th style="width: 5%">
                             <mfDefaultSorter by="text">No</mfDefaultSorter>
-                        </th>
+                        </th> -->
                         <th style="width: 40%">
                             <mfDefaultSorter by="text">Account Name</mfDefaultSorter>
                         </th>
                         <th style="width: 40%">
                             <mfDefaultSorter by="balance">Balance</mfDefaultSorter>
                         </th>
-                        <th style="width: 10%">
+                        <th style="width: 15%">
                             <mfDefaultSorter by="createOn">Create Date</mfDefaultSorter>
                         </th>
                         <th style="width: 5%">
@@ -46,7 +46,7 @@
                 </thead>
                 <tbody *ngFor="let i of mf.data | filter : searchText; let count = index">
                     <tr>
-                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ count + 1 }}</td>
+                        <!-- <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ count + 1 }}</td> -->
                         <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.text }}</td>
                         <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.balance | number:'0.0-0'}} {{ i.currency }}</td>
                         <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.createOn| date:'dd-MMM-yyyy' }}</td>

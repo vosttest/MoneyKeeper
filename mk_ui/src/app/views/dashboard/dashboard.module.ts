@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { FormsModule } from '@angular/forms';
-import { TimepickerModule } from 'ngx-bootstrap';
-import { BsDatepickerModule } from 'ngx-bootstrap';
+import { TimepickerModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { FilterPipeDashBoard } from '../../utilities/utility';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { FilterPipeDashBoard } from '../../utilities/utility';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 @NgModule({
     imports: [
@@ -18,8 +17,8 @@ import { SelectDropDownModule } from 'ngx-select-dropdown';
         TimepickerModule.forRoot(),
         BsDatepickerModule.forRoot(),
         ModalModule.forRoot(),
-        DashboardRoutingModule,
-        SelectDropDownModule
+        SelectDropDownModule,
+        DashboardRoutingModule
     ],
     declarations: [
         DashboardComponent,

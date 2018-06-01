@@ -113,6 +113,9 @@
             <div class="form-group text-center">
                 <img class="img-login-authen" src="../../../assets/img/login_authen.png" />
             </div>
+            <div class="form-group">
+                Configure login security options to control access to your account.
+            </div>
             <div class="form-group row">
                 <div class="col-md-5">
                     On / Off
@@ -151,6 +154,9 @@
             <div class="form-group text-center">
                 <img class="img-login-authen" src="../../../assets/img/tran_authen.jpg" />
             </div>
+            <div class="form-group">
+                Configure transaction security options to control to your transactions.
+            </div>
             <div class="form-group row">
                 <div class="col-md-5">
                     On / Off
@@ -176,7 +182,7 @@
             </div>
             <div class="form-group row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-success btn-block" (click)="saveLoginAuthen()">OK</button>
+                    <button type="button" class="btn btn-success btn-block" (click)="saveTranAuthen()">OK</button>
                 </div>
             </div>
         </div>
@@ -189,13 +195,16 @@
             <div class="form-group text-center">
                 <img class="img-login-authen" src="../../../assets/img/lock.png" />
             </div>
+            <div class="form-group">
+                Lock update the month before the current month.
+            </div>
             <div class="form-group row">
                 <div class="col-md-5">
                     On / Off
                 </div>
                 <div class="col-md-7">
                     <label class="switch" style="float: right;">
-                        <input type="checkbox" [checked]="tranAuthen.status" name="tranAuthenstatus" #tranAuthenstatus="ngModel" [(ngModel)]="tranAuthen.status">
+                        <input type="checkbox" [checked]="lock.status" name="lockstatus" #lockstatus="ngModel" [(ngModel)]="lock.status">
                         <span class="slider round"></span>
                     </label>
                 </div>

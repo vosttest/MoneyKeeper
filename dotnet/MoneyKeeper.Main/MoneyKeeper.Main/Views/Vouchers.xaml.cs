@@ -4,24 +4,19 @@ using Xamarin.Forms.Xaml;
 namespace MoneyKeeper.Main.Views
 {
     /// <summary>
-    /// Dashboard
+    /// Vouchers
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Dashboard : ContentPage
+    public partial class Vouchers : ContentPage
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public Dashboard()
+        public Vouchers()
         {
             InitializeComponent();
-        }
-
-        private void LstAccount_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            //TODO
         }
 
         #endregion
