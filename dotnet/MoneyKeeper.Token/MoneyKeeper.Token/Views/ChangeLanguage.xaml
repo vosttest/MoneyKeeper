@@ -7,7 +7,7 @@
             <StackLayout Orientation="Horizontal"
                          BackgroundColor="#62CBBC"
                          Padding="10">
-                <Label Text="Change Password"
+                <Label Text="Change language"
                        HorizontalOptions="Center"
                        Font="Bold,20"
                        TextColor="White"

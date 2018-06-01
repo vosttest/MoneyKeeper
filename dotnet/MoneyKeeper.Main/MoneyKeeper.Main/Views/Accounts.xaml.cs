@@ -9,6 +9,8 @@ namespace MoneyKeeper.Main.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Accounts : ContentPage
     {
+        #region -- Methods --
+
         /// <summary>
         /// Initialize
         /// </summary>
@@ -16,5 +18,7 @@ namespace MoneyKeeper.Main.Views
         {
             InitializeComponent();
         }
+
+        #endregion
     }
 }

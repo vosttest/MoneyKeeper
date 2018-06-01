@@ -47,18 +47,6 @@ namespace MoneyKeeper.Token.Views
             code6.Focus();
         }
 
-        private void ResendCode_Tapped(object sender, System.EventArgs e)
-        {
-            code1.Text = null;
-            code2.Text = null;
-            code3.Text = null;
-            code4.Text = null;
-            code5.Text = null;
-            code6.Text = null;
-
-            code1.Focus();
-        }
-
         private void Close_Clicked(object sender, System.EventArgs e)
         {
             var t = DependencyService.Get<IHelper>();

@@ -21,8 +21,8 @@ namespace MoneyKeeper.Main
         {
             InitializeComponent();
 
-            var m1 = new MenuModel { Title = "Dashboard", Icon = "moneyKeeper.png", Target = typeof(Dashboard) };
-            var m2 = new MenuModel { Title = "Account", Icon = "moneyKeeper.png", Target = typeof(Accounts) };
+            var m1 = new MenuModel { Title = "Dashboard", Icon = "icon.png", Target = typeof(Dashboard) };
+            var m2 = new MenuModel { Title = "Account", Icon = "icon.png", Target = typeof(Accounts) };
             lstMenu.ItemsSource = new List<MenuModel> { m1, m2 };
 
             Detail = new NavigationPage((Page)Activator.CreateInstance(typeof(SignIn)));

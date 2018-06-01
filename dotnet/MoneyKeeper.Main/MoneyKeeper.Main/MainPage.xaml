@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:MoneyKeeper.Main"
-             x:Class="MoneyKeeper.Main.MainPage">
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  x:Class="MoneyKeeper.Main.MainPage">
     <MasterDetailPage.Master>
         <ContentPage Title="Menu">
             <Grid BackgroundColor="Transparent">
@@ -11,7 +10,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid>
-                    <Image Source="moneyKeeper.png"
+                    <Image Source="logo.png"
                            Aspect="Fill"/>
                     <!--<StackLayout Padding="0,20,0,20"
                                  HorizontalOptions="CenterAndExpand"
