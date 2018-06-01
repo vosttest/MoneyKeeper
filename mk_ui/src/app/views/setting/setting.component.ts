@@ -3,7 +3,7 @@ import { SettingProvider, CommonProvider } from '../../providers/provider';
 import { ModalDirective, TimepickerModule } from 'ngx-bootstrap';
 import { element } from 'protractor';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { Setting } from '../../utilities/utility';
+import { HTTP, Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-setting',
@@ -12,30 +12,35 @@ import { Setting } from '../../utilities/utility';
 })
 
 export class SettingComponent implements OnInit {
-    public data = [];
+    public data: any = [];
     public dataCurrency: any = [];
     public dataLanguage: any = [];
+
     public selectedCurrency: any = {};
     public selectedLanguage: any = {};
     public reminder: any = {};
-    public ismeridian = false;
-    public isTime = false;
-    public apiURL: string = "../../../../assets/img/currency/";
-    public apiURL1: string = "../../../../assets/img/language/";
-    public searchCurrency = '';
-    public searchLanguage = '';
     public loginAuthen: any = {};
     public tranAuthen: any = {};
     public lock: any = {};
-    public loader: boolean = false;
-    public function: string = "reminder";
-    public msg = '';
 
-    @ViewChild('informationModal') public informationModal: ModalDirective;
+    public isMeridian = false;
+    public isTime = false;
+    public loader: boolean = false;
+
+    public searchCurrency = "";
+    public searchLanguage = "";
+    public function: string = "reminder";
+    public msg = "";
+
+    public imgURL: string = "../../../../assets/img/";
+    public imgCurrencyURL: string = this.imgURL + "currency/";
+    public imgLanguageURL: string = this.imgURL + "language/";
+
+    @ViewChild("informationModal") public informationModal: ModalDirective;
 
     constructor(private pro: SettingProvider,
-        private act: ActivatedRoute,
-        private proCommon: CommonProvider) { }
+        private proCommon: CommonProvider,
+        private act: ActivatedRoute) { }
 
     ngOnInit() {
         this.search();
@@ -50,38 +55,38 @@ export class SettingComponent implements OnInit {
     private search() {
         this.loader = true;
         this.pro.search().subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.data = rsp.result.data;
 
                 this.data.forEach(element => {
                     switch (element.code) {
                         case Setting.CODE_REMINDER:
                             this.reminder.time = new Date(element.value);
-                            this.reminder.status = element.status == 'ACT' ? true : false;
+                            this.reminder.status = element.status == "ACT" ? true : false;
                             this.reminder.id = element.id;
                             break;
                         case Setting.CODE_CURRENCY:
                             this.selectedCurrency.id = element.id;
                             this.selectedCurrency.status = element.status;
-                            this.selectedCurrency.value = element.value === '' || element.value == null ? 'VND' : element.value;
+                            this.selectedCurrency.value = element.value === "" || element.value == null ? "VND" : element.value;
                             break;
                         case Setting.CODE_LANGGUAGE:
                             this.selectedLanguage.id = element.id;
                             this.selectedLanguage.status = element.status;
-                            this.selectedLanguage.value = element.value === '' || element.value == null ? 'VN' : element.value;
+                            this.selectedLanguage.value = element.value === "" || element.value == null ? "VN" : element.value;
                             break;
                         case Setting.CODE_LOGIN:
-                            this.loginAuthen.type = element.value == null ? '' : element.value;
-                            this.loginAuthen.status = element.status == 'ACT' ? true : false;
+                            this.loginAuthen.type = element.value == null ? "" : element.value;
+                            this.loginAuthen.status = element.status == "ACT" ? true : false;
                             this.loginAuthen.id = element.id;
                             break;
                         case Setting.CODE_TRANSACTION:
-                            this.tranAuthen.type = element.value == null ? '' : element.value;
-                            this.tranAuthen.status = element.status == 'ACT' ? true : false;
+                            this.tranAuthen.type = element.value == null ? "" : element.value;
+                            this.tranAuthen.status = element.status == "ACT" ? true : false;
                             this.tranAuthen.id = element.id;
                             break;
                         case Setting.CODE_LOCK:
-                            this.lock.status = element.status == 'ACT' ? true : false;
+                            this.lock.status = element.status == "ACT" ? true : false;
                             this.lock.id = element.id;
                             break;
                     }
@@ -93,8 +98,8 @@ export class SettingComponent implements OnInit {
             this.loader = false;
         }, err => console.log(err));
 
-        this.proCommon.search('Currency').subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.proCommon.search("Currency").subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.dataCurrency = rsp.result.data;
             }
             else {
@@ -102,8 +107,8 @@ export class SettingComponent implements OnInit {
             }
         }, err => console.log(err));
 
-        this.proCommon.search('Language').subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.proCommon.search("Language").subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.dataLanguage = rsp.result.data;
             }
             else {
@@ -127,7 +132,7 @@ export class SettingComponent implements OnInit {
             this.isTime = true;
             return;
         }
-        this.reminder.status = this.reminder.status ? 'ACT' : 'INA';
+        this.reminder.status = this.reminder.status ? "ACT" : "INA";
         this.reminder.time = this.reminder.time.toISOString();
         let x = {
             "id": this.reminder.id,
@@ -135,8 +140,8 @@ export class SettingComponent implements OnInit {
             "status": this.reminder.status
         }
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success") {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.search();
             } else {
                 this.msg = rsp.message;
@@ -153,8 +158,8 @@ export class SettingComponent implements OnInit {
         }
 
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success") {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.search();
             } else {
                 this.msg = rsp.message;
@@ -171,8 +176,8 @@ export class SettingComponent implements OnInit {
         }
 
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success") {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.search();
             } else {
                 this.msg = rsp.message;
@@ -182,7 +187,7 @@ export class SettingComponent implements OnInit {
     }
 
     public saveLoginAuthen() {
-        this.loginAuthen.status = this.loginAuthen.status ? 'ACT' : 'INA';
+        this.loginAuthen.status = this.loginAuthen.status ? "ACT" : "INA";
 
         let x = {
             "id": this.loginAuthen.id,
@@ -191,8 +196,8 @@ export class SettingComponent implements OnInit {
         }
 
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success" && rsp.message == "") {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.search();
             } else {
                 this.msg = rsp.message;
@@ -202,7 +207,7 @@ export class SettingComponent implements OnInit {
     }
 
     public saveTranAuthen() {
-        this.tranAuthen.status = this.tranAuthen.status ? 'ACT' : 'INA';
+        this.tranAuthen.status = this.tranAuthen.status ? "ACT" : "INA";
 
         let x = {
             "id": this.tranAuthen.id,
@@ -211,8 +216,8 @@ export class SettingComponent implements OnInit {
         }
 
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success" && rsp.message == "") {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.search();
             } else {
                 this.msg = rsp.message;
@@ -222,7 +227,7 @@ export class SettingComponent implements OnInit {
     }
 
     public saveLock() {
-        this.lock.status = this.lock.status ? 'ACT' : 'INA';
+        this.lock.status = this.lock.status ? "ACT" : "INA";
 
         let x = {
             "id": this.lock.id,
@@ -230,8 +235,8 @@ export class SettingComponent implements OnInit {
         }
 
         this.pro.save(x).subscribe((rsp: any) => {
-            if (rsp.status == "success" && rsp.message == "") {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.search();
             } else {
                 this.msg = rsp.message;

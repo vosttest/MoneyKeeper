@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserProvider } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
 import { NgForm } from '@angular/forms';
+import { HTTP } from '../../utilities/utility';
 
 import * as $ from 'jquery';
 
@@ -12,21 +13,22 @@ import * as $ from 'jquery';
 })
 
 export class SignInComponent implements OnInit {
-    public vm: any = { userName: '', password: '', clientKey: '', token: '' };
-    public vm1: any = { email: '' }
+    public vm: any = { userName: "", password: "", clientKey: "", token: "" };
+    public vm1: any = { email: "" }
+
     public loader: boolean = false;
-    public message = '';
     public isDisabled = true;
     public show = false;
-    public token = '';
 
-    @ViewChild('forgotPassModal') public forgotPassModal: ModalDirective;
-    @ViewChild('accessTokenModal') public accessTokenModal: ModalDirective;
+    public message = "";
+    public token = "";
+
+    @ViewChild("forgotPassModal") public forgotPassModal: ModalDirective;
+    @ViewChild("accessTokenModal") public accessTokenModal: ModalDirective;
 
     constructor(private pro: UserProvider) { }
 
-    ngOnInit() {
-    }
+    ngOnInit() { }
 
     public signIn() {
         this.loader = true;
@@ -40,16 +42,24 @@ export class SignInComponent implements OnInit {
         };
 
         this.pro.signIn(obj).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.message = '';
-                // authen: F: without login authen, T: with login authen
-                if (!rsp.result.authen) {// When login authentication inactive
-                    this.pro.saveAuth(rsp.result.key); // Response JWT -> log in success
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.message = "";
+
+                if (!rsp.result.authen) {
+                    this.pro.saveAuth(rsp.result.key); // save JWT
                 } else {
-                    this.vm.clientKey = rsp.result.key; // Response client key
-                    this.vm.codeNumber1 = this.vm.codeNumber2 = this.vm.codeNumber3 = this.vm.codeNumber4 = this.vm.codeNumber5 = this.vm.codeNumber6 = null;
+                    this.vm.clientKey = rsp.result.key; // client key
+
+                    this.vm.codeNumber1 = null;
+                    this.vm.codeNumber2 = null;
+                    this.vm.codeNumber3 = null;
+                    this.vm.codeNumber4 = null;
+                    this.vm.codeNumber5 = null;
+                    this.vm.codeNumber6 = null;
+
                     this.isDisabled = true;
                     this.show = true;
+
                     this.accessTokenModal.show();
                     setTimeout(function () {
                         document.getElementById("codeNumber1").focus();
@@ -63,25 +73,25 @@ export class SignInComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public cancelAccessTokenModal(){
-        $('#codeNumber1').val(null);
-        $('#codeNumber2').val(null);
-        $('#codeNumber3').val(null);
-        $('#codeNumber4').val(null);
-        $('#codeNumber5').val(null);
-        $('#codeNumber6').val(null);
+    public cancelAccessTokenModal() {
+        $("#codeNumber1").val(null);
+        $("#codeNumber2").val(null);
+        $("#codeNumber3").val(null);
+        $("#codeNumber4").val(null);
+        $("#codeNumber5").val(null);
+        $("#codeNumber6").val(null);
         this.accessTokenModal.hide();
     }
 
     public sendEmailVerificationLink(valid: boolean) {
-        if(!valid){
+        if (!valid) {
             return;
         }
-        
+
         this.loader = true;
         let obj = { keyword: this.vm1.email };
         this.pro.verifyMail(obj).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 alert("Please check mail box to change your password!");
             } else {
                 let msg = rsp.message;
@@ -95,7 +105,7 @@ export class SignInComponent implements OnInit {
     public proceedClick() {
         this.loader = true;
 
-        if (this.token.length < 5) {
+        if (this.token.length < 6) {
             return;
         }
 
@@ -107,8 +117,8 @@ export class SignInComponent implements OnInit {
             sendToken: false
         };
         this.pro.signIn(obj).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.message = '';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.message = "";
                 this.pro.saveAuth(rsp.result.key);
             } else {
                 this.message = rsp.message;
@@ -122,48 +132,49 @@ export class SignInComponent implements OnInit {
         this.isDisabled = true;
         let element = $event.target.nextElementSibling;
         let value = $event.target.value;
-        let value2 = $event.key;
+        let key = $event.key;
+
         switch (inputNumber) {
-            case 'input1':
+            case "input1":
                 if (value.length > 1) {
-                    $('#codeNumber1').val(value2);
+                    $("#codeNumber1").val(key);
                 }
-                this.vm.codeNumber1 = value2;
+                this.vm.codeNumber1 = key;
                 break;
 
-            case 'input2':
+            case "input2":
                 if (value.length > 1) {
-                    $('#codeNumber2').val(value2);
+                    $("#codeNumber2").val(key);
                 }
-                this.vm.codeNumber2 = value2.toString();
+                this.vm.codeNumber2 = key.toString();
                 break;
 
-            case 'input3':
+            case "input3":
                 if (value.length > 1) {
-                    $('#codeNumber3').val(value2);
+                    $("#codeNumber3").val(key);
                 }
-                this.vm.codeNumber3 = value2.toString();
+                this.vm.codeNumber3 = key.toString();
                 break;
 
-            case 'input4':
+            case "input4":
                 if (value.length > 1) {
-                    $('#codeNumber4').val(value2);
+                    $("#codeNumber4").val(key);
                 }
-                this.vm.codeNumber4 = value2.toString();
+                this.vm.codeNumber4 = key.toString();
                 break;
 
-            case 'input5':
+            case "input5":
                 if (value.length > 1) {
-                    $('#codeNumber5').val(value2);
+                    $("#codeNumber5").val(key);
                 }
-                this.vm.codeNumber5 = value2.toString();
+                this.vm.codeNumber5 = key.toString();
                 break;
 
-            case 'input6':
+            case "input6":
                 if (value.length > 1) {
-                    $('#codeNumber6').val(value2);
+                    $("#codeNumber6").val(key);
                 }
-                this.vm.codeNumber6 = value2.toString();
+                this.vm.codeNumber6 = key.toString();
                 break;
         }
 

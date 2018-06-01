@@ -38,7 +38,7 @@
                 <div class="col-md-6">Time</div>
                 <div class="col-md-3"></div>
                 <div class="col-md-3 top-time-picker" style="float: right">
-                    <timepicker [(ngModel)]="reminder.time" [showMeridian]="ismeridian" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
+                    <timepicker [(ngModel)]="reminder.time" [showMeridian]="isMeridian" name="time" ng-model-options="{standalone: true}" (ngModelChange)="changeTime()"></timepicker>
                     <span *ngIf="isTime" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                         <i class="fa fa-exclamation-triangle"></i> Invalid time!
                     </span>
@@ -61,7 +61,7 @@
             </div>
             <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none">
                 <div class="col-md-3 ">
-                    <img height='40px' src="{{ apiURL + i.value + '.png' }}" />
+                    <img height='40px' src="{{ imgCurrencyURL + i.value + '.png' }}" />
                 </div>
                 <div class="col-md-6"> {{ i.text }} </div>
                 <div class="col-md-3">
@@ -89,7 +89,7 @@
             </div>
             <div *ngFor="let i of dataLanguage | filterSetting: searchLanguage" class="row each-row" style="border: none">
                 <div class="col-md-3">
-                    <img height='40px' src="{{ apiURL1 + i.value + '.png' }}" /> </div>
+                    <img height='40px' src="{{ imgLanguageURL + i.value + '.png' }}" /> </div>
                 <div class="col-md-6"> {{ i.text }} </div>
                 <div class="col-md-3">
                     <input type="radio" name="language" *ngIf="i.value === selectedLanguage.value; else elseLanguage" [(ngModel)]="selectedLanguage.value" checked value="{{ i.value }}" />
