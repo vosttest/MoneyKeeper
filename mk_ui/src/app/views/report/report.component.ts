@@ -85,10 +85,11 @@ export class ReportComponent implements OnInit {
 
         this.getReport.forEach(i => {
             let item = {
+                "No.": no++,
                 "Type": i.type,
                 "Categories": i.text,
                 "Amount": i.amount,
-                "Start Date": this.utl.formatDate(i.startDate, 'dd-MMM-yyyy HH:mm')
+                "Start Date": this.utl.formatDate(i.startDate, 'dd-MMM-yyyy')
             };
             tmp.push(item);
         });
