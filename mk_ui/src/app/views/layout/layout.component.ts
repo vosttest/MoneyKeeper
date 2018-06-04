@@ -25,6 +25,7 @@ export class LayoutComponent implements OnInit {
         for (var i = 0; i < this.cssNav.length; i++) {
             this.cssNav[i].removeAttribute("tabindex");
         }
+    }
 
     private view() {
         this.pro.view().subscribe((rsp: any) => {
