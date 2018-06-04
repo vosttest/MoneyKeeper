@@ -11,7 +11,7 @@ import com.tva.mk.model.VoucherDetail;
 public interface VoucherDetailDao extends CrudRepository<VoucherDetail, Integer> {
 
 	@Query("FROM VoucherDetail a WHERE a.voucherId = :voucherId")
-	public List<VoucherDetail> getBy(@Param("voucherId") int voucherId);
+	public VoucherDetail getBy(@Param("voucherId") int voucherId);
 
 	@Query(nativeQuery = true, value = "SELECT * FROM getvouchers(:accountId, :voucherId)")
 	public List<Object[]> getVouchersDetail(@Param("accountId") int accountId, @Param("voucherId") int voucherId);

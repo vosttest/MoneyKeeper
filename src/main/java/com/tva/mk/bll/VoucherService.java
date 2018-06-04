@@ -33,9 +33,22 @@ public class VoucherService {
 
 	// region -- Methods --
 
-	public Voucher getById(int id) {
-		Voucher res = voucherDao.getBy(id);
-		return res;
+	public VoucherDetailDto getById(int id, int userId) {
+		Voucher res1 = voucherDao.getBy(id, userId);
+		VoucherDetail res2 = voucherDetailDao.getBy(res1.getId());
+		
+		VoucherDetailDto t2 = new VoucherDetailDto();
+		t2.setAccountId(res1.getAccountId());
+		t2.setAmount(Double.parseDouble(res2.getAmount().toString()));
+		t2.setDescription(res1.getDescription());
+		t2.setCategoryText(res2.getCategory());
+		t2.setType(res1.getType());
+		t2.setPayee(res1.getPayee());
+		t2.setPayer(res1.getPayer());
+		t2.setStartDate(res1.getStartDate());
+		t2.setToAccount(res1.getToAccount());
+		
+		return t2;
 	}
 
 	public List<ReportDto> getReports(int accountId, Date fromDate, Date toDate) {
@@ -101,7 +114,6 @@ public class VoucherService {
 			t2.setCategoryText((item[11].toString()));
 			t2.setIcon(item[12].toString());
 			t2.setAccountText(item[13].toString());
-			t2.setId(Integer.parseInt(item[14].toString()));
 
 			lstVoucher.add(t2);
 			t1.setVoucherDetail(lstVoucher);
@@ -142,7 +154,7 @@ public class VoucherService {
 			m2.setCategory(category);
 			voucherDetailDao.save(m2);
 		} else {
-			m1 = voucherDao.getBy(id);
+			m1 = voucherDao.getBy(id, userId);
 			if (m1 == null) {
 				res = "Id does not exist";
 			} else {
@@ -156,6 +168,7 @@ public class VoucherService {
 				m1.setPayee(m.getPayee());
 				m1.setUserId(userId);
 				m1.setStartDate(m.getStartDate());
+				m1.setToAccount(m.getToAccount());
 
 				voucherDao.save(m1);
 

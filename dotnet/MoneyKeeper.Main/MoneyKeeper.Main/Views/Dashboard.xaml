@@ -51,7 +51,7 @@
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding Text}"
                                            TextColor="#f35e20"/>
-                                    <Label Text="{Binding Balance, StringFormat=' {0:n0}'}"
+                                    <Label Text="{Binding BalanceCurrency}"
                                            HorizontalOptions="EndAndExpand"
                                            TextColor="#503026"/>
                                 </StackLayout>

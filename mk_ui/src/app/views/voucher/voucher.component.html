@@ -36,7 +36,7 @@
                             </div>
                         </div>
                         <div *ngFor="let j of i.voucherDetail">
-                            <div class="row list pointer" routerLink="/voucher-edit/{{j.voucherId}}-{{j.id}}">
+                            <div class="row list pointer" routerLink="/voucher-edit/{{j.voucherId}}">
                                 <div class="col-md-1">
                                     <img src="{{apiURL + j.icon}}" />
                                 </div>
@@ -252,7 +252,7 @@
                         <div class="col-md-11" (click)="chooseAccount(i.id, i.text)">
                             <span>
                                 <div class="left"> {{ i.text }}</div>
-                                <div class="right"> Balance: {{ i.balance }} VND</div>
+                                <div class="right" currencyMask> Balance: {{ i.balance | number:'0.0-0'}} {{ i.currency }} VND</div>
                             </span>
                         </div>
                     </div>

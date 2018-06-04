@@ -7,6 +7,8 @@ namespace MoneyKeeper.Main.ViewModels
 {
     using Common;
     using Req;
+    using Views;
+    using Views.Shared;
 
     /// <summary>
     /// Sign in view model
@@ -56,8 +58,12 @@ namespace MoneyKeeper.Main.ViewModels
                 {
                     if (res.Result.Authen)
                     {
-                        //TODO
-                        await main.DisplayAlert("Information", "Please do not use token...", "OK");
+                        var key = res.Result.Key;
+                        var t = new Popup()
+                        {
+                            Content = new TokenPopup(UserName, Password, key)
+                        };
+                        await main.Navigation.PushModalAsync(t);
                     }
                     else
                     {

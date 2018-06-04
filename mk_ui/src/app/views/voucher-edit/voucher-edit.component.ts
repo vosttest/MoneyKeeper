@@ -11,9 +11,9 @@ import {
 import { ModalDirective } from 'ngx-bootstrap';
 
 @Component({
-  selector: 'app-voucher-edit',
-  templateUrl: './voucher-edit.component.html',
-  styleUrls: ['./voucher-edit.component.css']
+    selector: 'app-voucher-edit',
+    templateUrl: './voucher-edit.component.html',
+    styleUrls: ['./voucher-edit.component.css']
 })
 export class VoucherEditComponent implements OnInit {
     public lstParent = [];
@@ -29,11 +29,11 @@ export class VoucherEditComponent implements OnInit {
 
     public vm: any = { type: 'Expense', total: null, accountId: null, description: " ", payee: " ", payer: " ", toAccount: null, startDate: new Date() };
     public cm: any = {};
-    public date: any= {};
-    public voucher2: any={};
+    public date: any = {};
+    public voucher2: any = {};
     public selectedCategory = { code: '', text: '-- Select Category --', icon: '' };
     public selectedAccount = { accountId: 0, text: '-- Select Account --' };
-    
+
     public isCheck: boolean;
     public isExpense: boolean = false;
     public isIncome: boolean = false;
@@ -61,31 +61,36 @@ export class VoucherEditComponent implements OnInit {
     minDate = new Date(2018, 1, 1);
     maxDate = new Date(2050, 12, 12);
 
-  constructor(private proExpense: ExpenseProvider,
-    private proIncome: IncomeProvider,
-    private proAccount: AccountProvider,
-    private proVoucher: VoucherProvider,
-    private rou: Router,
-    private act: ActivatedRoute) { }
+    constructor(private proExpense: ExpenseProvider,
+        private proIncome: IncomeProvider,
+        private proAccount: AccountProvider,
+        private proVoucher: VoucherProvider,
+        private rou: Router,
+        private act: ActivatedRoute) { }
 
-  ngOnInit() {
-    const param = this.act.snapshot.paramMap.get('id');
+    ngOnInit() {
+        const param = this.act.snapshot.paramMap.get('id');
 
-    this.getExpense();
-    this.getAccount();
-    this.hideShow('Expense');
-    this.searchAccount();
-  }
+        this.proVoucher.getVoucher(param).subscribe((rsp: any) => {
+            console.log(rsp);
+            this.vm = rsp.result.data;
+        })
 
-  public getExpense() {
-    this.proExpense.search().subscribe((rsp: any) => {
-        if (rsp.status === HTTP.STATUS_SUCCESS) {
-            this.lstParent = this.lstParentTmp = rsp.result.parent;
-            this.lstChild = this.lstChildTmp = rsp.result.child;
-        } else {
-            this.message = rsp.message;
-        }
-    }, err => console.log(err));
+        this.getExpense();
+        this.getAccount();
+        this.hideShow('Expense');
+        this.searchAccount();
+    }
+
+    public getExpense() {
+        this.proExpense.search().subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.lstParent = this.lstParentTmp = rsp.result.parent;
+                this.lstChild = this.lstChildTmp = rsp.result.child;
+            } else {
+                this.message = rsp.message;
+            }
+        }, err => console.log(err));
     }
 
     public getAccount() {
@@ -248,6 +253,6 @@ export class VoucherEditComponent implements OnInit {
             this.informationModal.show();
 
             this.loader = false;
-            }, err => console.log(err));
-        }
+        }, err => console.log(err));
     }
+}

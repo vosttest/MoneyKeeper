@@ -3,10 +3,10 @@ DROP FUNCTION IF EXISTS get_account();
 
 -- 2. Create function
 CREATE OR REPLACE FUNCTION get_account(keyword VARCHAR, uid INT4)
-RETURNS TABLE(id INT4, code VARCHAR, text VARCHAR, balance FLOAT8) AS $body$
+RETURNS TABLE(id INT4, code VARCHAR, text VARCHAR, balance FLOAT8, currency VARCHAR) AS $body$
 BEGIN
 RETURN QUERY
-	SELECT a.id, a.type, a.text, a.balance + COALESCE(b.total, 0) as balance FROM account a
+	SELECT a.id, a.type, a.text, a.balance + COALESCE(b.total, 0) as balance, a.currency FROM account a
 	LEFT JOIN	(
 					SELECT account_id, SUM(CASE WHEN type = 'Income' THEN total ELSE -total END) as total
 					FROM voucher

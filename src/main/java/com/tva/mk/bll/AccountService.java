@@ -53,6 +53,7 @@ public class AccountService {
 			t.setCode((String) i[1]);
 			t.setText((String) i[2]);
 			t.setBalance((double) i[3]);
+			t.setCurrency((String) i[4]);
 			res.add(t);
 		}
 

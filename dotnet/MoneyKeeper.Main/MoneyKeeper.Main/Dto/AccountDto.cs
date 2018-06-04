@@ -22,6 +22,17 @@ namespace MoneyKeeper.Main.Dto
         [JsonProperty("balance")]
         public double Balance { get; set; }
 
+        [JsonProperty("currency")]
+        public string Currency { get; set; }
+
+        public string BalanceCurrency
+        {
+            get
+            {
+                return $"{Balance:n0} {Currency}";
+            }
+        }
+
         #endregion
     }
 

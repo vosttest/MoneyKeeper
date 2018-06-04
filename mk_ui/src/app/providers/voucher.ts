@@ -26,4 +26,8 @@ export class VoucherProvider {
     public search(info: any) {
         return this.api.post('voucher/search', info);
     }
+
+    public getVoucher(id: any) {
+        return this.api.get('voucher/getVoucher/' + id);
+    }
 }
