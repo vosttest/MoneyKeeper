@@ -63,14 +63,14 @@ public class VoucherService {
 		int count = 0;
 		for (Object[] item : t) {
 			SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
-			Date abc = new Date();
+			Date t3 = new Date();
 			try {
-				abc = fo.parse(item[0].toString());
+				t3 = fo.parse(item[0].toString());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			int a = date.compareTo(abc);
+			int a = date.compareTo(t3);
 			if (a > 0) {
 				date = (Date) item[0];
 				if (t1.getStartDate() == null) {
@@ -101,6 +101,7 @@ public class VoucherService {
 			t2.setCategoryText((item[11].toString()));
 			t2.setIcon(item[12].toString());
 			t2.setAccountText(item[13].toString());
+			t2.setId(Integer.parseInt(item[14].toString()));
 
 			lstVoucher.add(t2);
 			t1.setVoucherDetail(lstVoucher);

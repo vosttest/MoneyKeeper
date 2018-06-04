@@ -119,6 +119,7 @@ export class VoucherComponent implements OnInit {
                 this.voucher = rsp.result.data;
             } else {
                 this.message = rsp.message;
+                console.log(this.voucher)
             }
         }, err => console.log(err));
     }

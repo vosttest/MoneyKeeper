@@ -20,4 +20,5 @@ public interface VoucherDao extends CrudRepository<Voucher, Integer> {
 	@Query(nativeQuery = true, value = "SELECT * FROM get_report(:accountId, :fromDate, :toDate)")
 	public List<Object[]> getReports(@Param("accountId") int accountId, @Param("fromDate") Date fromDate,
 			@Param("toDate") Date toDate);
+
 }

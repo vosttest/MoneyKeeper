@@ -36,7 +36,7 @@ const routes: Routes = [
                     path: 'voucher/:function',
                     loadChildren: './views/voucher/voucher.module#VoucherModule'
                 }, {
-                    path: 'voucher-edit',
+                    path: 'voucher-edit/:id',
                     loadChildren: './views/voucher-edit/voucher-edit.module#VoucherEditModule'
                 }, {
                     path: 'change-password',

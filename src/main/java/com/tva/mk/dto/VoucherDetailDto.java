@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class VoucherDetailDto {
 	// region -- Fields --
 
+	@JsonProperty(value = "id")
+	private Integer id;
+
 	@JsonProperty(value = "voucherId")
 	private Integer voucherId;
 
@@ -47,6 +50,14 @@ public class VoucherDetailDto {
 	// end
 
 	// region -- Get set --
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getVoucherId() {
 		return voucherId;
