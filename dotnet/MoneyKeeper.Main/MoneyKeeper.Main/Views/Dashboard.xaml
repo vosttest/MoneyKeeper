@@ -9,10 +9,27 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <ListView ItemsSource="{Binding ListOfPeople}"
+                      IsGroupingEnabled="true">
+                <ListView.GroupHeaderTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding Heading}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.GroupHeaderTemplate>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Label Text="{Binding DisplayName}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <Label Text="Accounts"
                    VerticalOptions="CenterAndExpand"
                    HorizontalOptions="CenterAndExpand"/>
-            <ListView  x:Name="LstAccount" 
+            <ListView  x:Name="LstAccount"
                        ItemSelected="LstAccount_ItemSelected"
                        ItemsSource="{Binding Accounts, Mode=TwoWay}">
                 <ListView.ItemTemplate>
@@ -23,7 +40,7 @@
                                 <StackLayout Orientation="Horizontal">
                                     <Label Text="{Binding Text}"
                                            TextColor="#f35e20"/>
-                                    <Label Text="{Binding Balance}"
+                                    <Label Text="{Binding Balance, StringFormat=' {0:n0}'}"
                                            HorizontalOptions="EndAndExpand"
                                            TextColor="#503026"/>
                                 </StackLayout>
