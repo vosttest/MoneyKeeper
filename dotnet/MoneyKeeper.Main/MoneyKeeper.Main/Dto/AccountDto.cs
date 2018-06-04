@@ -13,14 +13,14 @@ namespace MoneyKeeper.Main.Dto
         [JsonProperty("id")]
         public int Id { get; set; }
 
-        [JsonProperty("type")]
+        [JsonProperty("code")]
         public string Type { get; set; }
 
         [JsonProperty("text")]
         public string Text { get; set; }
 
         [JsonProperty("balance")]
-        public float? Balance { get; set; }
+        public double Balance { get; set; }
 
         #endregion
     }

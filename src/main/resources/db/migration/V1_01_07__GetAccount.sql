@@ -8,10 +8,10 @@ BEGIN
 RETURN QUERY
 	SELECT a.id, a.type, a.text, a.balance + COALESCE(b.total, 0) as balance FROM account a
 	LEFT JOIN	(
-					SELECT account_id, type, sum(total)*(CASE WHEN type = 'Income' THEN 1 ELSE -1 END) as total
+					SELECT account_id, SUM(CASE WHEN type = 'Income' THEN total ELSE -total END) as total
 					FROM voucher
 					WHERE user_id = uid
-					GROUP BY account_id, type
+					GROUP BY account_id
 				) b ON a.id = b.account_id
 	WHERE a.user_id = uid
 	AND a.is_deleted = FALSE

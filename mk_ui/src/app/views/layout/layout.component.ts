@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserProvider } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-layout',
@@ -10,21 +11,31 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 export class LayoutComponent implements OnInit {
 
-    @ViewChild('confirmModal') public confirmModal: ModalDirective;
+    @ViewChild("confirmModal") public confirmModal: ModalDirective;
 
     constructor(public rou: Router, private pro: UserProvider) { }
     public count: any = 0;
     public cssNav: any;
     public isMenuLeft: boolean = false;
+    public currentUser = "";
 
     ngOnInit() {
+        this.view();
         this.cssNav = document.getElementsByClassName("nav-item");
         for (var i = 0; i < this.cssNav.length; i++) {
             this.cssNav[i].removeAttribute("tabindex");
         }
 
-        // this.rou.navigate(['/dashboard']);
+    private view() {
+        this.pro.view().subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.currentUser = rsp.result.firstName + " " + rsp.result.lastName;
+            } else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
     }
+   
 
     ngAfterViewChecked() {
         if (this.isMenuLeft) {
@@ -76,7 +87,7 @@ export class LayoutComponent implements OnInit {
         }
 
         document.getElementById(str).style.backgroundColor = "#1CB09A";
-        this.rou.navigate(['/' + str]);
+        this.rou.navigate(["/" + str]);
     }
 }
 

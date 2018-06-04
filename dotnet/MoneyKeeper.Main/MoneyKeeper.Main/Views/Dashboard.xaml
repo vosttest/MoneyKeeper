@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
+             xmlns:forms="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms"
              x:Class="MoneyKeeper.Main.Views.Dashboard"
              Title="{Binding Title}">
     <ContentPage.BindingContext>
@@ -9,6 +10,16 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout>
+                <StackLayout BackgroundColor="Black">
+                    <Label Text="Accounts"
+                           TextColor="White"
+                           HorizontalTextAlignment="Center"
+                           Font="20"/>
+                </StackLayout>
+                <forms:ChartView x:Name="ChartAccount"
+                                 HeightRequest="200"/>
+            </StackLayout>
             <ListView ItemsSource="{Binding ListOfPeople}"
                       IsGroupingEnabled="true">
                 <ListView.GroupHeaderTemplate>
