@@ -3,7 +3,6 @@ package com.tva.mk.controller;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +22,7 @@ import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Common;
 import com.tva.mk.model.Setting;
-import com.tva.mk.rsp.BaseRsp;
+import com.tva.mk.req.ExchangeRateReq;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -107,19 +106,32 @@ public class SettingController {
 
 	@GetMapping("/exrate")
 	public ResponseEntity<?> exrate() {
-		BaseRsp res = new BaseRsp();
+		SingleRsp res = new SingleRsp();
 
 		try {
+			// Get data
 			String url = Const.Setting.EXRATE_URL;
-			Map<String, Object> t = Utils.readXML(url);
+			List<ExchangeRateReq> t = Utils.readXML(url);
 
-			for (Entry<String, Object> e : t.entrySet()) {
+			// Handle
+			for (ExchangeRateReq item : t) {
+				// Add or update exchange rate
 				Common m = new Common();
 				m.setType("ExchangeRate");
-				m.setValue(e.getKey());
-				m.setText(e.getValue().toString());
+				m.setValue(item.getValue());
+				m.setText(item.getRate());
+				commonService.save(m);
+
+				// Add or update currency
+				m = new Common();
+				m.setType("Currency");
+				m.setValue(item.getValue());
+				m.setText(item.getName());
 				commonService.save(m);
 			}
+
+			// Set data
+			res.setResult(t);
 		} catch (Exception e) {
 			res.setError(e.getMessage());
 		}

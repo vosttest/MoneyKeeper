@@ -6,13 +6,12 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
@@ -29,6 +28,7 @@ import org.w3c.dom.NodeList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tva.mk.dto.PayloadDto;
+import com.tva.mk.req.ExchangeRateReq;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
@@ -249,8 +249,8 @@ public class Utils {
 		return res;
 	}
 
-	public static Map<String, Object> readXML(String xml) throws Exception {
-		Map<String, Object> res = new LinkedHashMap<>();
+	public static List<ExchangeRateReq> readXML(String xml) throws Exception {
+		List<ExchangeRateReq> res = new ArrayList<>();
 
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -263,9 +263,18 @@ public class Utils {
 				Node nNode = nList.item(temp);
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					// Get data
 					Element eElement = (Element) nNode;
+					String value = eElement.getAttribute("CurrencyCode");
+					String rate = eElement.getAttribute("Transfer");
+					String name = eElement.getAttribute("CurrencyName");
 
-					res.put(eElement.getAttribute("CurrencyCode"), eElement.getAttribute("Transfer"));
+					// Set data
+					ExchangeRateReq t = new ExchangeRateReq();
+					t.setValue(value);
+					t.setRate(rate);
+					t.setName(name);
+					res.add(t);
 				}
 			}
 		} catch (Exception e) {

@@ -46,7 +46,7 @@ public class CommonService {
 	}
 
 	/**
-	 * Use for insert exchange rate
+	 * Add new common if not exist, update if type & value exist. (value is unique)
 	 * 
 	 * @param m
 	 * @return
@@ -55,7 +55,8 @@ public class CommonService {
 		String res = "";
 
 		String type = m.getType();
-		Common m1 = commonDao.getExrate(type, m.getValue());
+		String value = m.getValue();
+		Common m1 = commonDao.getUnique(type, value);
 		if (m1 == null) {
 			Integer sequence = commonDao.getNextSeq(type);
 			m.setSequence(sequence == null ? 1 : sequence);

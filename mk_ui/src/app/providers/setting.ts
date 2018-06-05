@@ -22,4 +22,11 @@ export class SettingProvider {
     public save(info: any) {
         return this.api.post('setting/save', info);
     }
+
+    /**
+     * Get exchange rate
+     */
+    public exrate() {
+        return this.api.get('setting/exrate');
+    }
 }

@@ -17,7 +17,6 @@ import { HTTP } from '../../utilities/utility';
 })
 
 export class VoucherComponent implements OnInit {
-    public vm: any = { keyword: "", type: "Expense", total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
     public cm: any = {};
     public lstParent = [];
     public lstChild = [];
@@ -29,19 +28,23 @@ export class VoucherComponent implements OnInit {
     public toAccount = [];
     public voucher = [];
 
+    public vm: any = { keyword: "", type: "Expense", total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
     public selectedCategory = { code: "", text: "-- Please Select --", icon: "" };
     public selectedAccount = { accountId: 0, text: "-- Please Select --" };
     public selectedToAccount = { accountId: 0, text: "-- Please Select --" };
-    public message = "";
+
     public isCheck: boolean;
     public isExpense: boolean = false;
     public isIncome: boolean = false;
     public isTransfer: boolean = false;
     public isAdjustment: boolean = false;
-    public labelObj: string = "";
-    public function = "overview";
-    public apiURL: string = "../../../assets/img/";
     public loader: boolean = false;
+
+
+    public apiURL: string = "../../../assets/img/";
+    public labelObj: string = "";
+    public message = "";
+    public function = "overview";
     public msg = "";
     public success = false;
     // public isShow: boolean = true;

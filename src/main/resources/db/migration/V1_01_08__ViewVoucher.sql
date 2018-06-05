@@ -3,18 +3,18 @@ DROP FUNCTION IF EXISTS view_voucher();
 
 -- 2. Create function
 CREATE OR REPLACE FUNCTION view_voucher(vid INT4, uid INT4)
-RETURNS TABLE(id INT4, type VARCHAR, total FLOAT8, payee VARCHAR, payer VARCHAR, start_date TIMESTAMP, description VARCHAR, account VARCHAR, category TEXT) AS $body$
+RETURNS TABLE(id INT4, type VARCHAR, total FLOAT8, payee VARCHAR, payer VARCHAR, start_date TIMESTAMP, description VARCHAR, account VARCHAR, category TEXT, category_code VARCHAR, account_id INT4) AS $body$
 BEGIN
 RETURN QUERY
-	SELECT v.id, v.type, v.total, v.payee, v.payer, v.start_date, v.description, a.text AS account, b.text AS category
+	SELECT v.id, v.type, v.total, v.payee, v.payer, v.start_date, v.description, a.text AS account, b.text AS category, b.category AS category_code, v.account_id
 	FROM voucher v
 	JOIN account a ON v.account_id = a.id
 	JOIN	(
-				SELECT voucher_id, array_to_string(ARRAY_AGG(c.text), ',') AS text
+				SELECT voucher_id, array_to_string(ARRAY_AGG(c.text), ',') AS text, vd.category
 				FROM voucher_detail vd
 				JOIN common c ON vd.category = c.value
 				WHERE voucher_id = vid
-				GROUP BY voucher_id
+				GROUP BY voucher_id, vd.category
 			) b ON v.id = b.voucher_id
 	WHERE v.id = vid AND v.user_id = uid;
 END;

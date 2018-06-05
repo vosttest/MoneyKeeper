@@ -50,6 +50,8 @@ public class VoucherService {
 			t2.setDescription((String) t[6]);
 			t2.setAccountText((String) t[7]);
 			t2.setCategoryText((String) t[8]);
+			t2.setCategory((String) t[9]);
+			t2.setAccountId((int) t[10]);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -178,8 +180,7 @@ public class VoucherService {
 
 				voucherDao.save(m1);
 
-				VoucherDetail m2 = new VoucherDetail();
-				m2.setVoucherId(m1.getId());
+				VoucherDetail m2 = voucherDetailDao.getBy(m1.getId());
 				m2.setAmount(m.getTotal());
 				m2.setCategory(category);
 

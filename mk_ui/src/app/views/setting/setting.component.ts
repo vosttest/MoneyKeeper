@@ -14,6 +14,7 @@ import { Const, HTTP, Type, Setting } from '../../utilities/utility';
 export class SettingComponent implements OnInit {
     public data: any = [];
     public dataCurrency: any = [];
+    public dataExrate: any = [];
     public dataLanguage: any = [];
 
     public selectedCurrency: any = {};
@@ -98,18 +99,31 @@ export class SettingComponent implements OnInit {
             this.loader = false;
         }, err => console.log(err));
 
-        this.proCommon.search(Type.CURRENCY).subscribe((rsp: any) => {
+        this.updateCurrency();
+
+        this.proCommon.search(Type.LANGUAGE).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
-                this.dataCurrency = rsp.result.data;
+                this.dataLanguage = rsp.result.data;
             }
             else {
                 console.log(rsp.message);
             }
         }, err => console.log(err));
+    }
 
-        this.proCommon.search(Type.LANGUAGE).subscribe((rsp: any) => {
+    public updateCurrency() {
+        this.pro.exrate().subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
-                this.dataLanguage = rsp.result.data;
+                this.dataExrate = rsp.result;
+
+                this.proCommon.search(Type.CURRENCY).subscribe((rsp: any) => {
+                    if (rsp.status === HTTP.STATUS_SUCCESS) {
+                        this.dataCurrency = rsp.result.data;
+                    }
+                    else {
+                        console.log(rsp.message);
+                    }
+                }, err => console.log(err));
             }
             else {
                 console.log(rsp.message);

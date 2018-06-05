@@ -44,8 +44,8 @@ export class VoucherEditComponent implements OnInit {
     public id = 0;
 
     public imgURL: string = "../../../assets/img/";
-    public message = '';
     public labelObj: string = "";
+    public message = '';
     public function = "overview";
     public labelAccountId = 'Account';
     public msg = "";
@@ -76,6 +76,8 @@ export class VoucherEditComponent implements OnInit {
             this.id = this.vm.id;
             this.selectedCategory.text = this.vm.categoryText;
             this.selectedAccount.text = this.vm.accountText;
+            this.selectedCategory.code = this.vm.category;
+            this.selectedAccount.accountId = this.vm.accountId;
         })
 
         this.getExpense();
@@ -206,6 +208,7 @@ export class VoucherEditComponent implements OnInit {
     }
 
     public save() {
+        alert(this.selectedAccount.accountId);
         if (this.vm.type == 'Transfer') {
             if (this.selectedCategory.code === '' || this.selectedAccount.accountId === 0) {
                 return;
@@ -217,7 +220,7 @@ export class VoucherEditComponent implements OnInit {
             }
         }
         let obj = {
-            id: 0,
+            id: this.id,
             description: this.vm.description,
             accountId: this.selectedAccount.accountId,
             payee: this.vm.payee,

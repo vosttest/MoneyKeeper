@@ -43,6 +43,9 @@ public class VoucherDetailDto {
 	@JsonProperty(value = "categoryText")
 	private String categoryText;
 
+	@JsonProperty(value = "category")
+	private String category;
+
 	@JsonProperty(value = "icon")
 	private String icon;
 
@@ -150,6 +153,14 @@ public class VoucherDetailDto {
 
 	public void setCategoryText(String categoryText) {
 		this.categoryText = categoryText;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getIcon() {
