@@ -24,8 +24,7 @@ namespace MoneyKeeper.Main.ViewModels
         {
             Title = "Dashboard";
 
-            _accounts = new List<AccountDto>();
-            _list = new List<AccountList>();
+            _accounts = new List<AccountList>();
 
             Task.Run(async () => await ExeLoadCmd());
         }
@@ -50,38 +49,19 @@ namespace MoneyKeeper.Main.ViewModels
 
                 if (res.Status == Const.HTTP.STATUS_SUCCESS)
                 {
-                    Accounts = res.Result.Data;
+                    var x = res.Result.Data;
+                    var l = new List<AccountList>();
 
-                    var t1 = Accounts.Select(p => p.Type).Distinct().ToList();
+                    var t1 = x.Select(p => p.Type).Distinct().ToList();
                     foreach (var i in t1)
                     {
-                        var t2 = Accounts.Where(p => p.Type == i).ToList();
-
-                        var l = new AccountList { Heading = i };
-                        l.Accounts.AddRange(t2);
-                        List.Add(l);
+                        var t2 = x.Where(p => p.Type == i).ToList();
+                        var o = new AccountList { Heading = i };
+                        o.Accounts.AddRange(t2);
+                        l.Add(o);
                     }
 
-                    #region -- Test data --
-                    var l1 = new PersonList {
-                        new Person() { FirstName = "Sally", LastName = "Sampson" },
-                        new Person() { FirstName = "Taylor", LastName = "Swift" },
-                        new Person() { FirstName = "John", LastName = "Smith" }
-                    };
-                    l1.Heading = "S";
-
-                    var l2 = new PersonList {
-                        new Person() { FirstName = "Jane", LastName = "Doe" }
-                    };
-                    l2.Heading = "D";
-
-                    var l3 = new PersonList {
-                        new Person() { FirstName = "Billy", LastName = "Joel" }
-                    };
-                    l3.Heading = "J";
-
-                    ListOfPeople = new List<PersonList> { l1, l2, l3 };
-                    #endregion
+                    Accounts = l;
                 }
                 else
                 {
@@ -100,34 +80,12 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Properties --
 
         /// <summary>
-        /// List account
+        /// Account list
         /// </summary>
-        public List<AccountDto> Accounts
+        public List<AccountList> Accounts
         {
             get { return _accounts; }
             set { SetProperty(ref _accounts, value); }
-        }
-
-        /// <summary>
-        /// Account list
-        /// </summary>
-        public List<AccountList> List
-        {
-            get { return _list; }
-            set { SetProperty(ref _list, value); }
-        }
-
-        /// <summary>
-        /// List of people
-        /// </summary>
-        public List<PersonList> ListOfPeople
-        {
-            get { return _listOfPeople; }
-            set
-            {
-                _listOfPeople = value;
-                base.OnPropertyChanged();
-            }
         }
 
         #endregion
@@ -135,19 +93,9 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Fields --
 
         /// <summary>
-        /// List account
-        /// </summary>
-        private List<AccountDto> _accounts;
-
-        /// <summary>
         /// Account list
         /// </summary>
-        private List<AccountList> _list;
-
-        /// <summary>
-        /// Person list
-        /// </summary>
-        private List<PersonList> _listOfPeople;
+        private List<AccountList> _accounts;
 
         #endregion
     }

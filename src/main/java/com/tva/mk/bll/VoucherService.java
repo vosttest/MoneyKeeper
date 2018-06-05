@@ -34,20 +34,26 @@ public class VoucherService {
 	// region -- Methods --
 
 	public VoucherDetailDto getById(int id, int userId) {
-		Voucher res1 = voucherDao.getBy(id, userId);
-		VoucherDetail res2 = voucherDetailDao.getBy(res1.getId());
-		
 		VoucherDetailDto t2 = new VoucherDetailDto();
-		t2.setAccountId(res1.getAccountId());
-		t2.setAmount(Double.parseDouble(res2.getAmount().toString()));
-		t2.setDescription(res1.getDescription());
-		t2.setCategoryText(res2.getCategory());
-		t2.setType(res1.getType());
-		t2.setPayee(res1.getPayee());
-		t2.setPayer(res1.getPayer());
-		t2.setStartDate(res1.getStartDate());
-		t2.setToAccount(res1.getToAccount());
-		
+
+		try {
+			List<Object[]> tt = voucherDao.getBy2(id, userId);
+			Object[] t = tt.get(0);
+
+			t2.setId((int) t[0]);
+			t2.setType((String) t[1]);
+			t2.setTotal((double) t[2]);
+			t2.setAmount((double) t[2]);
+			t2.setPayee((String) t[3]);
+			t2.setPayer((String) t[4]);
+			t2.setStartDate((Date) t[5]);
+			t2.setDescription((String) t[6]);
+			t2.setAccountText((String) t[7]);
+			t2.setCategoryText((String) t[8]);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
 		return t2;
 	}
 
@@ -181,6 +187,11 @@ public class VoucherService {
 			}
 		}
 
+		return res;
+	}
+
+	public Voucher getById(int id) {
+		Voucher res = voucherDao.getBy1(id);
 		return res;
 	}
 

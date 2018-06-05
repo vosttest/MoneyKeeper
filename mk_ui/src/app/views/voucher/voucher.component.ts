@@ -8,6 +8,7 @@ import {
     AccountProvider
 } from '../../providers/provider';
 import { ModalDirective, DateFormatter } from 'ngx-bootstrap';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-voucher',
@@ -16,7 +17,7 @@ import { ModalDirective, DateFormatter } from 'ngx-bootstrap';
 })
 
 export class VoucherComponent implements OnInit {
-    public vm: any = { keyword: '', type: 'Expense', total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
+    public vm: any = { keyword: "", type: "Expense", total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
     public cm: any = {};
     public lstParent = [];
     public lstChild = [];
@@ -28,10 +29,10 @@ export class VoucherComponent implements OnInit {
     public toAccount = [];
     public voucher = [];
 
-    public selectedCategory = { code: '', text: '-- Please Select --', icon: '' };
-    public selectedAccount = { accountId: 0, text: '-- Please Select --' };
-    public selectedToAccount = { accountId: 0, text: '-- Please Select --' };
-    public message = '';
+    public selectedCategory = { code: "", text: "-- Please Select --", icon: "" };
+    public selectedAccount = { accountId: 0, text: "-- Please Select --" };
+    public selectedToAccount = { accountId: 0, text: "-- Please Select --" };
+    public message = "";
     public isCheck: boolean;
     public isExpense: boolean = false;
     public isIncome: boolean = false;
@@ -41,16 +42,16 @@ export class VoucherComponent implements OnInit {
     public function = "overview";
     public apiURL: string = "../../../assets/img/";
     public loader: boolean = false;
-    public msg = '';
+    public msg = "";
     public success = false;
     // public isShow: boolean = true;
 
-    public labelAccountId = 'Account';
+    public labelAccountId = "Account";
 
-    @ViewChild('categoryModal') public categoryModal: ModalDirective;
-    @ViewChild('accountModal') public accountModal: ModalDirective;
-    @ViewChild('toAccountModal') public toAccountModal: ModalDirective;
-    @ViewChild('informationModal') public informationModal: ModalDirective;
+    @ViewChild("categoryModal") public categoryModal: ModalDirective;
+    @ViewChild("accountModal") public accountModal: ModalDirective;
+    @ViewChild("toAccountModal") public toAccountModal: ModalDirective;
+    @ViewChild("informationModal") public informationModal: ModalDirective;
 
     // Datepicker
 
@@ -70,7 +71,7 @@ export class VoucherComponent implements OnInit {
         this.getVoucher();
         this.getExpense();
         this.getAccount();
-        this.hideShow('Expense');
+        this.hideShow("Expense");
         this.searchAccount();
         this.searchToAccount();
 
@@ -83,7 +84,7 @@ export class VoucherComponent implements OnInit {
 
     public getExpense() {
         this.proExpense.search().subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.lstParent = this.lstParentTmp = rsp.result.parent;
                 this.lstChild = this.lstChildTmp = rsp.result.child;
             } else {
@@ -94,7 +95,7 @@ export class VoucherComponent implements OnInit {
 
     public getAccount() {
         this.proAccount.search("").subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.lstAccount = rsp.result.data;
             } else {
                 this.message = rsp.message;
@@ -104,7 +105,7 @@ export class VoucherComponent implements OnInit {
 
     public getIncome() {
         this.proIncome.search().subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.lstParent = this.lstParentTmp = rsp.result.parent;
                 this.lstChild = this.lstChildTmp = rsp.result.child;
             } else {
@@ -115,7 +116,7 @@ export class VoucherComponent implements OnInit {
 
     public getVoucher() {
         this.proVoucher.search(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.voucher = rsp.result.data;
             } else {
                 this.message = rsp.message;
@@ -155,9 +156,9 @@ export class VoucherComponent implements OnInit {
     }
 
     public changeType(typeVoucher: string) {
-        if (typeVoucher === 'Expense') {
+        if (typeVoucher === "Expense") {
             this.getExpense();
-        } else if (typeVoucher === 'Income') {
+        } else if (typeVoucher === "Income") {
             this.getIncome();
         }
     }
@@ -223,8 +224,8 @@ export class VoucherComponent implements OnInit {
 
     private searchAccount() {
 
-        this.proAccount.search('').subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.proAccount.search("").subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.account = rsp.result.data;
             }
             else {
@@ -234,8 +235,8 @@ export class VoucherComponent implements OnInit {
     }
 
     private searchToAccount() {
-        this.proAccount.search('').subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.proAccount.search("").subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.toAccount = rsp.result.data;
             }
             else {
@@ -247,13 +248,13 @@ export class VoucherComponent implements OnInit {
     public save() {
         console.log(this.vm);
 
-        if (this.vm.type == 'Transfer') {
-            if (this.selectedCategory.code === '' || this.selectedAccount.accountId === 0 || this.selectedToAccount.accountId === 0) {
+        if (this.vm.type == "Transfer") {
+            if (this.selectedCategory.code === "" || this.selectedAccount.accountId === 0 || this.selectedToAccount.accountId === 0) {
                 return;
             }
         }
         else {
-            if (this.selectedCategory.code === '' || this.selectedAccount.accountId === 0) {
+            if (this.selectedCategory.code === "" || this.selectedAccount.accountId === 0) {
                 return;
             }
         }
@@ -274,8 +275,8 @@ export class VoucherComponent implements OnInit {
         this.loader = true;
 
         this.proVoucher.save(obj).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.success = true;
             } else {
                 this.msg = rsp.message;

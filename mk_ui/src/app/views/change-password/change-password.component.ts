@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserProvider } from '../../providers/provider';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-change-password',
@@ -10,7 +11,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 })
 
 export class ChangePasswordComponent implements OnInit {
-    public vm: any = { newPassword: '', confirmPassword: '', oldPassword: '' };
+    public vm: any = { newPassword: "", confirmPassword: "", oldPassword: "" };
 
     public show = false;
     public showConfirm = false;
@@ -24,9 +25,9 @@ export class ChangePasswordComponent implements OnInit {
     public msg: string = "";
 
 
-    @ViewChild('confirmModal') public confirmModal: ModalDirective;
-    @ViewChild('messageModal') public messageModal: ModalDirective;
-    @ViewChild('informationModal') public informationModal: ModalDirective;
+    @ViewChild("confirmModal") public confirmModal: ModalDirective;
+    @ViewChild("messageModal") public messageModal: ModalDirective;
+    @ViewChild("informationModal") public informationModal: ModalDirective;
 
     constructor(private pro: UserProvider,
          private rou: Router) { }
@@ -37,7 +38,7 @@ export class ChangePasswordComponent implements OnInit {
         this.loader = true;
 
         this.pro.changePassword(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.confirmModal.hide();
                 this.success = true;
                 this.msg = "Save successfully!";
@@ -53,7 +54,7 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     public showConfirm1() {
-        if (this.vm.oldPassword === '' || this.vm.newPassword === '' || this.vm.confirmPassword === '') {
+        if (this.vm.oldPassword === "" || this.vm.newPassword === "" || this.vm.confirmPassword === "") {
             this.confirmModal.hide();
         } else {
             this.confirmModal.show();
@@ -61,7 +62,7 @@ export class ChangePasswordComponent implements OnInit {
     }
 
     public toggleShow(para?: string) {
-        if (para === 'P') {
+        if (para === "P") {
             this.show = !this.show;
             this.type = this.show ? "text" : "password";
         }

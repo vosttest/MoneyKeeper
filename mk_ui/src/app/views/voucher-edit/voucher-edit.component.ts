@@ -61,19 +61,21 @@ export class VoucherEditComponent implements OnInit {
     minDate = new Date(2018, 1, 1);
     maxDate = new Date(2050, 12, 12);
 
-    constructor(private proExpense: ExpenseProvider,
+    constructor(private pro: VoucherProvider,
+        private proExpense: ExpenseProvider,
         private proIncome: IncomeProvider,
         private proAccount: AccountProvider,
-        private proVoucher: VoucherProvider,
         private rou: Router,
         private act: ActivatedRoute) { }
 
     ngOnInit() {
         const param = this.act.snapshot.paramMap.get('id');
 
-        this.proVoucher.getVoucher(param).subscribe((rsp: any) => {
-            console.log(rsp);
-            this.vm = rsp.result.data;
+        this.pro.getVoucher(param).subscribe((rsp: any) => {
+            this.vm = rsp.result;
+            this.id = this.vm.id;
+            this.selectedCategory.text = this.vm.categoryText;
+            this.selectedAccount.text = this.vm.accountText;
         })
 
         this.getExpense();
@@ -227,7 +229,7 @@ export class VoucherEditComponent implements OnInit {
             startDate: this.vm.startDate
         };
 
-        this.proVoucher.save(obj).subscribe((rsp: any) => {
+        this.pro.save(obj).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.confirmModal.show();
             } else {
@@ -239,16 +241,15 @@ export class VoucherEditComponent implements OnInit {
     public delete() {
         this.loader = true;
 
-        const id = +this.act.snapshot.paramMap.get('voucherId');
-        this.proAccount.delete(id).subscribe((rsp: any) => {
+        this.pro.delete(this.id).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
-                this.msg = 'Delete successfully!';
-                this.routeLink = '/voucher/overview';
-                this.confirmDeleteModal.hide();
+                this.msg = "Delete successfully!";
+                this.routeLink = "/voucher/overview";
+                this.confirmModal.hide();
             }
             else {
                 this.msg = rsp.message;
-                this.routeLink = '';
+                this.routeLink = "";
             }
             this.informationModal.show();
 

@@ -20,6 +20,7 @@ RETURN QUERY
 		AND (LOWER(c.Text) LIKE CONCAT('%', keyword, '%') 
 			OR LOWER(v.description) LIKE CONCAT('%', keyword, '%')
 			OR LOWER(v.type) LIKE CONCAT('%', keyword, '%'))
+		AND v.is_deleted = FALSE
 	ORDER BY v.start_date)
 	UNION ALL
 	(SELECT DISTINCT v.start_date, v.id, v.account_id, v.type, v.total,
@@ -34,6 +35,7 @@ RETURN QUERY
 		AND (LOWER(c.Text) LIKE CONCAT('%', keyword, '%') 
 			OR LOWER(v.description) LIKE CONCAT('%', keyword, '%')
 			OR LOWER(v.type) LIKE CONCAT('%', keyword, '%'))
+		AND v.is_deleted = FALSE
 	ORDER BY v.start_date);
 END;
 $body$

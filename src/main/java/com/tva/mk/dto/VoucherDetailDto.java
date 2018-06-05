@@ -48,14 +48,14 @@ public class VoucherDetailDto {
 
 	@JsonProperty(value = "accountText")
 	private String accountText;
-	
+
 	@JsonProperty(value = "startDate")
 	private Date startDate;
 
 	// end
 
 	// region -- Get set --
-	
+
 	public Integer getId() {
 		return id;
 	}

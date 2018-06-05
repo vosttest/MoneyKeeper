@@ -26,6 +26,7 @@ import com.tva.mk.model.Voucher;
 import com.tva.mk.req.VoucherReq;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.MultipleRsp;
+import com.tva.mk.rsp.SingleRsp;
 
 @RestController
 @RequestMapping("/voucher")
@@ -64,10 +65,10 @@ public class VoucherController {
 
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/getVoucher/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getVoucher(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
-		MultipleRsp res = new MultipleRsp();
+
+	@RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> view(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
+		SingleRsp res = new SingleRsp();
 
 		try {
 			PayloadDto pl = Utils.getTokenInfor(header);
@@ -77,9 +78,7 @@ public class VoucherController {
 			VoucherDetailDto tmp = voucherService.getById(id, userId);
 
 			// Set data
-			Map<String, Object> t = new LinkedHashMap<>();
-			t.put("data", tmp);
-			res.setResult(t);
+			res.setResult(tmp);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
@@ -128,23 +127,23 @@ public class VoucherController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-//	@DeleteMapping("/delete/{id}")
-//	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
-//		BaseRsp res = new BaseRsp();
-//
-//		try {
-//			PayloadDto pl = Utils.getTokenInfor(header);
-//			int userId = pl.getId();
-//
-//			Voucher m = voucherService.getById(id);
-//
-//			voucherService.delete(m, userId);
-//		} catch (Exception ex) {
-//			res.setError(ex.getMessage());
-//		}
-//
-//		return new ResponseEntity<>(res, HttpStatus.OK);
-//	}
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
+		BaseRsp res = new BaseRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int userId = pl.getId();
+
+			Voucher m = voucherService.getById(id);
+
+			voucherService.delete(m, userId);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 
 	// end
 }

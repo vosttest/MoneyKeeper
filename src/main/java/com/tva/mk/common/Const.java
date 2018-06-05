@@ -87,6 +87,11 @@ public class Const {
 		public static final String CODE_TOKEN = "TOKEN";
 
 		public static final String CODE_OTP = "OTP";
+
+		/**
+		 * Get exchange rate of Vietcombank
+		 */
+		public static final String EXRATE_URL = "http://www.vietcombank.com.vn/exchangerates/ExrateXML.aspx";
 	}
 
 	public class Mode {

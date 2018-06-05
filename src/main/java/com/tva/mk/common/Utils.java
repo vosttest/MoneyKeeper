@@ -10,13 +10,22 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tva.mk.dto.PayloadDto;
@@ -235,6 +244,32 @@ public class Utils {
 			res = hexString.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+		}
+
+		return res;
+	}
+
+	public static Map<String, Object> readXML(String xml) throws Exception {
+		Map<String, Object> res = new LinkedHashMap<>();
+
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(xml);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName("Exrate");
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node nNode = nList.item(temp);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element eElement = (Element) nNode;
+
+					res.put(eElement.getAttribute("CurrencyCode"), eElement.getAttribute("Transfer"));
+				}
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 
 		return res;

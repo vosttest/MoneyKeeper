@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountProvider, ReportProvider } from '../../providers/provider';
 import { Utils } from '../../utils';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-report',
@@ -11,10 +12,10 @@ import { Utils } from '../../utils';
 export class ReportComponent implements OnInit {
     public getReport = [];
     public account = [];
-    public vm: any = { accountId: '', total: '', total2: '' };
+    public vm: any = { accountId: "", total: "", total2: "" };
     public loader: boolean;
     public isShow: boolean = false;
-    public message = '';
+    public message = "";
 
     // Datepicker
 
@@ -34,8 +35,8 @@ export class ReportComponent implements OnInit {
     private search() {
         this.loader = true;
 
-        this.proAcc.search('', true).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.proAcc.search("", true).subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.account = rsp.result.data;
             }
             else {
@@ -55,7 +56,7 @@ export class ReportComponent implements OnInit {
         };
 
         this.proReport.report(obj).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.isShow = true;
                 this.getReport = rsp.result.data;
                 this.vm.total = rsp.result.total;
@@ -74,7 +75,7 @@ export class ReportComponent implements OnInit {
 
         if (this.getReport.length == 0) {
             this.loader = false;
-            this.message = 'Not Data. Please choose Account, From Date, To Date ';
+            this.message = "Not Data. Please choose Account, From Date, To Date ";
 
             return;
         }
@@ -89,7 +90,7 @@ export class ReportComponent implements OnInit {
                 "Type": i.type,
                 "Categories": i.text,
                 "Amount": i.amount,
-                "Start Date": this.utl.formatDate(i.startDate, 'dd-MMM-yyyy')
+                "Start Date": this.utl.formatDate(i.startDate, "dd-MMM-yyyy")
             };
             tmp.push(item);
         });

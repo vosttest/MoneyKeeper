@@ -40,7 +40,7 @@
                         <div class="form-group col-md-6">
                             <p>Category <span class="text-danger">*</span></p>
                             <div class="col-md-6" (click)='categoryModal.show()'>
-                                <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{apiURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
+                                <img *ngIf='selectedCategory.icon != ""' width="40px" src="{{imgURL + selectedCategory.icon}}" /> {{ selectedCategory.text }}
                             </div>
                             <span [hidden]="selectedCategory.code != '' || (selectedCategory.code === '' && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                             <i class="fa fa-exclamation-triangle"></i> Required!
@@ -103,7 +103,7 @@
                 <div *ngFor="let i of lstParentTmp" class="card">
                     <div class="card-header row row-margin pointer" id="headingOne">
                         <div class="col-md-11" (click)="chooseCategory(i.code, i.text, i.icon)">
-                            <img src="{{apiURL + i.icon}}" style="margin-right: 2%">
+                            <img src="{{imgURL + i.icon}}" style="margin-right: 2%">
                             <span>{{ i.text }}</span>
                         </div>
                         <div class="col-md-1 format-iconUp" data-toggle="collapse" (click)="changeIcon(i.id)" attr.data-target="#collapseOne{{i.id}}" aria-expanded="true" aria-controls="collapseOne">
@@ -113,7 +113,7 @@
                     <div attr.id="collapseOne{{i.id}}" class="panel-collapse collapse">
                         <ul *ngFor='let i2 of lstChildTmp' class="list-group pointer">
                             <li *ngIf="i2.parentId === i.id" class="list-group-item padding-left" (click)="chooseCategory(i2.code, i2.text, i2.icon)">
-                                <img src="{{apiURL + i2.icon}}" class="padding-right" /> {{i2.text}}
+                                <img src="{{imgURL + i2.icon}}" class="padding-right" /> {{i2.text}}
                             </li>
                         </ul>
                     </div>

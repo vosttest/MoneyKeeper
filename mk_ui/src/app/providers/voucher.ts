@@ -12,12 +12,12 @@ export class VoucherProvider {
     public save(vm) {
         return this.api.post('voucher/save', vm);
     }
-    
+
     /**
-     * Delete by Id
+     * Delete
      */
-    public delete(id: number) {
-        return this.api.delete('voucher/delete?id=' + id);
+    public delete(id: any) {
+        return this.api.delete('voucher/delete/' + id);
     }
 
     /**
@@ -28,6 +28,6 @@ export class VoucherProvider {
     }
 
     public getVoucher(id: any) {
-        return this.api.get('voucher/getVoucher/' + id);
+        return this.api.get('voucher/view/' + id);
     }
 }

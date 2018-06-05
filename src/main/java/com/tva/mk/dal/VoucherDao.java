@@ -13,6 +13,12 @@ public interface VoucherDao extends CrudRepository<Voucher, Integer> {
 	@Query("FROM Voucher a WHERE a.id = :id AND a.userId = :userId")
 	public Voucher getBy(@Param("id") int id, @Param("userId") int userId);
 
+	@Query("FROM Voucher a WHERE a.id = :id")
+	public Voucher getBy1(@Param("id") int id);
+
+	@Query(nativeQuery = true, value = "SELECT * FROM view_voucher(:id, :userId)")
+	public List<Object[]> getBy2(@Param("id") int id, @Param("userId") int userId);
+
 	@Query(nativeQuery = true, value = "SELECT * FROM get_voucher(:keyword, :userId, :date)")
 	public List<Object[]> getVoucher(@Param("keyword") String keyword, @Param("userId") int userId,
 			@Param("date") Date date);
