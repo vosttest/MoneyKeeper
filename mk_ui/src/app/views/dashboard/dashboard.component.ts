@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
     public account = [];
     public getReport = [];
 
-    public vm: any = { accountId: "", total: "", total2: "" };
+    public vm: any = { accountId: 0, total: "", total2: "" };
 
     public loader: boolean = false;
     public isShow: boolean = false;
@@ -35,6 +35,9 @@ export class DashboardComponent implements OnInit {
         this.proAcc.search("", true).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.account = rsp.result.data;
+                
+                console.log(this.account);
+                
             }
             else {
                 console.log(rsp.message);
@@ -45,6 +48,8 @@ export class DashboardComponent implements OnInit {
     }
 
     public report() {
+        this.loader = true;
+
         let obj = {
             "accountId": this.vm.accountId,
             "fromDate": this.vm.fromDate,
@@ -61,6 +66,8 @@ export class DashboardComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
+            this.loader = false;
         }, err => console.log(err));
     }
 }

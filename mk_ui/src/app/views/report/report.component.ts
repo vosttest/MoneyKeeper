@@ -12,7 +12,7 @@ import { HTTP } from '../../utilities/utility';
 export class ReportComponent implements OnInit {
     public getReport = [];
     public account = [];
-    public vm: any = { accountId: "", total: "", total2: "" };
+    public vm: any = { accountId: 0, total: "", total2: "" };
     public loader: boolean;
     public isShow: boolean = false;
     public message = "";

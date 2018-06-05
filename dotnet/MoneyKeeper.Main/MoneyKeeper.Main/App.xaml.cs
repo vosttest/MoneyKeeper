@@ -40,6 +40,10 @@ namespace MoneyKeeper.Main
         {
             InitializeComponent();
 
+#if DEBUG
+            Utils.SetVar(Const.Authentication.JWT, string.Empty);
+#endif
+
             Jwt = Utils.GetVar(Const.Authentication.JWT);
             if (string.IsNullOrEmpty(Jwt))
             {

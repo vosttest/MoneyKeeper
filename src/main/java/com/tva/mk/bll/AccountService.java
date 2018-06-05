@@ -48,13 +48,24 @@ public class AccountService {
 
 		List<Object[]> l = accountDao.search(keyword, id);
 		for (Object[] i : l) {
-			AccountDto t = new AccountDto();
-			t.setId((int) i[0]);
-			t.setCode((String) i[1]);
-			t.setText((String) i[2]);
-			t.setBalance((double) i[3]);
-			t.setCurrency((String) i[4]);
-			res.add(t);
+			if (i[5] == null) {
+				AccountDto t = new AccountDto();
+				t.setId((int) i[0]);
+				t.setCode((String) i[1]);
+				t.setText((String) i[2]);
+				t.setBalance((double) i[3]);
+				t.setCurrency((String) i[4]);
+				List<Object[]> res1 = new ArrayList<>();
+
+				for (Object[] j : l) {
+					if (j[5] != null && j[5] == i[0]) {
+						res1.add(j);
+					}
+				}
+
+				t.setAccountDto(res1);
+				res.add(t);
+			}
 		}
 
 		return res;

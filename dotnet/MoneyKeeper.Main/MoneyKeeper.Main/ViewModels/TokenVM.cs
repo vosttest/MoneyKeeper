@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -7,9 +8,11 @@ namespace MoneyKeeper.Main.ViewModels
     using Common;
     using Req;
     using Services;
-    using System.Diagnostics;
 
-    class TokenVM : BaseVM
+    /// <summary>
+    /// Token view model
+    /// </summary>
+    public class TokenVM : BaseVM
     {
         #region -- Methods --
 
@@ -27,7 +30,7 @@ namespace MoneyKeeper.Main.ViewModels
         /// <summary>
         /// Execute sign in command
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Return the result</returns>
         private async Task ExeTokenCmd()
         {
             if (IsBusy) { return; }
@@ -39,24 +42,24 @@ namespace MoneyKeeper.Main.ViewModels
                 var t = Code1 + Code2 + Code3 + Code4 + Code5 + Code6;
                 var m = new SignInReq()
                 {
-                    UserName = _userName,
-                    Password = _password,
-                    ClientKey = _clientKey,
+                    UserName = UserName,
+                    Password = Password,
+                    ClientKey = ClientKey,
                     SendToken = false,
                     Token = t
                 };
-                var res = await UserService.SignIn(m);
+                var rsp = await UserService.SignIn(m);
 
-                if (res.Status == Const.HTTP.STATUS_SUCCESS)
+                if (rsp.Status == Const.HTTP.STATUS_SUCCESS)
                 {
-                    App.Jwt = res.Result.Key;
-                    Application.Current.Properties["jwt"] = App.Jwt;
-                    await Application.Current.SavePropertiesAsync();
+                    App.Jwt = rsp.Result.Key;
+                    Utils.SetVar(Const.Authentication.JWT, App.Jwt);
+
                     await main.Navigation.PushModalAsync(new MainPage());
                 }
                 else
                 {
-                    await main.DisplayAlert("Error", res.Message, "OK");
+                    await main.DisplayAlert("Error", rsp.Message, "OK");
                 }
             }
             catch (Exception ex)
@@ -66,6 +69,10 @@ namespace MoneyKeeper.Main.ViewModels
             finally { IsBusy = false; }
         }
 
+        /// <summary>
+        /// Execute cancel command
+        /// </summary>
+        /// <returns>Return the result</returns>
         private async Task ExeCancelCmd()
         {
             if (IsBusy) { return; }
@@ -78,7 +85,6 @@ namespace MoneyKeeper.Main.ViewModels
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
                 Debug.WriteLine(ex);
             }
             finally { IsBusy = false; }
@@ -107,7 +113,7 @@ namespace MoneyKeeper.Main.ViewModels
         }
 
         /// <summary>
-        /// Password
+        /// Client key
         /// </summary>
         public string ClientKey
         {
@@ -116,32 +122,32 @@ namespace MoneyKeeper.Main.ViewModels
         }
 
         /// <summary>
-        /// Code1
+        /// Code 1
         /// </summary>
         public string Code1 { get; set; }
 
         /// <summary>
-        /// Code2
+        /// Code 2
         /// </summary>
         public string Code2 { get; set; }
 
         /// <summary>
-        /// Code3
+        /// Code 3
         /// </summary>
         public string Code3 { get; set; }
 
         /// <summary>
-        /// Code4
+        /// Code 4
         /// </summary>
         public string Code4 { get; set; }
 
         /// <summary>
-        /// Code5
+        /// Code 5
         /// </summary>
         public string Code5 { get; set; }
 
         /// <summary>
-        /// Code6
+        /// Code 6
         /// </summary>
         public string Code6 { get; set; }
 
@@ -160,12 +166,7 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Fields --
 
         /// <summary>
-        /// ClientKey
-        /// </summary>
-        private string _clientKey;
-
-        /// <summary>
-        /// UserName
+        /// User name
         /// </summary>
         private string _userName;
 
@@ -173,6 +174,11 @@ namespace MoneyKeeper.Main.ViewModels
         /// Password
         /// </summary>
         private string _password;
+
+        /// <summary>
+        /// Client key
+        /// </summary>
+        private string _clientKey;
 
         #endregion
     }

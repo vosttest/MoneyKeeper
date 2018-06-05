@@ -1,9 +1,11 @@
-﻿
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MoneyKeeper.Main.Views.Shared
 {
+    /// <summary>
+    /// Token popup
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class TokenPopup : ContentView
     {
@@ -18,19 +20,25 @@ namespace MoneyKeeper.Main.Views.Shared
         }
 
         /// <summary>
-        /// TokenPopup
+        /// Initialize
         /// </summary>
-        /// <param name="UserName"></param>
-        /// <param name="Password"></param>
-        /// <param name="ClientKey"></param>
-        public TokenPopup(string UserName, string Password, string ClientKey)
+        /// <param name="userName">User name</param>
+        /// <param name="password">password</param>
+        /// <param name="clientKey">Client key</param>
+        public TokenPopup(string userName, string password, string clientKey) : this()
         {
-            InitializeComponent();
-            userName.Text = UserName;
-            password.Text = Password;
-            clienKey.Text = ClientKey;
+            this.userName.Text = userName;
+            this.password.Text = password;
+            this.clientKey.Text = clientKey;
+
             code1.Focus();
         }
+
+        /// <summary>
+        /// Code1 text changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void Code1_TextChanged(object sender, TextChangedEventArgs e)
         {
             var t = e.NewTextValue;
@@ -45,6 +53,11 @@ namespace MoneyKeeper.Main.Views.Shared
             }
         }
 
+        /// <summary>
+        /// Code2 text changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void Code2_TextChanged(object sender, TextChangedEventArgs e)
         {
             var t = e.NewTextValue;
@@ -63,6 +76,11 @@ namespace MoneyKeeper.Main.Views.Shared
             }
         }
 
+        /// <summary>
+        /// Code3 text changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void Code3_TextChanged(object sender, TextChangedEventArgs e)
         {
             var t = e.NewTextValue;
@@ -81,6 +99,11 @@ namespace MoneyKeeper.Main.Views.Shared
             }
         }
 
+        /// <summary>
+        /// Code4 text changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void Code4_TextChanged(object sender, TextChangedEventArgs e)
         {
             var t = e.NewTextValue;
@@ -99,6 +122,11 @@ namespace MoneyKeeper.Main.Views.Shared
             }
         }
 
+        /// <summary>
+        /// Code5 text changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void Code5_TextChanged(object sender, TextChangedEventArgs e)
         {
             var t = e.NewTextValue;
@@ -117,6 +145,11 @@ namespace MoneyKeeper.Main.Views.Shared
             }
         }
 
+        /// <summary>
+        /// Code6 text changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void Code6_TextChanged(object sender, TextChangedEventArgs e)
         {
             var t = e.NewTextValue;

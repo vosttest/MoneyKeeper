@@ -11,7 +11,7 @@
                      VerticalOptions="Center">
             <StackLayout BackgroundColor="#ffffff">
                 <StackLayout BackgroundColor="#1cb09a"
-                             Padding="16, 16, 16, 16">
+                             Padding="16,16,16,16">
                     <Label Text="Confirm Token"
                            TextColor="#ffffff"
                            Font="Bold, 22"/>
@@ -21,16 +21,16 @@
                     <Label x:Name="password"
                            Text="{Binding Password, Mode=TwoWay}"
                            IsVisible="False"/>
-                    <Label x:Name="clienKey"
+                    <Label x:Name="clientKey"
                            Text="{Binding ClientKey, Mode=TwoWay}"
                            IsVisible="False"/>
                 </StackLayout>
                 <StackLayout Orientation="Vertical"
-                             Padding="16, 16, 16, 16">
+                             Padding="16,16,16,16">
                     <Label Text="Please enter the token"
                            Font="Bold, 16"/>
                     <StackLayout Orientation="Horizontal"
-                                 Margin="20, 0, 20, 0">
+                                 Margin="20,0,20,0">
                         <Entry x:Name="code1"
                                Text="{Binding Code1}"
                                Keyboard="Numeric"
@@ -76,7 +76,7 @@
                     </StackLayout>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal"
-                             Padding="16, 16, 16, 16"
+                             Padding="16,16,16,16"
                              HorizontalOptions="End">
                     <Button Text="Cancel"
                             TextColor="#ffffff"

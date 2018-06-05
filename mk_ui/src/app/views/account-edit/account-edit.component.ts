@@ -98,7 +98,6 @@ export class AccountEditComponent implements OnInit {
 
     public save() {
         this.loader = true;
-        console.log(this.vm);
 
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
@@ -135,7 +134,6 @@ export class AccountEditComponent implements OnInit {
                 if (this.vm.type === "ACC005") {
                     this.vm.startDate = new Date(this.vm.startDate);
                 }
-                console.log(this.vm.type);
 
                 this.checkType(this.vm.type);
             }

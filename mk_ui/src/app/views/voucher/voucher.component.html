@@ -32,7 +32,7 @@
                                 <span>{{i.startDate | date: 'EEEE'}}<br /> <i>{{i.startDate | date: 'dd-MMM-yyyy'}}</i></span>
                             </div>
                             <div class="col-md-2">
-                                <span>Income: {{i.totalIncome}}<br /> <i>Expense: {{i.totalExpense}}</i></span>
+                                <span>Income: {{i.totalIncome | number }}<br /> <i>Expense: {{i.totalExpense | number}}</i></span>
                             </div>
                         </div>
                         <div *ngFor="let j of i.voucherDetail">
@@ -44,7 +44,7 @@
                                     <span>{{j.type}}: {{j.categoryText}} <br /> <i>{{j.description}}</i></span>
                                 </div>
                                 <div class="col-md-2">
-                                    <span>{{j.amount}} VND <br /> <i>{{j.accountText}}</i></span>
+                                    <span>{{j.amount | number}} {{ j.currency }} <br /> <i>{{j.accountText}}</i></span>
                                 </div>
                             </div>
                         </div>
@@ -252,7 +252,7 @@
                         <div class="col-md-11" (click)="chooseAccount(i.id, i.text)">
                             <span>
                                 <div class="left"> {{ i.text }}</div>
-                                <div class="right" currencyMask> Balance: {{ i.balance | number:'0.0-0'}} {{ i.currency }} VND</div>
+                                <div class="right" currencyMask> Balance: {{ i.balance | number:'0.0-0'}} {{ i.currency }}</div>
                             </span>
                         </div>
                     </div>

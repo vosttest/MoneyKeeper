@@ -45,11 +45,11 @@ namespace MoneyKeeper.Main.ViewModels
                 {
                     Keyword = string.Empty
                 };
-                var res = await AccountService.Search(m);
+                var rsp = await AccountService.Search(m);
 
-                if (res.Status == Const.HTTP.STATUS_SUCCESS)
+                if (rsp.Status == Const.HTTP.STATUS_SUCCESS)
                 {
-                    var x = res.Result.Data;
+                    var x = rsp.Result.Data;
                     var l = new List<AccountList>();
 
                     var t1 = x.Select(p => p.Type).Distinct().ToList();
@@ -65,7 +65,7 @@ namespace MoneyKeeper.Main.ViewModels
                 }
                 else
                 {
-                    await main.DisplayAlert("Error", res.Message, "OK");
+                    await main.DisplayAlert("Error", rsp.Message, "OK");
                 }
             }
             catch (Exception ex)

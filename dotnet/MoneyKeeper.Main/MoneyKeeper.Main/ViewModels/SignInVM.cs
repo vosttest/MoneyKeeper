@@ -35,7 +35,7 @@ namespace MoneyKeeper.Main.ViewModels
         /// <summary>
         /// Execute sign in command
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Return the result</returns>
         private async Task ExeSignInCmd()
         {
             if (IsBusy) { return; }
@@ -52,13 +52,13 @@ namespace MoneyKeeper.Main.ViewModels
                     SendToken = true,
                     Token = string.Empty
                 };
-                var res = await UserService.SignIn(m);
+                var rsp = await UserService.SignIn(m);
 
-                if (res.Status == Const.HTTP.STATUS_SUCCESS)
+                if (rsp.Status == Const.HTTP.STATUS_SUCCESS)
                 {
-                    if (res.Result.Authen)
+                    if (rsp.Result.Authen)
                     {
-                        var key = res.Result.Key;
+                        var key = rsp.Result.Key;
                         var t = new Popup()
                         {
                             Content = new TokenPopup(UserName, Password, key)
@@ -67,15 +67,14 @@ namespace MoneyKeeper.Main.ViewModels
                     }
                     else
                     {
-                        App.Jwt = res.Result.Key;
-                        Application.Current.Properties["jwt"] = App.Jwt;
-                        await Application.Current.SavePropertiesAsync();
+                        App.Jwt = rsp.Result.Key;
+                        Utils.SetVar(Const.Authentication.JWT, App.Jwt);
                         await main.Navigation.PushModalAsync(new MainPage());
                     }
                 }
                 else
                 {
-                    await main.DisplayAlert("Error", res.Message, "OK");
+                    await main.DisplayAlert("Error", rsp.Message, "OK");
                 }
             }
             catch (Exception ex)

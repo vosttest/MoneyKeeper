@@ -1,5 +1,7 @@
 package com.tva.mk.dto;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AccountDto {
@@ -19,6 +21,9 @@ public class AccountDto {
 
 	@JsonProperty(value = "currency")
 	private String currency;
+
+	@JsonProperty(value = "accountDto")
+	private List<Object[]> accountDto;
 
 	// end
 
@@ -64,6 +69,13 @@ public class AccountDto {
 		this.currency = currency;
 	}
 
+	public List<Object[]> getAccountDto() {
+		return accountDto;
+	}
+
+	public void setAccountDto(List<Object[]> accountDto) {
+		this.accountDto = accountDto;
+	}
 	// end
 
 	// region -- Methods --
