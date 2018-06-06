@@ -69,6 +69,7 @@ namespace MoneyKeeper.Main.ViewModels
                     {
                         App.Jwt = rsp.Result.Key;
                         Utils.SetVar(Const.Authentication.JWT, App.Jwt);
+
                         await main.Navigation.PushModalAsync(new MainPage());
                     }
                 }
