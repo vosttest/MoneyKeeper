@@ -22,8 +22,8 @@ namespace MoneyKeeper.Api.Controllers
 
             try
             {
-                var user = "qwuupwck8537";
-                var pass = "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";
+                var user = "9C8F616E0317998A10F3518D6272EA31B3CB9FECAA4C9FAF1A2FEDB6B6C2AA9E";
+                var pass = "E3B51E3A5B0035DDEA2D063728B4C79E39E9F259138CB42481AFA41084DB9F0B";
                 if (req.User == user && req.Pass == pass)
                 {
                     _port = _sms.OpenPort(Program._port);
