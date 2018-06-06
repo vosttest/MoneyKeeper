@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AccountProvider, CommonProvider } from '../../providers/provider';
-import { Observable, Subject } from 'rxjs';
-import { HTTP } from '../../utilities/utility';
+import { AccountProvider, CommonProvider, SettingProvider } from '../../providers/provider';
+import { HTTP, Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-account',
@@ -11,21 +10,25 @@ import { HTTP } from '../../utilities/utility';
 })
 
 export class AccountComponent implements OnInit {
-    public data = [];
+    public account = [];
     public lstTmp = [];
     public lstType = [];
+    public accountType = [];
+
     public keyword: string = "";
     public vm: any = { type: "" };
     public searchText = "";
+    public currency = "";
     public loader = false;
 
-    constructor(private pro: AccountProvider,
+    constructor(private proSetting: SettingProvider,
+        private pro: AccountProvider,
         private proCom: CommonProvider,
         private rou: Router) { }
 
     ngOnInit() {
-        this.searchByType("Account");
         this.search();
+        this.searchCurrency();
     }
 
     private search() {
@@ -33,24 +36,20 @@ export class AccountComponent implements OnInit {
 
         this.pro.search("").subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
-                this.data = rsp.result.data;
-                this.lstTmp = this.data;
-            }
-            else {
-                console.log(rsp.message);
-            }
+                this.account = rsp.result.data;
 
-            this.loader = false;
-        }, err => console.log(err));
-    }
+                let t = this.account.map(a => a.code).filter((value, index, i) => i.indexOf(value) === index);
+                t.sort();
 
-    private searchByType(type: string) {
-        this.loader = true;
+                let t2 = [];
+                for (let i = 0; i < t.length; i++) {
+                    t2.push(this.account.filter(a => a.code == t[i]));
 
-        this.proCom.search(type, true).subscribe((rsp: any) => {
-            if (rsp.status === HTTP.STATUS_SUCCESS) {
-                if (type == "Account") {
-                    this.lstType = rsp.result.data;
+                    let total = t2[i].reduce((sum, item) => sum + item.balance * item.rate, 0);
+                    let count = t2[i].length;
+                    let t1 = { code: t[i], total: total, count: count };
+
+                    this.accountType.push(t1);
                 }
             }
             else {
@@ -61,11 +60,19 @@ export class AccountComponent implements OnInit {
         }, err => console.log(err));
     }
 
-    public changeType(value: string) {
-        if (value === "showAll") {
-            this.data = this.lstTmp;
-        } else {
-            this.data = this.lstTmp.filter(a => a.type === value);
-        }
+    private searchCurrency() {
+        this.proSetting.search().subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                let data = rsp.result.data;
+                data.forEach(element => {
+                    if (element.code === Setting.CODE_CURRENCY) {
+                        this.currency = element.value === "" || element.value === null ? "VND" : element.value;
+                    }
+                });
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
     }
 }

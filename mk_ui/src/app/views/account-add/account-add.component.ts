@@ -120,12 +120,10 @@ export class AccountAddComponent implements OnInit {
         }, err => console.log(err));
     }
 
-
     private searchCurrency() {
         this.proSetting.search().subscribe((rsp: any) => {
-            if (rsp.status === "success") {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.data = rsp.result.data;
-                console.log(this.data);
                 this.data.forEach(element => {
                     if (element.code === Setting.CODE_CURRENCY) {
                         this.vm.currency = element.value === "" || element.value === null ? "VND" : element.value;

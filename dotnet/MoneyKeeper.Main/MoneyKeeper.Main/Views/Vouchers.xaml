@@ -5,9 +5,40 @@
              x:Class="MoneyKeeper.Main.Views.Vouchers">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Voucher"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <SearchBar x:Name="SearchBar" />
+            </StackLayout>
+            <ListView  x:Name="LstVoucher">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee"
+                                         Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                    <Label Text="{Binding Date}"
+                                           TextColor="#503026" />
+                                    <Label Text="{Binding StartDate}"
+                                           TextColor="#503026" />
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                                        <Label Text="{Binding Expense}" 
+                                           TextColor="#503026" />
+                                        <Label Text="{Binding Total}"
+                                           TextColor="#503026" />
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="End">
+                                        <Label Text="{Binding Income}"
+                                           TextColor="#503026" />
+                                        <Label Text="{Binding Total}"
+                                           TextColor="#503026" />
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -5,7 +5,7 @@
              x:Class="MoneyKeeper.Main.Views.Settings">
     <ContentPage.Content>
         <Grid HorizontalOptions="Center"
-          VerticalOptions="Center">
+              VerticalOptions="Center">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -21,18 +21,29 @@
 
             <!-- Internal Grid for top row of items -->
             <Button Text="Reminder"
-                Grid.Row="1" Grid.Column="0" Clicked="Button_Clicked" />
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Clicked="Button_Clicked" />
             <Button Text="Currency"
-                Grid.Row="2" Grid.Column="0" Clicked="Button_Clicked" />
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Clicked="Button_Clicked_1" />
             <Button Text="Language"
-                Grid.Row="3" Grid.Column="0" />
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Clicked="Button_Clicked_2" />
             <Button Text="Login Authentication"
-                Grid.Row="4" Grid.Column="0" />
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Clicked="Button_Clicked_3" />
             <Button Text="Transaction"
-                Grid.Row="5" Grid.Column="0" />
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Clicked="Button_Clicked_4" />
             <Button Text="Lock"
-                Grid.Row="6" Grid.Column="0" />
-
+                    Grid.Row="6"
+                    Grid.Column="0"
+                    Clicked="Button_Clicked_5" />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

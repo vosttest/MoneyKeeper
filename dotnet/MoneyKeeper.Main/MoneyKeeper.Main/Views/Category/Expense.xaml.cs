@@ -17,7 +17,7 @@ namespace MoneyKeeper.Main.Views.Category
 
         private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
         {
-            var vm = BindingContext as CategoryVM;
+            var vm = BindingContext as ExpenseVM;
 
             var categories = e.Item as CategoryModel;
 

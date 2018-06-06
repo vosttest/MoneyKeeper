@@ -13,14 +13,14 @@ namespace MoneyKeeper.Main.ViewModels
     /// <summary>
     /// Category view model
     /// </summary>
-    public class CategoryVM : BaseVM
+    public class ExpenseVM : BaseVM
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public CategoryVM()
+        public ExpenseVM()
         {
             Title = "Category";
 
@@ -55,7 +55,7 @@ namespace MoneyKeeper.Main.ViewModels
             {
                 var main = App.Current.MainPage;
 
-                var res = await CategoryService.Search();
+                var res = await CategoryService.SearchExpense();
 
                 if (res.Status == Const.HTTP.STATUS_SUCCESS)
                 {
@@ -83,7 +83,7 @@ namespace MoneyKeeper.Main.ViewModels
                         l.Add(o);
                     }
 
-                    Categories = l;
+                    ExpenseCategories = l;
                 }
                 else
                 {
@@ -96,7 +96,6 @@ namespace MoneyKeeper.Main.ViewModels
             }
             finally { IsBusy = false; }
         }
-
         //public void HideOrShowCategory(CategoryModel categories)
         //{
         //    if (_oldCategory == categories)
@@ -134,7 +133,7 @@ namespace MoneyKeeper.Main.ViewModels
         /// List of category
         /// </summary>
         //public List<CategoryModel> ListOfCategory { get; set; }
-        public List<CategoryDto> Categories
+        public List<CategoryDto> ExpenseCategories
         {
             get { return _categories; }
             set { SetProperty(ref _categories, value); }

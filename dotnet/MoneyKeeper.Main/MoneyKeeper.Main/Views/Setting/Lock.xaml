@@ -2,9 +2,16 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MoneyKeeper.Main.Views.Setting.Lock">
-  <ContentView.Content>
-      <StackLayout>
-            <Label Text="Lock" />
-      </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <StackLayout>
+                <Switch Toggled="Switch_Toggled"/>
+                <Button x:Name="buttonLock"
+                        Clicked="Save_Clicked"
+                        IsVisible="False"
+                        Text="Save"
+                        TextColor="White"
+                        BackgroundColor="#1cb09a"
+                        HeightRequest="50"/>
+        </StackLayout>
+    </ContentView.Content>
 </ContentView>

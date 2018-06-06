@@ -4,7 +4,22 @@
              x:Class="MoneyKeeper.Main.Views.Setting.Currency">
     <ContentView.Content>
         <StackLayout>
-            <Label Text="Currency"/>
+            <Label Text="Setting Currency"
+                   FontSize="24"
+                   TextColor="#1cb09a"
+                   HorizontalOptions="CenterAndExpand"/>
+            <Picker x:Name="pickerCurrency"
+                    Title="-- Please Select --"
+                    SelectedIndexChanged="pickerCurrency_SelectedIndexChanged"
+                    ItemsSource="{Binding Currency}">
+            </Picker>
+            <Button x:Name="buttonCurrency"
+                    Clicked="Save_Clicked"
+                    IsVisible="False"
+                    Text="Save"
+                    TextColor="White"
+                    BackgroundColor="#1cb09a"
+                    HeightRequest="50"/>
         </StackLayout>
     </ContentView.Content>
 </ContentView>

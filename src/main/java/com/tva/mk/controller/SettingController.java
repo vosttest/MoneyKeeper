@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tva.mk.bll.AccountService;
 import com.tva.mk.bll.CommonService;
 import com.tva.mk.bll.SettingService;
 import com.tva.mk.common.Const;
@@ -24,6 +25,7 @@ import com.tva.mk.model.Common;
 import com.tva.mk.model.Setting;
 import com.tva.mk.req.BaseReq;
 import com.tva.mk.req.ExchangeRateReq;
+import com.tva.mk.req.SettingReq;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -36,6 +38,9 @@ public class SettingController {
 
 	@Autowired
 	private CommonService commonService;
+
+	@Autowired
+	private AccountService accountService;
 
 	// end
 
@@ -65,7 +70,7 @@ public class SettingController {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<?> save(@RequestBody Setting req, @RequestHeader HttpHeaders header) {
+	public ResponseEntity<?> save(@RequestBody SettingReq req, @RequestHeader HttpHeaders header) {
 		SingleRsp res = new SingleRsp();
 
 		try {
@@ -79,6 +84,7 @@ public class SettingController {
 			String description = req.getDescription();
 			String status = req.getStatus();
 			String text = req.getText();
+			boolean isFirst = req.isFirst();
 
 			// Convert data
 			Setting m = new Setting();
@@ -94,6 +100,15 @@ public class SettingController {
 
 			// Handle
 			String tmp = settingService.save(m);
+			// if(isFirst) {
+			// List<Account> t = accountService.search(id, "");
+			// for(Account item : t) {
+			// Account m1 = new Account();
+			// m1.setCurrency(value);
+			//
+			// accountService.save(m1);
+			// }
+			// }
 
 			if (!tmp.isEmpty()) {
 				res.setError("Save setting error!");
@@ -141,14 +156,14 @@ public class SettingController {
 			for (ExchangeRateReq item : t) {
 				// Add or update exchange rate
 				Common m = new Common();
-				m.setType("ExchangeRate");
+				m.setType(Const.Type.RATE);
 				m.setValue(item.getValue());
 				m.setText(item.getRate());
 				commonService.save(m);
 
 				// Add or update currency
 				m = new Common();
-				m.setType("Currency");
+				m.setType(Const.Type.CURRENCY);
 				m.setValue(item.getValue());
 				m.setText(item.getName());
 				commonService.save(m);

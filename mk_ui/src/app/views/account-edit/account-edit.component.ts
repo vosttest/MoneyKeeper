@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap';
@@ -20,7 +19,7 @@ export class AccountEditComponent implements OnInit {
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
-    public vm: any = { id: "", type: "" };
+    public vm: any = { id: "", type: "ACC001", term: "TRM001", interestPaid: "IPD002", termEnded: "TRE002" };
     public message = "";
     public account: any[] = [];
     public loader: boolean = false;
@@ -29,13 +28,8 @@ export class AccountEditComponent implements OnInit {
     public isView: boolean = true;
     public id = 0;
 
-    datePipe = new DatePipe("en");
-
-    // Datepicker
-
     minDate = new Date(2018, 1, 1);
     maxDate = new Date(2050, 12, 12);
-
     bsValue: Date = new Date();
 
     @ViewChild("confirmModal") public confirmModal: ModalDirective;

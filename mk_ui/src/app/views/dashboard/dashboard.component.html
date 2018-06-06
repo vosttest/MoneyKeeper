@@ -19,7 +19,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId" required>
-                                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
+                                        <option *ngFor="let i of account" value="{{i.id == 0 ? '' : i.id}}">{{i.text}}</option>
                                     </select>
                                     <span [hidden]="accountId.valid || (accountId.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                         <i class="fa fa-exclamation-triangle"></i> Required!
@@ -31,14 +31,14 @@
                                     <p>{{vmLang.lViewOn}} <span class="text-danger">*</span></p>
                                 </div>
                                 <div class="col-md-4">
-                                    <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
+                                    <input name="fromDate" [maxDate]="vm.toDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
                                     <input type="hidden" class="form-control" name="fromDate2" #fromDate2="ngModel" [(ngModel)]="vm.fromDate" required>
                                     <span [hidden]="fromDate2.valid || (fromDate2.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="fromDate2" data-valmsg-for="fromDate2" id="fromDate2_validationMessage" role="alert">
                                         <i class="fa fa-exclamation-triangle"></i> Required!
                                     </span>
                                 </div>
                                 <div class="col-md-4">
-                                    <input name="toDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
+                                    <input name="toDate" [minDate]="vm.fromDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.toDate" type="text" class="form-control" placeholder="To Date">
                                     <input type="hidden" class="form-control" name="toDate2" #toDate2="ngModel" [(ngModel)]="vm.toDate" required>
                                     <span [hidden]="toDate2.valid || (toDate2.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error" data-for="toDate2" data-valmsg-for="toDate2" id="toDate2_validationMessage" role="alert">
                                         <i class="fa fa-exclamation-triangle"></i> Required!
@@ -99,15 +99,30 @@
             <div class="card bg-white card-2">
                 <h2 class="text-center">{{vmLang.hAccounts}}</h2>
                 <div class="row">
-                    <div class="card list">
-                        <ul class="card-list list-group list-group-flush" *ngFor="let i of account">
-                            <li routerLink="/account-edit/view-{{i.id}}" class="list-group-item list-group-item-action pointer" [hidden]="i.id == null || i.id == ''">
-                                <div class="acc left">{{ i.text }}</div>
-                                <div class="acc right">
-                                    Balance: {{ i.balance | number:'0.0-0'}} {{ i.currency }}
+                    <div id="accordion" class="full-width list">
+                        <div class="card" *ngFor="let j of accountType" [hidden]="j.code == null || j.code == ''">
+                            <div class="card-header" id="headingOne" data-toggle="collapse" attr.data-target="#collapseOne{{j.code}}" aria-expanded="true" aria-controls="collapseOne">
+                                <div class="row">
+                                    <div class="col-md-6 text-left">
+                                        <h5 class="mb-0"> {{ j.code }} ({{j.count}})</h5>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <h5 class="mb-0">Total: {{ j.total | number:'0.0-0'}} {{currency}}</h5>
+                                    </div>
+
                                 </div>
-                            </li>
-                        </ul>
+                            </div>
+                            <div attr.id="collapseOne{{j.code}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <ul *ngFor='let i of account' class="list-group pointer">
+                                        <li routerLink="/account-edit/view-{{i.id}}" class="list-group-item list-group-item-action pointer" *ngIf="i.code == j.code">
+                                            <div class="left"> {{i.text}} </div>
+                                            <div class="right"> Balance: {{ i.balance | number:'0.0-0'}} {{ i.currency }} </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

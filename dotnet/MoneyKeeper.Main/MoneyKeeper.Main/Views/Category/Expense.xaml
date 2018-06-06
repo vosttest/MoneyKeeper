@@ -4,13 +4,17 @@
             xmlns:local="clr-namespace:MoneyKeeper.Main.ViewModels"
              x:Class="MoneyKeeper.Main.Views.Category.Expense">
     <ContentPage.BindingContext>
-        <local:CategoryVM/>
+        <local:ExpenseVM/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <SearchBar x:Name="searchcategeory"
+                       Placeholder="Search"
+                       Text="{Binding SearchedText, Mode=TwoWay}"
+                       SearchCommand="{Binding SearchCommand}"/>
             <ListView  x:Name="LstAccount"
                        Margin="20,0,20,0"
-                       ItemsSource="{Binding Categories}"
+                       ItemsSource="{Binding ExpenseCategories}"
                        IsGroupingEnabled="true">
                 <ListView.GroupHeaderTemplate>
                     <DataTemplate>
@@ -23,7 +27,6 @@
                 </ListView.GroupHeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        
                         <ViewCell>
                             <StackLayout BackgroundColor="#eeeeee"
                                          Orientation="Vertical">

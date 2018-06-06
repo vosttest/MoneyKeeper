@@ -6,7 +6,7 @@
     <div class="rect5"></div>
 </div>
 
-<div class="row">
+<div class="row" [hidden]="!show">
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <div class="my-box">
@@ -107,4 +107,59 @@
         </div>
     </div>
     <div class="col-md-4"></div>
+</div>
+
+<div bsModal #defaultModal="bs-modal" [config]="{backdrop: 'static'}" class="modal fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width: 100%">
+    <div class="modal-dialog modal-xs" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Choose Currency</h5>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group text-center">
+                            <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search by currency" />
+                        </div>
+                        <div style="overflow-y: initial; overflow-x: hidden; height: 300px;">
+                            <div *ngFor="let i of dataCurrency | filterSignUp: searchCurrency" class="row each-row" style="border: none;">
+                                <div class="col-md-2">
+                                    <img height='40px' src="{{ imgCurrencyURL + i.value + '.png' }}" />
+                                </div>
+                                <div class="col-md-7"> {{ i.text }} </div>
+                                <div class="col-md-3">
+                                    <input type="radio" name="currency" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" checked value="{{ i.value }}" />
+                                    <ng-template #elseCurrency>
+                                        <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
+                                    </ng-template>
+                                    {{ i.value }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="modal-body">
+                            <div class="form-group text-center">
+                                <input type="text" class="form-control" [(ngModel)]="searchLanguage" placeholder="Search by language" />
+                            </div>
+                            <div *ngFor="let i of dataLanguage | filterSignUp: searchLanguage" class="row each-row" style="border: none;">
+                                <div class="col-md-3">
+                                    <img height='40px' src="{{ imgLanguageURL + i.value + '.png' }}" /> </div>
+                                <div class="col-md-6"> {{ i.text }} </div>
+                                <div class="col-md-3">
+                                    <input type="radio" name="language" *ngIf="i.value === selectedLanguage.value; else elseLanguage" [(ngModel)]="selectedLanguage.value" checked value="{{ i.value }}" />
+                                    <ng-template #elseLanguage>
+                                        <input type="radio" name="language" [(ngModel)]="selectedLanguage.value" value="{{ i.value }}" />
+                                    </ng-template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" (click)="proceedClick()" class="btn btn-success">Proceed</button>
+            </div>
+        </div>
+    </div>
 </div>

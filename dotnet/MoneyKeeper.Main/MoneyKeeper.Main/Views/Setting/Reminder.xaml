@@ -2,9 +2,24 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MoneyKeeper.Main.Views.Setting.Reminder">
-  <ContentView.Content>
-      <StackLayout>
-            <Label Text="Reminder" />
-      </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <StackLayout>
+            <Label Text="Setting Reminder"
+                   FontSize="24"
+                   TextColor="#1cb09a"
+                   HorizontalOptions="CenterAndExpand"/>
+            <Switch Toggled="Switch_Toggled"/>
+            <TimePicker Format="T"
+                        x:Name="pickerReminder"
+                        IsVisible="False"
+                        Time="17:00"/>
+            <Button x:Name="buttonReminder"
+                    Clicked="Save_Clicked"
+                    IsVisible="False"
+                    Text="Save"
+                    TextColor="White"
+                    BackgroundColor="#1cb09a"
+                    HeightRequest="50"/>
+        </StackLayout>
+    </ContentView.Content>
 </ContentView>

@@ -20,7 +20,13 @@ export class SettingProvider {
      * Save setting
      * @param info
      */
-    public save(info: any) {
+    public save(info: any, isFirst: boolean = false) {
+        let x = {
+            id: info.id,
+            value: info.value,
+            status: info.status,
+            isFirst: isFirst
+        };
         return this.api.post('setting/save', info);
     }
 

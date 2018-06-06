@@ -56,6 +56,8 @@ public class Const {
 
 		public static final String LANGUAGE = "Language";
 
+		public static final String RATE = "Rate";
+
 		public static final String TERM = "Term";
 
 		public static final String INTEREST_PAID = "InterestPaid";

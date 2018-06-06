@@ -14,9 +14,11 @@ li .right {
     float: right;
 }
 
-.card {
+.card.bg-white {
     margin-top: 20px;
     width: 100%;
+    overflow: auto;
+    max-height: 480px;
 }
 
 .btn-left {
@@ -59,4 +61,8 @@ td {
 .table-hover tbody tr:hover {
     background-color: #1CB09A !important;
     color: white !important;
+}
+
+h5.mb-0 {
+    color: #1CB09A;
 }

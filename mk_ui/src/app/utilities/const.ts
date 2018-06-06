@@ -23,7 +23,7 @@ export class Type {
 
     public static LANGUAGE = "Language";
 
-    public static EXCHANGE_RATE = "ExchangeRate";
+    public static RATE = "Rate";
 
     public static TERM = "Term";
 

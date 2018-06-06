@@ -54,6 +54,7 @@ public class AccountService {
 			t.setText((String) i[2]);
 			t.setBalance((double) i[3]);
 			t.setCurrency((String) i[4]);
+			t.setRate((Double) i[5]);
 			res.add(t);
 		}
 
