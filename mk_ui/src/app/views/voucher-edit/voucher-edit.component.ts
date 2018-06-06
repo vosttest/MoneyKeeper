@@ -208,7 +208,6 @@ export class VoucherEditComponent implements OnInit {
     }
 
     public save() {
-        alert(this.selectedAccount.accountId);
         if (this.vm.type == 'Transfer') {
             if (this.selectedCategory.code === '' || this.selectedAccount.accountId === 0) {
                 return;
