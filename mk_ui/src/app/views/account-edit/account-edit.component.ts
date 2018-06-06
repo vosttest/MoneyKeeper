@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap';
 import { AccountProvider, CommonProvider } from '../../providers/provider';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-account-edit',
@@ -19,12 +20,12 @@ export class AccountEditComponent implements OnInit {
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
-    public vm: any = { id: '', type: '' };
-    public message = '';
+    public vm: any = { id: "", type: "" };
+    public message = "";
     public account: any[] = [];
     public loader: boolean = false;
-    public msg = '';
-    public routeLink = '';
+    public msg = "";
+    public routeLink = "";
     public isView: boolean = true;
     public id = 0;
 
@@ -37,8 +38,8 @@ export class AccountEditComponent implements OnInit {
 
     bsValue: Date = new Date();
 
-    @ViewChild('confirmModal') public confirmModal: ModalDirective;
-    @ViewChild('informationModal') public informationModal: ModalDirective;
+    @ViewChild("confirmModal") public confirmModal: ModalDirective;
+    @ViewChild("informationModal") public informationModal: ModalDirective;
 
     constructor(private pro: CommonProvider,
         private rou: Router,
@@ -46,34 +47,34 @@ export class AccountEditComponent implements OnInit {
         private route: ActivatedRoute) { }
 
     ngOnInit() {
-        const param = this.route.snapshot.paramMap.get('id');
+        const param = this.route.snapshot.paramMap.get("id");
         let arr = param.split("-");
         this.id = +arr[1];
         if (arr[0] == "edit") {
             this.isView = false;
         }
 
-        this.getType('Account');
-        this.getType('Currency');
-        this.getType('Term');
-        this.getType('InterestPaid');
-        this.getType('TermEnd');
+        this.getType("Account");
+        this.getType("Currency");
+        this.getType("Term");
+        this.getType("InterestPaid");
+        this.getType("TermEnd");
         this.search();
         this.getAccount();
     }
 
     private getType(type: string) {
         this.pro.search(type).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                if (type == 'Account') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                if (type == "Account") {
                     this.lstType = rsp.result.data;
-                } else if (type == 'Currency') {
+                } else if (type == "Currency") {
                     this.lstCurrency = rsp.result.data;
-                } else if (type == 'Term') {
+                } else if (type == "Term") {
                     this.lstTerm = rsp.result.data;
-                } else if (type == 'InterestPaid') {
+                } else if (type == "InterestPaid") {
                     this.lstInterestPaid = rsp.result.data;
-                } else if (type == 'TermEnd') {
+                } else if (type == "TermEnd") {
                     this.lstTermEnd = rsp.result.data;
                 }
             }
@@ -81,11 +82,11 @@ export class AccountEditComponent implements OnInit {
     }
 
     public checkType(va: string) {
-        if (va === 'ACC005') {
+        if (va === "ACC005") {
             this.pickSaveAcc = false;
             this.pickOther = true;
         }
-        else if (va === 'ACC003') {
+        else if (va === "ACC003") {
             this.pickSaveAcc = true;
             this.pickAtm = false;
         } else {
@@ -97,14 +98,13 @@ export class AccountEditComponent implements OnInit {
 
     public save() {
         this.loader = true;
-        console.log(this.vm);
 
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.msg = 'Save successfully!';
-                this.routeLink = '/account/overview';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
+                this.routeLink = "/account/overview";
             } else {
-                this.routeLink = '';
+                this.routeLink = "";
                 this.msg = rsp.message;
             }
             this.informationModal.show();
@@ -114,8 +114,8 @@ export class AccountEditComponent implements OnInit {
     }
 
     private search() {
-        this.proAccount.search('').subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.proAccount.search("").subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.account = rsp.result.data;
             }
             else {
@@ -128,13 +128,12 @@ export class AccountEditComponent implements OnInit {
         this.loader = true;
 
         this.proAccount.getAccount(this.id).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.vm = rsp.result;
 
-                if (this.vm.type === 'ACC005') {
+                if (this.vm.type === "ACC005") {
                     this.vm.startDate = new Date(this.vm.startDate);
                 }
-                console.log(this.vm.type);
 
                 this.checkType(this.vm.type);
             }
@@ -150,14 +149,14 @@ export class AccountEditComponent implements OnInit {
         this.loader = true;
 
         this.proAccount.delete(this.id).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.msg = 'Delete successfully!';
-                this.routeLink = '/account/overview';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Delete successfully!";
+                this.routeLink = "/account/overview";
                 this.confirmModal.hide();
             }
             else {
                 this.msg = rsp.message;
-                this.routeLink = '';
+                this.routeLink = "";
             }
             this.informationModal.show();
 

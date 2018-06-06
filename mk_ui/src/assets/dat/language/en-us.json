@@ -1,0 +1,69 @@
+{
+    "name": "English - United States",
+    "data": [{
+            "code": "E101",
+            "text": "Duplicate data",
+            "page": "common"
+        },
+        {
+            "code": "E102",
+            "text": "Id does not exist",
+            "page": "common"
+        },
+        {
+            "code": "E201",
+            "text": "Invalid client key",
+            "page": "common"
+        },
+        {
+            "code": "E202",
+            "text": "Token has expired",
+            "page": "common"
+        },
+        {
+            "code": "E203",
+            "text": "Token is not match",
+            "page": "common"
+        },
+        {
+            "code": "L0001",
+            "text": "User Name",
+            "page": "sign-in"
+        },
+        {
+            "code": "L0002",
+            "text": "Password",
+            "page": "sign-in"
+        },
+        {
+            "code": "L0003",
+            "text": "Email",
+            "page": "sign-in"
+        },
+        {
+            "code": "H0001",
+            "text": "Expense vs Income",
+            "page": "dashboard"
+        },
+        {
+            "code": "H0002",
+            "text": "Accounts",
+            "page": "dashboard"
+        },
+        {
+            "code": "L0004",
+            "text": "Account",
+            "page": "dashboard"
+        },
+        {
+            "code": "L0005",
+            "text": "View On",
+            "page": "dashboard"
+        },
+        {
+            "code": "B0001",
+            "text": "View",
+            "page": "dashboard"
+        }
+    ]
+}

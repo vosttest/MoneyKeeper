@@ -40,11 +40,11 @@ namespace MoneyKeeper.Token.ViewModels
             {
                 var main = App.Current.MainPage;
                 var code = Code1 + Code2 + Code3 + Code4 + Code5 + Code6;
-                var res = await UserService.VerifyActiveCode(code);
+                var rsp = await UserService.VerifyActiveCode(code);
 
-                if (res.Status == Const.HTTP.STATUS_SUCCESS)
+                if (rsp.Status == Const.HTTP.STATUS_SUCCESS)
                 {
-                    App.Jwt = res.Result.ToString();
+                    App.Jwt = rsp.Result.ToString();
                     Utils.SetVar(Const.Authentication.JWT, App.Jwt);
 
                     var t = Utils.DecodeJwt(App.Jwt, Const.Authentication.PAYLOAD_NAME);
@@ -63,7 +63,7 @@ namespace MoneyKeeper.Token.ViewModels
                 }
                 else
                 {
-                    await main.DisplayAlert("Error", res.Message, "OK");
+                    await main.DisplayAlert("Error", rsp.Message, "OK");
                 }
             }
             catch (Exception ex)

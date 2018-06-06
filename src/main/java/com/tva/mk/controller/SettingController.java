@@ -8,16 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tva.mk.bll.CommonService;
 import com.tva.mk.bll.SettingService;
+import com.tva.mk.common.Const;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
+import com.tva.mk.model.Common;
 import com.tva.mk.model.Setting;
+import com.tva.mk.req.BaseReq;
+import com.tva.mk.req.ExchangeRateReq;
 import com.tva.mk.rsp.SingleRsp;
 
 @RestController
@@ -27,6 +33,9 @@ public class SettingController {
 
 	@Autowired
 	private SettingService settingService;
+
+	@Autowired
+	private CommonService commonService;
 
 	// end
 
@@ -91,6 +100,64 @@ public class SettingController {
 			}
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@PostMapping("/view")
+	public ResponseEntity<?> view(@RequestBody BaseReq req, @RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			// Get data
+			String keyword = req.getKeyword();
+
+			// Handle
+			Setting tmp = settingService.getBy(id, keyword);
+
+			// Set data
+			res.setResult(tmp);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@GetMapping("/exrate")
+	public ResponseEntity<?> exrate() {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			// Get data
+			String url = Const.Setting.EXRATE_URL;
+			List<ExchangeRateReq> t = Utils.readXML(url);
+
+			// Handle
+			for (ExchangeRateReq item : t) {
+				// Add or update exchange rate
+				Common m = new Common();
+				m.setType("ExchangeRate");
+				m.setValue(item.getValue());
+				m.setText(item.getRate());
+				commonService.save(m);
+
+				// Add or update currency
+				m = new Common();
+				m.setType("Currency");
+				m.setValue(item.getValue());
+				m.setText(item.getName());
+				commonService.save(m);
+			}
+
+			// Set data
+			res.setResult(t);
+		} catch (Exception e) {
+			res.setError(e.getMessage());
 		}
 
 		return new ResponseEntity<>(res, HttpStatus.OK);

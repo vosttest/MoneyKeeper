@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AccountProvider, CommonProvider } from '../../providers/provider';
 import { Observable, Subject } from 'rxjs';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-account',
@@ -13,9 +14,9 @@ export class AccountComponent implements OnInit {
     public data = [];
     public lstTmp = [];
     public lstType = [];
-    public keyword: string = '';
-    public vm: any = { type: '' };
-    public searchText = '';
+    public keyword: string = "";
+    public vm: any = { type: "" };
+    public searchText = "";
     public loader = false;
 
     constructor(private pro: AccountProvider,
@@ -23,15 +24,15 @@ export class AccountComponent implements OnInit {
         private rou: Router) { }
 
     ngOnInit() {
-        this.searchByType('Account');
+        this.searchByType("Account");
         this.search();
     }
 
     private search() {
         this.loader = true;
 
-        this.pro.search('').subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.pro.search("").subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.data = rsp.result.data;
                 this.lstTmp = this.data;
             }
@@ -47,8 +48,8 @@ export class AccountComponent implements OnInit {
         this.loader = true;
 
         this.proCom.search(type, true).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                if (type == 'Account') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                if (type == "Account") {
                     this.lstType = rsp.result.data;
                 }
             }
@@ -61,7 +62,7 @@ export class AccountComponent implements OnInit {
     }
 
     public changeType(value: string) {
-        if (value === 'showAll') {
+        if (value === "showAll") {
             this.data = this.lstTmp;
         } else {
             this.data = this.lstTmp.filter(a => a.type === value);

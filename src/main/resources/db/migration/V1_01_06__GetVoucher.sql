@@ -8,7 +8,7 @@ RETURNS TABLE(start_date TIMESTAMP, voucher_id INT4, account_id INT4, type VARCH
 	user_id INT4, amount FLOAT8, category_text VARCHAR, icon VARCHAR, account_text VARCHAR) AS $body$
 BEGIN
 RETURN QUERY
-	(SELECT v.start_date, v.id, v.account_id, v.type, v.total,
+	(SELECT DISTINCT v.start_date, v.id, v.account_id, v.type, v.total,
 		v.description, v.payee, v.payer, v.to_account,
 		v.user_id, vd.amount, c.text, c.icon, a.text
 	FROM voucher v
@@ -20,9 +20,10 @@ RETURN QUERY
 		AND (LOWER(c.Text) LIKE CONCAT('%', keyword, '%') 
 			OR LOWER(v.description) LIKE CONCAT('%', keyword, '%')
 			OR LOWER(v.type) LIKE CONCAT('%', keyword, '%'))
+		AND v.is_deleted = FALSE
 	ORDER BY v.start_date)
 	UNION ALL
-	(SELECT v.start_date, v.id, v.account_id, v.type, v.total,
+	(SELECT DISTINCT v.start_date, v.id, v.account_id, v.type, v.total,
 		v.description, v.payee, v.payer, v.to_account,
 		v.user_id, vd.amount, c.text, c.icon, a.text
 	FROM voucher v
@@ -34,6 +35,7 @@ RETURN QUERY
 		AND (LOWER(c.Text) LIKE CONCAT('%', keyword, '%') 
 			OR LOWER(v.description) LIKE CONCAT('%', keyword, '%')
 			OR LOWER(v.type) LIKE CONCAT('%', keyword, '%'))
+		AND v.is_deleted = FALSE
 	ORDER BY v.start_date);
 END;
 $body$

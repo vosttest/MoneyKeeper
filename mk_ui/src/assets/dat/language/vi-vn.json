@@ -1,0 +1,69 @@
+{
+    "name": "Tiếng Việt - Việt Nam",
+    "data": [{
+            "code": "E101",
+            "text": "Trùng dữ liệu",
+            "page": "common"
+        },
+        {
+            "code": "E102",
+            "text": "Id không tồn tại",
+            "page": "common"
+        },
+        {
+            "code": "E201",
+            "text": "Khoá không hợp lệ",
+            "page": "common"
+        },
+        {
+            "code": "E202",
+            "text": "Mã hết hạn",
+            "page": "common"
+        },
+        {
+            "code": "E203",
+            "text": "Mã không khớp",
+            "page": "common"
+        },
+        {
+            "code": "L0001",
+            "text": "Tên Người Dùng",
+            "page": "sign-in"
+        },
+        {
+            "code": "L0002",
+            "text": "Mật Khẩu",
+            "page": "sign-in"
+        },
+        {
+            "code": "L0003",
+            "text": "Thư",
+            "page": "sign-in"
+        },
+        {
+            "code": "H0001",
+            "text": "Chi và Thu",
+            "page": "dashboard"
+        },
+        {
+            "code": "H0002",
+            "text": "Các Tài Khoản",
+            "page": "dashboard"
+        },
+        {
+            "code": "L0004",
+            "text": "Tài Khoản",
+            "page": "dashboard"
+        },
+        {
+            "code": "L0005",
+            "text": "Ngày Xem",
+            "page": "dashboard"
+        },
+        {
+            "code": "B0001",
+            "text": "Xem",
+            "page": "dashboard"
+        }
+    ]
+}

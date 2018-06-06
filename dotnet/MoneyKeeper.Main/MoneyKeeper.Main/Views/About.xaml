@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Title="About MK"
+             x:Class="MoneyKeeper.Main.Views.About">
+    <ContentPage.Content>
+        <StackLayout Margin="20,0,10,0">
+            <Label Text="Seri number: 123456789"
+                   TextColor="#FA5A31"/>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Time: "
+                       TextColor="#FA5A31"/>
+                <Label x:Name="lblTime"
+                       TextColor="#FA5A31"/>
+            </StackLayout>
+            <Label Text="The software on your mobile device provides the OTP code that is unique to your account. Very secure, secure, convenient, unlimited time, place, no network connection to get OTP."/>
+            <StackLayout Orientation="Horizontal"
+                         Margin="0,20,0,0">
+                <Label Text="Version: "/>
+                <Label x:Name="lblVersionNumber"/>
+            </StackLayout>
+            <Label Text="Copyright belongs to MK"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { AccountProvider, ReportProvider } from '../../providers/provider';
+import { SettingProvider, AccountProvider, ReportProvider } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
-import { HTTP } from '../../utilities/utility';
+import { HTTP, Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-dashboard',
@@ -10,10 +10,12 @@ import { HTTP } from '../../utilities/utility';
 })
 
 export class DashboardComponent implements OnInit {
+    public lang = [];
     public account = [];
     public getReport = [];
 
-    public vm: any = { accountId: "", total: "", total2: "" };
+    public vmLang: any = {};
+    public vm: any = { accountId: 0, total: "", total2: "" };
 
     public loader: boolean = false;
     public isShow: boolean = false;
@@ -22,29 +24,18 @@ export class DashboardComponent implements OnInit {
     public maxDate = new Date(2050, 12, 12);
     public bsValue: Date = new Date();
 
-    constructor(private proAcc: AccountProvider,
+    constructor(private proSetting: SettingProvider,
+        private proAccount: AccountProvider,
         private proReport: ReportProvider) { }
 
     ngOnInit() {
+        this.getLang();
         this.search();
     }
 
-    private search() {
-        this.loader = false;
-
-        this.proAcc.search("", true).subscribe((rsp: any) => {
-            if (rsp.status === HTTP.STATUS_SUCCESS) {
-                this.account = rsp.result.data;
-            }
-            else {
-                console.log(rsp.message);
-            }
-
-            this.loader = false;
-        }, err => console.log(err));
-    }
-
     public report() {
+        this.loader = true;
+
         let obj = {
             "accountId": this.vm.accountId,
             "fromDate": this.vm.fromDate,
@@ -61,6 +52,55 @@ export class DashboardComponent implements OnInit {
             else {
                 console.log(rsp.message);
             }
+
+            this.loader = false;
+        }, err => console.log(err));
+    }
+
+    private getLang() {
+        this.proSetting.view(Setting.CODE_LANGGUAGE).subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                let file = "";
+
+                switch (rsp.result.value) {
+                    case "vi-vn":
+                        file = "language/vi-vn.json"
+                        break;
+
+                    default:
+                        file = "language/en-us.json"
+                        break;
+                }
+
+                this.proSetting.getLang(file).subscribe((rsp: any) => {
+                    this.lang = rsp.data;
+                    let x = this.lang.filter(p => p.page === "dashboard");
+
+                    this.vmLang.hExpenseIncome = x.filter(p => p.code === "H0001")[0].text;
+                    this.vmLang.hAccounts = x.filter(p => p.code === "H0002")[0].text;
+                    this.vmLang.lAccount = x.filter(p => p.code === "L0004")[0].text;
+                    this.vmLang.lViewOn = x.filter(p => p.code === "L0005")[0].text;
+                    this.vmLang.bView = x.filter(p => p.code === "B0001")[0].text;
+                }, err => console.log(err));
+            }
+            else {
+                console.log(rsp.message);
+            }
+        }, err => console.log(err));
+    }
+
+    private search() {
+        this.loader = false;
+
+        this.proAccount.search("", true).subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.account = rsp.result.data;
+            }
+            else {
+                console.log(rsp.message);
+            }
+
+            this.loader = false;
         }, err => console.log(err));
     }
 }

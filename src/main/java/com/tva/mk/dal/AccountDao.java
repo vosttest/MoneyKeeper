@@ -17,4 +17,7 @@ public interface AccountDao extends CrudRepository<Account, Integer> {
 
 	@Query(nativeQuery = true, value = "SELECT * FROM account a WHERE a.user_id = :userId AND a.is_deleted = FALSE AND UPPER(a.text) LIKE UPPER(CONCAT('%', :keyword, '%')) ORDER BY a.id ASC")
 	public List<Account> search(@Param("userId") int userId, @Param("keyword") String keyword);
+
+	@Query(nativeQuery = true, value = "SELECT * FROM get_account(:keyword, :userId)")
+	public List<Object[]> search(@Param("keyword") String keyword, @Param("userId") int userId);
 }

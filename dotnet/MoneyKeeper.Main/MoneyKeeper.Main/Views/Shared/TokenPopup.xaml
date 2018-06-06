@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
+             x:Class="MoneyKeeper.Main.Views.Shared.TokenPopup">
+    <ContentView.BindingContext>
+        <vm:TokenVM/>
+    </ContentView.BindingContext>
+    <ContentView.Content>
+        <StackLayout BackgroundColor="#ffffff00"
+                     VerticalOptions="Center">
+            <StackLayout BackgroundColor="#ffffff">
+                <StackLayout BackgroundColor="#1cb09a"
+                             Padding="16,16,16,16">
+                    <Label Text="Confirm Token"
+                           TextColor="#ffffff"
+                           Font="Bold, 22"/>
+                    <Label x:Name="userName"
+                           Text="{Binding UserName, Mode=TwoWay}"
+                           IsVisible="False"/>
+                    <Label x:Name="password"
+                           Text="{Binding Password, Mode=TwoWay}"
+                           IsVisible="False"/>
+                    <Label x:Name="clientKey"
+                           Text="{Binding ClientKey, Mode=TwoWay}"
+                           IsVisible="False"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical"
+                             Padding="16,16,16,16">
+                    <Label Text="Please enter the token"
+                           Font="Bold, 16"/>
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="20,0,20,0">
+                        <Entry x:Name="code1"
+                               Text="{Binding Code1}"
+                               Keyboard="Numeric"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextChanged="Code1_TextChanged"/>
+                        <Entry x:Name="code2"
+                               Text="{Binding Code2}"
+                               Keyboard="Numeric"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextChanged="Code2_TextChanged"/>
+                        <Entry x:Name="code3"
+                               Text="{Binding Code3}"
+                               Keyboard="Numeric"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextChanged="Code3_TextChanged"/>
+                        <Entry x:Name="code4"
+                               Text="{Binding Code4}"
+                               Keyboard="Numeric"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextChanged="Code4_TextChanged"/>
+                        <Entry x:Name="code5"
+                               Text="{Binding Code5}"
+                               Keyboard="Numeric"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextChanged="Code5_TextChanged"/>
+                        <Entry x:Name="code6"
+                               Text="{Binding Code6}"
+                               Keyboard="Numeric"
+                               HorizontalOptions="FillAndExpand"
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               TextChanged="Code6_TextChanged"/>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             Padding="16,16,16,16"
+                             HorizontalOptions="End">
+                    <Button Text="Cancel"
+                            TextColor="#ffffff"
+                            BackgroundColor="#6c757d"
+                            VerticalOptions="Center"
+                            Command="{Binding CancelCmd}"/>
+                    <Button Text="Proceed"
+                            TextColor="#ffffff"
+                            BackgroundColor="#1cb09a"
+                            VerticalOptions="Center"
+                            Command="{Binding ProceedCmd}"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

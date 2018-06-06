@@ -1,9 +1,14 @@
 package com.tva.mk.dto;
 
+import java.util.Date;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class VoucherDetailDto {
 	// region -- Fields --
+
+	@JsonProperty(value = "id")
+	private Integer id;
 
 	@JsonProperty(value = "voucherId")
 	private Integer voucherId;
@@ -38,15 +43,29 @@ public class VoucherDetailDto {
 	@JsonProperty(value = "categoryText")
 	private String categoryText;
 
+	@JsonProperty(value = "category")
+	private String category;
+
 	@JsonProperty(value = "icon")
 	private String icon;
 
 	@JsonProperty(value = "accountText")
 	private String accountText;
 
+	@JsonProperty(value = "startDate")
+	private Date startDate;
+
 	// end
 
 	// region -- Get set --
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getVoucherId() {
 		return voucherId;
@@ -136,6 +155,14 @@ public class VoucherDetailDto {
 		this.categoryText = categoryText;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public String getIcon() {
 		return icon;
 	}
@@ -150,6 +177,14 @@ public class VoucherDetailDto {
 
 	public void setAccountText(String accountText) {
 		this.accountText = accountText;
+	}
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
 	// end

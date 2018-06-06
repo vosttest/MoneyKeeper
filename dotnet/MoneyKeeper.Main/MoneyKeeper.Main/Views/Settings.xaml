@@ -4,10 +4,35 @@
              Title="Settings"
              x:Class="MoneyKeeper.Main.Views.Settings">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Settings"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid HorizontalOptions="Center"
+          VerticalOptions="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Internal Grid for top row of items -->
+            <Button Text="Reminder"
+                Grid.Row="1" Grid.Column="0" Clicked="Button_Clicked" />
+            <Button Text="Currency"
+                Grid.Row="2" Grid.Column="0" Clicked="Button_Clicked" />
+            <Button Text="Language"
+                Grid.Row="3" Grid.Column="0" />
+            <Button Text="Login Authentication"
+                Grid.Row="4" Grid.Column="0" />
+            <Button Text="Transaction"
+                Grid.Row="5" Grid.Column="0" />
+            <Button Text="Lock"
+                Grid.Row="6" Grid.Column="0" />
+
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

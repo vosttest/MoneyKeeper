@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tva.mk.bll.AccountService;
 import com.tva.mk.common.Const;
 import com.tva.mk.common.Utils;
+import com.tva.mk.dto.AccountDto;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Account;
 import com.tva.mk.req.AccountReq;
@@ -52,10 +53,11 @@ public class AccountController {
 			Boolean isOptional = req.getIsOptional();
 
 			// Handle
-			List<Account> tmp = accountService.search(id, keyword);
+			// List<Account> tmp = accountService.search(id, keyword);
+			List<AccountDto> tmp = accountService.search(keyword, id);
 
 			if (isOptional != null && isOptional) {
-				Account m = new Account();
+				AccountDto m = new AccountDto();
 				m.setText(Const.UI.SELECT_OPTION);
 				tmp.add(0, m);
 			}

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MoneyKeeper.Main.ViewModels
@@ -23,7 +24,7 @@ namespace MoneyKeeper.Main.ViewModels
         {
             Title = "Dashboard";
 
-            _accounts = new List<AccountDto>();
+            _accounts = new List<AccountList>();
 
             Task.Run(async () => await ExeLoadCmd());
         }
@@ -44,15 +45,27 @@ namespace MoneyKeeper.Main.ViewModels
                 {
                     Keyword = string.Empty
                 };
-                var res = await AccountService.Search(m);
+                var rsp = await AccountService.Search(m);
 
-                if (res.Status == Const.HTTP.STATUS_SUCCESS)
+                if (rsp.Status == Const.HTTP.STATUS_SUCCESS)
                 {
-                    Accounts = res.Result.Data;
+                    var x = rsp.Result.Data;
+                    var l = new List<AccountList>();
+
+                    var t1 = x.Select(p => p.Type).Distinct().ToList();
+                    foreach (var i in t1)
+                    {
+                        var t2 = x.Where(p => p.Type == i).ToList();
+                        var o = new AccountList { Heading = i };
+                        o.Accounts.AddRange(t2);
+                        l.Add(o);
+                    }
+
+                    Accounts = l;
                 }
                 else
                 {
-                    await main.DisplayAlert("Error", res.Message, "OK");
+                    await main.DisplayAlert("Error", rsp.Message, "OK");
                 }
             }
             catch (Exception ex)
@@ -67,9 +80,9 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Properties --
 
         /// <summary>
-        /// List account
+        /// Account list
         /// </summary>
-        public List<AccountDto> Accounts
+        public List<AccountList> Accounts
         {
             get { return _accounts; }
             set { SetProperty(ref _accounts, value); }
@@ -80,9 +93,9 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Fields --
 
         /// <summary>
-        /// List account
+        /// Account list
         /// </summary>
-        private List<AccountDto> _accounts;
+        private List<AccountList> _accounts;
 
         #endregion
     }

@@ -78,6 +78,11 @@ namespace MoneyKeeper.Main.ViewModels
         public AccountService AccountService => DependencyService.Get<AccountService>() ?? new AccountService();
 
         /// <summary>
+        /// Category service
+        /// </summary>
+        public CategoryService CategoryService => DependencyService.Get<CategoryService>() ?? new CategoryService();
+
+        /// <summary>
         /// User service
         /// </summary>
         public UserService UserService => DependencyService.Get<UserService>() ?? new UserService();

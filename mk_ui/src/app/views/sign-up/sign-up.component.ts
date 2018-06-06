@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProvider } from '../../providers/provider';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-sign-up',
@@ -8,9 +9,9 @@ import { UserProvider } from '../../providers/provider';
 })
 
 export class SignUpComponent implements OnInit {
-    public vm: any = { userName: '', password: '' };
+    public vm: any = { userName: "", password: "" };
     public loader: boolean = false;
-    public message = '';
+    public message = "";
     public pwdPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$$";
 
     constructor(private pro: UserProvider) { }
@@ -21,8 +22,8 @@ export class SignUpComponent implements OnInit {
         this.loader = true;
 
         this.pro.signUp(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.message = '';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.message = "";
                 this.pro.saveAuth(rsp.result);
             } else {
                 this.message = rsp.message;

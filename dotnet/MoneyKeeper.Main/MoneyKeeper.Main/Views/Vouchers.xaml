@@ -5,9 +5,9 @@
              x:Class="MoneyKeeper.Main.Views.Vouchers">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Vouchers!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"/>
+            <Label Text="Voucher"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

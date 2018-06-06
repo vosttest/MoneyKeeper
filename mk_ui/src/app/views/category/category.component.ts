@@ -7,6 +7,7 @@ import {
     ExpenseProvider,
     CommonProvider
 } from '../../providers/provider';
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-category',
@@ -20,7 +21,7 @@ export class CategoryComponent implements OnInit {
     public lstParentTmp = [];
     public lstChildTmp = [];
     public lstImages = [];
-    public keyword = '';
+    public keyword = "";
     public isShow: boolean = true;
     public tab: string = "";
     public isCollapsed: boolean = true;
@@ -31,12 +32,12 @@ export class CategoryComponent implements OnInit {
     public apiURL: string = "../../../../assets/img/";
     public loader: boolean;
     public function = "overview";
-    public msg = '';
+    public msg = "";
     public success = false;
 
-    @ViewChild('confirmModal') public confirmModal: ModalDirective;
-    @ViewChild('iconModal') public iconModal: ModalDirective;
-    @ViewChild('informationModal') public informationModal: ModalDirective;
+    @ViewChild("confirmModal") public confirmModal: ModalDirective;
+    @ViewChild("iconModal") public iconModal: ModalDirective;
+    @ViewChild("informationModal") public informationModal: ModalDirective;
 
     constructor(private proIncome: IncomeProvider,
         private proExpense: ExpenseProvider,
@@ -50,7 +51,7 @@ export class CategoryComponent implements OnInit {
             this.function = params["function"];
             document.getElementById(this.function).style.display = "block";
             this.vm = {};
-            this.vm.icon = 'question.png';
+            this.vm.icon = "question.png";
             this.getImages();
         });
 
@@ -66,7 +67,7 @@ export class CategoryComponent implements OnInit {
         document.getElementById("tabIncome").style.color = "white";
 
         this.proIncome.search().subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.isShow = true;
                 this.lstParent = rsp.result.parent;
                 this.lstParentTmp = this.lstParent;
@@ -89,7 +90,7 @@ export class CategoryComponent implements OnInit {
         document.getElementById("tabIncome").style.color = "black";
 
         this.proExpense.search().subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.isShow = true;
                 this.lstParent = rsp.result.parent;
                 this.lstParentTmp = this.lstParent;
@@ -105,12 +106,12 @@ export class CategoryComponent implements OnInit {
 
     public redirectEdit(id: any, count: any) {
         this.count = count;
-        this.rou.navigate(['/category/edit']);
+        this.rou.navigate(["/category/edit"]);
         this.getImages();
 
         if (this.tab == "Expense") {
             this.proExpense.getById(id).subscribe((rsp: any) => {
-                if (rsp.status === 'success') {
+                if (rsp.status === HTTP.STATUS_SUCCESS) {
                     this.vm = rsp.result;
                     this.selEdit = rsp.result.parentId;
                 }
@@ -121,7 +122,7 @@ export class CategoryComponent implements OnInit {
         }
         else {
             this.proIncome.getById(id).subscribe((rsp: any) => {
-                if (rsp.status === 'success') {
+                if (rsp.status === HTTP.STATUS_SUCCESS) {
                     this.vm = rsp.result;
                     this.selEdit = rsp.result.parentId;
                 }
@@ -173,8 +174,8 @@ export class CategoryComponent implements OnInit {
 
         if (this.tab == "Expense") {
             this.proExpense.save(this.vm).subscribe((rsp: any) => {
-                if (rsp.status === 'success') {
-                    this.msg = 'Save successfully!';
+                if (rsp.status === HTTP.STATUS_SUCCESS) {
+                    this.msg = "Save successfully!";
                     this.success = true;
                     this.loadExpense();
                 }
@@ -189,8 +190,8 @@ export class CategoryComponent implements OnInit {
         }
         else {
             this.proIncome.save(this.vm).subscribe((rsp: any) => {
-                if (rsp.status === 'success') {
-                    this.msg = 'Save successfully!';
+                if (rsp.status === HTTP.STATUS_SUCCESS) {
+                    this.msg = "Save successfully!";
                     this.success = true;
                     this.loadIncome();
                 }
@@ -210,10 +211,10 @@ export class CategoryComponent implements OnInit {
 
         if (this.tab == "Expense") {
             this.proExpense.delete(id).subscribe((rsp: any) => {
-                if (rsp.status === 'success') {
+                if (rsp.status === HTTP.STATUS_SUCCESS) {
                     this.loadExpense();
                     this.confirmModal.hide();
-                    this.msg = 'Delete successfully!';
+                    this.msg = "Delete successfully!";
                     this.success = true;
                 }
                 else {
@@ -226,10 +227,10 @@ export class CategoryComponent implements OnInit {
         }
         else {
             this.proIncome.delete(id).subscribe((rsp: any) => {
-                if (rsp.status === 'success') {
+                if (rsp.status === HTTP.STATUS_SUCCESS) {
                     this.loadIncome();
                     this.confirmModal.hide();
-                    this.msg = 'Delete successfully!';
+                    this.msg = "Delete successfully!";
                     this.success = true;
                 }
                 else {
@@ -250,7 +251,7 @@ export class CategoryComponent implements OnInit {
 
     private getImages() {
         this.proCommon.getImages(this.tab).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.lstImages = rsp.result.data;
             }
             else {

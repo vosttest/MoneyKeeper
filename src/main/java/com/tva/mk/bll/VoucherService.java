@@ -33,9 +33,30 @@ public class VoucherService {
 
 	// region -- Methods --
 
-	public Voucher getById(int id) {
-		Voucher res = voucherDao.getBy(id);
-		return res;
+	public VoucherDetailDto getById(int id, int userId) {
+		VoucherDetailDto t2 = new VoucherDetailDto();
+
+		try {
+			List<Object[]> tt = voucherDao.getBy2(id, userId);
+			Object[] t = tt.get(0);
+
+			t2.setId((int) t[0]);
+			t2.setType((String) t[1]);
+			t2.setTotal((double) t[2]);
+			t2.setAmount((double) t[2]);
+			t2.setPayee((String) t[3]);
+			t2.setPayer((String) t[4]);
+			t2.setStartDate((Date) t[5]);
+			t2.setDescription((String) t[6]);
+			t2.setAccountText((String) t[7]);
+			t2.setCategoryText((String) t[8]);
+			t2.setCategory((String) t[9]);
+			t2.setAccountId((int) t[10]);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+
+		return t2;
 	}
 
 	public List<ReportDto> getReports(int accountId, Date fromDate, Date toDate) {
@@ -63,14 +84,14 @@ public class VoucherService {
 		int count = 0;
 		for (Object[] item : t) {
 			SimpleDateFormat fo = new SimpleDateFormat("yyyy-MM-dd");
-			Date abc = new Date();
+			Date t3 = new Date();
 			try {
-				abc = fo.parse(item[0].toString());
+				t3 = fo.parse(item[0].toString());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			int a = date.compareTo(abc);
+			int a = date.compareTo(t3);
 			if (a > 0) {
 				date = (Date) item[0];
 				if (t1.getStartDate() == null) {
@@ -141,7 +162,7 @@ public class VoucherService {
 			m2.setCategory(category);
 			voucherDetailDao.save(m2);
 		} else {
-			m1 = voucherDao.getBy(id);
+			m1 = voucherDao.getBy(id, userId);
 			if (m1 == null) {
 				res = "Id does not exist";
 			} else {
@@ -155,11 +176,11 @@ public class VoucherService {
 				m1.setPayee(m.getPayee());
 				m1.setUserId(userId);
 				m1.setStartDate(m.getStartDate());
+				m1.setToAccount(m.getToAccount());
 
 				voucherDao.save(m1);
 
-				VoucherDetail m2 = new VoucherDetail();
-				m2.setVoucherId(m1.getId());
+				VoucherDetail m2 = voucherDetailDao.getBy(m1.getId());
 				m2.setAmount(m.getTotal());
 				m2.setCategory(category);
 
@@ -167,6 +188,11 @@ public class VoucherService {
 			}
 		}
 
+		return res;
+	}
+
+	public Voucher getById(int id) {
+		Voucher res = voucherDao.getBy1(id);
 		return res;
 	}
 

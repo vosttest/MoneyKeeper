@@ -104,3 +104,16 @@ input:checked+.slider:before {
     border-bottom: solid 1px #DEDEDE;
     box-shadow: none;
 }
+
+a.form-control:hover {
+    text-decoration: none;
+    color: #ffffff;
+    background-color: rgb(58, 206, 184);
+}
+
+a.form-control:focus,
+a.active,
+a.show {
+    background-color: #1CB09A;
+    color: #ffffff;
+}

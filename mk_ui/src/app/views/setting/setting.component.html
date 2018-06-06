@@ -53,28 +53,55 @@
     </div>
     <div class="modal-dialog" id="currency" style="display: none;">
         <div class="modal-content" style="border:none">
-            <div>
-                <h2 class="text-center">Setting Currency</h2>
+            <div class="input-group mb-3 nav" style="margin: auto; text-align: center">
+                <a class="form-control" data-toggle="pill" href="#cur">Currency</a>
+                <a class="form-control format-input" data-toggle="pill" href="#exrate">Exchange Rate</a>
             </div>
-            <div class="form-group text-center">
-                <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search by currency" />
-            </div>
-            <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none">
-                <div class="col-md-3 ">
-                    <img height='40px' src="{{ imgCurrencyURL + i.value + '.png' }}" />
+            <div class="tab-content">
+                <div id="cur" class="tab-pane fade">
+                    <h2 class="text-center" style="margin-bottom: 5%;">Setting Currency</h2>
+                    <div class="form-group text-center">
+                        <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search by currency" />
+                    </div>
+                    <div style="overflow-y: initial; overflow-x: hidden; height: 300px;">
+                        <div *ngFor="let i of dataCurrency | filterSetting: searchCurrency" class="row each-row" style="border: none;">
+                            <div class="col-md-2">
+                                <img height='40px' src="{{ imgCurrencyURL + i.value + '.png' }}" />
+                            </div>
+                            <div class="col-md-7"> {{ i.text }} </div>
+                            <div class="col-md-3">
+                                <input type="radio" name="currency" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" checked value="{{ i.value }}" />
+                                <ng-template #elseCurrency>
+                                    <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
+                                </ng-template>
+                                {{ i.value }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success btn-block" (click)="saveCurrency()">OK</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6"> {{ i.text }} </div>
-                <div class="col-md-3">
-                    <input type="radio" name="currency" *ngIf="i.value === selectedCurrency.value; else elseCurrency" [(ngModel)]="selectedCurrency.value" checked value="{{ i.value }}" />
-                    <ng-template #elseCurrency>
-                        <input type="radio" name="currency" [(ngModel)]="selectedCurrency.value" value="{{ i.value }}" />
-                    </ng-template>
-                    {{ i.value }}
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-success btn-block" (click)="saveCurrency()">OK</button>
+                <div id="exrate" class="tab-pane fade">
+                    <h2 class="text-center" style="margin-bottom: 5%;">Exchange Rate</h2>
+                    <div style="overflow-y: initial; overflow-x: hidden; height: 300px;">
+                        <div *ngFor="let i of dataExrate" class="row each-row" style="border: none;">
+                            <div class="col-md-2">
+                                <img height='40px' src="{{ imgCurrencyURL + i.value + '.png' }}" />
+                            </div>
+                            <div class="col-md-6"> {{ i.name }} ({{ i.value }})</div>
+                            <div class="col-md-4">
+                                1{{ i.value }}/{{ i.rate | number:'0.0-0'}}VND
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <button class="btn btn-success btn-block" (click)="updateCurrency()">Update currency <i class="fas fa-sync-alt"></i></button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -87,7 +114,7 @@
             <div class="form-group text-center">
                 <input type="text" class="form-control" [(ngModel)]="searchLanguage" placeholder="Search by language" />
             </div>
-            <div *ngFor="let i of dataLanguage | filterSetting: searchLanguage" class="row each-row" style="border: none">
+            <div *ngFor="let i of dataLanguage | filterSetting: searchLanguage" class="row each-row" style="border: none;">
                 <div class="col-md-3">
                     <img height='40px' src="{{ imgLanguageURL + i.value + '.png' }}" /> </div>
                 <div class="col-md-6"> {{ i.text }} </div>
@@ -133,9 +160,9 @@
                 </div>
                 <div class="col-md-7">
                     <select id="loginAuthenType" name="loginAuthenType" #loginAuthenType="ngModel" [(ngModel)]="loginAuthen.type" class="form-control">
-                        <option value="">-- Please Select --</option>
-                        <option value="OTP">OTP</option>
-                        <option value="TOKEN">TOKEN</option>
+                        <option value="">-- Please select --</option>
+                        <option value="OTP">Send OTP to mobile phone</option>
+                        <option value="TOKEN">Send OTP to token app</option>
                     </select>
                 </div>
             </div>

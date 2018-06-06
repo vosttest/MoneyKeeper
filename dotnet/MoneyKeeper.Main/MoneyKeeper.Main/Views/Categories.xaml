@@ -1,13 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Categories"
-             x:Class="MoneyKeeper.Main.Views.Categories">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Categories"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:view="clr-namespace:MoneyKeeper.Main.Views.Category"
+            x:Class="MoneyKeeper.Main.Views.Categories"
+            Title="Categories">
+
+    <view:Expense Title="Expense"/>
+    <view:Income Title="Income"/>
+</TabbedPage>

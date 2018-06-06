@@ -31,6 +31,10 @@ export class ApiProvider {
         }
     }
 
+    public getx(endpoint: string): Observable<any> {
+        return this.http.get(endpoint);
+    }
+
     public get(endpoint: string, params?: any, reqOpts?: any) {
         if (!reqOpts) {
             reqOpts = {

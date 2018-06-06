@@ -9,22 +9,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tva.mk.bll.VoucherService;
 import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
+import com.tva.mk.dto.VoucherDetailDto;
 import com.tva.mk.dto.VoucherDto;
 import com.tva.mk.model.Voucher;
 import com.tva.mk.req.VoucherReq;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.MultipleRsp;
+import com.tva.mk.rsp.SingleRsp;
 
 @RestController
 @RequestMapping("/voucher")
@@ -57,6 +59,26 @@ public class VoucherController {
 			Map<String, Object> t = new LinkedHashMap<>();
 			t.put("data", tmp);
 			res.setResult(t);
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/view/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> view(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int userId = pl.getId();
+
+			// Handle
+			VoucherDetailDto tmp = voucherService.getById(id, userId);
+
+			// Set data
+			res.setResult(tmp);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}
@@ -105,7 +127,7 @@ public class VoucherController {
 		return new ResponseEntity<>(res, HttpStatus.OK);
 	}
 
-	@DeleteMapping("/delete/{id}")
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@RequestHeader HttpHeaders header, @PathVariable("id") int id) {
 		BaseRsp res = new BaseRsp();
 

@@ -1,5 +1,6 @@
 package com.tva.mk.bll;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tva.mk.dal.AccountDao;
+import com.tva.mk.dto.AccountDto;
 import com.tva.mk.model.Account;
 
 @Service(value = "accountService")
@@ -38,6 +40,23 @@ public class AccountService {
 	 */
 	public List<Account> search(int id, String keyword) {
 		List<Account> res = accountDao.search(id, keyword);
+		return res;
+	}
+
+	public List<AccountDto> search(String keyword, int id) {
+		List<AccountDto> res = new ArrayList<>();
+
+		List<Object[]> l = accountDao.search(keyword, id);
+		for (Object[] i : l) {
+			AccountDto t = new AccountDto();
+			t.setId((int) i[0]);
+			t.setCode((String) i[1]);
+			t.setText((String) i[2]);
+			t.setBalance((double) i[3]);
+			t.setCurrency((String) i[4]);
+			res.add(t);
+		}
+
 		return res;
 	}
 

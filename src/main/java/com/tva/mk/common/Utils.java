@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
@@ -15,11 +16,19 @@ import java.util.Random;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tva.mk.dto.PayloadDto;
+import com.tva.mk.req.ExchangeRateReq;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
@@ -235,6 +244,41 @@ public class Utils {
 			res = hexString.toString();
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+		}
+
+		return res;
+	}
+
+	public static List<ExchangeRateReq> readXML(String xml) throws Exception {
+		List<ExchangeRateReq> res = new ArrayList<>();
+
+		try {
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(xml);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName("Exrate");
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+				Node nNode = nList.item(temp);
+
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+					// Get data
+					Element eElement = (Element) nNode;
+					String value = eElement.getAttribute("CurrencyCode");
+					String rate = eElement.getAttribute("Transfer");
+					String name = eElement.getAttribute("CurrencyName");
+
+					// Set data
+					ExchangeRateReq t = new ExchangeRateReq();
+					t.setValue(value);
+					t.setRate(rate);
+					t.setName(name);
+					res.add(t);
+				}
+			}
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
 		}
 
 		return res;

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap';
 import { AccountProvider, CommonProvider, SettingProvider } from '../../providers/provider';
-import { Setting } from '../../utilities/utility';
+import { HTTP, Setting } from '../../utilities/utility';
 
 @Component({
     selector: 'app-account-add',
@@ -20,14 +20,14 @@ export class AccountAddComponent implements OnInit {
     public pickSaveAcc = false;
     public pickAtm = false;
     public pickOther = false;
-    public vm: any = { id: '', type: 'ACC001', term: 'TRM001', interestPaid: 'IPD002', termEnded: 'TRE002' };
-    public message = '';
+    public vm: any = { id: "", type: "ACC001", term: "TRM001", interestPaid: "IPD002", termEnded: "TRE002" };
+    public message = "";
     public account: any[] = [];
-    public msg = '';
+    public msg = "";
     public success = false;
     public loader: boolean = false;
 
-    @ViewChild('informationModal') public informationModal: ModalDirective;
+    @ViewChild("informationModal") public informationModal: ModalDirective;
 
     // Datepicker
 
@@ -42,11 +42,11 @@ export class AccountAddComponent implements OnInit {
         private rou: Router) { }
 
     ngOnInit() {
-        this.getType('Account');
-        this.getType('Currency');
-        this.getType('Term');
-        this.getType('InterestPaid');
-        this.getType('TermEnd');
+        this.getType("Account");
+        this.getType("Currency");
+        this.getType("Term");
+        this.getType("InterestPaid");
+        this.getType("TermEnd");
         this.searchCurrency();
         this.search();
         this.checkType(this.vm.type);
@@ -54,16 +54,16 @@ export class AccountAddComponent implements OnInit {
 
     private getType(type: string) {
         this.proCommon.search(type).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                if (type == 'Account') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                if (type == "Account") {
                     this.lstType = rsp.result.data;
-                } else if (type == 'Currency') {
+                } else if (type == "Currency") {
                     this.lstCurrency = rsp.result.data;
-                } else if (type == 'Term') {
+                } else if (type == "Term") {
                     this.lstTerm = rsp.result.data;
-                } else if (type == 'InterestPaid') {
+                } else if (type == "InterestPaid") {
                     this.lstInterestPaid = rsp.result.data;
-                } else if (type == 'TermEnd') {
+                } else if (type == "TermEnd") {
                     this.lstTermEnd = rsp.result.data;
                 }
             }
@@ -71,13 +71,13 @@ export class AccountAddComponent implements OnInit {
     }
 
     public checkType(va: string) {
-        if (va === 'ACC005') {
+        if (va === "ACC005") {
             this.pickSaveAcc = false;
             this.pickOther = true;
             this.pickAtm = true;
             this.vm.startDate = new Date();
         }
-        else if (va === 'ACC003') {
+        else if (va === "ACC003") {
             this.pickSaveAcc = true;
             this.pickAtm = false;
             this.pickOther = false;
@@ -92,8 +92,8 @@ export class AccountAddComponent implements OnInit {
         this.loader = true;
 
         this.proAccount.save(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
                 this.success = true;
             } else {
                 this.msg = rsp.message;
@@ -108,8 +108,8 @@ export class AccountAddComponent implements OnInit {
     private search() {
         this.loader = true;
 
-        this.proAccount.search('').subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+        this.proAccount.search("").subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.account = rsp.result.data;
             }
             else {

@@ -2,23 +2,24 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap';
 import { UserProvider } from '../../providers/provider';
-
+import { HTTP } from '../../utilities/utility';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.css']
 })
+
 export class ProfileComponent implements OnInit {
     public vm: any = {};
 
     public loader: boolean;
     
-    public type = 'MAIL';
-    public msg = '';
+    public type = "MAIL";
+    public msg = "";
 
-    @ViewChild('activeCodePopup') public activeCodePopup: ModalDirective;
-    @ViewChild('informationModal') public informationModal: ModalDirective;
+    @ViewChild("activeCodePopup") public activeCodePopup: ModalDirective;
+    @ViewChild("informationModal") public informationModal: ModalDirective;
 
     constructor(private pro: UserProvider, private rou: Router) { }
 
@@ -30,8 +31,8 @@ export class ProfileComponent implements OnInit {
         this.loader = true;
 
         this.pro.save(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
-                this.msg = 'Save successfully!';
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                this.msg = "Save successfully!";
             } else {
                 this.msg = rsp.message;
             }
@@ -44,9 +45,9 @@ export class ProfileComponent implements OnInit {
         this.loader = true;
 
         this.pro.getActiveCode(this.type).subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.activeCodePopup.hide();
-                this.msg = 'Active code have been send!';
+                this.msg = "Active code have been send!";
             } else {
                 this.msg = rsp.message;
             }
@@ -59,10 +60,9 @@ export class ProfileComponent implements OnInit {
         this.loader = true;
 
         this.pro.view().subscribe((rsp: any) => {
-            if (rsp.status === 'success') {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.vm = rsp.result;
             } else {
-                //TODO - Show popup
                 console.log(rsp.message);
             }
 
