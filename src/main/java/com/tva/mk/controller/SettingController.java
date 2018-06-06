@@ -22,6 +22,7 @@ import com.tva.mk.common.Utils;
 import com.tva.mk.dto.PayloadDto;
 import com.tva.mk.model.Common;
 import com.tva.mk.model.Setting;
+import com.tva.mk.req.BaseReq;
 import com.tva.mk.req.ExchangeRateReq;
 import com.tva.mk.rsp.SingleRsp;
 
@@ -97,6 +98,29 @@ public class SettingController {
 			if (!tmp.isEmpty()) {
 				res.setError("Save setting error!");
 			}
+		} catch (Exception ex) {
+			res.setError(ex.getMessage());
+		}
+
+		return new ResponseEntity<>(res, HttpStatus.OK);
+	}
+
+	@PostMapping("/view")
+	public ResponseEntity<?> view(@RequestBody BaseReq req, @RequestHeader HttpHeaders header) {
+		SingleRsp res = new SingleRsp();
+
+		try {
+			PayloadDto pl = Utils.getTokenInfor(header);
+			int id = pl.getId();
+
+			// Get data
+			String keyword = req.getKeyword();
+
+			// Handle
+			Setting tmp = settingService.getBy(id, keyword);
+
+			// Set data
+			res.setResult(tmp);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

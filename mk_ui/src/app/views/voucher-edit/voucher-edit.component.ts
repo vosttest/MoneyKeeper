@@ -9,6 +9,7 @@ import {
     AccountProvider
 } from '../../providers/provider';
 import { ModalDirective } from 'ngx-bootstrap';
+import { moment } from 'ngx-bootstrap/chronos/test/chain';
 
 @Component({
     selector: 'app-voucher-edit',

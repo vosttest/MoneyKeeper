@@ -166,7 +166,7 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <p>Date</p>
-                            <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.startDate" value="{{ vm.startDate | date:'dd-MMM-yyyy' }}" type="text" class="form-control">
+                            <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.startDate" value="{{ vm.startDate | date:'dd-MMM-yyyy HH:mm' }}" type="text" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -300,7 +300,7 @@
                 {{ msg }}
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-success" (click)="informationModal.hide()" *ngIf='success; else other_content' routerLink="/voucher/overview">OK</button>
+                <button type="submit" class="btn btn-success" (click)="ok()" *ngIf='success; else other_content'>OK</button>
                 <ng-template #other_content>
                     <button type="submit" class="btn btn-success" (click)="informationModal.hide()">OK</button>
                 </ng-template>

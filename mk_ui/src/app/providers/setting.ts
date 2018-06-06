@@ -1,6 +1,7 @@
 import 'rxjs/add/operator/toPromise';
 import { Injectable } from '@angular/core';
 import { ApiProvider } from './api';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SettingProvider {
@@ -24,9 +25,26 @@ export class SettingProvider {
     }
 
     /**
+     * View setting
+     * @param code
+     */
+    public view(code: string) {
+        let x = { "keyword": code };
+        return this.api.post('setting/view', x);
+    }
+
+    /**
      * Get exchange rate
      */
     public exrate() {
         return this.api.get('setting/exrate');
+    }
+
+    /**
+     * Get JSON language file
+     * @param file
+     */
+    public getLang(file: string): Observable<any> {
+        return this.api.getx("./assets/dat/" + file);
     }
 }

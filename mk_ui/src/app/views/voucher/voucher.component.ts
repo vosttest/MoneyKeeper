@@ -221,8 +221,6 @@ export class VoucherComponent implements OnInit {
             this.isTransfer = false;
             this.labelAccountId = "Account";
         }
-
-        console.log(a);
     }
 
     private searchAccount() {
@@ -249,8 +247,6 @@ export class VoucherComponent implements OnInit {
     }
 
     public save() {
-        console.log(this.vm);
-
         if (this.vm.type == "Transfer") {
             if (this.selectedCategory.code === "" || this.selectedAccount.accountId === 0 || this.selectedToAccount.accountId === 0) {
                 return;
@@ -289,5 +285,11 @@ export class VoucherComponent implements OnInit {
 
             this.loader = false;
         }, err => console.log(err));
+    }
+
+    public ok() {
+        this.rou.navigate(['/voucher/overview']);
+        this.getVoucher();
+        this.informationModal.hide();
     }
 }

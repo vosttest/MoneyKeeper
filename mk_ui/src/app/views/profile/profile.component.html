@@ -16,7 +16,7 @@
     <div class="row">
         <div class="card bg-white card-2 full-width">
             <div class="card-body">
-                <form>
+                <form class="profile" name="form" #f="ngForm" (ngSubmit)="f.form.valid &&save()">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <p>User Name</p>
@@ -32,17 +32,35 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <p>First Name</p>
-                            <input class="form-control " name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" />
+                            <input class="form-control" name="firstName" #firstName="ngModel" [(ngModel)]="vm.firstName" required/>
+                            <span [hidden]="firstName.valid || (firstName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                <span *ngIf="firstName.errors?.required">
+                                    <i class="fa fa-exclamation-triangle"></i> Required!
+                                </span>
+                            </span>
                         </div>
                         <div class="form-group col-md-6">
                             <p>Last Name</p>
-                            <input class="form-control " name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" />
+                            <input class="form-control " name="lastName" #lastName="ngModel" [(ngModel)]="vm.lastName" required/>
+                            <span [hidden]="lastName.valid || (lastName.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                <span *ngIf="lastName.errors?.required">
+                                    <i class="fa fa-exclamation-triangle"></i> Required!
+                                </span>
+                            </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <p>Contact No</p>
-                            <input class="form-control " name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" />
+                            <input class="form-control " name="contactNo" #contactNo="ngModel" [(ngModel)]="vm.contactNo" pattern="^0[0-9]{9,10}$" maxlength="11" required/>
+                            <span [hidden]="contactNo.valid || (contactNo.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                <span *ngIf="contactNo.errors?.required">
+                                    <i class="fa fa-exclamation-triangle"></i> Required!
+                                </span>
+                            <span *ngIf="contactNo.errors?.pattern">
+                                    <i class="fa fa-exclamation-triangle"></i>Phone number invalid.
+                                </span>
+                            </span>
                         </div>
                         <div class="form-group col-md-6">
                             <p>Remarks</p>
@@ -53,7 +71,7 @@
                         <button class="btn btn-info" type="button" (click)='activeCodePopup.show()'>Send Active Code</button>
                         <button class="btn btn-info btnChange" type="button" routerLink="/change-password">Change Password</button>
                         <button type="button" class="btn btn-secondary btnBack" (click)='back()'>Cancel</button>
-                        <button class="btn btn-success btnSave" type="button" (click)='save()'>Save</button>
+                        <button class="btn btn-success btnSave" type="submit">Save</button>
                     </div>
                 </form>
             </div>

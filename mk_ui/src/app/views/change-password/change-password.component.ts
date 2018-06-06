@@ -38,14 +38,20 @@ export class ChangePasswordComponent implements OnInit {
         this.loader = true;
 
         this.pro.changePassword(this.vm).subscribe((rsp: any) => {
-            if (rsp.status === HTTP.STATUS_SUCCESS) {
+            if (this.vm.oldPassword === this.vm.newPassword) {
                 this.confirmModal.hide();
-                this.success = true;
-                this.msg = "Save successfully!";
-            } else {
-                this.confirmModal.hide();
-                this.success = false;
-                this.msg = "Current password is wrong!!!";
+                this.msg = "New Password Duplicate Old Password!";
+            }
+            else {
+                if (rsp.status === HTTP.STATUS_SUCCESS) {
+                    this.confirmModal.hide();
+                    this.success = true;
+                    this.msg = "Save successfully!";
+                } else {
+                    this.confirmModal.hide();
+                    this.success = false;
+                    this.msg = "Current password is wrong!!!";
+                }
             }
             this.informationModal.show();
 

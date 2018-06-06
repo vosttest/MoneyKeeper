@@ -9,13 +9,13 @@
     <div class="row">
         <div class="col-md-6">
             <div class="card bg-white card-2">
-                <h2 class="text-center">Expense vs Income</h2>
+                <h2 class="text-center">{{vmLang.hExpenseIncome}}</h2>
                 <div class="content-left">
                     <div class="row">
                         <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && report()" class="full-width">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p>Account <span class="text-danger">*</span></p>
+                                    <p>{{vmLang.lAccount}} <span class="text-danger">*</span></p>
                                 </div>
                                 <div class="col-md-8">
                                     <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId" required>
@@ -28,7 +28,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-4">
-                                    <p>Viewed By <span class="text-danger">*</span></p>
+                                    <p>{{vmLang.lViewOn}} <span class="text-danger">*</span></p>
                                 </div>
                                 <div class="col-md-4">
                                     <input name="fromDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }" [(bsValue)]="vm.fromDate" type="text" class="form-control" placeholder="From Date">
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="text-right">
-                                <button type="submit" class="btn btn-success">View</button>
+                                <button type="submit" class="btn btn-success">{{vmLang.bView}}</button>
                             </div>
                         </form>
                     </div>
@@ -97,7 +97,7 @@
         </div>
         <div class="col-md-6">
             <div class="card bg-white card-2">
-                <h2 class="text-center">Accounts</h2>
+                <h2 class="text-center">{{vmLang.hAccounts}}</h2>
                 <div class="row">
                     <div class="card list">
                         <ul class="card-list list-group list-group-flush" *ngFor="let i of account">
