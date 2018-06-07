@@ -129,7 +129,6 @@ export class SettingComponent implements OnInit {
                 console.log(rsp.message);
             }
         }, err => console.log(err));
-
     }
 
     public changeTime() {

@@ -27,7 +27,7 @@ export class SettingProvider {
             status: info.status,
             isFirst: isFirst
         };
-        return this.api.post('setting/save', info);
+        return this.api.post('setting/save', x);
     }
 
     /**

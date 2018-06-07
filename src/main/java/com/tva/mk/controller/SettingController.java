@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tva.mk.bll.AccountService;
 import com.tva.mk.bll.CommonService;
 import com.tva.mk.bll.SettingService;
 import com.tva.mk.common.Const;
@@ -38,9 +37,6 @@ public class SettingController {
 
 	@Autowired
 	private CommonService commonService;
-
-	@Autowired
-	private AccountService accountService;
 
 	// end
 
@@ -100,15 +96,10 @@ public class SettingController {
 
 			// Handle
 			String tmp = settingService.save(m);
-			// if(isFirst) {
-			// List<Account> t = accountService.search(id, "");
-			// for(Account item : t) {
-			// Account m1 = new Account();
-			// m1.setCurrency(value);
-			//
-			// accountService.save(m1);
-			// }
-			// }
+
+			if (isFirst) {
+				settingService.setAccountDefault(userId);
+			}
 
 			if (!tmp.isEmpty()) {
 				res.setError("Save setting error!");

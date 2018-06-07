@@ -67,7 +67,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <p>Initial Balance <span *ngIf="!isView" class="text-danger">*</span></p>
-                                <label *ngIf="isView" class="form-control">{{vm.balance | number:'0.0-0'}}</label>
+                                <label *ngIf="isView" class="form-control">{{vm.balance | number:'0.0-2'}}</label>
                                 <div *ngIf="!isView">
                                     <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                                     <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
@@ -90,7 +90,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <p>Balance <span *ngIf="!isView" class="text-danger">*</span></p>
-                                <label *ngIf="isView" class="form-control">{{vm.balance | number:'0.0-0'}}</label>
+                                <label *ngIf="isView" class="form-control">{{vm.balance | number:'0.0-2'}}</label>
                                 <div *ngIf="!isView">
                                     <input id="balance" name="balance" #balance="ngModel" [(ngModel)]="vm.balance" class="form-control" placeholder="0" min="0" currencyMask required>
                                     <span [hidden]="balance.valid || (balance.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">

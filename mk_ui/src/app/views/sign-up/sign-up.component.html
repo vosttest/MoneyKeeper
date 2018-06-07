@@ -113,7 +113,7 @@
     <div class="modal-dialog modal-xs" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Choose Currency</h5>
+                <h5 class="modal-title">Choose Default Currency And Language</h5>
             </div>
             <div class="modal-body">
                 <div class="row">
@@ -138,20 +138,18 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div class="modal-body">
-                            <div class="form-group text-center">
-                                <input type="text" class="form-control" [(ngModel)]="searchLanguage" placeholder="Search by language" />
-                            </div>
-                            <div *ngFor="let i of dataLanguage | filterSignUp: searchLanguage" class="row each-row" style="border: none;">
-                                <div class="col-md-3">
-                                    <img height='40px' src="{{ imgLanguageURL + i.value + '.png' }}" /> </div>
-                                <div class="col-md-6"> {{ i.text }} </div>
-                                <div class="col-md-3">
-                                    <input type="radio" name="language" *ngIf="i.value === selectedLanguage.value; else elseLanguage" [(ngModel)]="selectedLanguage.value" checked value="{{ i.value }}" />
-                                    <ng-template #elseLanguage>
-                                        <input type="radio" name="language" [(ngModel)]="selectedLanguage.value" value="{{ i.value }}" />
-                                    </ng-template>
-                                </div>
+                        <div class="form-group text-center">
+                            <input type="text" class="form-control" [(ngModel)]="searchLanguage" placeholder="Search by language" />
+                        </div>
+                        <div *ngFor="let i of dataLanguage | filterSignUp: searchLanguage" class="row each-row" style="border: none;">
+                            <div class="col-md-3">
+                                <img height='40px' src="{{ imgLanguageURL + i.value + '.png' }}" /> </div>
+                            <div class="col-md-6"> {{ i.text }} </div>
+                            <div class="col-md-3">
+                                <input type="radio" name="language" *ngIf="i.value === selectedLanguage.value; else elseLanguage" [(ngModel)]="selectedLanguage.value" checked value="{{ i.value }}" />
+                                <ng-template #elseLanguage>
+                                    <input type="radio" name="language" [(ngModel)]="selectedLanguage.value" value="{{ i.value }}" />
+                                </ng-template>
                             </div>
                         </div>
                     </div>
