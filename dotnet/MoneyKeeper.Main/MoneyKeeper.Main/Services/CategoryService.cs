@@ -20,6 +20,10 @@ namespace MoneyKeeper.Main.Services
         /// </summary>
         public CategoryService() { }
 
+        /// <summary>
+        /// Search expense
+        /// </summary>
+        /// <returns>Return the result</returns>
         public async Task<CategoryRsp> SearchExpense()
         {
             CategoryRsp res = null;
@@ -43,6 +47,11 @@ namespace MoneyKeeper.Main.Services
 
             return res;
         }
+
+        /// <summary>
+        /// Search income
+        /// </summary>
+        /// <returns>Return the result</returns>
         public async Task<CategoryRsp> SearchIncome()
         {
             CategoryRsp res = null;

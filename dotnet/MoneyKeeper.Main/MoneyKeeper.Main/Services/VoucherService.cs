@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace MoneyKeeper.Main.Services
@@ -11,36 +10,37 @@ namespace MoneyKeeper.Main.Services
     using Rsp;
 
     /// <summary>
-    /// User service
+    /// Voucher service
     /// </summary>
-    public class UserService : BaseService<UserModel>
+    public class VoucherService : BaseService<UserModel>
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public UserService() { }
+        public VoucherService() { }
+
 
         /// <summary>
-        /// Sign in
+        /// Search
         /// </summary>
         /// <param name="req">Request</param>
         /// <returns>Return the result</returns>
-        public async Task<SignInRsp> SignIn(SignInReq req)
+        public async Task<VoucherRsp> Search(VoucherSearchReq req)
         {
-            SignInRsp res = null;
+            VoucherRsp res = null;
 
             try
             {
                 var data = CreateData(req);
-                var client = new HttpClient();
-                var rsp = await client.PostAsync(Host + "user/sign-in", data);
+                var client = CreateClient();
+                var rsp = await client.PostAsync(Host + "voucher/search", data);
 
                 if (rsp.IsSuccessStatusCode)
                 {
                     var t = await rsp.Content.ReadAsStringAsync();
-                    res = JsonConvert.DeserializeObject<SignInRsp>(t);
+                    res = JsonConvert.DeserializeObject<VoucherRsp>(t);
                 }
             }
             catch (Exception ex)

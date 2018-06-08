@@ -17,7 +17,7 @@ public interface SettingDao extends CrudRepository<Setting, Integer> {
 
 	@Query("FROM Setting a WHERE a.userId = :userId ORDER BY code ASC")
 	public List<Setting> search(@Param("userId") int userId);
-	
+
 	@Query(nativeQuery = true, value = "SELECT * FROM set_account_default(:userId)")
 	public void setAccountDefault(@Param("userId") int userId);
 }

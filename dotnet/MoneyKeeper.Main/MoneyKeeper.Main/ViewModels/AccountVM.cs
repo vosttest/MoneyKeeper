@@ -62,8 +62,8 @@ namespace MoneyKeeper.Main.ViewModels
                     else
                     {
                         App.Jwt = res.Result.Key;
-                        Application.Current.Properties["jwt"] = App.Jwt;
-                        await Application.Current.SavePropertiesAsync();
+                        Utils.SetVar(Const.Authentication.JWT, App.Jwt);
+
                         await main.Navigation.PushModalAsync(new MainPage());
                     }
                 }

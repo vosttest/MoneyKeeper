@@ -134,6 +134,10 @@ public class Const {
 		public static final String FULL = "yyyy-MM-dd HH:mm:ss";
 
 		public static final String TOKEN = "yyyy-MM-dd HH:mm";
+
+		public static final String DMY_HMS = "dd-MM-yyyy hh:mm:ss";
+
+		public static final String YMD = "yyyy-MM-dd";
 	}
 
 	public class Activation {

@@ -88,6 +88,11 @@ namespace MoneyKeeper.Main.ViewModels
         public UserService UserService => DependencyService.Get<UserService>() ?? new UserService();
 
         /// <summary>
+        /// Voucher service
+        /// </summary>
+        public VoucherService VoucherService => DependencyService.Get<VoucherService>() ?? new VoucherService();
+
+        /// <summary>
         /// Busy
         /// </summary>
         public bool IsBusy

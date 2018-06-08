@@ -11,9 +11,9 @@ namespace MoneyKeeper.Main.Views.Setting
     public partial class Language : ContentView
     {
 
-        LanguageVM vm;
+        #region-- Methods --
 
-        #region -- Methods --
+        LanguageVM vm;
 
         /// <summary>
         /// Initialize

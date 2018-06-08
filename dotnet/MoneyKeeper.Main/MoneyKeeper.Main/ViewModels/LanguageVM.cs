@@ -2,8 +2,17 @@
 
 namespace MoneyKeeper.Main.ViewModels
 {
-    class LanguageVM
+
+    /// <summary>
+    /// Language view model
+    /// </summary>
+    class LanguageVM : BaseVM
     {
+        #region -- Methods --
+
+        /// <summary>
+        /// Initialize
+        /// </summary>
         List<string> language = new List<string>
         {
             "Tiếng Việt - Việt Nam",
@@ -12,5 +21,7 @@ namespace MoneyKeeper.Main.ViewModels
         };
 
         public List<string> Language => language;
+
+        #endregion
     }
 }

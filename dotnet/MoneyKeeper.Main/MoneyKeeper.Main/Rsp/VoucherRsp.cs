@@ -5,9 +5,9 @@ namespace MoneyKeeper.Main.Rsp
     using Dto;
 
     /// <summary>
-    /// Account response
+    /// Voucher response
     /// </summary>
-    public class AccountRsp : BaseRsp
+    public class VoucherRsp : BaseRsp
     {
         #region -- Properties --
 
@@ -19,6 +19,6 @@ namespace MoneyKeeper.Main.Rsp
         /// <summary>
         /// Data transfer object
         /// </summary>
-        public class Dto : BaseDto<AccountDto> { }
+        public class Dto : BaseDto<VoucherDto> { }
     }
 }

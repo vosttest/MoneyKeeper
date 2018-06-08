@@ -21,6 +21,15 @@ namespace MoneyKeeper.Token.Views
             InitializeComponent();
         }
 
+        #endregion
+
+        #region -- Events --
+
+        /// <summary>
+        /// Password text changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void Password_TextChanged(object sender, TextChangedEventArgs e)
         {
             var password = e.NewTextValue;
@@ -34,11 +43,12 @@ namespace MoneyKeeper.Token.Views
                 {
                     App.Password = password;
                     Utils.SetVar(Const.Authentication.PIN, App.Password);
-                    App.Current.MainPage = new MainPage();
+
+                    main = new MainPage();
                 }
                 else if (App.Password == password)
                 {
-                    App.Current.MainPage = new MainPage();
+                    main = new MainPage();
                 }
                 else
                 {

@@ -10,10 +10,9 @@ namespace MoneyKeeper.Main.Views.Setting
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Currency : ContentView
     {
+        #region-- Methods --
 
         CurrencyVM vm;
-
-        #region -- Methods --
 
         /// <summary>
         /// Initialize

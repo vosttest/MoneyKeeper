@@ -26,14 +26,14 @@ namespace MoneyKeeper.Main.ViewModels
 
             _accounts = new List<AccountList>();
 
-            Task.Run(async () => await ExeLoadCmd());
+            Task.Run(async () => await LoadData());
         }
 
         /// <summary>
-        /// Execute load command
+        /// Load data
         /// </summary>
-        /// <returns></returns>
-        private async Task ExeLoadCmd()
+        /// <returns>Return the result</returns>
+        private async Task LoadData()
         {
             if (IsBusy) { return; }
             IsBusy = true;

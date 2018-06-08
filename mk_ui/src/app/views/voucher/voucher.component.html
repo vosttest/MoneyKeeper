@@ -17,10 +17,10 @@
         </div>
         <div class="row ">
             <div class="col-md-6">
-                <input id="keyword" name="keyword" placeholder="Search by name" #keyword="ngModel" [(ngModel)]="vm.keyword" type="text" class="form-control" (keyup)="getVoucher()">
+                <input id="keyword" name="keyword" placeholder="Search by name" #keyword="ngModel" [(ngModel)]="vmSearch.keyword" type="text" class="form-control" (keyup)="getVoucher()">
             </div>
             <div class="col-md-6">
-                <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vm.startDate" value="{{ vm.startDate | date:'dd-MMM-yyyy' }}" type="text" class="form-control">
+                <input name="startDate" [minDate]="minDate" [maxDate]="maxDate" #dp="bsDatepicker" bsDatepicker [(bsValue)]="vmSearch.date" value="{{ vmSearch.date | date:'dd-MMM-yyyy' }}" type="text" class="form-control">
             </div>
         </div>
         <div class="card bg-white card-2 full-width">
@@ -78,18 +78,29 @@
                                 <option value='Adjustment'>Adjustment</option>
                             </select>
                         </div>
-                        <div class="form-group col-md 6">
-                            <p>Amount <span class="text-danger">*</span></p>
-                            <input name="total" id="total" #total="ngModel" [(ngModel)]="vm.total" class='form-control' placeholder='0' currencyMask required>
-                            <span [hidden]="total.valid || (total.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                        <div class="form-group col-md-6" (click)='accountModal.show()'>
+                            <p>{{ labelAccountId }} <span class="text-danger">*</span></p>
+                            <div class="col-md-6">{{ selectedAccount.text }}
+                            </div>
+                            <span [hidden]="selectedAccount.accountId != 0 || (selectedAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                 <i class="fa fa-exclamation-triangle"></i> Required!
                             </span>
+                            <hr/>
                         </div>
-                        <!-- <div class="form-group col-md 1">
-                            <span class='input-group-text' id='basic-addon2'>VND</span>
-                        </div> -->
                     </div>
                     <div class="row">
+                        <div class="form-group col-md 6">
+                            <p>Amount <span class="text-danger">*</span></p>
+                            <div class="col-md 3">
+                                <input name="total" id="total" #total="ngModel" [(ngModel)]="vm.total" (keyup)="checkKeyUp()" class='form-control' placeholder='0' currencyMask required>
+                                <span [hidden]="total.valid || (total.pristine && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
+                                    <i class="fa fa-exclamation-triangle"></i> Required!
+                                </span>
+                            </div>
+                            <div class="col-md 3 text-right" *ngIf="isAdjustment">
+                                <i>{{ lblAdjustment }}</i>
+                            </div>
+                        </div>
                         <div class="form-group col-md-6">
                             <p>Category <span class="text-danger">*</span></p>
                             <div class="col-md-6" (click)='categoryModal.show()'>
@@ -98,18 +109,6 @@
                             <span [hidden]="selectedCategory.code != '' || (selectedCategory.code === '' && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                     <i class="fa fa-exclamation-triangle"></i> Required!
                                 </span>
-                            <hr/>
-                        </div>
-                        <div class="form-group col-md-6" (click)='accountModal.show()'>
-                            <p>{{ labelAccountId }} <span class="text-danger">*</span></p>
-                            <div class="col-md-6">{{ selectedAccount.text }}
-                                <!-- <select name="accountId" class="form-control" #accountId="ngModel" [(ngModel)]="vm.accountId">
-                        <option *ngFor="let i of account" value="{{i.id}}">{{i.text}}</option>
-                    </select> -->
-                            </div>
-                            <span [hidden]="selectedAccount.accountId != 0 || (selectedAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
-                                <i class="fa fa-exclamation-triangle"></i> Required!
-                        </span>
                             <hr/>
                         </div>
                     </div>
@@ -129,6 +128,17 @@
                             <span [hidden]="selectedToAccount.accountId != 0 || (selectedToAccount.accountId === 0 && !f.submitted)" class="k-widget k-tooltip k-tooltip-validation k-invalid-msg field-validation-error">
                                      <i class="fa fa-exclamation-triangle"></i> Required!
                                 </span>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="isTransfer && isEquivalent">
+                        <div class="form-group col-md 6">
+                            <p>Equivalent</p>
+                            <div class="col-md 3">
+                                <input name="equivalent" id="equivalent" class='form-control' [(ngModel)]="vm.totalEx" placeholder='0' readonly="readonly" currencyMask>
+                            </div>
+                            <div class="col-md 3 text-right">
+                                <i>Exchange rate: 1 {{ selectedAccount.currency }} = {{ rate | number: '0.0-6' }} {{ selectedToAccount.currency }}</i>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -249,10 +259,10 @@
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
                 <div *ngFor="let i of account" class="card">
                     <div class="card-header row row-margin pointer" id="headingOne">
-                        <div class="col-md-11" (click)="chooseAccount(i.id, i.text)">
+                        <div class="col-md-11" (click)="chooseAccount(i.id, i.text, i.balance, i.currency, i.rate)">
                             <span>
                                 <div class="left"> {{ i.text }}</div>
-                                <div class="right" currencyMask> Balance: {{ i.balance | number:'0.0-0'}} {{ i.currency }}</div>
+                                <div class="right" currencyMask> Balance: {{ i.balance | number}} {{ i.currency }}</div>
                             </span>
                         </div>
                     </div>
@@ -276,10 +286,10 @@
                 <input #keyword='ngModel' ngModel type='text' class='form-control' placeholder='Search..' (keyup)='search(keyword.value)'>
                 <div *ngFor="let i of account" class="card">
                     <div class="card-header row row-margin pointer" id="headingOne">
-                        <div class="col-md-11" (click)="chooseToAccount(i.id, i.text)">
+                        <div class="col-md-11" (click)="chooseToAccount(i.id, i.text, i.currency, i.rate)">
                             <span>
                                     <div class="left"> {{ i.text }}</div>
-                                    <div class="right"> Balance: {{ i.balance }} VND</div>
+                                    <div class="right"> Balance: {{ i.balance }} {{ i.currency }}</div>
                                 </span>
                         </div>
                     </div>

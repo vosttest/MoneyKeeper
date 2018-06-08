@@ -3,11 +3,14 @@ package com.tva.mk.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tva.mk.common.Const;
 
 public class VoucherDto {
 	// region -- Fields --
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Const.DateTime.FULL)
 	@JsonProperty(value = "startDate")
 	private Date startDate;
 

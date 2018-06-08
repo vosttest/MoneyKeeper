@@ -2,8 +2,17 @@
 
 namespace MoneyKeeper.Main.ViewModels
 {
-    class CurrencyVM
+
+    /// <summary>
+    /// Currency view model
+    /// </summary>
+    class CurrencyVM : BaseVM
     {
+        #region -- Methods --
+
+        /// <summary>
+        /// Initialize
+        /// </summary>
         List<string> currency = new List<string>
         {
             "VND",
@@ -12,5 +21,6 @@ namespace MoneyKeeper.Main.ViewModels
         };
         public List<string> Currency => currency;
 
+        #endregion
     }
 }

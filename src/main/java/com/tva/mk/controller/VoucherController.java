@@ -24,6 +24,7 @@ import com.tva.mk.dto.VoucherDetailDto;
 import com.tva.mk.dto.VoucherDto;
 import com.tva.mk.model.Voucher;
 import com.tva.mk.req.VoucherReq;
+import com.tva.mk.req.VoucherSearchReq;
 import com.tva.mk.rsp.BaseRsp;
 import com.tva.mk.rsp.MultipleRsp;
 import com.tva.mk.rsp.SingleRsp;
@@ -41,7 +42,7 @@ public class VoucherController {
 	// region -- Methods --
 
 	@PostMapping("/search")
-	public ResponseEntity<?> search(@RequestHeader HttpHeaders header, @RequestBody VoucherReq req) {
+	public ResponseEntity<?> search(@RequestHeader HttpHeaders header, @RequestBody VoucherSearchReq req) {
 		MultipleRsp res = new MultipleRsp();
 
 		try {
@@ -49,16 +50,17 @@ public class VoucherController {
 			int id = pl.getId();
 
 			// Get data
-			Date date = req.getStartDate();
+			Date date = req.getDate();
 			String keyword = req.getKeyword();
 
 			// Handle
 			List<VoucherDto> tmp = voucherService.getVoucher(keyword, id, date);
 
 			// Set data
-			Map<String, Object> t = new LinkedHashMap<>();
-			t.put("data", tmp);
-			res.setResult(t);
+			Map<String, Object> data = new LinkedHashMap<>();
+			data.put("count", tmp.size());
+			data.put("data", tmp);
+			res.setResult(data);
 		} catch (Exception ex) {
 			res.setError(ex.getMessage());
 		}

@@ -67,6 +67,10 @@ h5.mb-0 {
     color: #1CB09A;
 }
 
+h5.mb-0.text-left {
+    float: left;
+}
+
 
 /* Tooltip */
 

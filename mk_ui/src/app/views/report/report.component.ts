@@ -69,7 +69,7 @@ export class ReportComponent implements OnInit {
 
         if (this.getReport.length == 0) {
             this.loader = false;
-            this.message = "Not Data. Please choose Account, From Date, To Date ";
+            this.message = "Not Data.";
 
             return;
         }

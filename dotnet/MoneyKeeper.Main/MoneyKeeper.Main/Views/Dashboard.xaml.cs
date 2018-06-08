@@ -16,9 +16,50 @@ namespace MoneyKeeper.Main.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Dashboard : ContentPage
     {
-        #region -- Properties --
+        #region -- Methods --
 
-        List<Entry> entries = new List<Entry>
+        /// <summary>
+        /// Initialize
+        /// </summary>
+        public Dashboard()
+        {
+            InitializeComponent();
+
+            ChartAccount.Chart = new DonutChart() { Entries = _entries, LabelTextSize = 35 };
+        }
+
+
+
+        #endregion
+
+        #region -- Events --
+
+        /// <summary>
+        /// LstAccount item selected
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
+        private void LstAccount_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            (sender as ListView).SelectedItem = null;
+
+            if (e.SelectedItem != null)
+            {
+                var m = e.SelectedItem as AccountDto;
+                var x = new AccountPopup();
+                var v = new Popup { Content = x };
+                Navigation.PushModalAsync(v);
+            }
+        }
+
+        #endregion
+
+        #region -- Fields --
+
+        /// <summary>
+        /// Test data
+        /// </summary>
+        private List<Entry> _entries = new List<Entry>
         {
             new Entry(212)
             {
@@ -45,32 +86,6 @@ namespace MoneyKeeper.Main.Views
                 Color = SKColor.Parse("#3498db")
             }
         };
-
-        #endregion
-
-        #region -- Methods --
-
-        /// <summary>
-        /// Initialize
-        /// </summary>
-        public Dashboard()
-        {
-            InitializeComponent();
-            ChartAccount.Chart = new DonutChart() { Entries = entries, LabelTextSize = 35 };
-        }
-
-        private void LstAccount_ItemSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            (sender as ListView).SelectedItem = null;
-
-            if (e.SelectedItem != null)
-            {
-                var m = e.SelectedItem as AccountDto;
-                var x = new AccountPopup();
-                var v = new Popup { Content = x };
-                Navigation.PushModalAsync(v);
-            }
-        }
 
         #endregion
     }

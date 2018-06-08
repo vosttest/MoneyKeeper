@@ -22,7 +22,8 @@
                     <div class="card-header" id="headingOne" data-toggle="collapse" attr.data-target="#collapseOne{{j.code}}" aria-expanded="true" aria-controls="collapseOne">
                         <div class="row">
                             <div class="col-md-6 text-left">
-                                <h5 class="mb-0"> {{ j.code }} ({{j.count}}) </h5>
+                                <h5 class="mb-0 text-left">{{ j.code }}</h5>
+                                <h6>({{j.count}})</h6>
                             </div>
                             <div class="col-md-6 text-right">
                                 <h5 class="mb-0">Total: {{ j.total | number:'0.0-2'}} {{currency}}</h5>
