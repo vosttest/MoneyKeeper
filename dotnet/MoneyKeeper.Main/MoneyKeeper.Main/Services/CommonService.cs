@@ -10,36 +10,36 @@ namespace MoneyKeeper.Main.Services
     using Rsp;
 
     /// <summary>
-    /// Voucher service
+    /// Common service
     /// </summary>
-    public class VoucherService : BaseService<UserModel>
+    public class CommonService : BaseService<UserModel>
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public VoucherService() { }
+        public CommonService() { }
 
         /// <summary>
         /// Search
         /// </summary>
         /// <param name="req">Request</param>
         /// <returns>Return the result</returns>
-        public async Task<VoucherRsp> Search(VoucherSearchReq req)
+        public async Task<CommonRsp> Search(BaseReq req)
         {
-            VoucherRsp res = null;
+            CommonRsp res = null;
 
             try
             {
                 var data = CreateData(req);
                 var client = CreateClient();
-                var rsp = await client.PostAsync(Host + "voucher/search", data);
+                var rsp = await client.PostAsync(Host + "common/search", data);
 
                 if (rsp.IsSuccessStatusCode)
                 {
                     var t = await rsp.Content.ReadAsStringAsync();
-                    res = JsonConvert.DeserializeObject<VoucherRsp>(t);
+                    res = JsonConvert.DeserializeObject<CommonRsp>(t);
                 }
             }
             catch (Exception ex)

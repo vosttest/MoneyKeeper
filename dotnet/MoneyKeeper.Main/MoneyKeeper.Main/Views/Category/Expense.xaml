@@ -1,38 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:local="clr-namespace:MoneyKeeper.Main.ViewModels"
+             xmlns:local="clr-namespace:MoneyKeeper.Main.ViewModels"
              x:Class="MoneyKeeper.Main.Views.Category.Expense">
     <ContentPage.BindingContext>
         <local:ExpenseVM/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="searchcategeory"
+            <SearchBar x:Name="searchCategeory"
                        Placeholder="Search"
                        Text="{Binding SearchedText, Mode=TwoWay}"
                        SearchCommand="{Binding SearchCommand}"/>
-            <ListView  x:Name="LstAccount"
+            <ListView  x:Name="lstAccount"
                        Margin="20,0,20,0"
-                       ItemsSource="{Binding ExpenseCategories}"
-                       IsGroupingEnabled="true">
-                <ListView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=Text, Mode=TwoWay}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.GroupHeaderTemplate>
+                       ItemsSource="{Binding Data}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout BackgroundColor="#eeeeee"
                                          Orientation="Vertical">
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="ABC"
-                                           TextColor="#f35e20"/>
+                                    <Label Text="{Binding Text}"
+                                           FontSize="24"
+                                           TextColor="#1cb09a"
+                                           HorizontalOptions="StartAndExpand"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>

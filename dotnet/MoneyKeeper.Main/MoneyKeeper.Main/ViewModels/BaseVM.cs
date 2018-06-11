@@ -83,6 +83,16 @@ namespace MoneyKeeper.Main.ViewModels
         public CategoryService CategoryService => DependencyService.Get<CategoryService>() ?? new CategoryService();
 
         /// <summary>
+        /// Common service
+        /// </summary>
+        public CommonService CommonService => DependencyService.Get<CommonService>() ?? new CommonService();
+
+        /// <summary>
+        /// Setting service
+        /// </summary>
+        public SettingService SettingService => DependencyService.Get<SettingService>() ?? new SettingService();
+
+        /// <summary>
         /// User service
         /// </summary>
         public UserService UserService => DependencyService.Get<UserService>() ?? new UserService();

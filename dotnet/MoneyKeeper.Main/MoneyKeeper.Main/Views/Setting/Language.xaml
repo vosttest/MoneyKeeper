@@ -1,19 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
              x:Class="MoneyKeeper.Main.Views.Setting.Language">
+    <ContentView.BindingContext>
+        <vm:LanguageVM/>
+    </ContentView.BindingContext>
     <ContentView.Content>
         <StackLayout>
             <Label Text="Setting Language"
                    FontSize="24"
                    TextColor="#1cb09a"
                    HorizontalOptions="CenterAndExpand"/>
-            <Picker x:Name="pickerLanguage"
+            <Picker x:Name="pic"
                     Title="-- Please Select --"
-                    SelectedIndexChanged="pickerLanguage_SelectedIndexChanged"
-                    ItemsSource="{Binding Language}">
+                    SelectedIndexChanged="Pic_SelectedIndexChanged"
+                    ItemsSource="{Binding Data}"
+                    ItemDisplayBinding="{Binding Text}">
             </Picker>
-            <Button x:Name="buttonLanguage"
+            <Button x:Name="btnSave"
                     Clicked="Save_Clicked"
                     IsVisible="False"
                     Text="Save"

@@ -43,7 +43,7 @@ export class Setting {
 
     public static CODE_LOCK = "SET005";
 
-    public static CODE_LANGGUAGE = "SET006";
+    public static CODE_LANGUAGE = "SET006";
 
     public static DEFAULT_REMINDER = "20:00";
 

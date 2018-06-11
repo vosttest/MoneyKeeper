@@ -1,12 +1,10 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MoneyKeeper.Main.ViewModels
 {
-    using Common;
-    using Req;
+    using Views;
+    using Views.Account;
 
     /// <summary>
     /// Account view model
@@ -20,63 +18,19 @@ namespace MoneyKeeper.Main.ViewModels
         /// </summary>
         public AccountVM()
         {
-            Title = "Sign In";
+            Title = "Account";
 
-#if DEBUG
-            UserName = "vost.test";
-            Password = "Qwerty123!";
-#endif
-
-            SignInCmd = new Command(async () => await ExeSignInCmd());
+            AccountAddCmd = new Command(async () => await ExeAccountAddCmd());
         }
 
         /// <summary>
-        /// Execute sign in command
+        /// Account Add in command
         /// </summary>
         /// <returns></returns>
-        private async Task ExeSignInCmd()
+        private async Task ExeAccountAddCmd()
         {
-            if (IsBusy) { return; }
-            IsBusy = true;
-
-            try
-            {
-                var main = App.Current.MainPage;
-                var m = new SignInReq()
-                {
-                    UserName = UserName,
-                    Password = Password,
-                    ClientKey = string.Empty,
-                    SendToken = true,
-                    Token = string.Empty
-                };
-                var res = await UserService.SignIn(m);
-
-                if (res.Status == Const.HTTP.STATUS_SUCCESS)
-                {
-                    if (res.Result.Authen)
-                    {
-                        //TODO
-                        await main.DisplayAlert("Information", "Please do not use token...", "OK");
-                    }
-                    else
-                    {
-                        App.Jwt = res.Result.Key;
-                        Utils.SetVar(Const.Authentication.JWT, App.Jwt);
-
-                        await main.Navigation.PushModalAsync(new MainPage());
-                    }
-                }
-                else
-                {
-                    await main.DisplayAlert("Error", res.Message, "OK");
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-            }
-            finally { IsBusy = false; }
+            var main = App.Current.MainPage;
+            await main.Navigation.PushAsync(new Accounts() { Content = new AccountAdd() });
         }
 
         #endregion
@@ -84,19 +38,9 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Properties --
 
         /// <summary>
-        /// User name
+        /// Account Add command
         /// </summary>
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Password
-        /// </summary>
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Sign in command
-        /// </summary>
-        public Command SignInCmd { get; set; }
+        public Command AccountAddCmd { get; set; }
 
         #endregion
     }

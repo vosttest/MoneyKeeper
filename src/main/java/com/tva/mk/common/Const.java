@@ -80,7 +80,7 @@ public class Const {
 
 		public static final String CODE_LOCK = "SET005";
 
-		public static final String CODE_LANGGUAGE = "SET006";
+		public static final String CODE_LANGUAGE = "SET006";
 
 		public static final String DEFAULT_REMINDER = "20:00";
 

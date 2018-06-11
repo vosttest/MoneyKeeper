@@ -1,27 +1,27 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MoneyKeeper.Main.Views
+namespace MoneyKeeper.Main.Views.Account
 {
     /// <summary>
-    /// Accounts
+    /// Account add
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Accounts : ContentPage
+    public partial class AccountAdd : ContentView
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public Accounts()
+        public AccountAdd()
         {
             InitializeComponent();
         }
 
-        void OnSearchBarButtonPressed(object sender, System.EventArgs e)
+        void OnPickerSelectedIndexChanged(object sender, System.EventArgs e)
         {
-            //TODO
+            Picker picker = (Picker)sender;
         }
 
         #endregion

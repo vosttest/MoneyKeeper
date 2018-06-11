@@ -1,5 +1,4 @@
-﻿using MoneyKeeper.Main.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -7,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MoneyKeeper.Main.ViewModels
 {
+    using Common;
     using Dto;
-    using Models;
 
     /// <summary>
-    /// Category view model
+    /// Expense view model
     /// </summary>
     public class ExpenseVM : BaseVM
     {
@@ -22,31 +21,18 @@ namespace MoneyKeeper.Main.ViewModels
         /// </summary>
         public ExpenseVM()
         {
-            Title = "Category";
+            Title = "Expense";
 
-            _categories = new List<CategoryDto>();
+            _data = new List<CategoryDto>();
 
-            //ListOfCategory = new ObservableCollection<CategoryModel>
-            //{
-            //    new CategoryModel
-            //    {
-            //        Name = "Laptop",
-            //        IsVisible = false
-            //    },
-            //    new CategoryModel
-            //    {
-            //        Name = "Surface Book"
-            //    },
-            //    new CategoryModel
-            //    {
-            //        Name = "Carbon"
-            //    }
-            //};
-
-            Task.Run(async () => await ExeLoadCmd());
+            Task.Run(async () => await LoadData());
         }
 
-        private async Task ExeLoadCmd()
+        /// <summary>
+        /// Load data
+        /// </summary>
+        /// <returns>Return the result</returns>
+        private async Task LoadData()
         {
             if (IsBusy) { return; }
             IsBusy = true;
@@ -63,8 +49,6 @@ namespace MoneyKeeper.Main.ViewModels
                     var child = res.Result.Child;
                     var l = new List<CategoryDto>();
 
-                    //var lstParent = parent.Select(p => p.Type).ToList();
-                    //var lstChild = child.Select(p => p.Type).Distinct().ToList();
                     foreach (var i in parent)
                     {
                         var t2 = child.Where(p => p.ParentId == i.Id).ToList();
@@ -83,7 +67,7 @@ namespace MoneyKeeper.Main.ViewModels
                         l.Add(o);
                     }
 
-                    ExpenseCategories = l;
+                    Data = l;
                 }
                 else
                 {
@@ -96,62 +80,28 @@ namespace MoneyKeeper.Main.ViewModels
             }
             finally { IsBusy = false; }
         }
-        //public void HideOrShowCategory(CategoryModel categories)
-        //{
-        //    if (_oldCategory == categories)
-        //    {
-        //        categories.IsVisible = !categories.IsVisible;
-        //        UpdateCategories(categories);
-        //    }
-        //    else
-        //    {
-        //        if (_oldCategory != null)
-        //        {
-        //            categories.IsVisible = false;
-        //            UpdateCategories(categories);
-        //        }
-
-        //        categories.IsVisible = true;
-        //        UpdateCategories(categories);
-        //    }
-
-        //    _oldCategory = categories;
-        //}
-
-        //private void UpdateCategories(CategoryModel categories)
-        //{
-        //    var index = ListOfCategory.IndexOf(categories);
-        //    ListOfCategory.Remove(categories);
-        //    ListOfCategory.Insert(index, categories);
-        //}
 
         #endregion
 
         #region -- Properties --
 
         /// <summary>
-        /// List of category
+        /// Data
         /// </summary>
-        //public List<CategoryModel> ListOfCategory { get; set; }
-        public List<CategoryDto> ExpenseCategories
+        public List<CategoryDto> Data
         {
-            get { return _categories; }
-            set { SetProperty(ref _categories, value); }
+            get { return _data; }
+            set { SetProperty(ref _data, value); }
         }
-
-        /// <summary>
-        /// Old category
-        /// </summary>
-        private CategoryModel _oldCategory { get; set; }
 
         #endregion
 
         #region -- Fields --
 
         /// <summary>
-        /// Account list
+        /// Data
         /// </summary>
-        private List<CategoryDto> _categories;
+        private List<CategoryDto> _data;
 
         #endregion
     }

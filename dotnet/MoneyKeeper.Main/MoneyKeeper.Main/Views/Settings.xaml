@@ -1,14 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Setting"
-             x:Class="MoneyKeeper.Main.Views.Settings">
+             xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
+             x:Class="MoneyKeeper.Main.Views.Settings"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:SettingsVM/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout HorizontalOptions="Center"
                      VerticalOptions="Center"
                      Margin="40,20,40,0">
-            <ListView x:Name="lstMenu"
-                      ItemSelected="LstMenu_ItemSelected">
+            <ListView x:Name="lstSetting" ItemsSource="{Binding Data}"
+                      ItemSelected="LstSetting_ItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <TextCell Text="{Binding Title}"/>

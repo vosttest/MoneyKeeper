@@ -56,7 +56,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private getLang() {
-        this.proSetting.view(Setting.CODE_LANGGUAGE).subscribe((rsp: any) => {
+        this.proSetting.view(Setting.CODE_LANGUAGE).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 let file = "";
 

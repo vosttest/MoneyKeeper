@@ -1,4 +1,4 @@
-﻿using MoneyKeeper.Main.ViewModels;
+﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,24 +12,35 @@ namespace MoneyKeeper.Main.Views.Setting
     {
         #region-- Methods --
 
-        CurrencyVM vm;
-
         /// <summary>
         /// Initialize
         /// </summary>
         public Currency()
         {
             InitializeComponent();
-            this.BindingContext = vm = new CurrencyVM();
         }
 
-        private void pickerCurrency_SelectedIndexChanged(object sender, System.EventArgs e)
+        #endregion
+
+        #region -- Events --
+
+        /// <summary>
+        /// Picker currency selected index changed
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
+        private void Pic_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var name = pickerCurrency.Items[pickerCurrency.SelectedIndex];
-            buttonCurrency.IsVisible = true;
+            var name = pic.Items[pic.SelectedIndex];
+            btnSave.IsVisible = true;
         }
 
-        private void Save_Clicked(object sender, System.EventArgs e)
+        /// <summary>
+        /// Save clicked
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
+        private void Save_Clicked(object sender, EventArgs e)
         {
             var main = App.Current.MainPage;
             main.DisplayAlert("Message", "Unavailable Function!", "OK");

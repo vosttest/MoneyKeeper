@@ -45,11 +45,21 @@
 
             public const string CODE_LOCK = "SET005";
 
-            public const string CODE_LANGGUAGE = "SET006";
+            public const string CODE_LANGUAGE = "SET006";
 
             public const string DEFAULT_REMINDER = "20:00";
 
             public const string DEFAULT_CURRENCY = "VND";
+        }
+
+        /// <summary>
+        /// Common
+        /// </summary>
+        public class Common
+        {
+            public const string CODE_CURRENCY = "Currency";
+
+            public const string CODE_LANGUAGE = "Language";
         }
 
         /// <summary>

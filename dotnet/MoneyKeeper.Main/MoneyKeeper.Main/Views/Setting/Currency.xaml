@@ -1,19 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
              x:Class="MoneyKeeper.Main.Views.Setting.Currency">
+    <ContentView.BindingContext>
+        <vm:CurrencyVM/>
+    </ContentView.BindingContext>
     <ContentView.Content>
         <StackLayout>
             <Label Text="Setting Currency"
                    FontSize="24"
                    TextColor="#1cb09a"
                    HorizontalOptions="CenterAndExpand"/>
-            <Picker x:Name="pickerCurrency"
+            <Picker x:Name="pic"
                     Title="-- Please Select --"
-                    SelectedIndexChanged="pickerCurrency_SelectedIndexChanged"
-                    ItemsSource="{Binding Currency}">
+                    SelectedIndexChanged="Pic_SelectedIndexChanged"
+                    ItemsSource="{Binding Data}"
+                    ItemDisplayBinding="{Binding Text}">
             </Picker>
-            <Button x:Name="buttonCurrency"
+            <Button x:Name="btnSave"
                     Clicked="Save_Clicked"
                     IsVisible="False"
                     Text="Save"

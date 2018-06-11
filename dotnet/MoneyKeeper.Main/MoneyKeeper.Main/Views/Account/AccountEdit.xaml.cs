@@ -1,27 +1,22 @@
 ﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace MoneyKeeper.Main.Views
+namespace MoneyKeeper.Main.Views.Account
 {
     /// <summary>
-    /// Accounts
+    /// Account add
     /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class Accounts : ContentPage
+    public partial class AccountEdit : ContentView
     {
         #region -- Methods --
 
         /// <summary>
         /// Initialize
         /// </summary>
-        public Accounts()
+        public AccountEdit()
         {
             InitializeComponent();
-        }
-
-        void OnSearchBarButtonPressed(object sender, System.EventArgs e)
-        {
-            //TODO
         }
 
         #endregion

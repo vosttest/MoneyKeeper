@@ -28,8 +28,6 @@ namespace MoneyKeeper.Main.Views
             ChartAccount.Chart = new DonutChart() { Entries = _entries, LabelTextSize = 35 };
         }
 
-
-
         #endregion
 
         #region -- Events --

@@ -8,32 +8,23 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar x:Name="searchcategeory"
+            <SearchBar x:Name="searchCategeory"
                        Placeholder="Search"
                        Text="{Binding SearchedText, Mode=TwoWay}"
                        SearchCommand="{Binding SearchCommand}"/>
-            <ListView  x:Name="LstAccount"
+            <ListView  x:Name="lstAccount"
                        Margin="20,0,20,0"
-                       ItemsSource="{Binding IncomeCategories}"
-                       IsGroupingEnabled="true">
-                <ListView.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <StackLayout Orientation="Horizontal">
-                                <Label Text="{Binding Path=Text, Mode=TwoWay}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.GroupHeaderTemplate>
+                       ItemsSource="{Binding Data}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-
                         <ViewCell>
                             <StackLayout BackgroundColor="#eeeeee"
                                          Orientation="Vertical">
                                 <StackLayout Orientation="Horizontal">
-                                    <Label Text="ABC"
-                                           TextColor="#f35e20"/>
+                                    <Label Text="{Binding Text}"
+                                           FontSize="24"
+                                           TextColor="#1cb09a"
+                                           HorizontalOptions="StartAndExpand"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell>
