@@ -23,8 +23,6 @@ namespace MoneyKeeper.Main.ViewModels
         {
             Title = "Income";
 
-            _data = new List<CategoryDto>();
-
             Task.Run(async () => await LoadData());
         }
 

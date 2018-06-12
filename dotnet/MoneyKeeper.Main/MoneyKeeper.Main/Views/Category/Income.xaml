@@ -13,19 +13,25 @@
                        Text="{Binding SearchedText, Mode=TwoWay}"
                        SearchCommand="{Binding SearchCommand}"/>
             <ListView  x:Name="lstAccount"
-                       Margin="20,0,20,0"
+                       RowHeight="55"
+                       SeparatorVisibility="None"
                        ItemsSource="{Binding Data}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <StackLayout BackgroundColor="#eeeeee"
-                                         Orientation="Vertical">
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Text}"
-                                           FontSize="24"
-                                           TextColor="#1cb09a"
-                                           HorizontalOptions="StartAndExpand"/>
-                                </StackLayout>
+                            <StackLayout VerticalOptions="FillAndExpand"
+                                         Orientation="Horizontal"
+                                         Padding="20,10,0,20"
+                                         Spacing="20">
+                                <Image Source="{Binding Icon}"
+                                       WidthRequest="40"
+                                       HeightRequest="40"
+                                       VerticalOptions="CenterAndExpand"
+                                       Aspect="AspectFit"/>
+                                <Label Text="{Binding Text}"
+                                       FontSize="Small"
+                                       VerticalOptions="CenterAndExpand"
+                                       Font="Bold, 20"/>
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

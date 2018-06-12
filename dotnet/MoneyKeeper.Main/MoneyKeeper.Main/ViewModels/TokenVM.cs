@@ -39,8 +39,9 @@ namespace MoneyKeeper.Main.ViewModels
             try
             {
                 var main = App.Current.MainPage;
+
                 var t = Code1 + Code2 + Code3 + Code4 + Code5 + Code6;
-                var m = new SignInReq()
+                var m = new SignInReq
                 {
                     UserName = UserName,
                     Password = Password,

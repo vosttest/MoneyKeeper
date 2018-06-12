@@ -38,8 +38,8 @@ namespace MoneyKeeper.Main.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var m = new BaseReq { Keyword = Const.Common.CODE_LANGUAGE };
 
+                var m = new BaseReq { Keyword = Const.Common.CODE_LANGUAGE };
                 var rsp = await CommonService.Search(m);
 
                 if (rsp.Status == Const.HTTP.STATUS_SUCCESS)

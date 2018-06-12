@@ -20,17 +20,19 @@ namespace MoneyKeeper.Main.ViewModels
         {
             Title = "Account";
 
-            AccountAddCmd = new Command(async () => await ExeAccountAddCmd());
+            AddCmd = new Command(async () => await ExeAddCmd());
         }
 
         /// <summary>
-        /// Account Add in command
+        /// Execute add command
         /// </summary>
-        /// <returns></returns>
-        private async Task ExeAccountAddCmd()
+        /// <returns>Return the result</returns>
+        private async Task ExeAddCmd()
         {
             var main = App.Current.MainPage;
-            await main.Navigation.PushAsync(new Accounts() { Content = new AccountAdd() });
+
+            var v = new Accounts() { Content = new AccountAdd() };
+            await main.Navigation.PushAsync(v);
         }
 
         #endregion
@@ -38,9 +40,9 @@ namespace MoneyKeeper.Main.ViewModels
         #region -- Properties --
 
         /// <summary>
-        /// Account Add command
+        /// Add command
         /// </summary>
-        public Command AccountAddCmd { get; set; }
+        public Command AddCmd { get; set; }
 
         #endregion
     }

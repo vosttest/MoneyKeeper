@@ -29,7 +29,7 @@ export class VoucherComponent implements OnInit {
     public voucher = [];
 
     public vmSearch: any = { keyword: "", date: new Date() };
-    public vm: any = { type: "Expense", total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null };
+    public vm: any = { type: "Expense", total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, totalEx: 0 };
     public selectedCategory = { code: "", text: "-- Please Select --", icon: "" };
     public selectedAccount = { accountId: 0, text: "-- Please Select --", balance: 0, currency: "", rate: 0 };
     public selectedToAccount = { accountId: 0, text: "-- Please Select --", rate: 0, currency: "" };
@@ -125,6 +125,7 @@ export class VoucherComponent implements OnInit {
         this.proVoucher.search(this.vmSearch).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.voucher = rsp.result.data;
+                console.log(this.voucher);
             } else {
                 this.message = rsp.message;
             }
@@ -155,8 +156,8 @@ export class VoucherComponent implements OnInit {
         this.selectedAccount.balance = balance;
         this.selectedAccount.currency = currency;
         this.selectedAccount.rate = rate;
-        if (this.selectedToAccount.currency != this.selectedAccount.currency) {
-            this.isEquivalent = true;
+        if (this.selectedToAccount.currency = this.selectedAccount.currency) {
+            this.isEquivalent = false;
             this.rate = this.selectedAccount.rate / this.selectedToAccount.rate;
         }
         this.accountModal.hide();
@@ -322,7 +323,7 @@ export class VoucherComponent implements OnInit {
                 this.selectedAdjustment.type = "Expense";
                 this.getExpense();
             }
-        } else if (this.isTransfer && this.isEquivalent) {
+        } else if (this.isEquivalent) {
             this.vm.totalEx = this.vm.total * this.rate;
         }
     }

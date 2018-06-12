@@ -32,7 +32,7 @@
                                 <span>{{i.startDate | date: 'EEEE'}}<br /> <i>{{i.startDate | date: 'dd-MMM-yyyy'}}</i></span>
                             </div>
                             <div class="col-md-3 text-right">
-                                <span>Income: {{i.totalIncome | number }}<br /> <i>Expense: {{i.totalExpense | number}}</i></span>
+                                <span>Income: {{i.totalIncome | number }} {{ i.defaultCurrency }}<br /> <i>Expense: {{i.totalExpense | number}} {{ i.defaultCurrency }}</i></span>
                             </div>
                         </div>
                         <div *ngFor="let j of i.voucherDetail">
@@ -44,7 +44,7 @@
                                     <span>{{j.type}}: {{j.categoryText}} <br /> <i>{{j.description}}</i></span>
                                 </div>
                                 <div class="col-md-2 text-right">
-                                    <span>{{j.amount | number}} {{ j.currency }} <br /> <i>{{j.accountText}}</i></span>
+                                    <span>{{j.amount | number}} {{j.currency}}<br /> <i>{{j.accountText}}</i></span>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +133,8 @@
                     <div class="row" *ngIf="isTransfer && isEquivalent">
                         <div class="form-group col-md 6">
                             <p>Equivalent</p>
-                            <div class="col-md 3">
-                                <input name="equivalent" id="equivalent" class='form-control' [(ngModel)]="vm.totalEx" placeholder='0' readonly="readonly" currencyMask>
+                            <div class="input-group-prepend col-md 3">
+                                <input name="equivalent" id="equivalent" class='form-control' [(ngModel)]="vm.totalEx" placeholder='0' readonly="readonly" currencyMask> {{ selectedToAccount.currency }}
                             </div>
                             <div class="col-md 3 text-right">
                                 <i>Exchange rate: 1 {{ selectedAccount.currency }} = {{ rate | number: '0.0-6' }} {{ selectedToAccount.currency }}</i>
@@ -262,7 +262,7 @@
                         <div class="col-md-11" (click)="chooseAccount(i.id, i.text, i.balance, i.currency, i.rate)">
                             <span>
                                 <div class="left"> {{ i.text }}</div>
-                                <div class="right" currencyMask> Balance: {{ i.balance | number}} {{ i.currency }}</div>
+                                <div class="right"> Balance: {{ i.balance | number}} {{ i.currency }}</div>
                             </span>
                         </div>
                     </div>

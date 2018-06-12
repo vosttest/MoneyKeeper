@@ -23,6 +23,9 @@ public class VoucherDto {
 	@JsonProperty(value = "totalIncome")
 	private double totalIncome;
 
+	@JsonProperty(value = "defaultCurrency")
+	private String defaultCurrency;
+
 	// end
 
 	// region -- Get set --
@@ -57,6 +60,14 @@ public class VoucherDto {
 
 	public void setTotalIncome(double totalIncome) {
 		this.totalIncome = totalIncome;
+	}
+
+	public String getDefaultCurrency() {
+		return defaultCurrency;
+	}
+
+	public void setDefaultCurrency(String defaultCurrency) {
+		this.defaultCurrency = defaultCurrency;
 	}
 
 	// end

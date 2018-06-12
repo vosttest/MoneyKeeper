@@ -46,7 +46,8 @@ namespace MoneyKeeper.Main.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var m = new VoucherSearchReq()
+
+                var m = new VoucherSearchReq
                 {
                     Keyword = string.Empty,
                     Date = DateTime.Now

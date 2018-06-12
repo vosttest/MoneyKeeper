@@ -41,10 +41,8 @@ namespace MoneyKeeper.Main.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var m = new BaseReq()
-                {
-                    Keyword = string.Empty
-                };
+
+                var m = new BaseReq { Keyword = string.Empty };
                 var rsp = await AccountService.Search(m);
 
                 if (rsp.Status == Const.HTTP.STATUS_SUCCESS)
