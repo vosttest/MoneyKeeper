@@ -1,27 +1,24 @@
-﻿
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace MoneyKeeper.Main.Views.Category
 {
-    using Models;
-    using ViewModels;
-
+    /// <summary>
+    /// Expense
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Expense : ContentPage
     {
+        #region -- Methods --
+
+        /// <summary>
+        /// Initialize
+        /// </summary>
         public Expense()
         {
             InitializeComponent();
         }
 
-        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
-            var vm = BindingContext as CategoryVM;
-
-            var categories = e.Item as CategoryModel;
-
-            //vm.HideOrShowCategory(categories);
-        }
+        #endregion
     }
 }

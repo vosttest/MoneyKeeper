@@ -1,13 +1,52 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             Title="Vouchers"
-             x:Class="MoneyKeeper.Main.Views.Vouchers">
+             xmlns:vm="clr-namespace:MoneyKeeper.Main.ViewModels"
+             x:Class="MoneyKeeper.Main.Views.Vouchers"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <vm:VoucherVM/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Voucher"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <SearchBar x:Name="SearchBar"/>
+            </StackLayout>
+            <ListView  x:Name="lstVoucher" ItemsSource="{Binding Data}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee"
+                                         Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="Start">
+                                    <Label Text="StartDate"
+                                           TextColor="#503026"/>
+                                    <Label Text="{Binding StartDate,StringFormat='{}{0:dd-MMM-yyyy}'}"
+                                           TextColor="#503026"/>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical"
+                                             HorizontalOptions="Start">
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="End">
+                                        <Label Text="Total Expense"
+                                               TextColor="#503026"/>
+                                        <Label Text="{Binding TotalExpense,StringFormat='{}{0:N0}'}"
+                                               TextColor="#503026"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal"
+                                                 HorizontalOptions="End">
+                                        <Label Text="Total Income"
+                                           TextColor="#503026"/>
+                                        <Label Text="{Binding TotalIncome,StringFormat='{}{0:N0}'}"
+                                           TextColor="#503026"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

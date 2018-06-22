@@ -23,9 +23,9 @@ namespace MoneyKeeper.Main.Services
         public UserService() { }
 
         /// <summary>
-        /// Verify active code
+        /// Sign in
         /// </summary>
-        /// <param name="code">Active code</param>
+        /// <param name="req">Request</param>
         /// <returns>Return the result</returns>
         public async Task<SignInRsp> SignIn(SignInReq req)
         {

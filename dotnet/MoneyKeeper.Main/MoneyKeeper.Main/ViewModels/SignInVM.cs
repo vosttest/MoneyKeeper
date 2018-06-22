@@ -44,7 +44,8 @@ namespace MoneyKeeper.Main.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var m = new SignInReq()
+
+                var m = new SignInReq
                 {
                     UserName = UserName,
                     Password = Password,

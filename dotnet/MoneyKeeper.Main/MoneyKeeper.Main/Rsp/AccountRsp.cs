@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace MoneyKeeper.Main.Rsp
 {
@@ -20,17 +19,6 @@ namespace MoneyKeeper.Main.Rsp
         /// <summary>
         /// Data transfer object
         /// </summary>
-        public class Dto
-        {
-            #region -- Properties --
-
-            [JsonProperty("count")]
-            public int Count { get; set; }
-
-            [JsonProperty("data")]
-            public List<AccountDto> Data { get; set; }
-
-            #endregion
-        }
+        public class Dto : BaseDto<AccountDto> { }
     }
 }

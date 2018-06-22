@@ -55,6 +55,15 @@ public class VoucherDetailDto {
 	@JsonProperty(value = "startDate")
 	private Date startDate;
 
+	@JsonProperty(value = "rate")
+	private Double rate;
+
+	@JsonProperty(value = "amount2")
+	private Double amount2;
+
+	@JsonProperty(value = "currency")
+	private String currency;
+
 	// end
 
 	// region -- Get set --
@@ -185,6 +194,26 @@ public class VoucherDetailDto {
 
 	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
+	}
+
+	public Double getRate() {
+		return rate;
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
+	}
+
+	public Double getAmount2() {
+		return getRate() * getAmount();
+	}
+
+	public String getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
 
 	// end

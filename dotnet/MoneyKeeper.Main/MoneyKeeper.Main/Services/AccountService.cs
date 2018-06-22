@@ -22,7 +22,11 @@ namespace MoneyKeeper.Main.Services
         /// </summary>
         public AccountService() { }
 
-
+        /// <summary>
+        /// Save
+        /// </summary>
+        /// <param name="req">Request</param>
+        /// <returns>Return the result</returns>
         public async Task<SingleRsp> Save(BaseReq req)
         {
             SingleRsp res = null;
@@ -47,6 +51,11 @@ namespace MoneyKeeper.Main.Services
             return res;
         }
 
+        /// <summary>
+        /// Search
+        /// </summary>
+        /// <param name="req">Request</param>
+        /// <returns>Return the result</returns>
         public async Task<AccountRsp> Search(BaseReq req)
         {
             AccountRsp res = null;

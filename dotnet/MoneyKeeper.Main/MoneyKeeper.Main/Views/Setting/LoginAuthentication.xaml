@@ -2,9 +2,30 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MoneyKeeper.Main.Views.Setting.LoginAuthentication">
-  <ContentView.Content>
-      <StackLayout>
-            <Label Text="Login Authentication" />
-      </StackLayout>
-  </ContentView.Content>
+    <ContentView.Content>
+        <StackLayout>
+            <Label Text="Setting Login AuThentication"
+                   FontSize="24"
+                   TextColor="#1cb09a"
+                   HorizontalOptions="CenterAndExpand"/>
+            <Switch Toggled="Switch_Toggled"/>
+            <Picker x:Name="pickerLoginAuthen"
+                    IsEnabled="False"
+                    Title="-- Please Select --">
+                <Picker.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>OTP</x:String>
+                        <x:String>TOKEN</x:String>
+                    </x:Array>
+                </Picker.ItemsSource>
+            </Picker>
+            <Button x:Name="buttonLoginAuthen"
+                    Clicked="Save_Clicked"
+                    IsVisible="False"
+                    Text="Save"
+                    TextColor="White"
+                    BackgroundColor="#1cb09a"
+                    HeightRequest="50"/>
+        </StackLayout>
+    </ContentView.Content>
 </ContentView>

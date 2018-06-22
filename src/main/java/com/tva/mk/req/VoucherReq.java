@@ -7,9 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class VoucherReq {
 	// region -- Fields --
 
-	@JsonProperty(value = "keyword")
-	private String keyword;
-
 	@JsonProperty(value = "id")
 	private Integer id;
 
@@ -46,14 +43,6 @@ public class VoucherReq {
 	// end
 
 	// region -- Get set --
-
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
 
 	public Integer getId() {
 		return id;

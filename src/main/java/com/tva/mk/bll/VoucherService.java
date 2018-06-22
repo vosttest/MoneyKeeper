@@ -122,14 +122,17 @@ public class VoucherService {
 			t2.setCategoryText((item[11].toString()));
 			t2.setIcon(item[12].toString());
 			t2.setAccountText(item[13].toString());
+			t2.setRate(Double.parseDouble(item[14].toString()));
+			t2.setCurrency((item[15].toString()));
 
 			lstVoucher.add(t2);
 			t1.setVoucherDetail(lstVoucher);
+			t1.setDefaultCurrency((item[16].toString()));
 
 			double totalExpense = t1.getVoucherDetail().stream().filter(f -> f.getType().equals("Expense"))
-					.mapToDouble(VoucherDetailDto::getAmount).sum();
+					.mapToDouble(VoucherDetailDto::getAmount2).sum();
 			double totalIncome = t1.getVoucherDetail().stream().filter(f -> f.getType().equals("Income"))
-					.mapToDouble(VoucherDetailDto::getAmount).sum();
+					.mapToDouble(VoucherDetailDto::getAmount2).sum();
 
 			t1.setTotalExpense(totalExpense);
 			t1.setTotalIncome(totalIncome);

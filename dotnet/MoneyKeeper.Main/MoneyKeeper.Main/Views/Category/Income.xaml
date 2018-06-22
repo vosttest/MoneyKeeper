@@ -1,12 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MoneyKeeper.Main.ViewModels"
              x:Class="MoneyKeeper.Main.Views.Category.Income">
+    <ContentPage.BindingContext>
+        <local:IncomeVM/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Income"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <SearchBar x:Name="searchCategeory"
+                       Placeholder="Search"
+                       Text="{Binding SearchedText, Mode=TwoWay}"
+                       SearchCommand="{Binding SearchCommand}"/>
+            <ListView  x:Name="lstAccount"
+                       RowHeight="55"
+                       SeparatorVisibility="None"
+                       ItemsSource="{Binding Data}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout VerticalOptions="FillAndExpand"
+                                         Orientation="Horizontal"
+                                         Padding="20,10,0,20"
+                                         Spacing="20">
+                                <Image Source="{Binding Icon}"
+                                       WidthRequest="40"
+                                       HeightRequest="40"
+                                       VerticalOptions="CenterAndExpand"
+                                       Aspect="AspectFit"/>
+                                <Label Text="{Binding Text}"
+                                       FontSize="Small"
+                                       VerticalOptions="CenterAndExpand"
+                                       Font="Bold, 20"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -1,6 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SettingProvider, AccountProvider, ReportProvider } from '../../providers/provider';
-import { ModalDirective } from 'ngx-bootstrap';
 import { HTTP, Setting } from '../../utilities/utility';
 
 @Component({
@@ -13,16 +12,14 @@ export class DashboardComponent implements OnInit {
     public lang = [];
     public account = [];
     public getReport = [];
+    public accountType = [];
 
     public vmLang: any = {};
-    public vm: any = { accountId: 0, total: "", total2: "" };
+    public vm: any = { accountId: "", total: "", total2: "" };
+    public currency = "";
 
     public loader: boolean = false;
     public isShow: boolean = false;
-
-    public minDate = new Date(2018, 1, 1);
-    public maxDate = new Date(2050, 12, 12);
-    public bsValue: Date = new Date();
 
     constructor(private proSetting: SettingProvider,
         private proAccount: AccountProvider,
@@ -31,6 +28,7 @@ export class DashboardComponent implements OnInit {
     ngOnInit() {
         this.getLang();
         this.search();
+        this.searchCurrency();
     }
 
     public report() {
@@ -58,7 +56,7 @@ export class DashboardComponent implements OnInit {
     }
 
     private getLang() {
-        this.proSetting.view(Setting.CODE_LANGGUAGE).subscribe((rsp: any) => {
+        this.proSetting.view(Setting.CODE_LANGUAGE).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 let file = "";
 
@@ -95,12 +93,42 @@ export class DashboardComponent implements OnInit {
         this.proAccount.search("", true).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.account = rsp.result.data;
+
+                let t = this.account.map(a => a.code).filter((value, index, i) => i.indexOf(value) === index);
+                t.sort();
+
+                let t2 = [];
+                for (let i = 0; i < t.length; i++) {
+                    t2.push(this.account.filter(a => a.code == t[i]));
+
+                    let total = t2[i].reduce((sum, item) => sum + item.balance * item.rate, 0);
+                    let count = t2[i].length;
+                    let t1 = { code: t[i], total: total, count: count };
+
+                    this.accountType.push(t1);
+                }
             }
             else {
                 console.log(rsp.message);
             }
 
             this.loader = false;
+        }, err => console.log(err));
+    }
+
+    private searchCurrency() {
+        this.proSetting.search().subscribe((rsp: any) => {
+            if (rsp.status === HTTP.STATUS_SUCCESS) {
+                let data = rsp.result.data;
+                data.forEach(element => {
+                    if (element.code === Setting.CODE_CURRENCY) {
+                        this.currency = element.value === "" || element.value === null ? "VND" : element.value;
+                    }
+                });
+            }
+            else {
+                console.log(rsp.message);
+            }
         }, err => console.log(err));
     }
 }

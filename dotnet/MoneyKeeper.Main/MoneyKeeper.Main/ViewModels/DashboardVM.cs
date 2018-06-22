@@ -26,14 +26,14 @@ namespace MoneyKeeper.Main.ViewModels
 
             _accounts = new List<AccountList>();
 
-            Task.Run(async () => await ExeLoadCmd());
+            Task.Run(async () => await LoadData());
         }
 
         /// <summary>
-        /// Execute load command
+        /// Load data
         /// </summary>
-        /// <returns></returns>
-        private async Task ExeLoadCmd()
+        /// <returns>Return the result</returns>
+        private async Task LoadData()
         {
             if (IsBusy) { return; }
             IsBusy = true;
@@ -41,10 +41,8 @@ namespace MoneyKeeper.Main.ViewModels
             try
             {
                 var main = App.Current.MainPage;
-                var m = new BaseReq()
-                {
-                    Keyword = string.Empty
-                };
+
+                var m = new BaseReq { Keyword = string.Empty };
                 var rsp = await AccountService.Search(m);
 
                 if (rsp.Status == Const.HTTP.STATUS_SUCCESS)

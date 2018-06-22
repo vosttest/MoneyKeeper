@@ -28,10 +28,12 @@ export class VoucherComponent implements OnInit {
     public toAccount = [];
     public voucher = [];
 
-    public vm: any = { keyword: "", type: "Expense", total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, startDate: new Date() };
+    public vmSearch: any = { keyword: "", date: new Date() };
+    public vm: any = { type: "Expense", total: null, accountId: null, description: " ", payee: " ", payer: " ", transferFee: null, toAccount: null, totalEx: 0 };
     public selectedCategory = { code: "", text: "-- Please Select --", icon: "" };
-    public selectedAccount = { accountId: 0, text: "-- Please Select --" };
-    public selectedToAccount = { accountId: 0, text: "-- Please Select --" };
+    public selectedAccount = { accountId: 0, text: "-- Please Select --", balance: 0, currency: "", rate: 0 };
+    public selectedToAccount = { accountId: 0, text: "-- Please Select --", rate: 0, currency: "" };
+    public selectedAdjustment = { type: "", total: 0 };
 
     public isCheck: boolean;
     public isExpense: boolean = false;
@@ -39,7 +41,9 @@ export class VoucherComponent implements OnInit {
     public isTransfer: boolean = false;
     public isAdjustment: boolean = false;
     public loader: boolean = false;
-
+    public isEquivalent: boolean = false;
+    public lblAdjustment = "";
+    public rate = 0;
 
     public apiURL: string = "../../../assets/img/";
     public labelObj: string = "";
@@ -118,12 +122,12 @@ export class VoucherComponent implements OnInit {
     }
 
     public getVoucher() {
-        this.proVoucher.search(this.vm).subscribe((rsp: any) => {
+        this.proVoucher.search(this.vmSearch).subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.voucher = rsp.result.data;
+                console.log(this.voucher);
             } else {
                 this.message = rsp.message;
-                console.log(this.voucher)
             }
         }, err => console.log(err));
     }
@@ -146,15 +150,28 @@ export class VoucherComponent implements OnInit {
         this.categoryModal.hide();
     }
 
-    public chooseAccount(accountId: any, text: string) {
+    public chooseAccount(accountId: any, text: string, balance: number, currency: string, rate: any) {
         this.selectedAccount.accountId = accountId;
         this.selectedAccount.text = text;
+        this.selectedAccount.balance = balance;
+        this.selectedAccount.currency = currency;
+        this.selectedAccount.rate = rate;
+        if (this.selectedToAccount.currency = this.selectedAccount.currency) {
+            this.isEquivalent = false;
+            this.rate = this.selectedAccount.rate / this.selectedToAccount.rate;
+        }
         this.accountModal.hide();
     }
 
-    public chooseToAccount(accountId: any, text: string) {
+    public chooseToAccount(accountId: any, text: string, currency: string, rate: any) {
         this.selectedToAccount.accountId = accountId;
         this.selectedToAccount.text = text;
+        this.selectedToAccount.currency = currency;
+        this.selectedToAccount.rate = rate;
+        if (this.selectedToAccount.currency != this.selectedAccount.currency) {
+            this.isEquivalent = true;
+            this.rate = this.selectedAccount.rate / this.selectedToAccount.rate;
+        }
         this.toAccountModal.hide();
     }
 
@@ -224,7 +241,6 @@ export class VoucherComponent implements OnInit {
     }
 
     private searchAccount() {
-
         this.proAccount.search("").subscribe((rsp: any) => {
             if (rsp.status === HTTP.STATUS_SUCCESS) {
                 this.account = rsp.result.data;
@@ -265,9 +281,9 @@ export class VoucherComponent implements OnInit {
             payee: this.vm.payee,
             payer: this.vm.payer,
             toAccount: this.vm.toAccount,
-            total: this.vm.total,
+            total: !this.isAdjustment ? this.vm.total : this.selectedAdjustment.total,
             transferFee: this.vm.transferFee,
-            type: this.vm.type,
+            type: !this.isAdjustment ? this.vm.type : this.selectedAdjustment.type,
             category: this.selectedCategory.code,
             startDate: this.vm.startDate
         };
@@ -291,5 +307,24 @@ export class VoucherComponent implements OnInit {
         this.rou.navigate(['/voucher/overview']);
         this.getVoucher();
         this.informationModal.hide();
+    }
+
+    public checkKeyUp() {
+        if (this.isAdjustment) {
+            let t = this.vm.total - this.selectedAccount.balance;
+            if (t >= 0) {
+                this.lblAdjustment = "--> Income: " + t + " " + this.selectedAccount.currency;
+                this.selectedAdjustment.total = t;
+                this.selectedAdjustment.type = "Income";
+                this.getIncome();
+            } else {
+                this.lblAdjustment = "--> Expense: " + (t * -1) + " " + this.selectedAccount.currency;
+                this.selectedAdjustment.total = (t * -1);
+                this.selectedAdjustment.type = "Expense";
+                this.getExpense();
+            }
+        } else if (this.isEquivalent) {
+            this.vm.totalEx = this.vm.total * this.rate;
+        }
     }
 }

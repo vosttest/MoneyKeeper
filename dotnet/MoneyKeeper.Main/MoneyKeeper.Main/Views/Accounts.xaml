@@ -9,9 +9,15 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Accounts!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand"/>
+            <Button Text="Add New"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    TextColor="White"
+                    BackgroundColor="#1cb09a"
+                    Margin="20,10,20,0"
+                    Command="{Binding AccountAddCmd}"/>
+            <SearchBar Placeholder="Search by account name"
+                       SearchButtonPressed="OnSearchBarButtonPressed"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -28,10 +28,11 @@ namespace MoneyKeeper.Token
             var m2 = new MenuModel { Title = "Password", Target = typeof(Password) };
             var m3 = new MenuModel { Title = "Language", Target = typeof(Language) };
             var m4 = new MenuModel { Title = "Time synchronization", Target = typeof(Synchronization) };
+
             lstMenu.ItemsSource = new List<MenuModel> { m1, m2, m3, m4 };
         }
 
-        public void CreatePassword()
+        private void CreatePassword()
         {
             Device.StartTimer(new TimeSpan(0, 0, 1), () =>
             {
@@ -60,6 +61,15 @@ namespace MoneyKeeper.Token
             });
         }
 
+        #endregion
+
+        #region -- Events --
+
+        /// <summary>
+        /// LstMenu item selected
+        /// </summary>
+        /// <param name="sender">Sender</param>
+        /// <param name="e">Event</param>
         private void LstMenu_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             (sender as ListView).SelectedItem = null;

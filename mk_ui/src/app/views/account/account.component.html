@@ -7,61 +7,48 @@
 </div>
 <section class="format-layout">
     <div class="row">
-        <div class="col-md-2">
-            <select name="type" (change)="changeType(type.value)" #type="ngModel" [(ngModel)]="vm.type" class="form-control">
-                <option *ngFor="let i of lstType" value="{{i.value}}">{{i.text}}</option>
-                <hr>
-                <option value="showAll">Show All</option>
-            </select>
-        </div>
         <div class="col-md-3">
             <input [(ngModel)]="searchText" class="form-control" placeholder="Search by Account Name...">
         </div>
-        <div class="col-md-7 text-right">
+        <div class="col-md-9 text-right">
             <button routerLink="/account-add/overview" class="btn btn-outline-success">NEW &nbsp;<i class="fa fa-plus" ></i>
             </button>
         </div>
     </div>
     <div class="row">
         <div class="card bg-white card-2 full-width">
-            <table class="table table-hover" [mfData]="data" #mf="mfDataTable" [mfRowsOnPage]="7">
-                <thead>
-                    <tr>
-                        <!-- <th style="width: 5%">
-                            <mfDefaultSorter by="text">No</mfDefaultSorter>
-                        </th> -->
-                        <th style="width: 40%">
-                            <mfDefaultSorter by="text">Account Name</mfDefaultSorter>
-                        </th>
-                        <th style="width: 40%">
-                            <mfDefaultSorter by="balance">Balance</mfDefaultSorter>
-                        </th>
-                        <th style="width: 15%">
-                            <mfDefaultSorter by="createOn">Create Date</mfDefaultSorter>
-                        </th>
-                        <th style="width: 5%">
-                            <mfDefaultSorter by="Edit">Edit</mfDefaultSorter>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody *ngFor="let i of mf.data | filter : searchText; let count = index">
-                    <tr>
-                        <!-- <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ count + 1 }}</td> -->
-                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.text }}</td>
-                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.balance | number:'0.0-0'}} {{ i.currency }}</td>
-                        <td routerLink="/account-edit/view-{{i.id}}" tabindex="-1">{{ i.createOn | date:'dd-MMM-yyyy' }}</td>
-                        <td routerLink="/account-edit/edit-{{i.id}}" tabindex="-1"><i class="fa fa-edit"></i></td>
-                    </tr>
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="4">
-                            <mfBootstrapPaginator></mfBootstrapPaginator>
-                        </td>
-                        <td></td>
-                    </tr>
-                </tfoot>
-            </table>
+            <div id="accordion" class="full-width list">
+                <div class="card" *ngFor="let j of accountType" [hidden]="j.code == null || j.code == ''">
+                    <div class="card-header" id="headingOne" data-toggle="collapse" attr.data-target="#collapseOne{{j.code}}" aria-expanded="true" aria-controls="collapseOne">
+                        <div class="row">
+                            <div class="col-md-6 text-left">
+                                <h5 class="mb-0 text-left">{{ j.code }}</h5>
+                                <h6>({{j.count}})</h6>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <h5 class="mb-0">Total: {{ j.total | number:'0.0-2'}} {{currency}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div attr.id="collapseOne{{j.code}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <ul *ngFor='let i of account | filter : searchText' class="list-group pointer">
+                                <li class="list-group-item list-group-item-action pointer" *ngIf="i.code == j.code">
+                                    <div class="row">
+                                        <div class="col-md-6" routerLink="/account-edit/view-{{i.id}}" tabindex="-1"> {{i.text}} </div>
+                                        <div class="col-md-5" routerLink="/account-edit/view-{{i.id}}" tabindex="-1">
+                                            <div class="tooltip"> Balance: {{ i.balance | number:'0.0-2'}} {{ i.currency }}
+                                                <span class="tooltiptext">{{i.balance*i.rate | number:'0.0-2'}} {{currency}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 text-center" routerLink="/account-edit/edit-{{i.id}}" tabindex="-1"><i class="fa fa-edit"></i></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

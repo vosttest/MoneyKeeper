@@ -20,7 +20,11 @@ namespace MoneyKeeper.Main.Services
         /// </summary>
         public CategoryService() { }
 
-        public async Task<CategoryRsp> Search()
+        /// <summary>
+        /// Search expense
+        /// </summary>
+        /// <returns>Return the result</returns>
+        public async Task<CategoryRsp> SearchExpense()
         {
             CategoryRsp res = null;
 
@@ -29,6 +33,34 @@ namespace MoneyKeeper.Main.Services
                 //var data = CreateData(req);
                 var client = CreateClient();
                 var rsp = await client.GetAsync(Host + "expense/search");
+
+                if (rsp.IsSuccessStatusCode)
+                {
+                    var t = await rsp.Content.ReadAsStringAsync();
+                    res = JsonConvert.DeserializeObject<CategoryRsp>(t);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+
+            return res;
+        }
+
+        /// <summary>
+        /// Search income
+        /// </summary>
+        /// <returns>Return the result</returns>
+        public async Task<CategoryRsp> SearchIncome()
+        {
+            CategoryRsp res = null;
+
+            try
+            {
+                //var data = CreateData(req);
+                var client = CreateClient();
+                var rsp = await client.GetAsync(Host + "income/search");
 
                 if (rsp.IsSuccessStatusCode)
                 {

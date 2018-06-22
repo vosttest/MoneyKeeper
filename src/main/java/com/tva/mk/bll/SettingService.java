@@ -53,6 +53,15 @@ public class SettingService {
 		return res;
 	}
 
+	/**
+	 * Update currency of all default account after sign up, just run one time.
+	 * 
+	 * @param userId
+	 */
+	public void setAccountDefault(int userId) {
+		settingDao.setAccountDefault(userId);
+	}
+
 	public String save(Setting m) {
 		String res = "";
 

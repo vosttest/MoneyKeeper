@@ -3,11 +3,14 @@ package com.tva.mk.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tva.mk.common.Const;
 
 public class VoucherDto {
 	// region -- Fields --
 
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = Const.DateTime.FULL)
 	@JsonProperty(value = "startDate")
 	private Date startDate;
 
@@ -19,6 +22,9 @@ public class VoucherDto {
 
 	@JsonProperty(value = "totalIncome")
 	private double totalIncome;
+
+	@JsonProperty(value = "defaultCurrency")
+	private String defaultCurrency;
 
 	// end
 
@@ -54,6 +60,14 @@ public class VoucherDto {
 
 	public void setTotalIncome(double totalIncome) {
 		this.totalIncome = totalIncome;
+	}
+
+	public String getDefaultCurrency() {
+		return defaultCurrency;
+	}
+
+	public void setDefaultCurrency(String defaultCurrency) {
+		this.defaultCurrency = defaultCurrency;
 	}
 
 	// end

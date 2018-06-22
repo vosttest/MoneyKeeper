@@ -54,11 +54,11 @@
     <div class="modal-dialog" id="currency" style="display: none;">
         <div class="modal-content" style="border:none">
             <div class="input-group mb-3 nav" style="margin: auto; text-align: center">
-                <a class="form-control" data-toggle="pill" href="#cur">Currency</a>
+                <a class="form-control active show" data-toggle="pill" href="#cur">Currency</a>
                 <a class="form-control format-input" data-toggle="pill" href="#exrate">Exchange Rate</a>
             </div>
             <div class="tab-content">
-                <div id="cur" class="tab-pane fade">
+                <div id="cur" class="tab-pane fade active show">
                     <h2 class="text-center" style="margin-bottom: 5%;">Setting Currency</h2>
                     <div class="form-group text-center">
                         <input type="text" class="form-control" [(ngModel)]="searchCurrency" placeholder="Search by currency" />

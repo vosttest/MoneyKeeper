@@ -56,6 +56,8 @@ public class Const {
 
 		public static final String LANGUAGE = "Language";
 
+		public static final String RATE = "Rate";
+
 		public static final String TERM = "Term";
 
 		public static final String INTEREST_PAID = "InterestPaid";
@@ -78,7 +80,7 @@ public class Const {
 
 		public static final String CODE_LOCK = "SET005";
 
-		public static final String CODE_LANGGUAGE = "SET006";
+		public static final String CODE_LANGUAGE = "SET006";
 
 		public static final String DEFAULT_REMINDER = "20:00";
 
@@ -132,6 +134,10 @@ public class Const {
 		public static final String FULL = "yyyy-MM-dd HH:mm:ss";
 
 		public static final String TOKEN = "yyyy-MM-dd HH:mm";
+
+		public static final String DMY_HMS = "dd-MM-yyyy hh:mm:ss";
+
+		public static final String YMD = "yyyy-MM-dd";
 	}
 
 	public class Activation {

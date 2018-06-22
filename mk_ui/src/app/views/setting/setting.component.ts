@@ -71,7 +71,7 @@ export class SettingComponent implements OnInit {
                             this.selectedCurrency.status = element.status;
                             this.selectedCurrency.value = element.value === "" || element.value === null ? "VND" : element.value;
                             break;
-                        case Setting.CODE_LANGGUAGE:
+                        case Setting.CODE_LANGUAGE:
                             this.selectedLanguage.id = element.id;
                             this.selectedLanguage.status = element.status;
                             this.selectedLanguage.value = element.value === "" || element.value === null ? "VN" : element.value;
@@ -129,7 +129,6 @@ export class SettingComponent implements OnInit {
                 console.log(rsp.message);
             }
         }, err => console.log(err));
-
     }
 
     public changeTime() {

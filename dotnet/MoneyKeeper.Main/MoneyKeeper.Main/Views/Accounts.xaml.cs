@@ -19,6 +19,11 @@ namespace MoneyKeeper.Main.Views
             InitializeComponent();
         }
 
+        void OnSearchBarButtonPressed(object sender, System.EventArgs e)
+        {
+            //TODO
+        }
+
         #endregion
     }
 }

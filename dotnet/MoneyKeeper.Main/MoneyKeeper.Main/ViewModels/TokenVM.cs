@@ -21,17 +21,17 @@ namespace MoneyKeeper.Main.ViewModels
         /// </summary>
         public TokenVM()
         {
-            Title = "Sign Ins";
+            Title = "Token";
 
-            ProceedCmd = new Command(async () => await ExeTokenCmd());
+            ProceedCmd = new Command(async () => await ExeProceedCmd());
             CancelCmd = new Command(async () => await ExeCancelCmd());
         }
 
         /// <summary>
-        /// Execute sign in command
+        /// Execute proceed command
         /// </summary>
         /// <returns>Return the result</returns>
-        private async Task ExeTokenCmd()
+        private async Task ExeProceedCmd()
         {
             if (IsBusy) { return; }
             IsBusy = true;
@@ -39,8 +39,9 @@ namespace MoneyKeeper.Main.ViewModels
             try
             {
                 var main = App.Current.MainPage;
+
                 var t = Code1 + Code2 + Code3 + Code4 + Code5 + Code6;
-                var m = new SignInReq()
+                var m = new SignInReq
                 {
                     UserName = UserName,
                     Password = Password,

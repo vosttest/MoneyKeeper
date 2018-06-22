@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MoneyKeeper.Main.Views.Account.AccountAdd">
+    <ContentView.Content>
+        <ScrollView VerticalOptions="FillAndExpand"
+                    Margin="10">
+            <StackLayout>
+                <Label Text="Account Name"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Entry VerticalOptions="StartAndExpand"
+                       Margin="10,0"/>
+                <Label Text="Type"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Picker VerticalOptions="StartAndExpand"
+                        Margin="10,0"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>Cash</x:String>
+                        <x:String>Bank Account</x:String>
+                        <x:String>ATM</x:String>
+                        <x:String>Deposit Account</x:String>
+                        <x:String>Save Account</x:String>
+                        <x:String>Other</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label Text="Currency"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Picker VerticalOptions="StartAndExpand"
+                        Margin="10,0"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>USD</x:String>
+                        <x:String>VND</x:String>
+                        <x:String>EUR</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label Text="Bank"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Entry VerticalOptions="StartAndExpand"
+                       Margin="10,0"/>
+                <Label Text="Initial Balance"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Entry VerticalOptions="StartAndExpand"
+                       Margin="10,0"
+                       Keyboard="Numeric"/>
+                <Label Text="StartAndExpand Date"
+                       Margin="10,0"
+                       FontSize="18"
+                       FontAttributes="Bold"/>
+                <DatePicker Format="D"
+                            VerticalOptions="CenterAndExpand"
+                            Margin="10,0"/>
+                <Label Text="Term"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Picker VerticalOptions="Start"
+                        Margin="10,0"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>1 Week</x:String>
+                        <x:String>2Weeks</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label Text="Interest Rate Free"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Entry VerticalOptions="StartAndExpand"
+                       Margin="10,0"/>
+                <Label Text="Interest Rate"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Entry VerticalOptions="StartAndExpand"
+                       Margin="10,0"/>
+                <Label Text="Interest Paid"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Picker VerticalOptions="StartAndExpand"
+                        Margin="10,0"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>Maturity</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label Text="Term End"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Picker VerticalOptions="StartAndExpand"
+                        Margin="10,0"
+                        SelectedIndexChanged="OnPickerSelectedIndexChanged">
+                    <Picker.Items>
+                        <x:String>Rollover principal and interest</x:String>
+                        <x:String>Close account</x:String>
+                    </Picker.Items>
+                </Picker>
+                <Label Text="Note"
+                       Margin="10,0"
+                       Font="Bold,18"/>
+                <Entry VerticalOptions="StartAndExpand"
+                       Margin="10,0"/>
+                <Button Text="Save"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        TextColor="White"
+                        BackgroundColor="#1cb09a"
+                        Margin="20,10,20,0"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentView.Content>
+</ContentView>

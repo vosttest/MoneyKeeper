@@ -20,6 +20,9 @@ public class AccountDto {
 	@JsonProperty(value = "currency")
 	private String currency;
 
+	@JsonProperty(value = "rate")
+	private Double rate;
+
 	// end
 
 	// region -- Get set --
@@ -62,6 +65,14 @@ public class AccountDto {
 
 	public void setCurrency(String currency) {
 		this.currency = currency;
+	}
+
+	public Double getRate() {
+		return rate;
+	}
+
+	public void setRate(Double rate) {
+		this.rate = rate;
 	}
 
 	// end

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountProvider, ReportProvider } from '../../providers/provider';
-import { Utils } from '../../utils';
 import { HTTP } from '../../utilities/utility';
+import { Utils } from '../../utils';
 
 @Component({
     selector: 'app-report',
@@ -12,17 +12,10 @@ import { HTTP } from '../../utilities/utility';
 export class ReportComponent implements OnInit {
     public getReport = [];
     public account = [];
-    public vm: any = { accountId: 0, total: "", total2: "" };
+    public vm: any = { accountId: "", total: "", total2: "" };
     public loader: boolean;
     public isShow: boolean = false;
     public message = "";
-
-    // Datepicker
-
-    minDate = new Date(2018, 1, 1);
-    maxDate = new Date(2050, 12, 12);
-
-    bsValue: Date = new Date();
 
     constructor(private proAcc: AccountProvider,
         private proReport: ReportProvider,
@@ -48,7 +41,8 @@ export class ReportComponent implements OnInit {
 
     public report() {
         this.loader = true;
-
+        console.log(this.vm.fromDate);
+        console.log(this.vm.toDate);
         let obj = {
             accountId: this.vm.accountId,
             fromDate: this.vm.fromDate,
@@ -75,7 +69,7 @@ export class ReportComponent implements OnInit {
 
         if (this.getReport.length == 0) {
             this.loader = false;
-            this.message = "Not Data. Please choose Account, From Date, To Date ";
+            this.message = "Not Data.";
 
             return;
         }
@@ -89,7 +83,7 @@ export class ReportComponent implements OnInit {
                 "No.": no++,
                 "Type": i.type,
                 "Categories": i.text,
-                "Amount": i.amount,
+                "Amount": i.amount.toLocaleString(),
                 "Start Date": this.utl.formatDate(i.startDate, "dd-MMM-yyyy")
             };
             tmp.push(item);
