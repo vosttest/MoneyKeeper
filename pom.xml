@@ -120,8 +120,8 @@
 							<goal>install-node-and-npm</goal>
 						</goals>
 						<configuration>
-							<nodeVersion>v10.10.0</nodeVersion>
-							<npmVersion>6.4.1</npmVersion>
+							<nodeVersion>v8.11.4</nodeVersion>
+							<npmVersion>5.6.0</npmVersion>
 						</configuration>
 					</execution>
 					<!-- It will execute command "npm install" inside "/angular" directory -->
