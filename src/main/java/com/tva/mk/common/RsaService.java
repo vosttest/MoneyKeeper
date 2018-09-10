@@ -31,8 +31,7 @@ public class RsaService {
 	/**
 	 * Read key from file
 	 * 
-	 * @param file
-	 *            Path full file name
+	 * @param file Path full file name
 	 * @return
 	 * @throws IOException
 	 */
@@ -53,8 +52,7 @@ public class RsaService {
 	/**
 	 * Constructs a private key RSA from the given file
 	 * 
-	 * @param file
-	 *            PEM private key in file
+	 * @param file PEM private key in file
 	 * @return
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -67,8 +65,7 @@ public class RsaService {
 	/**
 	 * Constructs a private key RSA from the given string
 	 * 
-	 * @param key
-	 *            PEM private key
+	 * @param key PEM private key
 	 * @return
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -92,8 +89,7 @@ public class RsaService {
 	/**
 	 * Constructs a public key RSA from the given file
 	 * 
-	 * @param file
-	 *            PEM public key in file
+	 * @param file PEM public key in file
 	 * @return
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -106,8 +102,7 @@ public class RsaService {
 	/**
 	 * Constructs a public key RSA from the given string
 	 * 
-	 * @param key
-	 *            PEM public key
+	 * @param key PEM public key
 	 * @return
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -130,8 +125,7 @@ public class RsaService {
 	/**
 	 * Sign message with private key
 	 * 
-	 * @param k
-	 *            Private key
+	 * @param k       Private key
 	 * @param message
 	 * @return
 	 * @throws NoSuchAlgorithmException
@@ -151,8 +145,7 @@ public class RsaService {
 	/**
 	 * Verify with public key and signature
 	 * 
-	 * @param k
-	 *            Public key
+	 * @param k         Public key
 	 * @param message
 	 * @param signature
 	 * @return
@@ -173,10 +166,8 @@ public class RsaService {
 	/**
 	 * Encrypts the text with the public key RSA
 	 * 
-	 * @param s
-	 *            Plain text to be encrypted
-	 * @param k
-	 *            Public key
+	 * @param s Plain text to be encrypted
+	 * @param k Public key
 	 * @return
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -191,10 +182,8 @@ public class RsaService {
 	/**
 	 * Decrypts the text with the private key RSA
 	 * 
-	 * @param s
-	 *            Cypher text to be decrypted
-	 * @param k
-	 *            Private key
+	 * @param s Cypher text to be decrypted
+	 * @param k Private key
 	 * @return Decrypted text base64 encoded
 	 * @throws IOException
 	 * @throws GeneralSecurityException
@@ -209,8 +198,7 @@ public class RsaService {
 	/**
 	 * Encrypts the text with the public key RSA
 	 * 
-	 * @param s
-	 *            Plain text to be encrypted
+	 * @param s Plain text to be encrypted
 	 * @return
 	 */
 	public static String encrypt(String s) {
@@ -233,8 +221,7 @@ public class RsaService {
 	/**
 	 * Decrypts the text with the private key RSA
 	 * 
-	 * @param s
-	 *            Cypher text to be decrypted
+	 * @param s Cypher text to be decrypted
 	 * @return
 	 */
 	public static String decrypt(String s) {

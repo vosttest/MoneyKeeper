@@ -25,12 +25,9 @@ public class EmailService {
 	/**
 	 * Send email
 	 * 
-	 * @param to
-	 *            To email
-	 * @param sub
-	 *            Email's subject
-	 * @param msg
-	 *            Email's content
+	 * @param to  To email
+	 * @param sub Email's subject
+	 * @param msg Email's content
 	 */
 	private static void sendMail(String to, String sub, String msg) {
 		try {
@@ -65,12 +62,9 @@ public class EmailService {
 	/**
 	 * Send email with forgot password template
 	 * 
-	 * @param to
-	 *            To email
-	 * @param code
-	 *            User's token
-	 * @param name
-	 *            First name
+	 * @param to   To email
+	 * @param code User's token
+	 * @param name First name
 	 */
 	public static void forgotPassword(String to, String code, String name) {
 		try {
@@ -94,12 +88,9 @@ public class EmailService {
 	/**
 	 * Send email with active code template
 	 * 
-	 * @param to
-	 *            To email
-	 * @param name
-	 *            First name
-	 * @param code
-	 *            Active code
+	 * @param to   To email
+	 * @param name First name
+	 * @param code Active code
 	 */
 	public static void getActiveCode(String to, String name, String code) {
 		try {

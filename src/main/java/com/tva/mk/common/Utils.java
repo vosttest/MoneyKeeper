@@ -97,10 +97,8 @@ public class Utils {
 	/**
 	 * Get UTC date time
 	 * 
-	 * @param type
-	 *            Choose attribute to add (Calendar.MINUTE, Calendar.HOUR, ...)
-	 * @param n
-	 *            Number want to add
+	 * @param type Choose attribute to add (Calendar.MINUTE, Calendar.HOUR, ...)
+	 * @param n    Number want to add
 	 * @return
 	 * @throws Exception
 	 */
@@ -122,8 +120,7 @@ public class Utils {
 	/**
 	 * Verify with current date
 	 * 
-	 * @param d
-	 *            Date
+	 * @param d Date
 	 * @return
 	 */
 	public static boolean verify(Date d) {
@@ -140,8 +137,7 @@ public class Utils {
 	/**
 	 * Get token
 	 * 
-	 * @param l
-	 *            length
+	 * @param l length
 	 * @return
 	 */
 	public static String getToken(int l) {
@@ -180,10 +176,8 @@ public class Utils {
 	/**
 	 * Get token
 	 * 
-	 * @param s
-	 *            String data
-	 * @param num
-	 *            Number of digits will get
+	 * @param s   String data
+	 * @param num Number of digits will get
 	 * @return
 	 */
 	public static String getToken(String s, int num) {
@@ -218,8 +212,7 @@ public class Utils {
 	/**
 	 * Generate SHA-256
 	 * 
-	 * @param s
-	 *            String data
+	 * @param s String data
 	 * @return
 	 */
 	private static String generateSHA256(String s) {

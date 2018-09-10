@@ -213,11 +213,9 @@ public class UserService implements UserDetailsService {
 	/**
 	 * Generate token/OTP
 	 * 
-	 * @param module
-	 *            Token/OTP of action (sign-in, transaction, ...)
+	 * @param module Token/OTP of action (sign-in, transaction, ...)
 	 * @param userId
-	 * @param type
-	 *            TOKEN or OTP or empty
+	 * @param type   TOKEN or OTP or empty
 	 * @return
 	 * @throws Exception
 	 */

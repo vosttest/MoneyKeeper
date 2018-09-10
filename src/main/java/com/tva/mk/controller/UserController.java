@@ -71,8 +71,7 @@ public class UserController {
 	 * Request new token to log in (just and only when enable login authentication,
 	 * user name & password have existed in db)
 	 * 
-	 * @param req
-	 *            include (user name, password, client key, token)
+	 * @param req include (user name, password, client key, token)
 	 * @return
 	 */
 	@PostMapping("/sign-in")

@@ -31,8 +31,7 @@ public class SettingService {
 	/**
 	 * Get by user id and code
 	 * 
-	 * @param id
-	 *            User id
+	 * @param id   User id
 	 * @param code
 	 * @return
 	 */
@@ -44,8 +43,7 @@ public class SettingService {
 	/**
 	 * Search by user id
 	 * 
-	 * @param id
-	 *            User id
+	 * @param id User id
 	 * @return
 	 */
 	public List<Setting> search(int id) {
@@ -95,8 +93,7 @@ public class SettingService {
 	/**
 	 * Reset authentication
 	 * 
-	 * @param id
-	 *            User id
+	 * @param id User id
 	 */
 	public void resetAuth(int id) {
 		try {

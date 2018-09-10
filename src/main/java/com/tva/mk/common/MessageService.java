@@ -22,10 +22,8 @@ public class MessageService {
 	/**
 	 * Send SMS
 	 * 
-	 * @param to
-	 *            Phone number
-	 * @param msg
-	 *            Message
+	 * @param to  Phone number
+	 * @param msg Message
 	 * @return
 	 */
 	public static String send(String to, String msg) {
@@ -62,12 +60,9 @@ public class MessageService {
 	/**
 	 * Send email with active code template
 	 * 
-	 * @param to
-	 *            Phone number
-	 * @param name
-	 *            First name
-	 * @param code
-	 *            Active code
+	 * @param to   Phone number
+	 * @param name First name
+	 * @param code Active code
 	 * @return
 	 */
 	public static String getActiveCode(String to, String name, String code) {
